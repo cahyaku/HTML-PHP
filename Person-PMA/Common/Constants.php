@@ -12,4 +12,12 @@ class Constants
     const TYPE = "type";
     const MOTORCYCLE = 1;
     const CAR = 2;
+
+    // Const for Role
+    const ADMIN = 1;
+    const USER = 2;
+
+    // Const for Sex
+    const MALE = 1;
+    const FEMALE = 2;
 }

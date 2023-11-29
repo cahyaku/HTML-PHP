@@ -8,73 +8,73 @@
     <link
       rel="apple-touch-icon"
       sizes="57x57"
-      href="logo-pma/apple-icon-57x57.png"
+      href="Assets/logo-pma/apple-icon-57x57.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="60x60"
-      href="logo-pma/apple-icon-60x60.png"
+      href="Assets/logo-pma/apple-icon-60x60.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="72x72"
-      href="logo-pma/apple-icon-72x72.png"
+      href="Assets/logo-pma/apple-icon-72x72.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="76x76"
-      href="logo-pma/apple-icon-76x76.png"
+      href="Assets/logo-pma/apple-icon-76x76.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="114x114"
-      href="logo-pma/apple-icon-114x114.png"
+      href="Assets/logo-pma/apple-icon-114x114.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="120x120"
-      href="logo-pma/apple-icon-120x120.png"
+      href="Assets/logo-pma/apple-icon-120x120.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="144x144"
-      href="logo-pma/apple-icon-144x144.png"
+      href="Assets/logo-pma/apple-icon-144x144.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="152x152"
-      href="logo-pma/apple-icon-152x152.png"
+      href="Assets/logo-pma/apple-icon-152x152.png"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="logo-pma/apple-icon-180x180.png"
+      href="Assets/logo-pma/apple-icon-180x180.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="192x192"
-      href="logo-pma/android-icon-192x192.png"
+      href="Assets/logo-pma/android-icon-192x192.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="logo-pma/favicon-32x32.png"
+      href="Assets/logo-pma/favicon-32x32.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="96x96"
-      href="logo-pma/favicon-96x96.png"
+      href="Assets/logo-pma/favicon-96x96.png"
     />
     <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="logo-pma/favicon-16x16.png"
+      href="Assets/logo-pma/favicon-16x16.png"
     />
-    <link rel="manifest" href="logo-pma/manifest.json" />
+    <link rel="manifest" href="Assets/logo-pma/manifest.json" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
@@ -127,7 +127,7 @@
             </button>
             <div class="d-flex">
               <div class="logo-pma">
-                <img src="img/logo-pma-3.png" class="logo-pma" />
+                <img src="Assets/img/logo-pma-3.png" class="logo-pma" />
               </div>
               <p class="d-none d-md-flex PMA-title align-items-center">
                 <strong class="PMA">PMA</strong>- Persons Management App
@@ -144,7 +144,7 @@
               <div class="offcanvas-header">
                 <div class="d-flex align-items-center gx-2 sidebar-padding">
                   <div class="logo-pma">
-                    <img src="img/logo-pma-3.png" class="logo-pma" />
+                    <img src="Assets/img/logo-pma-3.png" class="logo-pma" />
                   </div>
                   <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
                     <strong class="PMA">PMA</strong><br />
@@ -170,7 +170,7 @@
                   </p>
                   <ul class="main-nav-list">
                     <li>
-                      <a class="main-nav-link" href="dashboard.html">
+                      <a class="main-nav-link" href="dashboard.php">
                         <ion-icon name="speedometer"></ion-icon>
                         Dashboard</a
                       >
@@ -187,7 +187,7 @@
                     <li class="sidebar-padding-li">
                       <a
                         class="main-nav-link edit-profile-link"
-                        href="edit-profile.html"
+                        href="edit-profile.php"
                       >
                         <ion-icon clas="nav-icon" name="create"></ion-icon>
                         Edit Profil
@@ -255,7 +255,7 @@
             <nav class="main-nav main-nav-padding">
               <ul class="main-nav-list">
                 <li>
-                  <a class="main-nav-link" href="dashboard.html">
+                  <a class="main-nav-link" href="dashboard.php">
                     <ion-icon
                       name="speedometer"
                       role="img"
@@ -280,7 +280,7 @@
                 <li class="sidebar-padding-li">
                   <a
                     class="main-nav-link edit-profile-link"
-                    href="edit-profile.html"
+                    href="edit-profile.php"
                   >
                     <ion-icon
                       clas="nav-icon"
@@ -341,7 +341,7 @@
               <h3 class="box-title">Persons</h3>
             </div>
             <div class="add-button">
-              <a class="add" href="add-person.html">
+              <a class="add" href="add-person.php">
                 <button type="button" class="btn btn-outline-primary btn-add">
                   +Add
                 </button>
@@ -357,6 +357,7 @@
                   type="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  id="searchByAge"
                 >
                   Search by age
                 </button>
@@ -393,7 +394,7 @@
 
           <!-- <div class="scroll"> -->
           <div class="table-responsive">
-            <table class="table-primary table-width">
+            <table class="table-primary table-width" id="table1">
               <thead>
                 <tr class="test-color">
                   <th scope="col">No</th>
@@ -412,13 +413,13 @@
                   <td>
                     <div class="table-button">
                       <div class="text-end">
-                        <a class="edit btn-table" href="edit-person.html">
+                        <a class="edit btn-table" href="edit-person.php">
                           <button type="button" class="btn btn-outline-primary">
                             Edit
                           </button>
                         </a>
 
-                        <a class="view btn-table" href="view-person.html">
+                        <a class="view btn-table" href="view-person.php">
                           <button type="button" class="btn btn-outline-primary">
                             View
                           </button>
@@ -430,18 +431,17 @@
                 <tr style="vertical-align: baseline">
                   <th scope="row">2</th>
                   <td>Kumala@a.com</td>
-
                   <td>Kumala</td>
                   <td>MEMBER</td>
                   <td>
                     <div class="table-button">
                       <div class="text-end">
-                        <a class="edit btn-table" href="edit-person.html">
+                        <a class="edit btn-table" href="edit-person.php">
                           <button type="button" class="btn btn-outline-primary">
                             Edit
                           </button>
                         </a>
-                        <a class="view btn-table" href="view-person.html">
+                        <a class="view btn-table" href="view-person.php">
                           <button type="button" class="btn btn-outline-primary">
                             View
                           </button>
@@ -458,13 +458,13 @@
                   <td>
                     <div class="table-button">
                       <div class="text-end">
-                        <a class="edit btn-table" href="edit-person.html">
+                        <a class="edit btn-table" href="edit-person.php">
                           <button type="button" class="btn btn-outline-primary">
                             Edit
                           </button>
                         </a>
 
-                        <a class="view btn-table" href="view-person.html">
+                        <a class="view btn-table" href="view-person.php">
                           <button type="button" class="btn btn-outline-primary">
                             View
                           </button>
@@ -499,13 +499,13 @@
                   <td>
                     <div class="table-button">
                       <div class="text-end">
-                        <a class="edit btn-table" href="edit-person.html">
+                        <a class="edit btn-table" href="edit-person.php">
                           <button type="button" class="btn btn-outline-primary">
                             Edit
                           </button>
                         </a>
 
-                        <a class="view btn-table" href="view-person.html">
+                        <a class="view btn-table" href="view-person.php">
                           <button type="button" class="btn btn-outline-primary">
                             View
                           </button>

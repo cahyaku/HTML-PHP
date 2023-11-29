@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,20 +7,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- FAVICON -->
-  <link rel="apple-touch-icon" sizes="57x57" href="logo-pma/apple-icon-57x57.png" />
-  <link rel="apple-touch-icon" sizes="60x60" href="logo-pma/apple-icon-60x60.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="logo-pma/apple-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="76x76" href="logo-pma/apple-icon-76x76.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="logo-pma/apple-icon-114x114.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="logo-pma/apple-icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="logo-pma/apple-icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="logo-pma/apple-icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="logo-pma/apple-icon-180x180.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="logo-pma/android-icon-192x192.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="logo-pma/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="96x96" href="logo-pma/favicon-96x96.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="logo-pma/favicon-16x16.png" />
-  <link rel="manifest" href="logo-pma/manifest.json" />
+  <link rel="apple-touch-icon" sizes="57x57" href="Assets/logo-pma/apple-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="60x60" href="Assets/logo-pma/apple-icon-60x60.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="Assets/logo-pma/apple-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="Assets/logo-pma/apple-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="Assets/logo-pma/apple-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="Assets/logo-pma/apple-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="Assets/logo-pma/apple-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="Assets/logo-pma/apple-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="Assets/logo-pma/apple-icon-180x180.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="Assets/logo-pma/android-icon-192x192.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="Assets/logo-pma/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="Assets/logo-pma/favicon-96x96.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="Assets/logo-pma/favicon-16x16.png" />
+  <link rel="manifest" href="Assets/logo-pma/manifest.json" />
   <meta name="msapplication-TileColor" content="#ffffff" />
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
   <meta name="theme-color" content="#ffffff" />
@@ -53,7 +54,7 @@
           </button>
           <div class="d-flex">
             <div class="logo-pma">
-              <img src="img/logo-pma-3.png" class="logo-pma" />
+              <img src="Assets/img/logo-pma-3.png" class="logo-pma" />
             </div>
             <p class="d-none d-md-flex PMA-title align-items-center">
               <strong class="PMA">PMA</strong>- Persons Management App
@@ -64,7 +65,7 @@
             <div class="offcanvas-header">
               <div class="d-flex align-items-center gx-2 sidebar-padding">
                 <div class="logo-pma">
-                  <img src="img/logo-pma-3.png" class="logo-pma" />
+                  <img src="Assets/img/logo-pma-3.png" class="logo-pma" />
                 </div>
                 <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
                   <strong class="PMA">PMA</strong><br />
@@ -99,7 +100,7 @@
                     <p class="my-acount">My Account</p>
                   </li>
                   <li class="sidebar-padding-li">
-                    <a class="main-nav-link edit-profile-link" href="edit-profile.html">
+                    <a class="main-nav-link edit-profile-link" href="edit-profile.php">
                       <ion-icon clas="nav-icon" name="create"></ion-icon>
                       Edit Profil
                     </a>
@@ -167,7 +168,7 @@
                 <p class="my-acount">My Account</p>
               </li>
               <li class="sidebar-padding-li">
-                <a class="main-nav-link edit-profile-link" href="edit-profile.html">
+                <a class="main-nav-link edit-profile-link" href="edit-profile.php">
                   <ion-icon clas="nav-icon" name="create" role="img" class="md hydrated"></ion-icon>
                   Edit Profil
                 </a>
@@ -205,9 +206,30 @@
       <div class="main-content-dashboard d-flex flex-column">
         <div class="dashboard-content">
           <div class="dashboard-header">
-            <h3 class="dashboard-title">Hi, Cahya Kumala...</h3>
+<!--              <h3 class="dashboard-title">Hi, Cahya Kumala...</h3>-->
+              <?php if(isset($_GET["name"]) ==1 ):
+                  echo "<h3 class='dashboard-title'>";
+                  echo "Hi, " . $_GET["name"] . "...";
+                 echo "</h3>";
+                 else :
+                     echo "<h3 class='dashboard-title'>";
+                     echo "Selamat datang di halaman dashboard!!!";
+                     echo "</h3>"; ?>
+              <?php endif; ?>
+
+<!--              --><?php //if(checkLogin($_POST["name"])!= 0):
+//                  echo "<h3 class='dashboard-title'>";
+//                  echo "Hi, " . $_POST["name"] . "...";
+//                  echo "</h3>";
+//              else :
+//                  echo "<h3 class='dashboard-title'>";
+//                  echo "Selamat datang di halaman dashboard!!!";
+//                  echo "</h3>";
+//                  ?>
+<!--              --><?php //endif; ?>
+
             <p class="dashboard-text">
-              You were loginin previously in
+              You were logged previously in
               <strong>Monday, 6 November 2023 3:04 PM</strong>
             </p>
           </div>
@@ -230,7 +252,9 @@
                     Some quick example text to build on the card title and
                     make up the bulk of the card's content.
                   </p>
+                    <a href="persons.php" target="_self">
                   <button class="more-info">More info &rAarr;</button>
+                    </a>
                 </div>
               </div>
             </div>

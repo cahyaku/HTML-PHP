@@ -6,20 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- FAVICON -->
-  <link rel="apple-touch-icon" sizes="57x57" href="logo-pma/apple-icon-57x57.png" />
-  <link rel="apple-touch-icon" sizes="60x60" href="logo-pma/apple-icon-60x60.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="logo-pma/apple-icon-72x72.png" />
-  <link rel="apple-touch-icon" sizes="76x76" href="logo-pma/apple-icon-76x76.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="logo-pma/apple-icon-114x114.png" />
-  <link rel="apple-touch-icon" sizes="120x120" href="logo-pma/apple-icon-120x120.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="logo-pma/apple-icon-144x144.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="logo-pma/apple-icon-152x152.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="logo-pma/apple-icon-180x180.png" />
-  <link rel="icon" type="image/png" sizes="192x192" href="logo-pma/android-icon-192x192.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="logo-pma/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="96x96" href="logo-pma/favicon-96x96.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="logo-pma/favicon-16x16.png" />
-  <link rel="manifest" href="logo-pma/manifest.json" />
+  <link rel="apple-touch-icon" sizes="57x57" href="Assets/logo-pma/apple-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="60x60" href="Assets/logo-pma/apple-icon-60x60.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="Assets/logo-pma/apple-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="Assets/logo-pma/apple-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="Assets/logo-pma/apple-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="Assets/logo-pma/apple-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="Assets/logo-pma/apple-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="Assets/logo-pma/apple-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="Assets/logo-pma/apple-icon-180x180.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="Assets/logo-pma/android-icon-192x192.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="Assets/logo-pma/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="Assets/logo-pma/favicon-96x96.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="Assets/logo-pma/favicon-16x16.png" />
+  <link rel="manifest" href="Assets/logo-pma/manifest.json" />
   <meta name="msapplication-TileColor" content="#ffffff" />
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
   <meta name="theme-color" content="#ffffff" />
@@ -61,7 +61,7 @@
                         <div class="col-8 col-lg-4 col-md-8 col-sm-8 justify-content-center">
                           <div class="cta-logo">
                             <div class="logo">
-                              <img src="img/logo-pma-3.png" class="logo-pma-login" />
+                              <img src="Assets/img/logo-pma-3.png" class="logo-pma-login" />
                             </div>
                             <p class="PMA-title">
                               <strong class="PMA">PMA</strong><br />
@@ -95,7 +95,13 @@
                                 </div>
                               <?php endif; ?>
 
-                              <button type="submit" class="btn btn-outline-primary btn-login">
+<!--                                --><?php //if ($_GET["error"] == 2) : ?>
+<!--                                    <div class="alert alert-danger" role="alert">-->
+<!--                                        login as user-->
+<!--                                    </div>-->
+<!--                                --><?php //endif; ?>
+
+                              <button name="login-button" type="submit" class="btn btn-outline-primary btn-login">
                                 Login
                               </button>
                             </form>

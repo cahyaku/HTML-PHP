@@ -1,6 +1,4 @@
 <?php
-
-
 // echo $_POST["cahya"];
 
 //$loginData = [
@@ -22,7 +20,6 @@
 
 //function loadDataFromJson(string $fileName): array
 //{
-//    $path = __DIR__ . "/../assets/json/" . $fileName;
 //    if (file_exists($fileName)) {
 //        $data = file_get_contents($fileName);
 //        $result = json_decode($data, true);
@@ -45,29 +42,18 @@ function loadDataFromJson(string $fileName):array
     return [];
 }
 
+// mendapatkan data person dari file JSON
 $loginData = loadDataFromJson("persons.json");
 
-function validateData($loginData): bool
+function validateData($data):bool
 {
-  for ($i = 0; $i < count($loginData); $i++) {
-    if ($loginData[$i]["email"] == $_POST['email'] && $loginData[$i]["password"] == $_POST['password']) {
+  for ($i = 0; $i < count($data); $i++) {
+    if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
       return true;
     }
   }
   return false;
 }
-
-//function validateData($data): bool
-//{
-//    for ($i = 0; $i < count($data); $i++) {
-//        if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-//    return true;
-//}
 
 if (validateData($loginData)) {
     header('Location: ../dashboard.php');
@@ -76,3 +62,28 @@ if (validateData($loginData)) {
     header('Location: ../login.php?error=1');
     die();
 }
+
+//function validateData($data): bool
+//{
+//    for ($i = 0; $i < count($data); $i++) {
+//        if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
+//            return true;
+//        } else {
+//            return true;
+//        }
+//    }
+//    return false;
+//}
+//function validateData($loginData)
+//{
+//    for ($i = 0; $i < count($loginData); $i++) {
+//        if ($loginData[$i]["email"] == $_POST['email'] && $loginData[$i]["password"] == $_POST['password']) {
+//            header('Location: ../dashboard.php');
+//            die();
+//        }
+//    }
+//    header('Location: ../login.php?error=1');
+//    die();
+//}
+
+
