@@ -1,0 +1,143 @@
+/*********************/
+/* SECTION DASHBOARD */
+/*********************/
+
+.section-dashboard {
+  /* position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  bottom: 0; */
+  background-color: #f8f9fa;
+}
+
+.main-content-dashboard {
+  width: 100%;
+  position: relative;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 360px;
+  padding-right: 50px;
+  /* z-index: -1; */
+}
+
+/* DASHBOARD HEADER */
+.dashboard-header {
+  padding-top: 3rem;
+}
+
+/* DASHBOARD TITLE */
+.dashboard-title {
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.dashboard-text {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #333;
+}
+
+.card {
+  position: relative;
+}
+
+.dashboard-boxs {
+  padding-top: 2.4rem;
+  margin-bottom: 5rem;
+}
+
+.card-box {
+  background-color: #91a7ff;
+  height: 16rem;
+  box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.075);
+  border-radius: 9px;
+}
+
+/* .card-1 {
+  background: linear-gradient(
+    rgba(238, 174, 202, 1) 0%,
+    rgb(143, 165, 255) 80%
+  );
+}
+
+.card-2 {
+  background: linear-gradient(#ffa8a8 0%, #ff6b6b 100%);
+}
+
+.card-3 {
+  background: linear-gradient(#c3fae8 0%, #20c997 100%);
+} */
+
+.card-text {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  color: #222;
+  align-self: center;
+  padding-top: 1.2rem;
+}
+
+.card-text-box {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111;
+}
+
+.card-title {
+  color: none;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #fff;
+  padding-left: 0.5rem;
+}
+
+.more-info {
+  background-color: #364fc7;
+  border: none;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  width: 100%;
+  padding: 0.4rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.more-info:hover {
+  background-color: #4263eb;
+}
+
+.dashboard-icon {
+  height: 1.8rem;
+  width: 1.8rem;
+  font-size: 2rem;
+  color: #364fc7;
+  background-color: #e9ecef;
+  padding: 0.5rem;
+  border-radius: 9px;
+}
+
+.has-shadow {
+  box-shadow: 0 5px 7px rgba(148, 187, 233, 1);
+}
+
+.dashboard-link:link,
+.dashboard-link:visited {
+  color: #364fc7;
+}
+
+.dashboard-box .card {
+  border: none;
+}

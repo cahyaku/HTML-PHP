@@ -1,0 +1,48 @@
+/* XX-Large devices (larger desktops, 1400px and up) */
+/* @media (min-width: 1400px) {
+} */
+
+/* X-Large devices (large desktops, 1200px and up) */
+/* @media (min-width: 1200px) {
+} */
+
+/* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) {
+  .main-content-persons {
+    padding-left: 50px;
+  }
+
+  .main-content-dashboard {
+    padding-left: 50px;
+  }
+
+  .main-content-add-edit-person {
+    padding-left: 50px;
+  }
+
+  .main-content-view-person {
+    padding-left: 50px;
+  }
+
+  /* .main-content-edit-profile {
+    padding-left: 50px;
+  } */
+
+  .main-content {
+    padding-left: 50px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) {
+  /* .cta-icon {
+    font-size: 20rem;
+  } */
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+  /* .cta-icon {
+    display: none;
+  }*/
+}

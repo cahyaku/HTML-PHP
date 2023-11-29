@@ -1,0 +1,85 @@
+.main-content-view-person {
+  width: 100%;
+  position: relative;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 360px;
+  padding-right: 50px;
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #333;
+  padding-top: 3rem;
+}
+
+.person-data {
+  padding-top: 2.4rem;
+  margin-bottom: 5rem;
+}
+
+.text-title {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0;
+  color: #777;
+}
+
+.data {
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+  padding: 0.5rem;
+  color: #333;
+}
+
+/* BUTTON */
+.text-end {
+  padding-top: 1rem;
+}
+
+.text-end .btn-edit {
+  background-color: #364fc7;
+  border: none;
+}
+
+.text-end .btn-back {
+  border: none;
+}
+
+.text-end .btn-delete {
+  background-color: red;
+  border: none;
+  font-weight: bold;
+}
+
+.has-shadow {
+  box-shadow: 0 3px 5px rgb(119, 154, 194);
+}
+
+.btn-text {
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
+}
+
+.btn-space {
+  margin-right: 0.5rem;
+}
+
+/*********/
+/* MODAL */
+/*********/
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.modal-dialog .modal-content {
+  box-shadow: 0 3px 5px rgb(119, 154, 194);
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+}

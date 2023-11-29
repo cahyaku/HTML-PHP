@@ -1,0 +1,128 @@
+/* SECTION ADD PERSON */
+/* .main-content-add-edit-person {
+  width: 100%;
+  position: relative;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 360px;
+  padding-right: 50px;
+} */
+
+.title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #333;
+  padding-top: 3rem;
+  margin-left: 2rem;
+}
+
+.person-form {
+  padding-top: 2rem;
+  width: 100%;
+}
+
+/* FORM ADD PERSON */
+.person-form label,
+.check-text {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0;
+}
+
+/* .person-form input {
+  font-size: 1.6rem;
+  font-weight: 500;
+} */
+
+.person-form .input-data {
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+}
+
+.person-form .i-text {
+  font-size: 1rem;
+}
+
+.person-form .btn-save {
+  background-color: #364fc7;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 900;
+  margin-right: 0.5rem;
+  border: none;
+}
+
+.person-form .btn-save:active,
+.person-form .btn-save:hover {
+  background-color: #3b5bdb;
+}
+
+.person-form .btn-cancel {
+  background-color: #fff;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.person-form .select-text {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #555;
+  background: radial-gradient(#fff, #f8f9fa);
+}
+
+.has-background {
+  background: radial-gradient(#fff, #f8f9fa);
+}
+
+.form-padding {
+  margin: 0rem 2rem;
+}
+
+.person-form .form-check-input:checked {
+  /* height: 20px;
+  width: 40px; */
+  background-color: #364fc7;
+  border: none;
+  margin-right: 0.5rem;
+}
+
+.select-shadow {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+}
+
+.box-shadow {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+  background: radial-gradient(circle, #fff, #f8f9fa);
+}
+
+.select-text {
+  font-size: 1.8rem;
+}
+
+.btn-padding {
+  padding: 1rem 2rem;
+  margin-bottom: 3rem;
+}
+
+/* .has-shadow {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+} */
+
+.has-shadow {
+  box-shadow: 0 3px 5px rgba(148, 187, 233, 1);
+}
+
+.persons-nav-link:link,
+.persons-nav-link:visited {
+  color: #364fc7;
+}
+
+.profile-nav-link:link,
+.profile-nav-link:visited {
+  color: #364fc7;
+}

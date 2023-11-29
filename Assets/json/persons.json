@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "nik": "1111111111111111",
+    "firstName": "Cahya",
+    "lastName" : "Kumala",
+    "birthDate": "1134375680",
+    "email": "cahya@gmail.com",
+    "password":"cahya123",
+    "address" : "Baturiti"
+  },
+  {
+    "id": 2,
+    "nik": "1111111111111112",
+    "firstName": "Kumala",
+    "lastName" : "cahya",
+    "birthDate": "1197447702",
+    "email": "cahya@gmail.",
+    "password":"cahya123",
+    "address":"perean"
+  },
+  {
+    "id": 3,
+    "nik": "1111111111111113",
+    "firstName": "Cia",
+    "lastName": "hudin",
+    "birthDate": "1229070124",
+    "email": "kumala@gmail.com",
+    "password":"kumala321",
+    "address" : "Tabanan"
+  }
+]

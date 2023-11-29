@@ -1,0 +1,144 @@
+/* CTA SECTION */
+.section-cta {
+  padding: 9.6rem 0;
+  background-color: #fff;
+  background: linear-gradient(#fff 0%, rgba(63, 94, 251, 1) 120%);
+  height: 100vh;
+}
+
+.cta {
+  box-shadow: 0 2.4rem 1.8rem rgba(0, 0, 0, 0.267);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-top-right-radius: 11px;
+  border-top-left-radius: 11px;
+  overflow: hidden;
+  padding-bottom: 1.4rem;
+  margin: 3rem 2rem;
+}
+
+.cta-text-box {
+  padding: 1.4rem 2rem 1.4rem 2rem;
+  /* padding: 1.4rem 3rem 0rem 0.5rem; */
+}
+
+.cta-heading {
+  background-color: #364fc7;
+  /* background-color: #3b5bdb; */
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+  text-align: center;
+  padding-top: 0.5rem;
+  color: #fff;
+}
+
+.cta-box {
+  /* display: grid;
+  grid-template-columns: 1fr 1.5fr; */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+}
+
+.cta-form input,
+.cta-form select {
+  width: 100%;
+  border: none;
+  border-radius: 9px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+  color: inherit;
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.cta-form input::placeholder {
+  color: #aaa;
+}
+
+.cta *:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem #dee2e6;
+}
+
+.cta-form label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.cta-form .btn-login {
+  background-color: #364fc7;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fdf2e9;
+  align-self: end;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: 9px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+  transition: all 0.3s;
+  border: none;
+}
+
+.cta-form .btn-login:active,
+.cta-form .btn-login:hover {
+  background-color: #3b5bdb;
+}
+
+.cta-text {
+  font-size: 1.2rem;
+  padding-left: 1rem;
+  padding-top: 1rem;
+}
+
+/* CTA LINK */
+.link {
+  padding-top: 1.5rem;
+  padding-left: 1rem;
+  text-align: left;
+  font-size: 0.9rem;
+  justify-items: center;
+}
+
+.cta-link:link,
+.cta-link:visited {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s;
+  clear: both;
+  box-shadow: none;
+}
+
+.cta-link:hover,
+.cta-link:active {
+  text-decoration: underline;
+  color: #364fc7;
+}
+
+.form-icon {
+  color: red;
+  height: 2rem;
+  width: 2rem;
+}
+
+/* CTA LOGO  */
+.cta-logo {
+  /* margin: 1.4rem; */
+  padding: 1.4rem;
+}
+
+.logo-pma-login {
+  width: 100%;
+}
+
+.PMA-title {
+  margin-top: 0.5rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+}

@@ -1,0 +1,229 @@
+/*******************/
+/* SECTION PERSONS */
+/*******************/
+/* .section-persons {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+} */
+
+.add .btn-add {
+  background-color: #364fc7;
+  color: #fff;
+  font-size: 1.4;
+  font-weight: bold;
+}
+
+.add .btn-add:hover {
+  background: color #3b3b3b;
+}
+
+/* .add .btn-add:active,
+.add .btn-add:hover {
+  background-color: #364fc7;
+  font-size: 1.4;
+  font-weight: bold;
+} */
+
+/* .person-link {
+  align-self: center;
+  padding-left: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #364fc7;
+} */
+
+.box-title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  color: #333;
+}
+
+label {
+  display: block;
+  font: 1rem "Fira Sans", sans-serif;
+}
+
+/* MAIN-CONTENT */
+.main-content-persons {
+  padding: 0 4.8rem;
+  width: 100%;
+  position: relative;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-left: 360px;
+  padding-right: 50px;
+  /* z-index: -1; */
+}
+
+.search-box {
+  /* padding-top: 9.6rem; */
+  padding-top: 2.4rem;
+}
+
+.persons-box {
+  align-items: center;
+  padding-top: 3rem;
+}
+
+/* STYLE DASHBOARD TEST */
+/* .home-box {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+} */
+
+.main-nav-test {
+  border-right: 0.1rem solid rgba(0, 0, 0, 0.705);
+  height: 100vh;
+  padding: 5rem 3rem 0rem 3rem;
+  list-style: none;
+}
+
+/* .form {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+} */
+
+.has-shadow {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+}
+
+/* .form input,
+.form button {
+  padding: 0.5rem 1rem;
+  font-size: 1.6rem;
+} */
+
+.form button:link,
+.form button:visited {
+  background: #fff;
+  transition: all 1s;
+}
+
+.form button:hover,
+.form button:active {
+  background-color: #364fc7;
+}
+
+/* TABLE */
+.table-primary button:hover,
+.table-primary button:active {
+  background-color: #3b5bdb;
+  /* background-color: #364fc7; */
+}
+
+.table-button button {
+  /* font-size: 1.6rem;
+  padding: 0.5rem 2rem; */
+  font-weight: 700;
+}
+
+.position-fixed-dashboard {
+  position: fixed;
+  top: 72px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.scroll {
+  overflow: scroll;
+}
+
+.search-person {
+  width: 100%;
+  margin-left: 0.5rem;
+}
+
+.dropdown .btn-dropdown {
+  background-color: #364fc7;
+  border: none;
+}
+
+.dropdown .dropdown-menu {
+  background-color: #e9ecef;
+}
+
+.dropdown .dropdown-item {
+  color: #222;
+  font-weight: 500;
+}
+
+/*********/
+/* TABLE */
+/*********/
+.table-primary {
+  min-width: 600px;
+  vertical-align: baseline;
+  border: 0.01px solid #bdbcbc99;
+  margin-top: 3.2rem;
+}
+
+thead tr {
+  font-size: 1.4rem;
+  background-color: #5c7cfa;
+}
+
+.table-width {
+  width: 100%;
+}
+
+th {
+  padding: 1rem;
+}
+
+td {
+  padding-right: 1rem;
+}
+
+tbody tr:nth-child(odd) {
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+  background-color: #f8f9fa;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #e9ecef;
+}
+
+tbody {
+  font-size: 1rem;
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+/* BUTTON ADD & EDIT */
+.text-end .btn-view {
+  background-color: #364fc7;
+  border: none;
+  color: #fff;
+}
+
+.btn-table {
+  text-decoration: none;
+}
+
+/* .has-shadow {
+  box-shadow: 0 3px 5px rgb(119, 154, 194);
+} */
+
+.btn-text {
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
+}
+
+.btn-text-edit {
+  text-decoration: none;
+}
+
+.btn-space {
+  margin-right: 0.5rem;
+}
+
+/* PAGINATION */
+.page-position {
+  margin: 2rem 0;
+}
