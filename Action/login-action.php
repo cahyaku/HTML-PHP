@@ -28,7 +28,7 @@
 //    return [];
 //}
 
-function loadDataFromJson(string $fileName):array
+function loadDataFromJson(string $fileName): array
 {
     $path = __DIR__ . "/../" . $fileName;
     if (file_exists($path)) {
@@ -42,21 +42,21 @@ function loadDataFromJson(string $fileName):array
     return [];
 }
 
-// mendapatkan data person dari file JSON
+// Data persons dari JSON
 $loginData = loadDataFromJson("persons.json");
 
-function validateData($data):bool
+function validateData($data): bool
 {
-  for ($i = 0; $i < count($data); $i++) {
-    if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
-      return true;
+    for ($i = 0; $i < count($data); $i++) {
+        if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
+            return true;
+        }
     }
-  }
-  return false;
+    return false;
 }
 
 if (validateData($loginData)) {
-    header('Location: ../dashboard.php');
+    header('Location: ../dashboard.php', 'id=$id');
     die();
 } else {
     header('Location: ../login.php?error=1');
@@ -74,7 +74,8 @@ if (validateData($loginData)) {
 //    }
 //    return false;
 //}
-//function validateData($loginData)
+
+//function checkData($loginData)
 //{
 //    for ($i = 0; $i < count($loginData); $i++) {
 //        if ($loginData[$i]["email"] == $_POST['email'] && $loginData[$i]["password"] == $_POST['password']) {

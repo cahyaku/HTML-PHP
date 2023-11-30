@@ -120,7 +120,6 @@ class JsonPersonRepository extends BaseRepository implements PersonRepository
             $person->setNik($value['nik']);
             $person->setName($value['name']);
             $person->setBirthDate($value['birthDate']);
-
 //            $result[] = $person;
             if ($value['vehicles'] != []) {
                 $vehicles = [];
@@ -139,7 +138,6 @@ class JsonPersonRepository extends BaseRepository implements PersonRepository
         }
 //        $person = $result;
 //        return $person;
-        
         return $result;
     }
 

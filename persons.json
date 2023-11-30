@@ -15,15 +15,15 @@
   {
     "id": 2,
     "nik": "1111111111111112",
-    "firstName": "Kumala",
-    "lastName" : "cahya",
+    "firstName": "kitty",
+    "lastName" : "cute",
     "birthDate": "1197447702",
     "sex": "FEMALE",
     "email": "cahya@gmail.com",
     "password":"cahya1",
     "address":"perean",
     "role" : "ADMIN",
-    "internalNotes" : "aasdhashd"
+    "internalNotes" : "hi aku Kitty cute"
   },
   {
     "id": 3,
@@ -36,6 +36,6 @@
     "password":"kumala31",
     "address" : "Tabanan",
     "role" : "ADMIN",
-    "internalNotes" : "aasdhashd"
+    "internalNotes" : "Hi aku cia"
   }
 ]
