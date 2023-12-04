@@ -12,12 +12,12 @@
 .add .btn-add {
   background-color: #364fc7;
   color: #fff;
-  font-size: 1.4;
+  /*font-size: 1.2rem;*/
   font-weight: bold;
 }
 
 .add .btn-add:hover {
-  background: color #3b3b3b;
+  background-color: #4263eb;
 }
 
 /* .add .btn-add:active,
@@ -144,11 +144,11 @@ label {
 }
 
 .dropdown .dropdown-menu {
-  background-color: #e9ecef;
+  /*background-color: #e9ecef;*/
 }
 
 .dropdown .dropdown-item {
-  color: #222;
+  /*color: #222;*/
   font-weight: 500;
 }
 

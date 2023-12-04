@@ -19,8 +19,8 @@
     "lastName" : "cute",
     "birthDate": "1197447702",
     "sex": "FEMALE",
-    "email": "cahya@gmail.com",
-    "password":"cahya1",
+    "email": "kitty@gmail.com",
+    "password":"kitty123",
     "address":"perean",
     "role" : "ADMIN",
     "internalNotes" : "hi aku Kitty cute"
@@ -32,8 +32,8 @@
     "lastName": "hudin",
     "birthDate": "1229070124",
     "sex": "FEMALE",
-    "email": "kumala@gmail.com",
-    "password":"kumala31",
+    "email": "cia@gmail.com",
+    "password":"cia123",
     "address" : "Tabanan",
     "role" : "ADMIN",
     "internalNotes" : "Hi aku cia"
