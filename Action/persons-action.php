@@ -1,26 +1,33 @@
 <?php
 
+//require_once __DIR__ . "/persons-action.php";
+//require_once __DIR__ . "/login-action.php";
+require_once __DIR__ . "/json.php";
+
+
 //echo $_POST["searchPerson"];
 
 //$search = $_POST["searchPerson"];
-function search(): array
+function search($search):array
 {
-  $search = $_GET['search'];
-  $persons = loadDataFromJson("persons.json");
+//  $search = $_GET['search'];
+  $persons = personData();
   $searchResult = [];
   foreach ($persons as $person => $value) {
     if (preg_match("/$search/i", $value["firstName"])) {
-      if (in_array($value["firstName"], $searchResult) == 1) {
+      if (in_array($value["firstName"], $searchResult) == false) {
         $searchResult[] = $value;
       }
     }
+    
     if (preg_match("/$search/i", $value["lastName"])) {
-      if (in_array($value["lastName"], $searchResult) == 1) {
+      if (in_array($value["lastName"], $searchResult) == false) {
         $searchResult[] = $value;
       }
     }
+    
     if (preg_match("/$search/i", $value["nik"])) {
-      if (in_array($value["nik"], $searchResult) == 1) {
+      if (in_array($value["nik"], $searchResult) == false) {
         $searchResult[] = $value;
       }
     }
@@ -60,8 +67,16 @@ function searchPerson()
   return null;
 }
 
-function personData()
-{
-  $persons = loadDataFromJson("person.json");
-//  return $persons;
+//function personsData ()
+//{
+////    $searchInput = $_GET["search"];
+//    $persons = search($_GET["search"]);
+//    for ($i = 0; $i < count($persons); $i++) :
+//    return $persons[$i];
+//    endfor;
+//  return $persons[$i];
+//}
+
+function personData() {
+  return $person = loadDataFromJson("persons.json");
 }

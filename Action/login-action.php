@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once __DIR__ . "/json.php";
+
 //if (isset($_SESSION['email'])) {
 //  header("Location:../login.php");
 //  exit();
@@ -33,19 +35,19 @@ session_start();
 //    return [];
 //}
 
-function loadDataFromJson(string $fileName): array
-{
-    $path = __DIR__ . "/../" . $fileName;
-    if (file_exists($path)) {
-        $data = file_get_contents($path);
-        $results = json_decode($data, true);
-        if ($results == null) {
-            return [];
-        }
-        return $results;
-    }
-    return [];
-}
+//function loadDataFromJson(string $fileName): array
+//{
+//    $path = __DIR__ . "/../" . $fileName;
+//    if (file_exists($path)) {
+//        $data = file_get_contents($path);
+//        $results = json_decode($data, true);
+//        if ($results == null) {
+//            return [];
+//        }
+//        return $results;
+//    }
+//    return [];
+//}
 
 // Data persons dari JSON
 $loginData = loadDataFromJson("persons.json");
@@ -56,9 +58,9 @@ function validateData($data)
         if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
           return $data[$i];
 //            return true;
-        }
     }
-    return null;
+  }
+  return null;
 }
 
 //if (validateData($loginData)) {
@@ -80,11 +82,11 @@ if (validateData($loginData)) {
   $_SESSION['email'] = $_POST['email'];
   $_SESSION['userFirstName'] = validateData($loginData)['firstName'];
   $_SESSION['userLastName'] = validateData($loginData)['lastName'];
-    header("Location: ../dashboard.php");
-    exit();
+  header("Location: ../dashboard.php");
+  exit();
 } else {
 //  header('Location:../login.php?error=1');
-redirect("../login.php", "error=1");
+  redirect("../login.php", "error=1");
 }
 
 //function validateData($data): bool

@@ -372,7 +372,9 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="First name"
-                        value="I Gusti Ayu"
+                        value="<?php
+                        echo $_SESSION['userFirstName'];
+                        ?>"
                         required
                     />
                   </div>
@@ -387,8 +389,10 @@ if (!isset($_SESSION['email'])) {
                         type="text"
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
-                        placeholder="name@example.com"
-                        value="Cahya Kumala"
+                        placeholder="LastName"
+                        value="<?php
+                    echo $_SESSION['userLastName'];
+                    ?>"
                         required
                     />
                   </div>
@@ -406,7 +410,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="NIK"
-                        value="1234567891333441"
+                        value="1234567890123456"
                         required
                     />
                   </div>

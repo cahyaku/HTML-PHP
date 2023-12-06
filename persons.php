@@ -6,6 +6,7 @@ if (!isset($_SESSION['email'])) {
 }
 
 require_once __DIR__ . "/Action/persons-action.php";
+require_once __DIR__ . "/Assets/pagination.php";
 ?>
 
 <!DOCTYPE html>
@@ -402,7 +403,7 @@ require_once __DIR__ . "/Action/persons-action.php";
           </div>
 
           <div class="search-person">
-            <form class="form d-flex" name="search-form" role="search" action="#table" method="get">
+            <form class="form d-flex" name="search-form" role="search" method="get" action="#table">
               <label for="search-input"></label>
               <input
                   id="search-input"
@@ -436,194 +437,94 @@ require_once __DIR__ . "/Action/persons-action.php";
           </tr>
           </thead>
           <tbody>
-          
           <?php
+          $page = 1;
+          $limit = 3;
+          $persons = personData();
+          $data = paginatedData($persons, $page, $limit);
+          $personsData = $data[PAGING_DATA];
+          
+          $limit = 3;
+          $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+          $start_page = ($page > 1) ? ($page * $limit) - $limit : 0;
+          $previous = $page - 1;
+          $next = $page + 1;
+          $data = personData();
+          $total_page = ceil(count($data) / $limit);
+          $number = $start_page + 1;
+          //          while($d = $data){
           if (isset($_GET["search"])) {
-            $persons = search();
-          } else {
-            $persons = loadDataFromJson("persons.json");
-          }
-          for ($i = 0; $i < count($persons); $i++) {
-            ?>
-            <tr>
-              <th scope="row"><?php echo $i + 1 ?></th>
-              <td><?php echo $persons[$i]["email"] ?></td>
-              <td>
-                <?php echo $persons[$i]["firstName"] ?></td>
-              <td><?php echo $persons[$i]["role"] ?></td>
-              <td>
-                <div class="table-button">
-                  <div class="text-end">
-                    <a class="edit btn-table" href="edit-person.php">
-                      <button type="button" class="btn btn-outline-primary">
-                        Edit
-                      </button>
-                    </a>
-                    <a class="view btn-table" href="view-person.php">
-                      <button type="button" class="btn btn-outline-primary">
-                        View
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          <?php } ?>
-          <!--            <tr>-->
-          <!--              <th scope="row">1</th>-->
-          <!--              <td>cahya@gmail.com</td>-->
-          <!--              <td>Cahya</td>-->
-          <!--              <td>ADMIN</td>-->
-          <!--              <td>-->
-          <!--                <div class="table-button">-->
-          <!--                  <div class="text-end">-->
-          <!--                    <a class="edit btn-table" href="edit-person.php">-->
-          <!--                      <button type="button" class="btn btn-outline-primary">-->
-          <!--                        Edit-->
-          <!--                      </button>-->
-          <!--                    </a>-->
-          <!--                    <a class="view btn-table" href="view-person.php">-->
-          <!--                      <button type="button" class="btn btn-outline-primary">-->
-          <!--                        View-->
-          <!--                      </button>-->
-          <!--                    </a>-->
-          <!--                  </div>-->
-          <!--                </div>-->
-          <!--              </td>-->
-          <!--            </tr>-->
-
-          <!--          <tr>-->
-          <!--            <th scope="row">1</th>-->
-          <!--            <td>cahya@gmail.com</td>-->
-          <!--            <td>Cahya</td>-->
-          <!--            <td>ADMIN</td>-->
-          <!--            <td>-->
-          <!--              <div class="table-button">-->
-          <!--                <div class="text-end">-->
-          <!--                  <a class="edit btn-table" href="edit-person.php">-->
-          <!--                    <button type="button" class="btn btn-outline-primary">-->
-          <!--                      Edit-->
-          <!--                    </button>-->
-          <!--                  </a>-->
-          <!---->
-          <!--                  <a class="view btn-table" href="view-person.php">-->
-          <!--                    <button type="button" class="btn btn-outline-primary">-->
-          <!--                      View-->
-          <!--                    </button>-->
-          <!--                  </a>-->
-          <!--                </div>-->
-          <!--              </div>-->
-          <!--            </td>-->
-          <!--          </tr>-->
-          <!--          <tr>-->
-          <!--            <th scope="row">2</th>-->
-          <!--            <td>Kumala@a.com</td>-->
-          <!--            <td>Kumala</td>-->
-          <!--            <td>MEMBER</td>-->
-          <!--            <td>-->
-          <!--              <div class="table-button">-->
-          <!--                <div class="text-end">-->
-          <!--                  <a class="edit btn-table" href="edit-person.php">-->
-          <!--                    <button type="button" class="btn btn-outline-primary">-->
-          <!--                      Edit-->
-          <!--                    </button>-->
-          <!--                  </a>-->
-          <!--                  <a class="view btn-table" href="view-person.php">-->
-          <!--                    <button type="button" class="btn btn-outline-primary">-->
-          <!--                      View-->
-          <!--                    </button>-->
-          <!--                  </a>-->
-          <!--                </div>-->
-          <!--              </div>-->
-          <!--            </td>-->
-          <!--          </tr>-->
-          <!--          <tr>-->
-          <!--            <th scope="row">3</th>-->
-          <!--            <td>Ayong@gmail.com</td>-->
-          <!--            <td>Ayong</td>-->
-          <!--            <td>ADMIN</td>-->
-          <!--            <td>-->
-          <!--              <div class="table-button">-->
-          <!--                <div class="text-end">-->
-          <!--                  <a class="edit btn-table" href="edit-person.php">-->
-          <!--                    <button type="button" class="btn btn-outline-primary">-->
-          <!--                      Edit-->
-          <!--                    </button>-->
-          <!--                  </a>-->
-          <!---->
-          <!--                  <a class="view btn-table" href="view-person.php">-->
-          <!--                    <button type="button" class="btn btn-outline-primary">-->
-          <!--                      View-->
-          <!--                    </button>-->
-          <!--                  </a>-->
-          <!--                </div>-->
-          <!--              </div>-->
-          <!--            </td>-->
-          <!--          </tr>-->
-          <!--          <tr>-->
-          <!--            <th scope="row">4</th>-->
-          <!--            <td>Nilam@gmail.com</td>-->
-          <!--            <td>Nilam</td>-->
-          <!--            <td>MEMBER</td>-->
-          <!--            <td>-->
-          <!--              <div class="table-button">-->
-          <!--                <div class="text-end">-->
-          <!--                  <button type="button" class="btn btn-outline-primary">-->
-          <!--                    Edit-->
-          <!--                  </button>-->
-          <!--                  <button type="button" class="btn btn-outline-primary">-->
-          <!--                    View-->
-          <!--                  </button>-->
-          <!--                </div>-->
-          <!--              </div>-->
-          <!--            </td>-->
-          <!--          </tr>-->
-          <!--          <tr>-->
-          <!--            <th scope="row">5</th>-->
-          <!--            <td>Shifa@gmail.com</td>-->
-          <!--            <td>Shifa</td>-->
-          <!--            <td>ADMIN</td>-->
-          <!--            <td>-->
-          <!--              <div class="table-button">-->
-          <!--                <div class="text-end">-->
-          <!--                  <a class="edit btn-table" href="edit-person.php">-->
-          <!--                    <button type="button" class="btn btn-outline-primary">-->
-          <!--                      Edit-->
-          <!--                    </button>-->
-          <!--                  </a>-->
-          <!---->
-          <!--                  <a class="view btn-table" href="view-person.php">-->
-          <!--                    <button type="button" class="btn btn-outline-primary">-->
-          <!--                      View-->
-          <!--                    </button>-->
-          <!--                  </a>-->
-          <!--                </div>-->
-          <!--              </div>-->
-          <!--            </td>-->
-          <!--          </tr>-->
-
+            $searchInput = $_GET["search"];
+            $persons = search($searchInput);
+            if (count($persons) == 0) {
+              echo "data was not found!";
+            } else {
+              for ($i = 0; $i < count($persons); $i++) :
+                ?>
+                <tr>
+                  <th scope="row"><?php echo $i + 1 ?></th>
+                  <td><?php echo $persons[$i]["email"] ?></td>
+                  <td>
+                    <?php echo $persons[$i]["firstName"] . " " . $persons[$i]["lastName"] ?></td>
+                  <td><?php echo $persons[$i]["role"] ?></td>
+                  <td>
+                    <div class="table-button">
+                      <div class="text-end">
+                        <a class="edit btn-table" href="edit-person.php">
+                          <button type="button" class="btn btn-outline-primary">
+                            Edit
+                          </button>
+                        </a>
+                        <a class="view btn-table" href="view-person.php">
+                          <button type="button" class="btn btn-outline-primary">
+                            View
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              <?php endfor;
+            }
+          } ?>
           </tbody>
         </table>
-      </div>
-
-      <div class="page-position">
-        <nav aria-label="Page navigation example">
-          <ul class="pagination justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+        <div class="page-position">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous" <?php if ($page > 1) {
+                  echo "href='?page=$previous'";
+                } ?>>
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              
+              <?php
+              for ($x = 1; $x <= $total_page; $x++) {
+                ?>
+                <li class="page-item"><a class="page-link" href="?page=<?php echo $x ?>"><?php echo $x; ?></a></li>
+                <?php
+              }
+              ?>
+              <!--              <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+              <!--              <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+              <!--              <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+              <!--              <li class="page-item">-->
+              <!--                <a class="page-link" href="#" aria-label="Next">-->
+              <!--                  <span aria-hidden="true">&raquo;</span>-->
+              <!--                </a>-->
+              <!--              </li>-->
+              <li class="page-item">
+                <a class="page-link" aria-label="Next" <?php if ($page < $total_page) {
+                  echo "href='?page=$next'";
+                } ?>>
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
   </section>

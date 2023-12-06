@@ -365,7 +365,8 @@ if (!isset($_SESSION['email'])) {
             <div class="card has-shadow">
               <div class="card-body">
                 <p class="text-title">First name*</p>
-                <p class="data person-name">Cahya Kumala</p>
+<!--                <p class="data person-name">--><?php //$person['FirstName']?><!--</p>-->
+                <p class="data person-name">I Gusti Ayu</p>
                 <p class="text-title">Last name*</p>
                 <p class="data person-name">Kumala Cahya</p>
                 <p class="text-title">NIK*</p>

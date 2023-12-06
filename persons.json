@@ -37,5 +37,31 @@
     "address" : "Tabanan",
     "role" : "ADMIN",
     "internalNotes" : "Hi aku cia"
+  },
+  {
+    "id": 4,
+    "nik": "1111111111111113",
+    "firstName": "Ciah",
+    "lastName": "hudino",
+    "birthDate": "1229070124",
+    "sex": "FEMALE",
+    "email": "ciah@gmail.com",
+    "password":"ciah123",
+    "address" : "Tabanan",
+    "role" : "ADMIN",
+    "internalNotes" : "Hi aku cia"
+  },
+  {
+    "id": 5,
+    "nik": "1111111111111113",
+    "firstName": "Ciahi",
+    "lastName": "hudina",
+    "birthDate": "1229070124",
+    "sex": "FEMALE",
+    "email": "ciahi@gmail.com",
+    "password":"ciahi123",
+    "address" : "Tabanan",
+    "role" : "ADMIN",
+    "internalNotes" : "Hi aku cia"
   }
 ]
