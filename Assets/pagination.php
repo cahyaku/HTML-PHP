@@ -15,4 +15,9 @@ function paginatedData(array $array, int $page, int $limit): array
     PAGING_DATA => array_slice($array, $indexStart, $length),
     PAGING_CURRENT_PAGE => $page,
   ];
+//  return [
+//    "totalPage" => $totalPage,
+//    "pagingData" => array_slice($array, $indexStart, $length),
+//    "currentPage" => $page,
+//  ];
 }

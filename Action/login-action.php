@@ -6,7 +6,7 @@ require_once __DIR__ . "/json.php";
 //  header("Location:../login.php");
 //  exit();
 //}
-
+//
 // echo $_POST["cahya"];
 //$loginData = [
 //  [
@@ -34,7 +34,7 @@ require_once __DIR__ . "/json.php";
 //    }
 //    return [];
 //}
-
+//
 //function loadDataFromJson(string $fileName): array
 //{
 //    $path = __DIR__ . "/../" . $fileName;
@@ -70,7 +70,6 @@ function validateData($data)
 //    header('Location: ../login.php?error=1');
 //    die();
 //}
-
 
 function redirect($url, $getParams)
 {
@@ -131,3 +130,4 @@ if (validateData($loginData)) {
 //    }
 //  }
 //}
+

@@ -7,6 +7,7 @@ if (!isset($_SESSION['email'])) {
 
 require_once __DIR__ . "/Action/persons-action.php";
 require_once __DIR__ . "/Assets/pagination.php";
+require_once __DIR__ . "/Assets/constants.php";
 ?>
 
 <!DOCTYPE html>
@@ -383,15 +384,14 @@ require_once __DIR__ . "/Assets/pagination.php";
             >
               Search by age
             </button>
-
             <ul class="dropdown-menu">
-              <!--              <li>-->
-              <!--                <form action="#" method="get">-->
-              <!--                  <button name="active">-->
-              <!--                    <a class="dropdown-item" href="#">Adult</a>-->
-              <!--                  </button>-->
-              <!--                </form>-->
-              <!--              </li>-->
+              <li>
+                <form action="#" method="get">
+                  <!--                                <button name="active">-->
+                  <a class="dropdown-item" href="?active">Adult</a>
+                  <!--                                </button>-->
+                </form>
+              </li>
               <li>
                 <a class="dropdown-item" href="#">Productive ages</a>
               </li>
@@ -427,6 +427,10 @@ require_once __DIR__ . "/Assets/pagination.php";
 
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
+          <!--TABLE FOR SEARCH RESULT-->
+          <?php
+          if (isset($_GET["search"])) {
+          ?>
           <thead>
           <tr class="test-color">
             <th scope="col">No</th>
@@ -438,22 +442,7 @@ require_once __DIR__ . "/Assets/pagination.php";
           </thead>
           <tbody>
           <?php
-          $page = 1;
-          $limit = 3;
-          $persons = personData();
-          $data = paginatedData($persons, $page, $limit);
-          $personsData = $data[PAGING_DATA];
-          
-          $limit = 3;
-          $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-          $start_page = ($page > 1) ? ($page * $limit) - $limit : 0;
-          $previous = $page - 1;
-          $next = $page + 1;
-          $data = personData();
-          $total_page = ceil(count($data) / $limit);
-          $number = $start_page + 1;
-          //          while($d = $data){
-          if (isset($_GET["search"])) {
+//          if (isset($_GET["search"])) {
             $searchInput = $_GET["search"];
             $persons = search($searchInput);
             if (count($persons) == 0) {
@@ -485,40 +474,100 @@ require_once __DIR__ . "/Assets/pagination.php";
                   </td>
                 </tr>
               <?php endfor;
-            }
-          } ?>
+//            }
+          }
+          ?>
           </tbody>
+          <?php
+          } else {
+          ?>
+
+          <!--TABLE FOR SHOW ALL PERSON DATA-->
+          <thead>
+          <tr class="test-color">
+            <th scope="col">No</th>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Role</th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php
+          //          if (isset($_GET["search"])) {
+          //            $searchInput = $_GET["search"];
+          //            $persons = search($searchInput);
+          //            if (count($persons) == 0) {
+          //              echo "data was not found!";
+          //            } else {
+          $limit = 3;
+          $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+          //              $start_page = ($page > 1) ? ($page * $limit) - $limit : 0;
+          $previous = $page - 1;
+          $next = $page + 1;
+          $persons = personData();
+          $data = paginatedData($persons, $page, $limit);
+          $personsData = $data[PAGING_DATA];
+          //              $number = $page + 1;
+          $number = ($page - 1) * $limit + 1;
+          for ($i = 0; $i < count($personsData); $i++) :
+            ?>
+            <tr>
+              <th scope="row"><?php echo $number++ ?></th>
+              <td><?php echo $personsData[$i]["email"] ?></td>
+              <td>
+                <?php echo $personsData[$i]["firstName"] . " " . $personsData[$i]["lastName"] ?></td>
+              <td><?php echo $personsData[$i]["role"] ?></td>
+              <td>
+                <div class="table-button">
+                  <div class="text-end">
+                    <a class="edit btn-table" href="edit-person.php">
+                      <button type="button" class="btn btn-outline-primary">
+                        Edit
+                      </button>
+                    </a>
+                    <a class="view btn-table" href="view-person.php">
+                      <button type="button" class="btn btn-outline-primary">
+                        View
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <?php endfor;
+          //            }
+          //          }
+          ?>
+          </tbody>
+          <?php
+          }
+          ?>
+          
         </table>
         <div class="page-position">
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
               <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous" <?php if ($page > 1) {
-                  echo "href='?page=$previous'";
-                } ?>>
-                  <span aria-hidden="true">&laquo;</span>
+                <a class="page-link" <?php if ($page > 1) {
+                    echo "href='?page=$previous'";
+                  } ?> aria-label="Previous" ">
+                <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
               
               <?php
-              for ($x = 1; $x <= $total_page; $x++) {
+              for ($x = 1; $x <= $data[PAGING_TOTAL_PAGE]; $x++) {
                 ?>
                 <li class="page-item"><a class="page-link" href="?page=<?php echo $x ?>"><?php echo $x; ?></a></li>
                 <?php
               }
               ?>
-              <!--              <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-              <!--              <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-              <!--              <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-              <!--              <li class="page-item">-->
-              <!--                <a class="page-link" href="#" aria-label="Next">-->
-              <!--                  <span aria-hidden="true">&raquo;</span>-->
-              <!--                </a>-->
-              <!--              </li>-->
               <li class="page-item">
-                <a class="page-link" aria-label="Next" <?php if ($page < $total_page) {
+                <a class="page-link" aria-label="Next" <?php if ($page < $data[PAGING_TOTAL_PAGE]) {
                   echo "href='?page=$next'";
-                } ?>>
+                } ?>
+                >
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>

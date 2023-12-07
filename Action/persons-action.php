@@ -1,11 +1,5 @@
 <?php
-
-//require_once __DIR__ . "/persons-action.php";
-//require_once __DIR__ . "/login-action.php";
 require_once __DIR__ . "/json.php";
-
-
-//echo $_POST["searchPerson"];
 
 //$search = $_POST["searchPerson"];
 function search($search):array
@@ -80,3 +74,17 @@ function searchPerson()
 function personData() {
   return $person = loadDataFromJson("persons.json");
 }
+
+//function checkAge() {
+//  $birth_Date = date('Y-m-d', strtotime('1995-06-13'));
+//
+//  $birthDate = new \DateTime($birth_Date);
+//  $today = new \DateTime("today");
+//  if ($birthDate > $today) {
+//    return "0 year 0 month 0 day";
+//  }
+//  $y = $today->diff($birthDate)->y;
+//  $m = $today->diff($birthDate)->m;
+//  $d = $today->diff($birthDate)->d;
+//  return $y . " year " . $m . " month " . $d . " day ";
+//}

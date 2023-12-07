@@ -71,7 +71,7 @@ if (isset($_SESSION['email'])) {
                       <div class="col-8 col-lg-4 col-md-8 col-sm-8 justify-content-center">
                         <div class="cta-logo">
                           <div class="logo">
-                            <img src="Assets/img/logo-pma-3.png" class="logo-pma-login"/>
+                            <img src="Assets/img/logo-pma-3.png" class="logo-pma-login" title="Person-Management-App"/>
                           </div>
                           <p class="PMA-title">
                             <strong class="PMA">PMA</strong><br/>

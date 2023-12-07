@@ -244,7 +244,6 @@ if (!isset($_SESSION['email'])) {
           //                                  echo "Selamat datang di halaman dashboard!!!";
           //                                  echo "</h3>"; ?>
           <!--                              --><?php //endif; ?>
-          
           <?php
           echo "<h3 class='dashboard-title'>";
           echo "Hi, " . $_SESSION['userFirstName'] . " " . $_SESSION['userLastName'] . "...";
@@ -297,7 +296,7 @@ if (!isset($_SESSION['email'])) {
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
                 </p>
-                <a href="persons.php?name">
+                <a href="persons.php?active">
                   <button class="more-info">More info &rAarr;</button>
                 </a>
               </div>
