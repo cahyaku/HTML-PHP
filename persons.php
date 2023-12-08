@@ -386,18 +386,11 @@ require_once __DIR__ . "/Assets/constants.php";
             </button>
             <ul class="dropdown-menu">
               <li>
-                <form action="#" method="get">
-                  <!--                                <button name="active">-->
-                  <a class="dropdown-item" href="?active">Adult</a>
-                  <!--                                </button>-->
-                </form>
+                <a class="dropdown-item" href="?productiveAges">Productive ages</a>
               </li>
+              <li><a class="dropdown-item" href="?passedAway">Passed away</a></li>
               <li>
-                <a class="dropdown-item" href="#">Productive ages</a>
-              </li>
-              <li><a class="dropdown-item" href="#">Passed away</a></li>
-              <li>
-                <a class="dropdown-item" href="#">Toddler</a>
+                <a class="dropdown-item" href="?toddler">Toddler</a>
               </li>
             </ul>
           </div>
@@ -412,6 +405,7 @@ require_once __DIR__ . "/Assets/constants.php";
                   type="search"
                   placeholder="Search..."
                   aria-label="Search"
+                  value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>"
                   required
               />
               <button
@@ -427,62 +421,21 @@ require_once __DIR__ . "/Assets/constants.php";
 
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
-          <!--TABLE FOR SEARCH RESULT-->
+          <!--TABLE FOR SEARCH BY AGE-->
           <?php
-          if (isset($_GET["search"])) {
-          ?>
-          <thead>
-          <tr class="test-color">
-            <th scope="col">No</th>
-            <th scope="col">Email</th>
-            <th scope="col">Name</th>
-            <th scope="col">Role</th>
-            <th scope="col"></th>
-          </tr>
-          </thead>
-          <tbody>
-          <?php
-//          if (isset($_GET["search"])) {
+          if (isset($_GET['toddler'])) {
+            $persons = toddler();
+          } else if (isset($_GET['productiveAges'])) {
+            $persons = productiveAges();
+          } else if (isset($_GET['passedAway'])) {
+            $persons = passedAway();
+          } else if ($_GET["search"]) {
             $searchInput = $_GET["search"];
             $persons = search($searchInput);
-            if (count($persons) == 0) {
-              echo "data was not found!";
-            } else {
-              for ($i = 0; $i < count($persons); $i++) :
-                ?>
-                <tr>
-                  <th scope="row"><?php echo $i + 1 ?></th>
-                  <td><?php echo $persons[$i]["email"] ?></td>
-                  <td>
-                    <?php echo $persons[$i]["firstName"] . " " . $persons[$i]["lastName"] ?></td>
-                  <td><?php echo $persons[$i]["role"] ?></td>
-                  <td>
-                    <div class="table-button">
-                      <div class="text-end">
-                        <a class="edit btn-table" href="edit-person.php">
-                          <button type="button" class="btn btn-outline-primary">
-                            Edit
-                          </button>
-                        </a>
-                        <a class="view btn-table" href="view-person.php">
-                          <button type="button" class="btn btn-outline-primary">
-                            View
-                          </button>
-                        </a>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              <?php endfor;
-//            }
+          } else {
+            $persons = personData();
           }
           ?>
-          </tbody>
-          <?php
-          } else {
-          ?>
-
-          <!--TABLE FOR SHOW ALL PERSON DATA-->
           <thead>
           <tr class="test-color">
             <th scope="col">No</th>
@@ -494,75 +447,76 @@ require_once __DIR__ . "/Assets/constants.php";
           </thead>
           <tbody>
           <?php
-          //          if (isset($_GET["search"])) {
-          //            $searchInput = $_GET["search"];
-          //            $persons = search($searchInput);
-          //            if (count($persons) == 0) {
-          //              echo "data was not found!";
-          //            } else {
-          $limit = 3;
-          $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-          //              $start_page = ($page > 1) ? ($page * $limit) - $limit : 0;
-          $previous = $page - 1;
-          $next = $page + 1;
-          $persons = personData();
-          $data = paginatedData($persons, $page, $limit);
-          $personsData = $data[PAGING_DATA];
-          //              $number = $page + 1;
-          $number = ($page - 1) * $limit + 1;
-          for ($i = 0; $i < count($personsData); $i++) :
-            ?>
-            <tr>
-              <th scope="row"><?php echo $number++ ?></th>
-              <td><?php echo $personsData[$i]["email"] ?></td>
-              <td>
-                <?php echo $personsData[$i]["firstName"] . " " . $personsData[$i]["lastName"] ?></td>
-              <td><?php echo $personsData[$i]["role"] ?></td>
-              <td>
-                <div class="table-button">
-                  <div class="text-end">
-                    <a class="edit btn-table" href="edit-person.php">
-                      <button type="button" class="btn btn-outline-primary">
-                        Edit
-                      </button>
-                    </a>
-                    <a class="view btn-table" href="view-person.php">
-                      <button type="button" class="btn btn-outline-primary">
-                        View
-                      </button>
-                    </a>
+          if (count($persons) == 0) {
+            echo "data was not found!";
+          } else {
+            $limit = 3;
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $previous = $page - 1;
+            $next = $page + 1;
+//            $persons = personData();
+            $data = paginatedData($persons, $page, $limit);
+            $personsData = $data[PAGING_DATA];
+            $number = ($page - 1) * $limit + 1;
+            
+            for ($i = 0; $i < count($personsData); $i++) :
+              ?>
+              <tr>
+                <!--                <th scope="row">--><?php //echo $i + 1
+                ?><!--</th>-->
+                <th scope="row"><?php echo $number++ ?></th>
+                <td><?php echo $personsData[$i]["email"] ?></td>
+                <td>
+                  <?php echo $personsData[$i]["firstName"] . " " . $personsData[$i]["lastName"] ?></td>
+                <td><?php echo $personsData[$i]["role"] ?></td>
+                <td>
+                  <div class="table-button">
+                    <div class="text-end">
+                      <a class="edit btn-table" href="edit-person.php">
+                        <button type="button" class="btn btn-outline-primary">
+                          Edit
+                        </button>
+                      </a>
+                      <a class="view btn-table" href="view-person.php">
+                        <button type="button" class="btn btn-outline-primary">
+                          View
+                        </button>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </td>
-            </tr>
-          <?php endfor;
-          //            }
-          //          }
-          ?>
-          </tbody>
-          <?php
+                </td>
+              </tr>
+            <?php endfor;
           }
           ?>
-          
+          </tbody>
+          <?php ?>
         </table>
         <div class="page-position">
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
+              <?php
+              if (isset($_GET["toddler"])) {
+                $filter = "?toddler&";
+              } else if (isset($_GET["search"])) {
+                $filter = "?search=" . $_GET["search"] . "&";
+              } else {
+                $filter ="?";
+              }
+              ?>
               <li class="page-item">
                 <a class="page-link" <?php if ($page > 1) {
-                    echo "href='?page=$previous'";
-                  } ?> aria-label="Previous" ">
-                <span aria-hidden="true">&laquo;</span>
+                  echo "href='?page=$previous'";
+                } ?> aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
                 </a>
               </li>
-              
               <?php
               for ($x = 1; $x <= $data[PAGING_TOTAL_PAGE]; $x++) {
                 ?>
-                <li class="page-item"><a class="page-link" href="?page=<?php echo $x ?>"><?php echo $x; ?></a></li>
-                <?php
-              }
-              ?>
+                <li class="page-item"><a class="page-link"
+                                         href="<?php echo $filter ?>page=<?php echo $x ?>"><?php echo $x; ?></a></li>
+              <?php } ?>
               <li class="page-item">
                 <a class="page-link" aria-label="Next" <?php if ($page < $data[PAGING_TOTAL_PAGE]) {
                   echo "href='?page=$next'";
@@ -571,6 +525,7 @@ require_once __DIR__ . "/Assets/constants.php";
                   <span aria-hidden="true">&raquo;</span>
                 </a>
               </li>
+              <?php ?>
             </ul>
           </nav>
         </div>

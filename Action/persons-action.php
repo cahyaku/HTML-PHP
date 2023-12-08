@@ -1,8 +1,7 @@
 <?php
 require_once __DIR__ . "/json.php";
 
-//$search = $_POST["searchPerson"];
-function search($search):array
+function search($search): array
 {
 //  $search = $_GET['search'];
   $persons = personData();
@@ -29,62 +28,148 @@ function search($search):array
   return $searchResult;
 }
 
-function searchPerson()
+function personData()
 {
-  $persons = loadDataFromJson("persons.json");
-  $search = $_GET['search'];
-  $results = [];
-  $resultsByNik = [];
-  if (isset($search)) {
-    foreach ($persons as $value) {
-      if (preg_match("/$search[0]/i", $value["firstName"]) == 1) {
-        $results [] = $value;
-      }
-    }
-    
-    foreach ($persons as $value) {
-      if (preg_match("/$search[0]/i", $value["nik"]) == 1) {
-        $resultsByNik[] = $value;
-      }
-    }
-    
-    foreach ($resultsByNik as $result) {
-      if (in_array($result, $results) == 0) {
-        $results[] = $result;
-      }
-    }
-    
-    if (count($results) != null) {
-      return $results;
-    }
-  }
-  return null;
-}
-
-//function personsData ()
-//{
-////    $searchInput = $_GET["search"];
-//    $persons = search($_GET["search"]);
-//    for ($i = 0; $i < count($persons); $i++) :
-//    return $persons[$i];
-//    endfor;
-//  return $persons[$i];
-//}
-
-function personData() {
   return $person = loadDataFromJson("persons.json");
 }
 
-//function checkAge() {
-//  $birth_Date = date('Y-m-d', strtotime('1995-06-13'));
-//
-//  $birthDate = new \DateTime($birth_Date);
+//function checkAges($date)
+//{
+////  $persons = personData();
+////  $date = $persons['birthDate'];
+//  $birthDate = new \DateTime($date);
 //  $today = new \DateTime("today");
 //  if ($birthDate > $today) {
-//    return "0 year 0 month 0 day";
+//    $y = "0";
+//    $m = "0";
+//    $d = "0";
+////    return "0 year 0 month 0 day";
 //  }
 //  $y = $today->diff($birthDate)->y;
 //  $m = $today->diff($birthDate)->m;
 //  $d = $today->diff($birthDate)->d;
-//  return $y . " year " . $m . " month " . $d . " day ";
+//  return $y;
+//}
+
+
+
+//function checkAge(int $date): int
+//{
+//  $total = time() - $date;
+//  return floor($total / (60 * 60 * 24 * 365));
+//}
+
+function toddler()
+{
+  $persons = personData();
+  foreach ($persons as $person) {
+    if (checkAges($person["birthDate"]) < 5 ) {
+      $toddler[] = $person;
+    }
+  }
+  return $toddler;
+}
+
+function passedAway()
+{
+  $persons = personData();
+  foreach ($persons as $person) {
+    if (checkAges($person["birthDate"]) > 60 ) {
+      $toddler[] = $person;
+    }
+  }
+  return $toddler;
+}
+
+function productiveAges()
+{
+  $persons = personData();
+  foreach ($persons as $person) {
+    if (checkAges($person["birthDate"]) >= 6 && checkAges($person["birthDate"]) <= 60) {
+      $productiveAges[] = $person;
+    }
+  }
+  return $productiveAges;
+}
+
+function checkAges($birthDate)
+{
+  $date = date("d-m-Y", $birthDate);
+  list($day,$month,$year) = explode('-',$date);
+  $born = mktime(0, 0, 0, (int)$day, (int)$month, $year); //jam,menit,detik,bulan,tanggal,tahun
+  $t = time();
+  $age = ($born < 0) ? ( $t + ($born * -1) ) : $t - $born;
+  $years = 60 * 60 * 24 * 365;
+  $yearOfBirthDate = $age / $years;
+  $currentAge = floor($yearOfBirthDate) ;
+  return $currentAge;
+}
+
+//function orderByAges()
+//{
+//  $persons = personData();
+//  foreach ($persons as $person) {
+//    if (checkAges($person["birthDate"]) < 5) {
+//      $toddler[] = $person;
+//    }
+//  }
+//  return $toddler;
+//}
+
+//function orderByAge()
+//{
+//  $persons = personData();
+//  foreach ($persons as $person) {
+//    if (checkAges($person["birthDate"]) < 5 ) {
+//      $toddler[] = $person;
+//    }
+//  }
+//  return $toddler;
+//}
+
+//$age = checkAges();
+//function filterPersonsByAges($age)
+//{
+//  $persons = personData();
+//  for ($i = 0; $i<= count($persons); $i++) {
+//    if ($age <= 5) {
+//      return $persons[$i];
+//    } else if ($age >= 6 && $age <= 60) {
+//      return $persons[$i];
+//    } else {
+//      return $persons[$i];
+//    }
+//  }
+//  return null;
+//}
+//function searchPerson()
+//{
+//  $persons = loadDataFromJson("persons.json");
+//  $search = $_GET['search'];
+//  $results = [];
+//  $resultsByNik = [];
+//  if (isset($search)) {
+//    foreach ($persons as $value) {
+//      if (preg_match("/$search[0]/i", $value["firstName"]) == 1) {
+//        $results [] = $value;
+//      }
+//    }
+//
+//    foreach ($persons as $value) {
+//      if (preg_match("/$search[0]/i", $value["nik"]) == 1) {
+//        $resultsByNik[] = $value;
+//      }
+//    }
+//
+//    foreach ($resultsByNik as $result) {
+//      if (in_array($result, $results) == 0) {
+//        $results[] = $result;
+//      }
+//    }
+//
+//    if (count($results) != null) {
+//      return $results;
+//    }
+//  }
+//  return null;
 //}

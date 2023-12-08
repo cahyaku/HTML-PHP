@@ -290,13 +290,12 @@ if (!isset($_SESSION['email'])) {
                   </div>
                   <h2 class="title">59</h2>
                 </div>
-
                 <p class="card-text">in Productive Ages</p>
                 <p class="card-text-box">
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
                 </p>
-                <a href="persons.php?active">
+                <a href="persons.php?productiveAges">
                   <button class="more-info">More info &rAarr;</button>
                 </a>
               </div>
@@ -317,7 +316,7 @@ if (!isset($_SESSION['email'])) {
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
                 </p>
-                <a href="persons.php">
+                <a href="persons.php?passedAway">
                   <button class="more-info">More info &rAarr;</button>
                 </a>
               </div>
@@ -334,6 +333,27 @@ if (!isset($_SESSION['email'])) {
                   <h2 class="title">18</h2>
                 </div>
                 <p class="card-text">toddler</p>
+                <p class="card-text-box">
+                  Some quick example text to build on the card title and
+                  make up the bulk of the card's content.
+                </p>
+                <a href="persons.php?toddler">
+                  <button class="more-info">More info &rAarr;</button>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!--ALL PERSONS-->
+          <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
+            <div class="card has-shadow">
+              <div class="card-body card-box">
+                <div class="d-flex align-items-center card-title-box">
+                  <div>
+                    <ion-icon name="happy" class="dashboard-icon"></ion-icon>
+                  </div>
+                  <h2 class="title">1.213</h2>
+                </div>
+                <p class="card-text">All Persons</p>
                 <p class="card-text-box">
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
