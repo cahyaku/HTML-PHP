@@ -372,56 +372,93 @@ require_once __DIR__ . "/Assets/constants.php";
       </div>
 
       <div class="search-box">
-        <div class="d-flex">
-          <div class="dropdown">
-            <button
-                class="btn btn-secondary dropdown-toggle btn-dropdown"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                id="searchByAge"
-                name="dropdown-search"
-            >
-              Search by age
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="?productiveAges">Productive ages</a>
-              </li>
-              <li><a class="dropdown-item" href="?passedAway">Passed away</a></li>
-              <li>
-                <a class="dropdown-item" href="?toddler">Toddler</a>
-              </li>
-            </ul>
-          </div>
+        <!--        <div class="d-flex">-->
+        <form class="form d-flex" name="search-form" role="search" method="get" action="#table">
+          <!--          <div class="dropdown">-->
+          <div class="select-persons">
+            <!--            <button-->
+            <!--                class="btn btn-secondary dropdown-toggle btn-dropdown"-->
+            <!--                type="button"-->
+            <!--                data-bs-toggle="dropdown"-->
+            <!--                aria-expanded="false"-->
+            <!--                id="searchByAge"-->
+            <!--                name="dropdown-search"-->
+            <!--            >-->
+            <!--              Search by age-->
+            <!--            </button>-->
 
-          <div class="search-person">
-            <form class="form d-flex" name="search-form" role="search" method="get" action="#table">
-              <label for="search-input"></label>
-              <input
-                  id="search-input"
-                  name="search"
-                  class="form-control me-2 has-shadow"
-                  type="search"
-                  placeholder="Search..."
-                  aria-label="Search"
-                  value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>"
-                  required
-              />
-              <button
-                  type="submit"
-                  class="btn btn-outline-primary has-shadow"
-              >
-                Search
-              </button>
-            </form>
+            <select id="searchByAge" name="searchByAge" class="form-select has-shadow"
+                    aria-label="Default select example">
+              <option selected>Search by age</option>
+              <option name="productiveAges" class="select-item" value="productive-Ages">Productive Ages</option>
+              <option name="passedAway" class="select-item" value="passed-Away">Passed Away</option>
+              <option name="toddler" class="select-item" value="toddler">Toddler</option>
+              <option name="allPersons" class="select-item" value="all-Persons">All Persons</option>
+            </select>
+
+            <!--            <select name="form">-->
+            <!--              <option value="Home"><a href="home.php">Home</a></option>-->
+            <!--              <option value="Contact"><a href="contact.php">Contact</a></option>-->
+            <!--              <option value="Sitemap"><a href="sitemap.php">Sitemap</a></option>-->
+            <!--            </select>-->
+            <!--            <ul class="dropdown-menu">-->
+            <!--              <li>-->
+            <!--                <a class="dropdown-item" href="?productiveAges">Productive ages</a>-->
+            <!--              </li>-->
+            <!--              <li><a class="dropdown-item" href="?passedAway">Passed away</a></li>-->
+            <!--              <li>-->
+            <!--                <a class="dropdown-item" href="?toddler">Toddler</a>-->
+            <!--              </li>-->
+            <!--            </ul>-->
           </div>
-        </div>
+          <!--          </div>-->
+          <label for="search-input"></label>
+          <input
+              id="search-input"
+              name="search"
+              class="form-control me-2 has-shadow search-person"
+              type="search"
+              placeholder="Search..."
+              aria-label="Search"
+              value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>"
+              required
+          />
+          <button
+              type="submit"
+              class="btn btn-outline-primary has-shadow"
+          >
+            Search
+          </button>
+        </form>
+        <!--        </div>-->
       </div>
 
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
           <!--TABLE FOR SEARCH BY AGE-->
+          <!--          --><?php
+          //          if (isset($_GET['toddler'])) {
+          //            $persons = toddler();
+          //          } else if (isset($_GET['productiveAges'])) {
+          //            $persons = productiveAges();
+          //          } else if (isset($_GET['passedAway'])) {
+          //            $persons = passedAway();
+          //          } else if (isset($_GET['toddler']) . isset($_GET['search']) == 1) {
+          //            $filterToddler = toddler();
+          //            $persons = searchByAges($_GET["search"], $filterToddler);
+          //          } else if (isset($_GET['productiveAges']) . isset($_GET['search']) == 1) {
+          //            $filterProductive = productiveAges();
+          //            $persons = searchByProductive($_GET["search"]);
+          //          } else if (isset($_GET['passedAway']) . isset($_GET['search']) == 1) {
+          //            $filterPassedAway = passedAway();
+          //            $persons = searchByAges($_GET["search"], $filterPassedAway);
+          //          } else if (isset($_GET["search"]) ==1) {
+          //            $searchInput = $_GET["search"];
+          //            $persons = search($searchInput);
+          //          } else {
+          //            $persons = personData();
+          //          }
+          //          ?>
           <?php
           if (isset($_GET['toddler'])) {
             $persons = toddler();
@@ -429,6 +466,8 @@ require_once __DIR__ . "/Assets/constants.php";
             $persons = productiveAges();
           } else if (isset($_GET['passedAway'])) {
             $persons = passedAway();
+          } else if (isset($_GET['allPersons'])) {
+            $persons = personData();
           } else if ($_GET["search"]) {
             $searchInput = $_GET["search"];
             $persons = search($searchInput);
@@ -447,23 +486,19 @@ require_once __DIR__ . "/Assets/constants.php";
           </thead>
           <tbody>
           <?php
-          if (count($persons) == 0) {
-            echo "data was not found!";
-          } else {
+          if (count($persons) != 0) {
             $limit = 3;
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $previous = $page - 1;
             $next = $page + 1;
-//            $persons = personData();
             $data = paginatedData($persons, $page, $limit);
             $personsData = $data[PAGING_DATA];
             $number = ($page - 1) * $limit + 1;
-            
             for ($i = 0; $i < count($personsData); $i++) :
               ?>
               <tr>
-                <!--                <th scope="row">--><?php //echo $i + 1
-                ?><!--</th>-->
+                <!--Dengan $i + 1 maka number akan berulang dari 1 disetiap page-->
+<!--                <th scope="row">--><?php //echo $i + 1?><!--</th>-->
                 <th scope="row"><?php echo $number++ ?></th>
                 <td><?php echo $personsData[$i]["email"] ?></td>
                 <td>
@@ -498,33 +533,39 @@ require_once __DIR__ . "/Assets/constants.php";
               <?php
               if (isset($_GET["toddler"])) {
                 $filter = "?toddler&";
+              } else if (isset ($_GET["passedAway"])) {
+                $filter = "?passedAway&";
+              } else if (isset ($_GET["productiveAges"])) {
+                $filter = "?productiveAges&";
               } else if (isset($_GET["search"])) {
                 $filter = "?search=" . $_GET["search"] . "&";
               } else {
-                $filter ="?";
+                $filter = "?";
               }
               ?>
-              <li class="page-item">
-                <a class="page-link" <?php if ($page > 1) {
-                  echo "href='?page=$previous'";
-                } ?> aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
+              <?php if ($page > 1) { ?>
+                <li class="page-item">
+                  <a class="page-link" aria-label="Previous" href="<?php echo $filter ?>page=<?php echo $previous ?>">
+                    <span aria-hidden="true">&laquo;</span>
+                  </a>
+                </li>
+              <?php } ?>
               <?php
               for ($x = 1; $x <= $data[PAGING_TOTAL_PAGE]; $x++) {
                 ?>
                 <li class="page-item"><a class="page-link"
                                          href="<?php echo $filter ?>page=<?php echo $x ?>"><?php echo $x; ?></a></li>
               <?php } ?>
-              <li class="page-item">
-                <a class="page-link" aria-label="Next" <?php if ($page < $data[PAGING_TOTAL_PAGE]) {
-                  echo "href='?page=$next'";
-                } ?>
-                >
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
+              <?php
+              if ($page < $data[PAGING_TOTAL_PAGE]) {
+                ?>
+                <li class="page-item">
+                  <a class="page-link" aria-label="Next" href="<?php echo $filter ?>page=<?php echo $next ?>"
+                  >
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+              <?php } ?>
               <?php ?>
             </ul>
           </nav>

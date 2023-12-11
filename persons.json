@@ -16,7 +16,7 @@
     "id": 2,
     "nik": "1111111111111112",
     "firstName": "kitty",
-    "lastName" : "cute",
+    "lastName" : "toddler1",
     "birthDate": "1702015970",
     "sex": "FEMALE",
     "email": "kitty@gmail.com",
@@ -102,5 +102,57 @@
     "address" : "Tabanan",
     "role" : "ADMIN",
     "internalNotes" : "Hi aku cia"
+  },
+  {
+    "id": 9,
+    "nik": "1111111111111113",
+    "firstName": "Mia",
+    "lastName": "Putri",
+    "birthDate": "1229070124",
+    "sex": "FEMALE",
+    "email": "ciahi@gmail.com",
+    "password":"ciahi123",
+    "address" : "Tabanan",
+    "role" : "ADMIN",
+    "internalNotes" : "Hi aku cia"
+  },
+  {
+    "id": 10,
+    "nik": "1111111111111113",
+    "firstName": "Mei",
+    "lastName": "comel",
+    "birthDate": "1229070124",
+    "sex": "FEMALE",
+    "email": "ciahi@gmail.com",
+    "password":"ciahi123",
+    "address" : "Tabanan",
+    "role" : "ADMIN",
+    "internalNotes" : "Hi aku cia"
+  },
+  {
+    "id": 11,
+    "nik": "1111111111111112",
+    "firstName": "kitty",
+    "lastName" : "passedAway",
+    "birthDate": "-1577929486",
+    "sex": "FEMALE",
+    "email": "kitty@gmail.com",
+    "password":"kitty123",
+    "address":"perean",
+    "role" : "ADMIN",
+    "internalNotes" : "hi aku Kitty cute"
+  },
+  {
+    "id": 12,
+    "nik": "1111111111111112",
+    "firstName": "kitty",
+    "lastName" : "toddler2",
+    "birthDate": "1702015970",
+    "sex": "FEMALE",
+    "email": "kitty@gmail.com",
+    "password":"kitty123",
+    "address":"perean",
+    "role" : "ADMIN",
+    "internalNotes" : "hi aku Kitty cute"
   }
 ]

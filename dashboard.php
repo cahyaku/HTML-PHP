@@ -9,6 +9,8 @@ if (!isset($_SESSION['email'])) {
   header("Location: login.php");
   exit(); // Terminate script execution after the redirect
 }
+
+require_once __DIR__ . "/Action/persons-action.php";
 ?>
 
 <!DOCTYPE html>
@@ -219,12 +221,13 @@ if (!isset($_SESSION['email'])) {
             <li>
               <a class="dropdown-item" href="#">New project...</a>
             </li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+<!--            <li><a class="dropdown-item" href="#">Settings</a></li>-->
+<!--            <li><a class="dropdown-item" href="#">Profile</a></li>-->
             <li>
               <hr class="dropdown-divider"/>
             </li>
-            <li><a class="dropdown-item" href="#">Sign out</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <!--            <li><a class="dropdown-item" href="#">Sign out</a></li>-->
           </ul>
         </div>
       </div>
@@ -266,7 +269,13 @@ if (!isset($_SESSION['email'])) {
                   <div>
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
-                  <h2 class="title">103</h2>
+                  <?php
+                  $allPersons =count(personData());
+                  echo "<h2 class='title'>";
+                  echo "$allPersons";
+                  echo "</h2>";
+                  ?>
+<!--                  <h2 class="title">103</h2>-->
                 </div>
 
                 <p class="card-text">Number of persons</p>
@@ -274,7 +283,7 @@ if (!isset($_SESSION['email'])) {
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
                 </p>
-                <a href="persons.php?active">
+                <a href="persons.php">
                   <button class="more-info">More info &rAarr;</button>
                 </a>
               </div>
@@ -288,7 +297,14 @@ if (!isset($_SESSION['email'])) {
                   <div>
                     <ion-icon name="accessibility" class="dashboard-icon"></ion-icon>
                   </div>
-                  <h2 class="title">59</h2>
+                  <?php
+                  $productiveAges = count(productiveAges());
+                   echo "<h2 class='title'>";
+                  echo "$productiveAges";
+                  echo "</h2>";
+                  ?>
+                  
+<!--                  <h2 class="title">59</h2>-->
                 </div>
                 <p class="card-text">in Productive Ages</p>
                 <p class="card-text-box">
@@ -309,7 +325,13 @@ if (!isset($_SESSION['email'])) {
                   <div>
                     <ion-icon name="man" class="dashboard-icon"></ion-icon>
                   </div>
-                  <h2 class="title">18</h2>
+                  <?php
+                  $passedAway = count(passedAway());
+                  echo "<h2 class='title'>";
+                  echo "$passedAway";
+                  echo "</h2>";
+                  ?>
+<!--                  <h2 class="title">18</h2>-->
                 </div>
                 <p class="card-text">passed away</p>
                 <p class="card-text-box">
@@ -330,7 +352,13 @@ if (!isset($_SESSION['email'])) {
                   <div>
                     <ion-icon name="happy" class="dashboard-icon"></ion-icon>
                   </div>
-                  <h2 class="title">18</h2>
+                  <?php
+                  $toddler = count(toddler());
+                  echo "<h2 class='title'>";
+                  echo "$toddler";
+                  echo "</h2>";
+                  ?>
+<!--                  <h2 class="title">18</h2>-->
                 </div>
                 <p class="card-text">toddler</p>
                 <p class="card-text-box">
@@ -344,26 +372,26 @@ if (!isset($_SESSION['email'])) {
             </div>
           </div>
           <!--ALL PERSONS-->
-          <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
-            <div class="card has-shadow">
-              <div class="card-body card-box">
-                <div class="d-flex align-items-center card-title-box">
-                  <div>
-                    <ion-icon name="happy" class="dashboard-icon"></ion-icon>
-                  </div>
-                  <h2 class="title">1.213</h2>
-                </div>
-                <p class="card-text">All Persons</p>
-                <p class="card-text-box">
-                  Some quick example text to build on the card title and
-                  make up the bulk of the card's content.
-                </p>
-                <a href="persons.php">
-                  <button class="more-info">More info &rAarr;</button>
-                </a>
-              </div>
-            </div>
-          </div>
+<!--          <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">-->
+<!--            <div class="card has-shadow">-->
+<!--              <div class="card-body card-box">-->
+<!--                <div class="d-flex align-items-center card-title-box">-->
+<!--                  <div>-->
+<!--                    <ion-icon name="happy" class="dashboard-icon"></ion-icon>-->
+<!--                  </div>-->
+<!--                  <h2 class="title">1.213</h2>-->
+<!--                </div>-->
+<!--                <p class="card-text">All Persons</p>-->
+<!--                <p class="card-text-box">-->
+<!--                  Some quick example text to build on the card title and-->
+<!--                  make up the bulk of the card's content.-->
+<!--                </p>-->
+<!--                <a href="persons.php">-->
+<!--                  <button class="more-info">More info &rAarr;</button>-->
+<!--                </a>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
       </div>
     </div>

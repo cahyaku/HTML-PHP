@@ -13,11 +13,11 @@ function search($search): array
       }
     }
     
-    if (preg_match("/$search/i", $value["lastName"])) {
-      if (in_array($value["lastName"], $searchResult) == false) {
-        $searchResult[] = $value;
-      }
-    }
+//    if (preg_match("/$search/i", $value["lastName"])) {
+//      if (in_array($value["lastName"], $searchResult) == false) {
+//        $searchResult[] = $value;
+//      }
+//    }
     
     if (preg_match("/$search/i", $value["nik"])) {
       if (in_array($value["nik"], $searchResult) == false) {
@@ -27,6 +27,45 @@ function search($search): array
   }
   return $searchResult;
 }
+
+function searchByAges($search, $persons): array
+{
+//  $persons = $filter;
+  $searchResult = [];
+  foreach ($persons as $person => $value ) {
+    if (preg_match("/$search/i", $value["firstName"])) {
+      if (in_array($value["firstName"], $searchResult) == false) {
+        $searchResult[] = $value;
+      }
+    }
+    if (preg_match("/$search/i", $value["nik"])) {
+      if (in_array($value["nik"], $searchResult) == false) {
+        $searchResult[] = $value;
+      }
+    }
+  }
+  return $searchResult;
+}
+
+//function searchByProductive($search): array
+//{
+//  $persons = toddler();
+//  $searchResult = [];
+//  foreach ($persons as $person => $value ) {
+//    if (preg_match("/$search/i", $value["firstName"])) {
+//      if (in_array($value["firstName"], $searchResult) == false) {
+//        $searchResult[] = $value;
+//      }
+//    }
+//    if (preg_match("/$search/i", $value["nik"])) {
+//      if (in_array($value["nik"], $searchResult) == false) {
+//        $searchResult[] = $value;
+//      }
+//    }
+//  }
+//  return $searchResult;
+//}
+
 
 function personData()
 {
@@ -51,8 +90,6 @@ function personData()
 //  return $y;
 //}
 
-
-
 //function checkAge(int $date): int
 //{
 //  $total = time() - $date;
@@ -63,7 +100,7 @@ function toddler()
 {
   $persons = personData();
   foreach ($persons as $person) {
-    if (checkAges($person["birthDate"]) < 5 ) {
+    if (checkAges($person["birthDate"]) <= 5 ) {
       $toddler[] = $person;
     }
   }
@@ -96,7 +133,7 @@ function checkAges($birthDate)
 {
   $date = date("d-m-Y", $birthDate);
   list($day,$month,$year) = explode('-',$date);
-  $born = mktime(0, 0, 0, (int)$day, (int)$month, $year); //jam,menit,detik,bulan,tanggal,tahun
+  $born = mktime(0, 0, 0, (int)$day, (int)$month, $year); //jam,menit,detik,tanggal,bulan,tahun
   $t = time();
   $age = ($born < 0) ? ( $t + ($born * -1) ) : $t - $born;
   $years = 60 * 60 * 24 * 365;
@@ -173,3 +210,43 @@ function checkAges($birthDate)
 //  }
 //  return null;
 //}
+
+// set the last login date
+//add_action('wp_login','iiwp_set_last_login', 0, 2);
+
+
+function iiwp_set_last_login($login) {
+  
+  $user = personData();
+  $user = "get_user_by"('login',$login);
+  $time = "current_time"( 'timestamp' );
+  $last_login = "get_user_meta"( $user->ID, '_last_login', 'true' );
+
+  if(!$last_login){
+    "update_usermeta"( $user->ID, '_last_login', $time );
+  }else{
+    "update_usermeta"( $user->ID, '_last_login_prev', $last_login );
+    "update_usermeta"( $user->ID, '_last_login', $time );
+  }
+
+}
+//
+//// get last login date
+//function iiwp_get_last_login($user_id,$prev=null){
+//
+//  $last_login = get_user_meta($user_id);
+//  $time = current_time( 'timestamp' );
+//
+//  if(isset($last_login['_last_login_prev'][0]) && $prev){
+//    $last_login = get_user_meta($user_id, '_last_login_prev', 'true' );
+//  }else if(isset($last_login['_last_login'][0])){
+//    $last_login = get_user_meta($user_id, '_last_login', 'true' );
+//  }else{
+//    update_usermeta( $user_id, '_last_login', $time );
+//    $last_login = $last_login['_last_login'][0];
+//  }
+//
+//  return $last_login;
+//}
+
+
