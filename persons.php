@@ -374,44 +374,43 @@ require_once __DIR__ . "/Assets/constants.php";
       <div class="search-box">
         <!--        <div class="d-flex">-->
         <form class="form d-flex" name="search-form" role="search" method="get" action="#table">
-          <!--          <div class="dropdown">-->
-          <div class="select-persons">
-            <!--            <button-->
-            <!--                class="btn btn-secondary dropdown-toggle btn-dropdown"-->
-            <!--                type="button"-->
-            <!--                data-bs-toggle="dropdown"-->
-            <!--                aria-expanded="false"-->
-            <!--                id="searchByAge"-->
-            <!--                name="dropdown-search"-->
-            <!--            >-->
-            <!--              Search by age-->
-            <!--            </button>-->
+          <!--          <div class="searchByAges">-->
+          <!--                    <div class="dropdown">-->
+          <!--                        <button-->
+          <!--                            class="btn btn-secondary dropdown-toggle btn-dropdown"-->
+          <!--                            type="button"-->
+          <!--                            data-bs-toggle="dropdown"-->
+          <!--                            aria-expanded="false"-->
+          <!--                            id="searchByAge"-->
+          <!--                            name="dropdown-search"-->
+          <!--                        >-->
+          <!--                          Search by age-->
+          <!--                        </button>-->
 
-            <select id="searchByAge" name="searchByAge" class="form-select has-shadow"
+          <div class="searchByAge">
+            <select name="searchByAge" class="form-select has-shadow"
                     aria-label="Default select example">
               <option selected>Search by age</option>
-              <option name="productiveAges" class="select-item" value="productive-Ages">Productive Ages</option>
-              <option name="passedAway" class="select-item" value="passed-Away">Passed Away</option>
-              <option name="toddler" class="select-item" value="toddler">Toddler</option>
-              <option name="allPersons" class="select-item" value="all-Persons">All Persons</option>
+              <option value="productiveAges">Productive Ages</option>
+              <option value="passedAway">Passed Away</option>
+              <option value="toddler">Toddler</option>
+              <option value="allPersons" class="select-items">All Persons</option>
             </select>
-
-            <!--            <select name="form">-->
-            <!--              <option value="Home"><a href="home.php">Home</a></option>-->
-            <!--              <option value="Contact"><a href="contact.php">Contact</a></option>-->
-            <!--              <option value="Sitemap"><a href="sitemap.php">Sitemap</a></option>-->
-            <!--            </select>-->
-            <!--            <ul class="dropdown-menu">-->
-            <!--              <li>-->
-            <!--                <a class="dropdown-item" href="?productiveAges">Productive ages</a>-->
-            <!--              </li>-->
-            <!--              <li><a class="dropdown-item" href="?passedAway">Passed away</a></li>-->
-            <!--              <li>-->
-            <!--                <a class="dropdown-item" href="?toddler">Toddler</a>-->
-            <!--              </li>-->
-            <!--            </ul>-->
           </div>
-          <!--          </div>-->
+          <!--              <option selected>Open this select menu</option>-->
+          <!--              <option value="1">One</option>-->
+          <!--              <option value="2">Two</option>-->
+          <!--              <option value="3">Three</option>-->
+          <!--                        <ul class="dropdown-menu">-->
+          <!--                          <li>-->
+          <!--                            <a class="dropdown-item" href="?productiveAges">Productive ages</a>-->
+          <!--                          </li>-->
+          <!--                          <li><a class="dropdown-item" href="?passedAway">Passed away</a></li>-->
+          <!--                          <li>-->
+          <!--                            <a class="dropdown-item" href="?toddler">Toddler</a>-->
+          <!--                          </li>-->
+          <!--                        </ul>-->
+          <!--                    </div>-->
           <label for="search-input"></label>
           <input
               id="search-input"
@@ -421,7 +420,6 @@ require_once __DIR__ . "/Assets/constants.php";
               placeholder="Search..."
               aria-label="Search"
               value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>"
-              required
           />
           <button
               type="submit"
@@ -435,7 +433,7 @@ require_once __DIR__ . "/Assets/constants.php";
 
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
-          <!--TABLE FOR SEARCH BY AGE-->
+          <!--TABLE (SEARCH BY AGE)-->
           <!--          --><?php
           //          if (isset($_GET['toddler'])) {
           //            $persons = toddler();
@@ -448,11 +446,11 @@ require_once __DIR__ . "/Assets/constants.php";
           //            $persons = searchByAges($_GET["search"], $filterToddler);
           //          } else if (isset($_GET['productiveAges']) . isset($_GET['search']) == 1) {
           //            $filterProductive = productiveAges();
-          //            $persons = searchByProductive($_GET["search"]);
+          //            $persons = searchByAges($_GET["search"], $filterProductive);
           //          } else if (isset($_GET['passedAway']) . isset($_GET['search']) == 1) {
           //            $filterPassedAway = passedAway();
           //            $persons = searchByAges($_GET["search"], $filterPassedAway);
-          //          } else if (isset($_GET["search"]) ==1) {
+          //          } else if (isset($_GET["search"]) == 1) {
           //            $searchInput = $_GET["search"];
           //            $persons = search($searchInput);
           //          } else {
@@ -460,19 +458,28 @@ require_once __DIR__ . "/Assets/constants.php";
           //          }
           //          ?>
           <?php
-          if (isset($_GET['toddler'])) {
+          if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null) {
+            $toddler = toddler();
+            $persons = searchByAges($_GET['search'], $toddler);
+          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler") {
             $persons = toddler();
-          } else if (isset($_GET['productiveAges'])) {
+          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null) {
+            $productiveAges = productiveAges();
+            $persons = searchByAges($_GET['search'], $productiveAges);
+          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges") {
             $persons = productiveAges();
-          } else if (isset($_GET['passedAway'])) {
+          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null) {
+            $passedAway = passedAway();
+            $persons = searchByAges($_GET['search'], $passedAway);
+          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway") {
             $persons = passedAway();
-          } else if (isset($_GET['allPersons'])) {
-            $persons = personData();
+          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons") {
+            $persons = personsData();
           } else if ($_GET["search"]) {
             $searchInput = $_GET["search"];
             $persons = search($searchInput);
           } else {
-            $persons = personData();
+            $persons = personsData();
           }
           ?>
           <thead>
@@ -497,8 +504,6 @@ require_once __DIR__ . "/Assets/constants.php";
             for ($i = 0; $i < count($personsData); $i++) :
               ?>
               <tr>
-                <!--Dengan $i + 1 maka number akan berulang dari 1 disetiap page-->
-<!--                <th scope="row">--><?php //echo $i + 1?><!--</th>-->
                 <th scope="row"><?php echo $number++ ?></th>
                 <td><?php echo $personsData[$i]["email"] ?></td>
                 <td>
@@ -522,8 +527,7 @@ require_once __DIR__ . "/Assets/constants.php";
                 </td>
               </tr>
             <?php endfor;
-          }
-          ?>
+          } ?>
           </tbody>
           <?php ?>
         </table>
@@ -531,21 +535,64 @@ require_once __DIR__ . "/Assets/constants.php";
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
               <?php
-              if (isset($_GET["toddler"])) {
-                $filter = "?toddler&";
-              } else if (isset ($_GET["passedAway"])) {
-                $filter = "?passedAway&";
-              } else if (isset ($_GET["productiveAges"])) {
-                $filter = "?productiveAges&";
-              } else if (isset($_GET["search"])) {
-                $filter = "?search=" . $_GET["search"] . "&";
+              //              if (isset($_GET["toddler"])) {
+              //                $searchByAges = "?toddler&";
+              //              } else if (isset ($_GET["passedAway"])) {
+              //                $searchByAges = "?passedAway&";
+              //              } else if (isset ($_GET["productiveAges"])) {
+              //                $searchByAges = "?productiveAges&";
+              //              } else if (isset($_GET["search"])) {
+              //                $searchByAges = "?search=" . $_GET["search"] . "&";
+              //              } else {
+              //                $searchByAges = "?";
+              //              }
+              //              if (isset($_GET['search']) != null && isset($_GET['searchByAge']) != null) {
+              //                $filterByAges = "?search=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+              //              } else if (isset ($_GET['searchByAge']) == ['toddler'] && isset($_GET_['search'])) {
+              //                $filterByAges = "?toddler" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+              //              } else if (isset ($_GET['searchByAge']) == ['toddler'] && isset($_GET_['search'])) {
+              //                $filterByAge = "?productiveAges" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+              //              } else {
+              //                $filterByAges = "?";
+              //              }
+              
+//              if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null) {
+//                $filterByAge = "?toddler=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler") {
+//                $filterByAge = "?toddler=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null) {
+//                $filterByAge = "?productiveAges=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges") {
+//                $filterByAge = "?productiveAges=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null) {
+//                $filterByAge = "?passedAway=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway") {
+//                $filterByAge = "?passedAway=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons") {
+//                $filterByAge = "?passedAway=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
+//              } else if ($_GET["search"]) {
+//                $filterByAge = "?search=" . $_GET['search'] . "&";
+//              } else {
+//                $filterByAge = "?";
+//              }
+//              ?>
+              
+              <?php
+              if (isset($_GET['search']) != null && isset($_GET['searchByAge']) != null){
+                $filterByAge = "?search=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
               } else {
-                $filter = "?";
-              }
-              ?>
+                $filterByAge = "?";
+              } ?>
+              
+              
+<!--              http://localhost:8000/persons.php?searchByAge=Search+by+age&search=cahya#table-->
+              <!--              http://localhost:8000/persons.php?toddler=toddler&search=&page=1-->
+              <!--              http://localhost:8000/persons.php?searchByAge=toddler&search=kitty#table-->
+              
               <?php if ($page > 1) { ?>
                 <li class="page-item">
-                  <a class="page-link" aria-label="Previous" href="<?php echo $filter ?>page=<?php echo $previous ?>">
+                  <a class="page-link" aria-label="Previous"
+                     href="<?php echo $filterByAge ?>page=<?php echo $previous ?>">
                     <span aria-hidden="true">&laquo;</span>
                   </a>
                 </li>
@@ -554,13 +601,14 @@ require_once __DIR__ . "/Assets/constants.php";
               for ($x = 1; $x <= $data[PAGING_TOTAL_PAGE]; $x++) {
                 ?>
                 <li class="page-item"><a class="page-link"
-                                         href="<?php echo $filter ?>page=<?php echo $x ?>"><?php echo $x; ?></a></li>
+                                         href="<?php echo $filterByAge ?>page=<?php echo $x ?>"><?php echo $x; ?></a>
+                </li>
               <?php } ?>
               <?php
               if ($page < $data[PAGING_TOTAL_PAGE]) {
                 ?>
                 <li class="page-item">
-                  <a class="page-link" aria-label="Next" href="<?php echo $filter ?>page=<?php echo $next ?>"
+                  <a class="page-link" aria-label="Next" href="<?php echo $filterByAge ?>page=<?php echo $next ?>"
                   >
                     <span aria-hidden="true">&raquo;</span>
                   </a>

@@ -4,15 +4,18 @@ require_once __DIR__ . "/json.php";
 function search($search): array
 {
 //  $search = $_GET['search'];
-  $persons = personData();
+  $persons = personsData();
   $searchResult = [];
   foreach ($persons as $person => $value) {
     if (preg_match("/$search/i", $value["firstName"])) {
       if (in_array($value["firstName"], $searchResult) == false) {
         $searchResult[] = $value;
       }
+    } else if (preg_match("/$search/i", $value["lastName"])) {
+      if (in_array($value["lastName"], $searchResult) == false) {
+        $searchResult[] = $value;
+      }
     }
-    
 //    if (preg_match("/$search/i", $value["lastName"])) {
 //      if (in_array($value["lastName"], $searchResult) == false) {
 //        $searchResult[] = $value;
@@ -67,7 +70,7 @@ function searchByAges($search, $persons): array
 //}
 
 
-function personData()
+function personsData()
 {
   return $person = loadDataFromJson("persons.json");
 }
@@ -95,10 +98,9 @@ function personData()
 //  $total = time() - $date;
 //  return floor($total / (60 * 60 * 24 * 365));
 //}
-
 function toddler()
 {
-  $persons = personData();
+  $persons = personsData();
   foreach ($persons as $person) {
     if (checkAges($person["birthDate"]) <= 5 ) {
       $toddler[] = $person;
@@ -109,18 +111,18 @@ function toddler()
 
 function passedAway()
 {
-  $persons = personData();
+  $persons = personsData();
   foreach ($persons as $person) {
     if (checkAges($person["birthDate"]) > 60 ) {
-      $toddler[] = $person;
+      $passedAway[] = $person;
     }
   }
-  return $toddler;
+  return $passedAway;
 }
 
 function productiveAges()
 {
-  $persons = personData();
+  $persons = personsData();
   foreach ($persons as $person) {
     if (checkAges($person["birthDate"]) >= 6 && checkAges($person["birthDate"]) <= 60) {
       $productiveAges[] = $person;
@@ -217,7 +219,7 @@ function checkAges($birthDate)
 
 function iiwp_set_last_login($login) {
   
-  $user = personData();
+  $user = personsData();
   $user = "get_user_by"('login',$login);
   $time = "current_time"( 'timestamp' );
   $last_login = "get_user_meta"( $user->ID, '_last_login', 'true' );
@@ -248,5 +250,3 @@ function iiwp_set_last_login($login) {
 //
 //  return $last_login;
 //}
-
-
