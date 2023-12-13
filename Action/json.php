@@ -1,5 +1,11 @@
 <?php
 
+function saveDataIntoJson(array $array, string $fileName)
+{
+  $json = json_encode($array, JSON_PRETTY_PRINT);
+  $array = file_put_contents($fileName, $json);
+}
+
 function loadDataFromJson(string $fileName): array
 {
 $path = __DIR__ . "/../" . $fileName;

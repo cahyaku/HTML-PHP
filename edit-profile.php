@@ -250,7 +250,7 @@ if (!isset($_SESSION['email'])) {
         <div class="d-none d-lg-block">
           <a class="person-link" href="edit-profile.php">
             <?php
-            echo $_SESSION['email'];
+            echo $_SESSION['userEmail'];
             ?>
           </a>
         </div>
@@ -410,7 +410,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="NIK"
-                        value="1234567890123456"
+                        value="<?php echo $_SESSION['userNik'] ?>"
                         required
                     />
                   </div>
@@ -457,7 +457,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-select form-select-lg mb-3 has-shadow select-text"
                         aria-label="Large select example"
                     >
-                      <option selected>Open this select menu</option>
+                      <option selected><?php echo $_SESSION['userSex'] ?></option>
                       <option value="1">Male</option>
                       <option value="2">Female</option>
                     </select>

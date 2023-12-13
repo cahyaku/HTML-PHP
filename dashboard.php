@@ -163,7 +163,7 @@ require_once __DIR__ . "/Action/persons-action.php";
         <div class="d-none d-lg-block">
           <a class="person-link" href="edit-profile.php">
             <?php
-            echo $_SESSION['email'];
+            echo $_SESSION['userEmail'];
             ?>
           </a>
         </div>
@@ -267,15 +267,14 @@ require_once __DIR__ . "/Action/persons-action.php";
               <div class="card-body card-box card-1">
                 <div class="d-flex align-items-center card-title-box">
                   <div>
-                    <ion-icon name="people" class="dashboard-icon"></ion-icon>
+                  <ion-icon name="people-circle-outline" class="dashboard-icon"></ion-icon>
                   </div>
-                  <?php
+                    <?php
                   $allPersons =count(personsData());
                   echo "<h2 class='title'>";
                   echo "$allPersons";
                   echo "</h2>";
                   ?>
-<!--                  <h2 class="title">103</h2>-->
                 </div>
 
                 <p class="card-text">Number of persons</p>
@@ -303,15 +302,13 @@ require_once __DIR__ . "/Action/persons-action.php";
                   echo "$productiveAges";
                   echo "</h2>";
                   ?>
-                  
-<!--                  <h2 class="title">59</h2>-->
                 </div>
                 <p class="card-text">in Productive Ages</p>
                 <p class="card-text-box">
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
                 </p>
-                <a href="persons.php?productiveAges">
+                <a href="persons.php?searchByAge=productiveAges&search=">
                   <button class="more-info">More info &rAarr;</button>
                 </a>
               </div>
@@ -331,14 +328,13 @@ require_once __DIR__ . "/Action/persons-action.php";
                   echo "$passedAway";
                   echo "</h2>";
                   ?>
-<!--                  <h2 class="title">18</h2>-->
                 </div>
                 <p class="card-text">passed away</p>
                 <p class="card-text-box">
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
                 </p>
-                <a href="persons.php?passedAway">
+                <a href="persons.php?searchByAge=passedAway&search=">
                   <button class="more-info">More info &rAarr;</button>
                 </a>
               </div>
@@ -358,14 +354,13 @@ require_once __DIR__ . "/Action/persons-action.php";
                   echo "$toddler";
                   echo "</h2>";
                   ?>
-<!--                  <h2 class="title">18</h2>-->
                 </div>
                 <p class="card-text">toddler</p>
                 <p class="card-text-box">
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
                 </p>
-                <a href="persons.php?toddler">
+                <a href="persons.php?searchByAge=toddler&search=">
                   <button class="more-info">More info &rAarr;</button>
                 </a>
               </div>
@@ -377,7 +372,7 @@ require_once __DIR__ . "/Action/persons-action.php";
               <div class="card-body card-box">
                 <div class="d-flex align-items-center card-title-box">
                   <div>
-                    <ion-icon name="happy" class="dashboard-icon"></ion-icon>
+                    <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
                   $allPersons =count(personsData());
@@ -385,14 +380,13 @@ require_once __DIR__ . "/Action/persons-action.php";
                   echo "$allPersons";
                   echo "</h2>";
                   ?>
-<!--                  <h2 class="title">1.213</h2>-->
                 </div>
                 <p class="card-text">All Persons</p>
                 <p class="card-text-box">
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
                 </p>
-                <a href="persons.php?allPerson">
+                <a href="persons.php?searchByAge=allPersons&search=">
                   <button class="more-info">More info &rAarr;</button>
                 </a>
               </div>

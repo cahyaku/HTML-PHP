@@ -25,25 +25,15 @@ require_once __DIR__ . "/json.php";
 //   die();
 // }
 //
-//function loadDataFromJson(string $fileName): array
-//{
-//    if (file_exists($fileName)) {
-//        $data = file_get_contents($fileName);
-//        $result = json_decode($data, true);
-//        return $result;
-//    }
-//    return [];
-//}
-
 
 // Data persons dari JSON
 $loginData = loadDataFromJson("persons.json");
 
 function validateData($data)
 {
-    for ($i = 0; $i < count($data); $i++) {
-        if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
-          return $data[$i];
+  for ($i = 0; $i < count($data); $i++) {
+    if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
+      return $data[$i];
 //            return true;
     }
   }
@@ -65,63 +55,34 @@ function redirect($url, $getParams)
 }
 
 if (validateData($loginData)) {
-  $_SESSION['email'] = $_POST['email'];
+  $_SESSION['userEmail'] = $_POST['email'];
+  $_SESSION['userNik'] = validateData($loginData)['nik'];
+  $_SESSION['userSex'] = validateData($loginData)['sex'];
   $_SESSION['userFirstName'] = validateData($loginData)['firstName'];
   $_SESSION['userLastName'] = validateData($loginData)['lastName'];
-  header("Location: ../dashboard.php");
+  $loggedIn = ($loginData)['loggedIn'];
+  header("Location: ../dashboard.php?=$loggedIn");
   exit();
 } else {
 //  header('Location:../login.php?error=1');
   redirect("../login.php", "error=1");
 }
 
-//function validateData($data): bool
-//{
-//    for ($i = 0; $i < count($data); $i++) {
-//        if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
-//            return true;
-//        } else {
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-//
-//function checkData($loginData)
-//{
-//    for ($i = 0; $i < count($loginData); $i++) {
-//        if ($loginData[$i]["email"] == $_POST['email'] && $loginData[$i]["password"] == $_POST['password']) {
-//            header('Location: ../dashboard.php');
-//            die();
-//        }
-//    }
-//    header('Location: ../login.php?error=1');
-//    die();
-//}
-//function askForDate(?string $sentence = null, ?string $errorMassage = null, ?string $format = 'd/m/Y', ?int $date = null): null|int
-//{
-//  while (true) {
-//    if ($date != null) {
-//      $birthDate = TerminalHelper::inputString($sentence ?: "Date (DD/MM/YYYY):");
-//      if ($birthDate == "") {
-//        return $date;
-//      } else {
-//        $dateFormat = date_create_from_format($format, $birthDate);
-//        if ($dateFormat == false) {
-//          return null;
-//        } else {
-//          $timeStamp = date_format($dateFormat, 'U');
-//          return ($timeStamp);
-//        }
-//      }
-//    }
+// get last logged from $_SESSION['loggedIn']
+//function lastLogged() {
+//  if(isset($_SESSION['loggedIn'])) {
+//   $date = [];
+//  } else {
+//    $date = time();
 //  }
 //}
 
-// mencari data last login
-
-
-
-
-
-
+//function getLoggedIn(){
+//  $persons = personsData();
+//  for ($i = 0; $i <count($persons); $i++) {
+//    if($persons[$i]["loggedIn"] == $_SESSION['loggedIn']) {
+//       $persons[$i]["loggedIn"] = time();
+//       saveDataIntoJson($persons, "persons.json");
+//    }
+//  }
+//}

@@ -4,6 +4,7 @@ if (!isset($_SESSION['email'])) {
   header("Location: login.php");
   exit(); // Terminate script execution after the redirect
 }
+require_once __DIR__ . "/Action/common-action.php";
 ?>
 
 <!DOCTYPE html>
@@ -253,7 +254,7 @@ if (!isset($_SESSION['email'])) {
         <div class="d-none d-lg-block">
           <a class="person-link" href="edit-profile.php">
             <?php
-            echo $_SESSION['email'];
+            echo $_SESSION['userEmail'];
             ?>
           </a>
         </div>
@@ -360,44 +361,52 @@ if (!isset($_SESSION['email'])) {
           <div class="person-title">
             <h3 class="title">View person data</h3>
           </div>
-
+          <?php
+          if (isset($_GET['id']) == 1) {
+          $id = $_GET['id'];
+          $persons = getPersonData($id);
+          ?>
           <div class="person-data">
             <div class="card has-shadow">
               <div class="card-body">
+                <!--                --><?php
+                //                if (isset($_GET['id']) == 1) {
+                //                $id = $_GET['id'];
+                //                $persons = getPersonData($id);
+                //
+                ////                if (isset($_GET['btn-view']) == "id") {
+                ////                $persons = getPerson();
+                //
+                //                ?>
                 <p class="text-title">First name*</p>
-<!--                <p class="data person-name">--><?php //$person['FirstName']?><!--</p>-->
-                <p class="data person-name">I Gusti Ayu</p>
+                <p class="data"><?php echo $persons['firstName'] ?></p>
                 <p class="text-title">Last name*</p>
-                <p class="data person-name">Kumala Cahya</p>
+                <p class="data"><?php echo $persons['lastName'] ?></p>
                 <p class="text-title">NIK*</p>
-                <p class="data person-name">1234567890339933</p>
+                <p class="data"><?php echo $persons['nik'] ?></p>
                 <p class="text-title">Email*</p>
-                <p class="data person-name">me@example.com</p>
+                <p class="data"><?php echo $persons['email'] ?></p>
                 <p class="text-title">Sex*</p>
-                <p class="data person-name">Female</p>
+                <p class="data"><?php echo $persons['sex'] ?></p>
                 <p class="text-title">Address*</p>
-                <p class="data person-name">
-                  Br. Basangbe, Perean Kangin, Baturiti, Tabanan, Bali
-                </p>
+                <p class="data"><?php echo $persons['lastName'] ?></p>
                 <p class="text-title">Internal notes*</p>
-
+                <p class="data"><?php echo $persons['internalNotes'] ?></p>
                 <div class="text-end">
                   <button
                       type="button"
                       class="btn btn-outline-primary btn-edit btn-space"
                   >
-                    <a class="edit btn-text" href="edit-person.php">
+                    <a class="edit btn-text" href="edit-person.php?id=<?php echo $persons['id']?>">
                       Edit
                     </a>
                   </button>
-
                   <button
                       type="button"
                       class="btn btn-secondary btn-back btn-space"
                   >
                     <a class="back btn-text" href="persons.php"> Back </a>
                   </button>
-
                   <!-- Button trigger modal -->
                   <button
                       type="reset"
@@ -407,7 +416,6 @@ if (!isset($_SESSION['email'])) {
                   >
                     Delete
                   </button>
-
                   <!-- Modal -->
                   <div
                       class="modal fade"
@@ -450,12 +458,14 @@ if (!isset($_SESSION['email'])) {
                 </div>
               </div>
             </div>
+            <?php } ?>
           </div>
         </div>
       </div>
     </div>
   </section>
 </main>
+
 <!-- BOOTSTRAPS -->
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

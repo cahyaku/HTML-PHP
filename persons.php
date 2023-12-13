@@ -119,7 +119,6 @@ require_once __DIR__ . "/Assets/constants.php";
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
   />
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
@@ -257,7 +256,7 @@ require_once __DIR__ . "/Assets/constants.php";
         <div class="d-none d-lg-block">
           <a class="person-link" href="edit-profile.php">
             <?php
-            echo $_SESSION['email'];
+            echo $_SESSION['userEmail'];
             ?>
           </a>
         </div>
@@ -512,16 +511,28 @@ require_once __DIR__ . "/Assets/constants.php";
                 <td>
                   <div class="table-button">
                     <div class="text-end">
-                      <a class="edit btn-table" href="edit-person.php">
-                        <button type="button" class="btn btn-outline-primary">
+                      <a class="edit btn-table" href="edit-person.php?id=<?php  echo $personsData[$i]["id"]?>">
+                        <button type="button" class="btn btn-outline-primary" name="btn-edit">
                           Edit
                         </button>
                       </a>
-                      <a class="view btn-table" href="view-person.php">
-                        <button type="button" class="btn btn-outline-primary">
+                      <a class="view btn-table" href="view-person.php?id=<?php echo $personsData[$i]["id"]?>">
+                        <button type="button" class="btn btn-outline-primary" name="btn-view">
                           View
                         </button>
                       </a>
+                      <!--                      <a class="view btn-table" href="view-person.php?>?value=-->
+                      <?php //echo "btn-form"
+                      ?><!--">-->
+                      <!--                        <button type="button" class="btn btn-outline-primary" name="btn-view" value="-->
+                      <?php //echo $personsData[$i]['id']
+                      ?><!--">-->
+                      <!--                          View-->
+                      <!--                        </button>-->
+                      <!--                        <input class="btn btn-primary" type="submit" value="-->
+                      <?php //$id =  $personsData[$i]['id']
+                      ?><!--">-->
+                      <!--                      </a>-->
                     </div>
                   </div>
                 </td>
