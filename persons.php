@@ -535,60 +535,11 @@ require_once __DIR__ . "/Assets/constants.php";
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
               <?php
-              //              if (isset($_GET["toddler"])) {
-              //                $searchByAges = "?toddler&";
-              //              } else if (isset ($_GET["passedAway"])) {
-              //                $searchByAges = "?passedAway&";
-              //              } else if (isset ($_GET["productiveAges"])) {
-              //                $searchByAges = "?productiveAges&";
-              //              } else if (isset($_GET["search"])) {
-              //                $searchByAges = "?search=" . $_GET["search"] . "&";
-              //              } else {
-              //                $searchByAges = "?";
-              //              }
-              //              if (isset($_GET['search']) != null && isset($_GET['searchByAge']) != null) {
-              //                $filterByAges = "?search=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-              //              } else if (isset ($_GET['searchByAge']) == ['toddler'] && isset($_GET_['search'])) {
-              //                $filterByAges = "?toddler" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-              //              } else if (isset ($_GET['searchByAge']) == ['toddler'] && isset($_GET_['search'])) {
-              //                $filterByAge = "?productiveAges" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-              //              } else {
-              //                $filterByAges = "?";
-              //              }
-              
-//              if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null) {
-//                $filterByAge = "?toddler=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler") {
-//                $filterByAge = "?toddler=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null) {
-//                $filterByAge = "?productiveAges=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges") {
-//                $filterByAge = "?productiveAges=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null) {
-//                $filterByAge = "?passedAway=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway") {
-//                $filterByAge = "?passedAway=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-//              } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons") {
-//                $filterByAge = "?passedAway=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
-//              } else if ($_GET["search"]) {
-//                $filterByAge = "?search=" . $_GET['search'] . "&";
-//              } else {
-//                $filterByAge = "?";
-//              }
-//              ?>
-              
-              <?php
-              if (isset($_GET['search']) != null && isset($_GET['searchByAge']) != null){
+              if (isset($_GET['search']) != null && isset($_GET['searchByAge']) != null) {
                 $filterByAge = "?search=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
               } else {
                 $filterByAge = "?";
               } ?>
-              
-              
-<!--              http://localhost:8000/persons.php?searchByAge=Search+by+age&search=cahya#table-->
-              <!--              http://localhost:8000/persons.php?toddler=toddler&search=&page=1-->
-              <!--              http://localhost:8000/persons.php?searchByAge=toddler&search=kitty#table-->
-              
               <?php if ($page > 1) { ?>
                 <li class="page-item">
                   <a class="page-link" aria-label="Previous"

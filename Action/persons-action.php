@@ -69,7 +69,6 @@ function searchByAges($search, $persons): array
 //  return $searchResult;
 //}
 
-
 function personsData()
 {
   return $person = loadDataFromJson("persons.json");
@@ -155,17 +154,6 @@ function checkAges($birthDate)
 //  return $toddler;
 //}
 
-//function orderByAge()
-//{
-//  $persons = personData();
-//  foreach ($persons as $person) {
-//    if (checkAges($person["birthDate"]) < 5 ) {
-//      $toddler[] = $person;
-//    }
-//  }
-//  return $toddler;
-//}
-
 //$age = checkAges();
 //function filterPersonsByAges($age)
 //{
@@ -211,42 +199,4 @@ function checkAges($birthDate)
 //    }
 //  }
 //  return null;
-//}
-
-// set the last login date
-//add_action('wp_login','iiwp_set_last_login', 0, 2);
-
-
-function iiwp_set_last_login($login) {
-  
-  $user = personsData();
-  $user = "get_user_by"('login',$login);
-  $time = "current_time"( 'timestamp' );
-  $last_login = "get_user_meta"( $user->ID, '_last_login', 'true' );
-
-  if(!$last_login){
-    "update_usermeta"( $user->ID, '_last_login', $time );
-  }else{
-    "update_usermeta"( $user->ID, '_last_login_prev', $last_login );
-    "update_usermeta"( $user->ID, '_last_login', $time );
-  }
-
-}
-//
-//// get last login date
-//function iiwp_get_last_login($user_id,$prev=null){
-//
-//  $last_login = get_user_meta($user_id);
-//  $time = current_time( 'timestamp' );
-//
-//  if(isset($last_login['_last_login_prev'][0]) && $prev){
-//    $last_login = get_user_meta($user_id, '_last_login_prev', 'true' );
-//  }else if(isset($last_login['_last_login'][0])){
-//    $last_login = get_user_meta($user_id, '_last_login', 'true' );
-//  }else{
-//    update_usermeta( $user_id, '_last_login', $time );
-//    $last_login = $last_login['_last_login'][0];
-//  }
-//
-//  return $last_login;
 //}

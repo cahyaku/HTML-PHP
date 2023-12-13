@@ -379,7 +379,13 @@ require_once __DIR__ . "/Action/persons-action.php";
                   <div>
                     <ion-icon name="happy" class="dashboard-icon"></ion-icon>
                   </div>
-                  <h2 class="title">1.213</h2>
+                  <?php
+                  $allPersons =count(personsData());
+                  echo "<h2 class='title'>";
+                  echo "$allPersons";
+                  echo "</h2>";
+                  ?>
+<!--                  <h2 class="title">1.213</h2>-->
                 </div>
                 <p class="card-text">All Persons</p>
                 <p class="card-text-box">
