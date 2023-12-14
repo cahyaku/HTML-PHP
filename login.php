@@ -92,7 +92,6 @@ if (isset($_SESSION['email'])) {
                               <input class="form-contol" id="email" name="email"
                                      type="email" placeholder="me@example.com" required/>
                             </div>
-
                             <div class="mb-3">
                               <label for="password">
                                 <ion-icon name="key"></ion-icon>

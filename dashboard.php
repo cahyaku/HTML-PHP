@@ -1,9 +1,4 @@
 <?php
-//include("persons.json");
-//$personsData = loadDataFromJson("persons.json")
-//?>
-
-<?php
 session_start();
 if (!isset($_SESSION['email'])) {
   header("Location: login.php");
@@ -11,6 +6,8 @@ if (!isset($_SESSION['email'])) {
 }
 
 require_once __DIR__ . "/Action/persons-action.php";
+require_once __DIR__ . "/Action/common-action.php";
+require_once __DIR__ . "/Action/dashboard-action.php";
 ?>
 
 <!DOCTYPE html>
@@ -109,7 +106,7 @@ require_once __DIR__ . "/Action/persons-action.php";
                     Dashboard</a>
                 </li>
                 <li>
-                  <a class="main-nav-link" href="">
+                  <a class="main-nav-link" href="persons.php">
                     <ion-icon name="people"></ion-icon>
                     Persons
                   </a>
@@ -163,7 +160,7 @@ require_once __DIR__ . "/Action/persons-action.php";
         <div class="d-none d-lg-block">
           <a class="person-link" href="edit-profile.php">
             <?php
-            echo $_SESSION['userEmail'];
+            echo $_SESSION['email'];
             ?>
           </a>
         </div>
@@ -252,10 +249,11 @@ require_once __DIR__ . "/Action/persons-action.php";
           echo "Hi, " . $_SESSION['userFirstName'] . " " . $_SESSION['userLastName'] . "...";
           echo "</h3>";
           ?>
-
           <p class="dashboard-text">
+            <?php if($_SESSION['userLoggedIn'] != null) {?>
             You were logged previously in
-            <strong>Monday, 6 November 2023 3:04 PM</strong>
+            <?php }?>
+            <strong><?php echo customDateToString($_SESSION['userLoggedIn']) . "!"?></strong>
           </p>
         </div>
       </div>
@@ -411,5 +409,4 @@ require_once __DIR__ . "/Action/persons-action.php";
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
 </body>
-
 </html>

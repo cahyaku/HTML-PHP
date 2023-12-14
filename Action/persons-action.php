@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . "/json.php";
+//require_once __DIR__ . "/json.php";
+require_once __DIR__ . "/common-action.php";
 
 function search($search): array
 {
@@ -69,10 +70,10 @@ function searchByAges($search, $persons): array
 //  return $searchResult;
 //}
 
-function personsData()
-{
-  return $person = loadDataFromJson("persons.json");
-}
+//function personsData()
+//{
+//  return $person = loadDataFromJson("persons.json");
+//}
 
 //function checkAges($date)
 //{
@@ -142,6 +143,7 @@ function checkAges($birthDate)
   $currentAge = floor($yearOfBirthDate) ;
   return $currentAge;
 }
+
 
 //function orderByAges()
 //{

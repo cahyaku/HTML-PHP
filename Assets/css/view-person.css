@@ -47,6 +47,11 @@
   border: none;
 }
 
+.link-confirm {
+  text-decoration: none;
+  color: #fff;
+}
+
 .text-end .btn-back {
   border: none;
 }

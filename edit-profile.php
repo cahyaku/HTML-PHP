@@ -4,6 +4,8 @@ if (!isset($_SESSION['email'])) {
   header("Location: login.php");
   exit(); // Terminate script execution after the redirect
 }
+
+require_once __DIR__ . "/Action/common-action.php";
 ?>
 
 <!DOCTYPE html>
@@ -250,7 +252,7 @@ if (!isset($_SESSION['email'])) {
         <div class="d-none d-lg-block">
           <a class="person-link" href="edit-profile.php">
             <?php
-            echo $_SESSION['userEmail'];
+            echo $_SESSION['email'];
             ?>
           </a>
         </div>
@@ -361,6 +363,11 @@ if (!isset($_SESSION['email'])) {
               <h3 class="title">My Profile</h3>
             </div>
             <form class="person-form" action="#">
+              <?php
+              if(isset($_SESSION['email'])) {
+                $person = getPersonDataByEmail($_SESSION['email']);
+              }
+              ?>
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
@@ -373,7 +380,7 @@ if (!isset($_SESSION['email'])) {
                         id="exampleFormControlInput1"
                         placeholder="First name"
                         value="<?php
-                        echo $_SESSION['userFirstName'];
+                        echo $person['firstName'];
                         ?>"
                         required
                     />
@@ -391,7 +398,7 @@ if (!isset($_SESSION['email'])) {
                         id="exampleFormControlInput1"
                         placeholder="LastName"
                         value="<?php
-                    echo $_SESSION['userLastName'];
+                    echo $person['lastName'];
                     ?>"
                         required
                     />
@@ -410,7 +417,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="NIK"
-                        value="<?php echo $_SESSION['userNik'] ?>"
+                        value="<?php echo $person['nik'] ?>"
                         required
                     />
                   </div>
@@ -426,7 +433,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="me@example.com"
-                        value="cahya@kumala.com"
+                        value="<?php echo $person['email']?>"
                         required
                     />
                   </div>
@@ -444,7 +451,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="Birth date"
-                        value="2005-08-03"
+                        value="<?php echo traslateDateFromIntToString($person['birthDate'])?>"
                         required
                     />
                   </div>
@@ -457,7 +464,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-select form-select-lg mb-3 has-shadow select-text"
                         aria-label="Large select example"
                     >
-                      <option selected><?php echo $_SESSION['userSex'] ?></option>
+                      <option selected><?php echo $person['sex'] ?></option>
                       <option value="1">Male</option>
                       <option value="2">Female</option>
                     </select>
@@ -476,7 +483,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="Address"
-                        value="Br.Basangbe, Perean Kangin, Baturiti, Tabanan, Bali"
+                        value="<?php echo $person['address'] ?>"
                         required
                     />
                   </div>
@@ -495,7 +502,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control i-text has-background has-shadow"
                         id="exampleFormControlTextarea1"
                         rows="1"
-                    ></textarea>
+                    ><?php echo $person['internalNotes']?></textarea>
                   </div>
                 </div>
               </div>
@@ -515,6 +522,7 @@ if (!isset($_SESSION['email'])) {
                   </button>
                 </a>
               </div>
+              <?php ?>
             </form>
           </div>
         </div>

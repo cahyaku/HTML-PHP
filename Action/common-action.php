@@ -1,6 +1,7 @@
 <?php
+require_once __DIR__ . "/json.php";
 
-require_once __DIR__ . "/persons-action.php";
+//require_once __DIR__ . "/persons-action.php";
 //function getPerson()
 //{
 //  $person = $_GET['btn-view'] == "id";
@@ -15,6 +16,17 @@ require_once __DIR__ . "/persons-action.php";
 //}
 //$id = $_GET['id'];
 
+function personsData()
+{
+  return $person = loadDataFromJson("persons.json");
+}
+
+function redirect($url, $getParams)
+{
+  header('Location: ' . $url . '?' . $getParams);
+  die();
+}
+
 function getPersonData($id) {
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) {
@@ -23,6 +35,21 @@ function getPersonData($id) {
     }
   }
   return $persons[$i];
+}
+
+function getPersonDataByEmail($email) {
+  $persons = personsData();
+  for ($i = 0; $i < count($persons); $i++) {
+    if ($email == $persons[$i]['email']){
+      return $persons[$i];
+    }
+  }
+  return null;
+}
+
+function traslateDateFromIntToString($date)
+{
+  return $date = date("m/d/Y",$date);
 }
 
 //function loginAction(Request $request)

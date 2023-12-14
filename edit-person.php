@@ -256,7 +256,7 @@ require_once __DIR__ . "/Action/common-action.php";
         <div class="d-none d-lg-block">
           <a class="person-link" href="edit-profile.php">
             <?php
-            echo $_SESSION['userEmail'];
+            echo $_SESSION['email'];
             ?>
           </a>
         </div>

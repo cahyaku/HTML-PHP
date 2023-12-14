@@ -191,8 +191,10 @@ if (!isset($_SESSION['email'])) {
                     Persons
                   </a>
                 </li>
+               
                 <li class="my-acount-padding">
                   <p class="my-acount">My Account</p>
+                  
                 </li>
                 <li class="sidebar-padding-li">
                   <a
@@ -297,7 +299,7 @@ if (!isset($_SESSION['email'])) {
             <li class="sidebar-padding-li">
               <a
                   class="main-nav-link edit-profile-link"
-                  href=""
+                  href="edit-profile.php"
               >
                 <ion-icon
                     clas="nav-icon"
@@ -363,7 +365,7 @@ if (!isset($_SESSION['email'])) {
             <div class="person-title">
               <h3 class="title">Add person</h3>
             </div>
-            <form class="person-form" action="#">
+            <form class="person-form" action="Action/add-person-action.php" name="create-form" method="post">
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
@@ -374,7 +376,7 @@ if (!isset($_SESSION['email'])) {
                         type="text"
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
-                        placeholder="First name"
+                        placeholder="First Name"
                         name="firstName"
                         required
                     />
@@ -390,7 +392,8 @@ if (!isset($_SESSION['email'])) {
                         type="text"
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
-                        placeholder="Last name"
+                        placeholder="Last Name"
+                        name="lastName"
                         required
                     />
                   </div>
@@ -408,6 +411,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="NIK"
+                        name="nik"
                         required
                     />
                   </div>
@@ -423,6 +427,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="me@example.com"
+                        name="email"
                         required
                     />
                   </div>
@@ -440,6 +445,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="Birth date"
+                        name="birthDate"
                         required
                     />
                   </div>
@@ -451,6 +457,7 @@ if (!isset($_SESSION['email'])) {
                     <select
                         class="form-select form-select-lg mb-3 has-shadow select-text"
                         aria-label="Large select example"
+                        name="sex"
                     >
                       <option selected>Open this select menu</option>
                       <option value="1">Male</option>
@@ -471,6 +478,7 @@ if (!isset($_SESSION['email'])) {
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="Address"
+                        name="address"
                         required
                     />
                   </div>
@@ -482,6 +490,7 @@ if (!isset($_SESSION['email'])) {
                     <select
                         class="form-select form-select-lg mb-3 has-shadow select-text"
                         aria-label="Large select example "
+                        name="role"
                     >
                       <option selected>Open this select menu</option>
                       <option value="1">Admin</option>
@@ -501,6 +510,7 @@ if (!isset($_SESSION['email'])) {
                     class="form-control i-text has-background has-shadow"
                     id="exampleFormControlTextarea1"
                     rows="2"
+                    name="internalNotes"
                 ></textarea>
               </div>
               <!-- </div> -->
@@ -524,8 +534,11 @@ if (!isset($_SESSION['email'])) {
                 <button
                     type="submit"
                     class="btn btn-outline-primary btn-save"
+                    name="save-btn"
                 >
+                  <a class="link-confirm" href="Action/add-person-action.php?=<?php echo $_POST['firstName']?>">
                   Save
+                    <a>
                 </button>
                 <a class="cancel" href="persons.php">
                   <button

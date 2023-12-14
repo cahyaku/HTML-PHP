@@ -5,6 +5,7 @@ if (!isset($_SESSION['email'])) {
   exit(); // Terminate script execution after the redirect
 }
 require_once __DIR__ . "/Action/common-action.php";
+//require_once __DIR__ . "/Action/view-person-action.php";
 ?>
 
 <!DOCTYPE html>
@@ -254,7 +255,7 @@ require_once __DIR__ . "/Action/common-action.php";
         <div class="d-none d-lg-block">
           <a class="person-link" href="edit-profile.php">
             <?php
-            echo $_SESSION['userEmail'];
+            echo $_SESSION['email'];
             ?>
           </a>
         </div>
@@ -397,7 +398,7 @@ require_once __DIR__ . "/Action/common-action.php";
                       type="button"
                       class="btn btn-outline-primary btn-edit btn-space"
                   >
-                    <a class="edit btn-text" href="edit-person.php?id=<?php echo $persons['id']?>">
+                    <a class="edit btn-text" href="edit-person.php?id=<?php echo $persons['id'] ?>">
                       Edit
                     </a>
                   </button>
@@ -408,13 +409,22 @@ require_once __DIR__ . "/Action/common-action.php";
                     <a class="back btn-text" href="persons.php"> Back </a>
                   </button>
                   <!-- Button trigger modal -->
+
+                  <!--                  <button-->
+                  <!--                      type="reset"-->
+                  <!--                      class="btn btn-secondary btn-delete"-->
+                  <!--                      data-bs-toggle="modal"-->
+                  <!--                      data-bs-target="#exampleModal"-->
+                  <!--                  >-->
+                  <!--                    Delete-->
+                  <!--                  </button>-->
                   <button
                       type="reset"
                       class="btn btn-secondary btn-delete"
                       data-bs-toggle="modal"
                       data-bs-target="#exampleModal"
                   >
-                    Delete
+                      Delete
                   </button>
                   <!-- Modal -->
                   <div
@@ -449,7 +459,9 @@ require_once __DIR__ . "/Action/common-action.php";
                               type="button"
                               class="btn btn-primary btn-edit"
                           >
+                            <a class="link-confirm" href="Action/view-person-action.php?id=<?php echo $persons['id']?>">
                             Yes
+                            </a>
                           </button>
                         </div>
                       </div>

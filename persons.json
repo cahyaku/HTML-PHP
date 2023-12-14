@@ -11,7 +11,7 @@
         "address": "Baturiti",
         "role": "ADMIN",
         "internalNotes": "Hi, aku Cahya Kumala",
-        "loggedIn": null
+        "loggedIn": 1123034593
     },
     {
         "id": 2,
@@ -25,8 +25,7 @@
         "address": "perean",
         "role": "ADMIN",
         "internalNotes": "hi aku Kitty cute",
-        "lastLogged": null,
-        "loggedIn": 1702457355
+        "loggedIn": 1702537573
     },
     {
         "id": 3,
@@ -54,7 +53,7 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": null
+        "loggedIn": 1702537859
     },
     {
         "id": 5,
@@ -68,7 +67,7 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": null
+        "loggedIn": 1702537901
     },
     {
         "id": 6,
@@ -96,7 +95,7 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": null
+        "loggedIn": 1229070124
     },
     {
         "id": 8,
