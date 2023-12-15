@@ -388,7 +388,7 @@ require_once __DIR__ . "/Action/common-action.php";
                 <p class="text-title">Email*</p>
                 <p class="data"><?php echo $persons['email'] ?></p>
                 <p class="text-title">Sex*</p>
-                <p class="data"><?php echo $persons['sex'] ?></p>
+                <p class="data"><?php echo $persons['sex']?></p>
                 <p class="text-title">Address*</p>
                 <p class="data"><?php echo $persons['lastName'] ?></p>
                 <p class="text-title">Internal notes*</p>
@@ -399,7 +399,7 @@ require_once __DIR__ . "/Action/common-action.php";
                       class="btn btn-outline-primary btn-edit btn-space"
                   >
                     <a class="edit btn-text" href="edit-person.php?id=<?php echo $persons['id'] ?>">
-                      Edit
+                      Edit&ensp;🐻
                     </a>
                   </button>
                   <button
@@ -409,7 +409,6 @@ require_once __DIR__ . "/Action/common-action.php";
                     <a class="back btn-text" href="persons.php"> Back </a>
                   </button>
                   <!-- Button trigger modal -->
-
                   <!--                  <button-->
                   <!--                      type="reset"-->
                   <!--                      class="btn btn-secondary btn-delete"-->

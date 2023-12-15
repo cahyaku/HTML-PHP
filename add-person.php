@@ -255,7 +255,7 @@ if (!isset($_SESSION['email'])) {
         <div class="d-none d-lg-block">
           <a class="person-link" href="edit-profile.php">
             <?php
-            echo $_SESSION['userEmail'];
+            echo $_SESSION['email'];
             ?>
           </a>
         </div>
@@ -458,10 +458,11 @@ if (!isset($_SESSION['email'])) {
                         class="form-select form-select-lg mb-3 has-shadow select-text"
                         aria-label="Large select example"
                         name="sex"
+                        required
                     >
-                      <option selected>Open this select menu</option>
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
+                      <option selected disabled="disabled">Open this select menu</option>
+                      <option value="MALE">Male</option>
+                      <option value="FEMALE">Female</option>
                     </select>
                   </div>
                 </div>
@@ -491,10 +492,11 @@ if (!isset($_SESSION['email'])) {
                         class="form-select form-select-lg mb-3 has-shadow select-text"
                         aria-label="Large select example "
                         name="role"
+                        required
                     >
-                      <option selected>Open this select menu</option>
-                      <option value="1">Admin</option>
-                      <option value="2">Member</option>
+                      <option selected disabled="disabled">Open this select menu</option>
+                      <option value="ADMIN">Admin</option>
+                      <option value="MEMBER">Member</option>
                     </select>
                   </div>
                 </div>
@@ -536,10 +538,17 @@ if (!isset($_SESSION['email'])) {
                     class="btn btn-outline-primary btn-save"
                     name="save-btn"
                 >
-                  <a class="link-confirm" href="Action/add-person-action.php?=<?php echo $_POST['firstName']?>">
-                  Save
-                    <a>
+                    Save
                 </button>
+<!--                <button-->
+<!--                    type="submit"-->
+<!--                    class="btn btn-outline-primary btn-save"-->
+<!--                    name="save-btn"-->
+<!--                >-->
+<!--                  <a class="link-save" href="Action/add-person-action.php?=--><?php //echo $_POST['firstName']?><!--">-->
+<!--                  Save-->
+<!--                    <a>-->
+<!--                </button>-->
                 <a class="cancel" href="persons.php">
                   <button
                       type="button"

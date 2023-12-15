@@ -362,15 +362,29 @@ require_once __DIR__ . "/Action/common-action.php";
         <div class="person-header">
           <h3 class="box-title">Persons</h3>
         </div>
+        
+        
         <div class="add-button">
-          <a class="add" href="add-person.php">
             <button type="button" class="btn btn-outline-primary btn-add">
+              <?php
+              if (checkRole($_SESSION['email']) != null) {
+              ?>
+              <a class="add" href="add-person.php">
               +Add
+              </a>
+              <?php } else{ ?>
+                <a class="add" href="persons.php?error=1">
+                  +Add
+                </a>
+              <?php }?>
             </button>
-          </a>
         </div>
       </div>
-
+      <?php if ($_GET["error"] == 1) : ?>
+        <div class="alert alert-danger" role="alert">
+          Only admin roles can add new person data!!!
+        </div>
+      <?php endif; ?>
       <div class="search-box">
         <!--        <div class="d-flex">-->
         <form class="form d-flex" name="search-form" role="search" method="get" action="#table">

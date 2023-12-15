@@ -100,7 +100,6 @@ if (isset($_SESSION['email'])) {
                               <input class="form-contol" id="password" name="password"
                                      type="password" placeholder="Password" required/>
                             </div>
-                            
                             <?php if ($_GET["error"] == 1) : ?>
                               <div class="alert alert-danger" role="alert">
                                 Sorry, your email or password was wrong. Please check

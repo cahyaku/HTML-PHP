@@ -126,3 +126,8 @@
 .profile-nav-link:visited {
   color: #364fc7;
 }
+
+.link-save {
+  text-decoration: none;
+  color:#fff;
+}

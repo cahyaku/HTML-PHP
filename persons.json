@@ -2,7 +2,7 @@
     {
         "id": 1,
         "nik": "1111111111111111",
-        "firstName": "Cahya",
+        "firstName": "cahya",
         "lastName": "Kumala",
         "birthDate": "1104531170",
         "sex": "Female",
@@ -11,7 +11,7 @@
         "address": "Baturiti",
         "role": "ADMIN",
         "internalNotes": "Hi, aku Cahya Kumala",
-        "loggedIn": 1123034593
+        "loggedIn": 1702604683
     },
     {
         "id": 2,
@@ -37,7 +37,7 @@
         "email": "cia@gmail.com",
         "password": "cia123",
         "address": "Tabanan",
-        "role": "ADMIN",
+        "role": "MEMBER",
         "internalNotes": "Hi aku cia",
         "loggedIn": null
     },
@@ -179,6 +179,20 @@
         "address": "perean",
         "role": "ADMIN",
         "internalNotes": "hi aku Kitty cute",
+        "loggedIn": null
+    },
+    {
+        "id": 14,
+        "nik": "52585000030825",
+        "firstName": "Kellyyy",
+        "lastName": "Cute",
+        "birthDate": -107740800,
+        "sex": "FEMALE",
+        "email": "cahya@gmail.com",
+        "password": null,
+        "address": "Br.Basangbe, Perean kangin, Baturiti, Tabanan, Bali",
+        "role": "MEMBER",
+        "internalNotes": "internalNotes",
         "loggedIn": null
     }
 ]

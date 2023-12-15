@@ -1,10 +1,8 @@
 <?php
-//require_once __DIR__ . "/json.php";
 require_once __DIR__ . "/common-action.php";
 
 function search($search): array
 {
-//  $search = $_GET['search'];
   $persons = personsData();
   $searchResult = [];
   foreach ($persons as $person => $value) {
@@ -12,17 +10,13 @@ function search($search): array
       if (in_array($value["firstName"], $searchResult) == false) {
         $searchResult[] = $value;
       }
-    } else if (preg_match("/$search/i", $value["lastName"])) {
-      if (in_array($value["lastName"], $searchResult) == false) {
-        $searchResult[] = $value;
-      }
     }
-//    if (preg_match("/$search/i", $value["lastName"])) {
+    
+//    else if (preg_match("/$search/i", $value["lastName"])) {
 //      if (in_array($value["lastName"], $searchResult) == false) {
 //        $searchResult[] = $value;
 //      }
 //    }
-    
     if (preg_match("/$search/i", $value["nik"])) {
       if (in_array($value["nik"], $searchResult) == false) {
         $searchResult[] = $value;
@@ -144,7 +138,6 @@ function checkAges($birthDate)
   return $currentAge;
 }
 
-
 //function orderByAges()
 //{
 //  $persons = personData();
@@ -155,7 +148,6 @@ function checkAges($birthDate)
 //  }
 //  return $toddler;
 //}
-
 //$age = checkAges();
 //function filterPersonsByAges($age)
 //{

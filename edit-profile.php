@@ -451,7 +451,7 @@ require_once __DIR__ . "/Action/common-action.php";
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
                         placeholder="Birth date"
-                        value="<?php echo traslateDateFromIntToString($person['birthDate'])?>"
+                        value="<?php echo translateDateFromIntToString($person['birthDate'])?>"
                         required
                     />
                   </div>

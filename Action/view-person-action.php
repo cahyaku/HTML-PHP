@@ -16,6 +16,7 @@ require_once __DIR__ . "/json.php";
 //}
 //session_start();
 
+// DELETE PERSON
 if (isset($_GET['id'])) {
   $persons = personsData();
     for($i = 0; $i < count($persons); $i++):
@@ -23,11 +24,15 @@ if (isset($_GET['id'])) {
       unset ($persons[$i]);
       $persons = array_values($persons);
       saveDataIntoJson($persons);
-      redirect("../persons.php", "error=1");
+      redirect("../persons.php", null);
     }
   endfor;
 }
 
+//session_unset();
+//session_destroy();
+//header('Location:persons.php');
+//exit();
 //session_unset();
 //session_destroy();
 //header('Location:persons.php');

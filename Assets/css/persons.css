@@ -9,14 +9,19 @@
   bottom: 0;
 } */
 
-.add .btn-add {
+.add-button .btn-add {
   background-color: #364fc7;
   color: #fff;
   /*font-size: 1.2rem;*/
   font-weight: bold;
 }
 
-.add .btn-add:hover {
+.add {
+  text-decoration: none;
+  color:#fff;
+}
+
+.add-button .btn-add:hover {
   background-color: #4263eb;
 }
 
@@ -227,3 +232,4 @@ tbody {
 .page-position {
   margin: 2rem 0;
 }
+

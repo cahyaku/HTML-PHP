@@ -218,8 +218,8 @@ require_once __DIR__ . "/Action/dashboard-action.php";
             <li>
               <a class="dropdown-item" href="#">New project...</a>
             </li>
-<!--            <li><a class="dropdown-item" href="#">Settings</a></li>-->
-<!--            <li><a class="dropdown-item" href="#">Profile</a></li>-->
+            <!--            <li><a class="dropdown-item" href="#">Settings</a></li>-->
+            <!--            <li><a class="dropdown-item" href="#">Profile</a></li>-->
             <li>
               <hr class="dropdown-divider"/>
             </li>
@@ -250,10 +250,10 @@ require_once __DIR__ . "/Action/dashboard-action.php";
           echo "</h3>";
           ?>
           <p class="dashboard-text">
-            <?php if($_SESSION['userLoggedIn'] != null) {?>
-            You were logged previously in
-            <?php }?>
-            <strong><?php echo customDateToString($_SESSION['userLoggedIn']) . "!"?></strong>
+            <?php if ($_SESSION['userLoggedIn'] != null) { ?>
+              You were logged previously in
+            <?php } ?>
+            <strong><?php echo customDateToString($_SESSION['userLoggedIn']) . "!" ?></strong>
           </p>
         </div>
       </div>
@@ -265,10 +265,10 @@ require_once __DIR__ . "/Action/dashboard-action.php";
               <div class="card-body card-box card-1">
                 <div class="d-flex align-items-center card-title-box">
                   <div>
-                  <ion-icon name="people-circle-outline" class="dashboard-icon"></ion-icon>
+                    <ion-icon name="people-circle-outline" class="dashboard-icon"></ion-icon>
                   </div>
-                    <?php
-                  $allPersons =count(personsData());
+                  <?php
+                  $allPersons = count(personsData());
                   echo "<h2 class='title'>";
                   echo "$allPersons";
                   echo "</h2>";
@@ -296,7 +296,7 @@ require_once __DIR__ . "/Action/dashboard-action.php";
                   </div>
                   <?php
                   $productiveAges = count(productiveAges());
-                   echo "<h2 class='title'>";
+                  echo "<h2 class='title'>";
                   echo "$productiveAges";
                   echo "</h2>";
                   ?>
@@ -373,7 +373,7 @@ require_once __DIR__ . "/Action/dashboard-action.php";
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $allPersons =count(personsData());
+                  $allPersons = count(personsData());
                   echo "<h2 class='title'>";
                   echo "$allPersons";
                   echo "</h2>";
