@@ -521,7 +521,7 @@ require_once __DIR__ . "/Action/common-action.php";
                 <th scope="row"><?php echo $number++ ?></th>
                 <td><?php echo $personsData[$i]["email"] ?></td>
                 <td>
-                  <?php echo $personsData[$i]["firstName"] . " " . $personsData[$i]["lastName"] ?></td>
+                  <?php echo ucwords($personsData[$i]["firstName"]) . " " . ucwords($personsData[$i]["lastName"]) ?></td>
                 <td><?php echo $personsData[$i]["role"] ?></td>
                 <td>
                   <div class="table-button">

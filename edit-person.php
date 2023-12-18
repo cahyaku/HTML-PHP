@@ -368,163 +368,199 @@ require_once __DIR__ . "/Action/common-action.php";
             </div>
             <?php
             if (isset($_GET['id']) == 1) {
-            $id = $_GET['id'];
-            $persons = getPersonData($id);
-            ?>
-            <form class="person-form" action="#">
-              <div class="d-md-flex">
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
-                    >First name*</label
-                    >
-                    <input
-                        type="text"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="First name"
-                        value="<?php echo $persons['firstName'] ?>"
-                        required
-                    />
+              $id = $_GET['id'];
+              $persons = getPersonData($id);
+              ?>
+              <form class="person-form" action="#">
+                <div class="d-md-flex">
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="mb-3 form-padding">
+                      <label for="exampleFormControlInput1" class="form-label"
+                      >First name*</label
+                      >
+                      <input
+                          type="text"
+                          class="form-control has-shadow input-data has-background"
+                          id="exampleFormControlInput1"
+                          placeholder="First name"
+                          value="<?php echo $persons['firstName'] ?>"
+                          required
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="mb-3 form-padding">
+                      <label for="exampleFormControlInput1" class="form-label"
+                      >Last name*</label
+                      >
+                      <input
+                          type="text"
+                          class="form-control has-shadow input-data has-background"
+                          id="exampleFormControlInput1"
+                          placeholder="Last name"
+                          value="<?php echo $persons['lastName'] ?>"
+                          required
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="d-md-flex">
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="mb-3 form-padding">
+                      <label for="exampleFormControlInput1" class="form-label"
+                      >Email*</label
+                      >
+                      <input
+                          type="email"
+                          class="form-control has-shadow input-data has-background"
+                          id="exampleFormControlInput1"
+                          placeholder="me@example.com"
+                          name="email"
+                          value="<?php echo $persons['email']; ?>"
+                          required
+                      />
+                      <?php if ($_GET["email"] == 1) : ?>
+                        <div class="alert alert-danger" role="alert">
+                          Sorry, email already exists!!!
+                        </div>
+                      <?php endif; ?>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="mb-3 form-padding">
+                      <label for="exampleFormControlInput1" class="form-label"
+                      >Password*</label
+                      >
+                      <input
+                          type="password"
+                          class="form-control has-shadow input-data has-background"
+                          id="exampleFormControlInput1"
+                          placeholder="Password"
+                          name="password"
+                          value="<?php echo $persons['password']; ?>"
+                          required
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
-                    >Last name*</label
-                    >
-                    <input
-                        type="text"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="Last name"
-                        value="<?php echo $persons['lastName'] ?>"
-                        required
-                    />
+                <div class="d-md-flex">
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="mb-3 form-padding">
+                      <label for="exampleFormControlInput1" class="form-label"
+                      >NIK*</label
+                      >
+                      <input
+                          type="text"
+                          class="form-control has-shadow input-data has-background"
+                          id="exampleFormControlInput1"
+                          placeholder="NIK"
+                          name="nik"
+                          value="<?php echo $persons['nik']; ?>"
+                          required
+                      />
+                      <?php if ($_GET["nik"] == 1) : ?>
+                        <div class="alert alert-danger" role="alert">
+                          The maximum length of NIK input is 16 characters
+                        </div>
+                      <?php endif; ?>
+                      <?php if ($_GET["nik"] == 2) : ?>
+                        <div class="alert alert-danger" role="alert">
+                          Sorry, nik already exists!!!
+                        </div>
+                      <?php endif; ?>
+
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="mb-3 form-padding">
+                      <label for="exampleFormControlInput1" class="form-label"
+                      >Address*</label
+                      >
+                      <input
+                          type="text"
+                          class="form-control has-shadow input-data has-background"
+                          id="exampleFormControlInput1"
+                          placeholder="Address"
+                          name="address"
+                          value="<?php echo $persons['address']; ?>"
+                          required
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="d-md-flex">
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
-                    >NIK*</label
-                    >
-                    <input
-                        type="text"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="NIK"
-                        value="<?php echo $persons['nik'] ?>"
-                        required
-                    />
+                <div class="d-md-flex">
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="form-padding">
+                      <label for="Role" class="form-label">Sex</label>
+                      <select
+                          class="form-select form-select-lg mb-3 has-shadow select-text"
+                          aria-label="Large select example"
+                      >
+                        <option selected>
+                          <?php echo $persons['sex'] ?>
+                        </option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="mb-3 form-padding">
+                      <label for="exampleFormControlInput1" class="form-label"
+                      >Birth date*</label
+                      >
+                      <input
+                          type="date"
+                          class="form-control has-shadow input-data has-background"
+                          id="exampleFormControlInput1"
+                          placeholder="Birth date"
+                          value="2005-08-03"
+                          required
+                      />
+                    </div>
                   </div>
                 </div>
-
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
-                    >Email*</label
-                    >
-                    <input
-                        type="email"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="me@example.com"
-                        value="<?php echo $persons['email'] ?>"
-                        required
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div class="d-md-flex">
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
-                    >Birth date*</label
-                    >
-                    <input
-                        type="date"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="Birth date"
-                        value="2005-08-03"
-                        required
-                    />
-                  </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="form-padding">
-                    <label for="Role" class="form-label">Sex</label>
-                    <select
-                        class="form-select form-select-lg mb-3 has-shadow select-text"
-                        aria-label="Large select example"
-                    >
-                      <option selected>
-                        <?php echo $persons['sex'] ?>
-                      </option>
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="d-md-flex">
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
-                    >Address*</label
-                    >
-                    <input
-                        type="text"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="Address"
-                        value="<?php echo $persons['address'] ?>"
-                        required
-                    />
-                  </div>
+                
+                <div class="mb-3 text-area form-padding">
+                  <label for="exampleFormControlTextarea1" class="form-label">
+                    Internal notes
+                    <ion-icon name="pencil"></ion-icon>
+                  </label>
+                  <textarea
+                      class="form-control i-text has-background has-shadow"
+                      id="exampleFormControlTextarea1"
+                      rows="2"
+                      name="internalNotes"
+                  ><?php echo $persons['internalNotes']; ?>
+                  </textarea>
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 text-area form-padding">
-                    <label
-                        for="exampleFormControlTextarea1"
-                        class="form-label"
-                    >
-                      Internal notes
-                      <ion-icon name="pencil"></ion-icon>
-                    </label>
-                    <textarea
-                        class="form-control i-text has-background has-shadow"
-                        id="exampleFormControlTextarea1"
-                        rows="1"
-                    ><?php echo $persons['internalNotes']?></textarea>
-                  </div>
+                <div class="form-check form-switch form-padding">
+                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                  <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
                 </div>
-              </div>
-              <div class="text-end btn-padding">
-                <button
-                    type="submit"
-                    class="btn btn-outline-primary btn-save"
-                >
-                  Save
-                </button>
-                <a class="cancel" href="persons.php">
+                
+                <div class="text-end btn-padding">
                   <button
-                      type="button"
-                      class="btn btn-secondary btn-cancel"
+                      type="submit"
+                      class="btn btn-outline-primary btn-save"
                   >
-                    Cancel
+                    Save
                   </button>
-                </a>
-              </div>
-            </form>
+                  <a class="cancel" href="persons.php">
+                    <button
+                        type="button"
+                        class="btn btn-secondary btn-cancel"
+                    >
+                      Cancel
+                    </button>
+                  </a>
+                </div>
+              </form>
             <?php } ?>
           </div>
         </div>

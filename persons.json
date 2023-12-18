@@ -11,7 +11,7 @@
         "address": "Baturiti",
         "role": "ADMIN",
         "internalNotes": "Hi, aku Cahya Kumala",
-        "loggedIn": 1702604683
+        "loggedIn": 1702870300
     },
     {
         "id": 2,
@@ -183,16 +183,16 @@
     },
     {
         "id": 14,
-        "nik": "52585000030825",
-        "firstName": "Kellyyy",
-        "lastName": "Cute",
-        "birthDate": -107740800,
+        "nik": "1234567812345678",
+        "firstName": "cahya",
+        "lastName": "kumala",
+        "birthDate": 1123027200,
         "sex": "FEMALE",
-        "email": "cahya@gmail.com",
-        "password": null,
-        "address": "Br.Basangbe, Perean kangin, Baturiti, Tabanan, Bali",
-        "role": "MEMBER",
-        "internalNotes": "internalNotes",
+        "email": "cahyakumala@gmail.com",
+        "password": "cahya123",
+        "address": "Br. Basang be, Ds. Perean Kangin, Kec. Baturiti, Kab. Tabanan, Prov. Bali",
+        "role": "ADMIN",
+        "internalNotes": "",
         "loggedIn": null
     }
 ]

@@ -83,9 +83,14 @@
   margin: 0rem 2rem;
 }
 
+.person-form .form-check-input {
+  height: 20px;
+  /*width: 100px;*/
+}
+
 .person-form .form-check-input:checked {
-  /* height: 20px;
-  width: 40px; */
+  /*height: 20px;*/
+  /*width: 40px;*/
   background-color: #364fc7;
   border: none;
   margin-right: 0.5rem;
@@ -102,6 +107,7 @@
 
 .select-text {
   font-size: 1.8rem;
+  color:#333;
 }
 
 .btn-padding {

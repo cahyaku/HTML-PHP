@@ -84,30 +84,28 @@ function checkRole($email)
 //   return null;
 //}
 
-function checkNikInput(string $nik = null): string
-{
-  if ($nik != null) {
-    while (true) {
-      $nik = $_GET['nik'];
-      if (strlen($nik) != 16) {
-        echo "The maximum length of NIK input is 16 characters" . "\n";
-      } else {
-        return $nik;
-      }
-    }
-  } else {
-    while (true) {
-      $nik = $_GET['nik'];
-      if (strlen($nik) != 16) {
-        echo "The maximum length of NIK input is 16 characters" . "\n";
-      } else {
-        return $nik;
-      }
-    }
-  }
-}
+//function askForNik( string $nik = null): string
+//{
+//  if ($nik != null) {
+//    while (true) {
+//      if (strlen($nik) != 16) {
+//        echo "The maximum length of NIK input is 16 characters" . "\n";
+//      } else {
+//        return $nik;
+//      }
+//    }
+//  } else {
+//    while (true) {
+//     if (strlen($nik) != 16) {
+//        echo "The maximum length of NIK input is 16 characters" . "\n";
+//      } else {
+//        return $nik;
+//      }
+//    }
+//  }
+//}
 
-function isNikExists($nik, int $id): bool
+function isNikExists($nik, int $id = null): bool
 {
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) :
@@ -124,7 +122,7 @@ function isNikExists($nik, int $id): bool
   return false;
 }
 
-function isEmailExists($email, int $id): bool
+function isEmailExists($email, int $id = null): bool
 {
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) :
@@ -168,4 +166,34 @@ function generateId($array): int
 //  return null;
 //}
 
+//function validate(string $nik, string $password, string $email): array
+//{
+//  $validate = [];
+////  if (checkNik($nik) == null) {
+////    $validate['nik'] = 1
+////  }
+//
+//  if (isNikExists($nik, null) == 0) {
+//    $validate['nik'] = 2
+//  }
+//
+//  if (checkPasswordInput($password) == null) {
+//    $validate['password'] = 1
+//  }
+//}
 
+function checkPasswordInput($password):bool
+{
+  if (strlen($password) >= 8 && strlen($password) <= 16) {
+    return true;
+  }
+  return false;
+}
+
+function checkNikInput($nik):bool
+{
+  if (strlen($nik) != 16) {
+    return false;
+  }
+  return true;
+}

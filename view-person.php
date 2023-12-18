@@ -380,9 +380,9 @@ require_once __DIR__ . "/Action/common-action.php";
                 //
                 //                ?>
                 <p class="text-title">First name*</p>
-                <p class="data"><?php echo $persons['firstName'] ?></p>
+                <p class="data"><?php echo ucwords($persons['firstName']) ?></p>
                 <p class="text-title">Last name*</p>
-                <p class="data"><?php echo $persons['lastName'] ?></p>
+                <p class="data"><?php echo ucwords($persons['lastName']) ?></p>
                 <p class="text-title">NIK*</p>
                 <p class="data"><?php echo $persons['nik'] ?></p>
                 <p class="text-title">Email*</p>
@@ -390,9 +390,11 @@ require_once __DIR__ . "/Action/common-action.php";
                 <p class="text-title">Sex*</p>
                 <p class="data"><?php echo $persons['sex']?></p>
                 <p class="text-title">Address*</p>
-                <p class="data"><?php echo $persons['lastName'] ?></p>
+                <p class="data"><?php echo ucwords($persons['address']) ?></p>
                 <p class="text-title">Internal notes*</p>
+                <?php if ($persons['internalNotes'] != "") { ?>
                 <p class="data"><?php echo $persons['internalNotes'] ?></p>
+                <?php } ?>
                 <div class="text-end">
                   <button
                       type="button"

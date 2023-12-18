@@ -133,7 +133,7 @@ if (!isset($_SESSION['email'])) {
         <div class="d-flex">
           <div class="logo-pma">
             <a href="persons.php">
-            <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
+              <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
             </a>
           </div>
           <p class="d-none d-md-flex PMA-title align-items-center">
@@ -191,10 +191,10 @@ if (!isset($_SESSION['email'])) {
                     Persons
                   </a>
                 </li>
-               
+
                 <li class="my-acount-padding">
                   <p class="my-acount">My Account</p>
-                  
+
                 </li>
                 <li class="sidebar-padding-li">
                   <a
@@ -404,22 +404,6 @@ if (!isset($_SESSION['email'])) {
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
                     <label for="exampleFormControlInput1" class="form-label"
-                    >NIK*</label
-                    >
-                    <input
-                        type="text"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="NIK"
-                        name="nik"
-                        required
-                    />
-                  </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
                     >Email*</label
                     >
                     <input
@@ -430,6 +414,27 @@ if (!isset($_SESSION['email'])) {
                         name="email"
                         required
                     />
+                    <?php if ($_GET["email"] == 1) : ?>
+                      <div class="alert alert-danger" role="alert">
+                        Sorry, email already exists!!!
+                      </div>
+                    <?php endif; ?>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="mb-3 form-padding">
+                    <label for="exampleFormControlInput1" class="form-label"
+                    >Password*</label
+                    >
+                    <input
+                        type="password"
+                        class="form-control has-shadow input-data has-background"
+                        id="exampleFormControlInput1"
+                        placeholder="Password"
+                        name="password"
+                        required
+                    />
                   </div>
                 </div>
               </div>
@@ -438,37 +443,29 @@ if (!isset($_SESSION['email'])) {
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
                     <label for="exampleFormControlInput1" class="form-label"
-                    >Birth date*</label
+                    >NIK*</label
                     >
                     <input
-                        type="date"
+                        type="text"
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
-                        placeholder="Birth date"
-                        name="birthDate"
+                        placeholder="NIK"
+                        name="nik"
                         required
                     />
+                    <?php if ($_GET["nik"] == 1) : ?>
+                      <div class="alert alert-danger" role="alert">
+                        The maximum length of NIK input is 16 characters
+                      </div>
+                    <?php endif; ?>
+                    <?php if ($_GET["nik"] == 2) : ?>
+                      <div class="alert alert-danger" role="alert">
+                        Sorry, nik already exists!!!
+                      </div>
+                    <?php endif; ?>
                   </div>
                 </div>
 
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="form-padding">
-                    <label for="Role" class="form-label">Sex</label>
-                    <select
-                        class="form-select form-select-lg mb-3 has-shadow select-text"
-                        aria-label="Large select example"
-                        name="sex"
-                        required
-                    >
-                      <option selected disabled="disabled">Open this select menu</option>
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-
-              <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
                     <label for="exampleFormControlInput1" class="form-label"
@@ -484,7 +481,43 @@ if (!isset($_SESSION['email'])) {
                     />
                   </div>
                 </div>
+              </div>
 
+              <div class="d-md-flex">
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="form-padding">
+                    <label for="Role" class="form-label">Sex</label>
+                    <select
+                        class="form-select form-select-lg mb-3 has-shadow select-text"
+                        aria-label="Large select example"
+                        name="sex"
+                        required
+                    >
+                      <option selected disabled="disabled" value="">Open this select menu</option>
+                      <option value="MALE">Male</option>
+                      <option value="FEMALE">Female</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="mb-3 form-padding">
+                    <label for="exampleFormControlInput1" class="form-label"
+                    >Birth date*</label
+                    >
+                    <input
+                        type="date"
+                        class="form-control has-shadow input-data has-background"
+                        id="exampleFormControlInput1"
+                        placeholder="Birth date"
+                        name="birthDate"
+                        required
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="form-padding">
                     <label for="Role" class="form-label">Role</label>
@@ -494,42 +527,62 @@ if (!isset($_SESSION['email'])) {
                         name="role"
                         required
                     >
-                      <option selected disabled="disabled">Open this select menu</option>
+                      <option selected disabled="disabled" value="">Open this select menu</option>
                       <option value="ADMIN">Admin</option>
                       <option value="MEMBER">Member</option>
                     </select>
                   </div>
                 </div>
+
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="form-padding">
+                    <div class="mb-3 text-area">
+                      <label for="exampleFormControlTextarea1" class="form-label">
+                        Internal notes
+                        <ion-icon name="pencil"></ion-icon>
+                      </label>
+                      <textarea
+                          class="form-control i-text has-background has-shadow"
+                          id="exampleFormControlTextarea1"
+                          rows="1"
+                          name="internalNotes"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <!-- <div class="col-12"> -->
-              <div class="mb-3 text-area form-padding">
-                <label for="exampleFormControlTextarea1" class="form-label">
-                  Internal notes
-                  <ion-icon name="pencil"></ion-icon>
-                </label>
-                <textarea
-                    class="form-control i-text has-background has-shadow"
-                    id="exampleFormControlTextarea1"
-                    rows="2"
-                    name="internalNotes"
-                ></textarea>
-              </div>
-              <!-- </div> -->
+              <!--              <div class="mb-3 text-area form-padding">-->
+              <!--                <label for="exampleFormControlTextarea1" class="form-label">-->
+              <!--                  Internal notes-->
+              <!--                  <ion-icon name="pencil"></ion-icon>-->
+              <!--                </label>-->
+              <!--                <textarea-->
+              <!--                    class="form-control i-text has-background has-shadow"-->
+              <!--                    id="exampleFormControlTextarea1"-->
+              <!--                    rows="2"-->
+              <!--                    name="internalNotes"-->
+              <!--                ></textarea>-->
+              <!--              </div>-->
+
+              <!--              <div class="form-check form-switch form-padding">-->
+              <!--                <input-->
+              <!--                    class="form-check-input"-->
+              <!--                    type="checkbox"-->
+              <!--                    role="switch"-->
+              <!--                    id="flexSwitchCheckChecked"-->
+              <!--                    checked-->
+              <!--                />-->
+              <!--                <label-->
+              <!--                    class="form-check-label check-text"-->
+              <!--                    for="flexSwitchCheckChecked"-->
+              <!--                >This person is alive</label-->
+              <!--                >-->
+              <!--              </div>-->
 
               <div class="form-check form-switch form-padding">
-                <input
-                    class="form-check-input"
-                    type="checkbox"
-                    role="switch"
-                    id="flexSwitchCheckChecked"
-                    checked
-                />
-                <label
-                    class="form-check-label check-text"
-                    for="flexSwitchCheckChecked"
-                >This person is alive</label
-                >
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" required>
+                <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
               </div>
 
               <div class="text-end btn-padding">
@@ -538,17 +591,18 @@ if (!isset($_SESSION['email'])) {
                     class="btn btn-outline-primary btn-save"
                     name="save-btn"
                 >
-                    Save
+                  Save
                 </button>
-<!--                <button-->
-<!--                    type="submit"-->
-<!--                    class="btn btn-outline-primary btn-save"-->
-<!--                    name="save-btn"-->
-<!--                >-->
-<!--                  <a class="link-save" href="Action/add-person-action.php?=--><?php //echo $_POST['firstName']?><!--">-->
-<!--                  Save-->
-<!--                    <a>-->
-<!--                </button>-->
+                <!--                <button-->
+                <!--                    type="submit"-->
+                <!--                    class="btn btn-outline-primary btn-save"-->
+                <!--                    name="save-btn"-->
+                <!--                >-->
+                <!--                  <a class="link-save" href="Action/add-person-action.php?=-->
+                <?php //echo $_POST['firstName']?><!--">-->
+                <!--                  Save-->
+                <!--                    <a>-->
+                <!--                </button>-->
                 <a class="cancel" href="persons.php">
                   <button
                       type="button"
