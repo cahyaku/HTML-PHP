@@ -190,8 +190,22 @@
         "sex": "FEMALE",
         "email": "cahyakumala@gmail.com",
         "password": "cahya123",
-        "address": "Br. Basang be, Ds. Perean Kangin, Kec. Baturiti, Kab. Tabanan, Prov. Bali",
+        "address": "Br. Basangbe, Ds. Perean Kangin, Kec. Baturiti, Kab. Tabanan, Prov. Bali",
         "role": "ADMIN",
+        "internalNotes": "",
+        "loggedIn": null
+    },
+    {
+        "id": 15,
+        "nik": "1234567898765234",
+        "firstName": "alin",
+        "lastName": "pbudino",
+        "birthDate": -23890291200,
+        "sex": "MALE",
+        "email": "alinbuni@gmail.com",
+        "password": "alin123ikw",
+        "address": "perean",
+        "role": "MEMBER",
         "internalNotes": "",
         "loggedIn": null
     }

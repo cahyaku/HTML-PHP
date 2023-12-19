@@ -366,6 +366,7 @@ if (!isset($_SESSION['email'])) {
               <h3 class="title">Add person</h3>
             </div>
             <form class="person-form" action="Action/add-person-action.php" name="create-form" method="post">
+              
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
@@ -378,6 +379,9 @@ if (!isset($_SESSION['email'])) {
                         id="exampleFormControlInput1"
                         placeholder="First Name"
                         name="firstName"
+                        value="<?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputFirstName'];
+                        }?>"
                         required
                     />
                   </div>
@@ -394,6 +398,9 @@ if (!isset($_SESSION['email'])) {
                         id="exampleFormControlInput1"
                         placeholder="Last Name"
                         name="lastName"
+                        value="<?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputLastName'];
+                        }?>"
                         required
                     />
                   </div>
@@ -412,9 +419,18 @@ if (!isset($_SESSION['email'])) {
                         id="exampleFormControlInput1"
                         placeholder="me@example.com"
                         name="email"
+                        value="<?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputEmail'];
+                        }?>"
                         required
                     />
-                    <?php if ($_GET["email"] == 1) : ?>
+<!--                    --><?php //if ($_GET["email"] == 1) : ?>
+<!--                      <div class="alert alert-danger" role="alert">-->
+<!--                        Sorry, email already exists!!!-->
+<!--                      </div>-->
+<!--                    --><?php //endif; ?>
+                    
+                    <?php if (isset($_SESSION["errorEmail"])) : ?>
                       <div class="alert alert-danger" role="alert">
                         Sorry, email already exists!!!
                       </div>
@@ -433,8 +449,16 @@ if (!isset($_SESSION['email'])) {
                         id="exampleFormControlInput1"
                         placeholder="Password"
                         name="password"
+                        value="<?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputPassword'];
+                        }?>"
                         required
                     />
+                    <?php if (isset($_SESSION["errorPassword"])) : ?>
+                      <div class="alert alert-danger" role="alert">
+                        The minimum length of Password input is 8 characters and maximum 16 characters
+                      </div>
+                    <?php endif; ?>
                   </div>
                 </div>
               </div>
@@ -451,18 +475,36 @@ if (!isset($_SESSION['email'])) {
                         id="exampleFormControlInput1"
                         placeholder="NIK"
                         name="nik"
+                        value="<?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputNik'];
+                        }?>"
                         required
                     />
-                    <?php if ($_GET["nik"] == 1) : ?>
+<!--                    --><?php //if ($_GET["nik"] == 1) : ?>
+<!--                      <div class="alert alert-danger" role="alert">-->
+<!--                        The maximum length of NIK input is 16 characters-->
+<!--                      </div>-->
+<!--                    --><?php //endif; ?>
+<!--                    --><?php //if ($_GET["nik"] == 2) : ?>
+<!--                      <div class="alert alert-danger" role="alert">-->
+<!--                        Sorry, nik already exists!!!-->
+<!--                      </div>-->
+<!--                    --><?php //endif; ?>
+                    
+                    <?php if (isset($_SESSION["errorNik"])) : ?>
+                    
+                    <?php if ($_SESSION['errorNik'] == 1) { ?>
                       <div class="alert alert-danger" role="alert">
                         The maximum length of NIK input is 16 characters
                       </div>
-                    <?php endif; ?>
-                    <?php if ($_GET["nik"] == 2) : ?>
+
+                    <?php } else { ?>
                       <div class="alert alert-danger" role="alert">
                         Sorry, nik already exists!!!
                       </div>
+                    <?php }?>
                     <?php endif; ?>
+                    
                   </div>
                 </div>
 
@@ -477,6 +519,9 @@ if (!isset($_SESSION['email'])) {
                         id="exampleFormControlInput1"
                         placeholder="Address"
                         name="address"
+                        value="<?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputAddress'];
+                        }?>"
                         required
                     />
                   </div>
@@ -493,7 +538,26 @@ if (!isset($_SESSION['email'])) {
                         name="sex"
                         required
                     >
-                      <option selected disabled="disabled" value="">Open this select menu</option>
+                      <option selected disabled="disabled" value="<?php if ($_GET['errorInput'] == 1) {
+                        echo $_SESSION['inputSex'];
+                      } else {
+                        echo "";
+                      }
+                      ?>">
+                        <?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputSex'];
+                        } else {
+                        echo "Open this select menu";
+                        }
+                        ?></option>
+
+<!--                      <option selected value="--><?php //echo $_SESSION['dataInput']['sex'];?><!--">-->
+<!--                        --><?php //if ($_SESSION['sex'] == "f"){
+//                          echo "Female";
+//                        }else{
+//                          echo "Male";
+//                        }?>
+                      </option>
                       <option value="MALE">Male</option>
                       <option value="FEMALE">Female</option>
                     </select>
@@ -551,7 +615,6 @@ if (!isset($_SESSION['email'])) {
                   </div>
                 </div>
               </div>
-
               <!--              <div class="mb-3 text-area form-padding">-->
               <!--                <label for="exampleFormControlTextarea1" class="form-label">-->
               <!--                  Internal notes-->
@@ -579,7 +642,6 @@ if (!isset($_SESSION['email'])) {
               <!--                >This person is alive</label-->
               <!--                >-->
               <!--              </div>-->
-
               <div class="form-check form-switch form-padding">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" required>
                 <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
@@ -638,5 +700,10 @@ if (!isset($_SESSION['email'])) {
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"
 ></script>
+<?php
+unset($_SESSION['errorNik']);
+unset($_SESSION['errorEmail']);
+unset($_SESSION['errorPassword']);
+?>
 </body>
 </html>

@@ -553,7 +553,11 @@ require_once __DIR__ . "/Action/common-action.php";
                 </td>
               </tr>
             <?php endfor;
-          } ?>
+          } else {?>
+            <div class="alert alert-danger" role="alert">
+              Data person was not found!!!
+            </div>
+          <?php } ?>
           </tbody>
           <?php ?>
         </table>

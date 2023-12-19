@@ -383,3 +383,22 @@
 ////  print_r($persons);
 ////    exit();
 //
+
+
+//$errorData = editValidate($_POST['nik'], $_POST['password'], $_POST['email'], $_SESSION['personId']);
+//
+//if (count($errorData) != 0){
+//  $_SESSION['nikError'] = $errorData['nik'];
+//  $_SESSION['emailError'] = $errorData['email'];
+//  $_SESSION['passwordError'] = $errorData['password'];
+//
+//  var_dump($_SESSION);
+//
+//  header("Location: ../edit.php?salah");
+//  exit();
+//}else{
+//  $saved = saveUpdateData($_SESSION['personId']);
+//  if($saved) {
+//    redirect("../edit.php", "saved=1");
+//  }
+//}

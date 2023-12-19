@@ -92,12 +92,20 @@ body {
     #fff 100%
   ); */
 
+  /*background: radial-gradient(*/
+  /*  circle,*/
+  /*  rgba(148, 187, 233, 1) 0%,*/
+  /*  #dee2ff 80%,*/
+  /*  #fff 100%*/
+  /*);*/
+
   background: radial-gradient(
-    circle,
-    rgba(148, 187, 233, 1) 0%,
-    #dee2ff 80%,
-    #fff 100%
+          circle,
+          rgba(63, 94, 251, 1) -100%,
+          #dee2ff 80%,
+          #fff 100%
   );
+
 
   /* z-index: -1; */
   /* position: fixed;
