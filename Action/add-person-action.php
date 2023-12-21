@@ -72,58 +72,92 @@ require_once __DIR__ . "/common-action.php";
 //saveDataIntoJson($persons);
 //redirect("../persons.php", null);
 
-function validateError(string $nik, string $password, string $email):array
+function validateError(string $nik,
+                       string $password,
+                       string $email,
+                       string $firstName,
+                       string $lastName): array
 {
   $validate = [];
-  if (checkNikInput($nik) == false) {
+//  if (checkNikInput($nik) == false) {
+//    $validate['nik'] = "1";
+//  }
+//
+//  if (isNikExists($nik, null) == true) {
+//    $validate['nik'] = "2";
+//  }
+//
+//  if (checkPasswordInput($password) == false) {
+//    $validate['password'] = "1";
+//  }
+//
+//  if (isEmailExists($email, null) == 1) {
+//    $validate['email'] = "1";
+//  }
+  if (!checkNikInput($nik)) {
     $validate['nik'] = "1";
   }
-
-  if (isNikExists($nik, null) == true) {
+  
+  if (isNikExists($nik, null)) {
     $validate['nik'] = "2";
   }
-
-  if (checkPasswordInput($password) == false) {
+  
+  if (!checkPasswordInput($password)) {
     $validate['password'] = "1";
   }
-
+  
   if (isEmailExists($email, null) == 1) {
     $validate['email'] = "1";
   }
+  
+  if (!checkNameInput($firstName)) {
+    $validate['firstName'] = "1";
+  }
+  
+  if (!checkNameInput($lastName)) {
+    $validate['lastName'] = "2";
+  }
+  
   return $validate;
 }
-$errorData = validateError($_POST['nik'], $_POST['password'], $_POST['email']);
+
+$errorData = validateError($_POST['nik'], $_POST['password'], $_POST['email'], $_POST['firstName'], $_POST['lastName']);
 if (count($errorData) != 0) {
   $_SESSION['errorNik'] = $errorData["nik"];
   $_SESSION['errorEmail'] = $errorData['email'];
   $_SESSION['errorPassword'] = $errorData['password'];
+  $_SESSION['errorFirstName'] = $errorData['firstName'];
+  $_SESSION['errorLastName'] = $errorData['lastName'];
   
   $_SESSION['inputEmail'] = $_POST['email'];
   $_SESSION['inputNik'] = $_POST['nik'];
   $_SESSION['inputPassword'] = $_POST['password'];
   $_SESSION['inputFirstName'] = $_POST['firstName'];
   $_SESSION['inputLastName'] = $_POST['lastName'];
-//  $_SESSION['inputLoggedIn'] = $_POST['loggedIn'];
   $_SESSION['inputAddress'] = $_POST['address'];
   $_SESSION['inputSex'] = $_POST['sex'];
   $_SESSION['inputRole'] = $_POST['role'];
   $_SESSION['inputBirthDate'] = $_POST['birthDate'];
+  $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
   header("Location: ../add-person.php?errorInput=1");
   exit();
 } else {
   unset($_SESSION['errorNik']);
   unset($_SESSION['errorEmail']);
   unset($_SESSION['errorPassword']);
+  unset($_SESSION['errorFirstName']);
+  unset($_SESSION['errorLastName']);
   
-//  unset ($_SESSION['inputEmail']);
-//  unset ($_SESSION['inputNik']);
-//  unset ($_SESSION['inputPassword']);
-//  unset ($_SESSION['inputFirstName']);
-//  unset ($_SESSION['inputLastName']);
-//  unset ($_SESSION['inputAddress']);
-//  unset ($_SESSION['inputSex']);
-//  unset ($_SESSION['inputRole']);
-//  unset ($_SESSION['inputBirthDate']);
+  unset ($_SESSION['inputEmail']);
+  unset ($_SESSION['inputNik']);
+  unset ($_SESSION['inputPassword']);
+  unset ($_SESSION['inputFirstName']);
+  unset ($_SESSION['inputLastName']);
+  unset ($_SESSION['inputAddress']);
+  unset ($_SESSION['inputSex']);
+  unset ($_SESSION['inputRole']);
+  unset ($_SESSION['inputBirthDate']);
+  unset ($_SESSION['internalNotes']);
   
   $persons = personsData();
   $id = count($persons) + 1;
@@ -140,17 +174,10 @@ if (count($errorData) != 0) {
     "address" => $_POST['address'],
     "role" => $_POST['role'],
     "internalNotes" => $_POST['internalNotes'],
-    "loggedIn" => null
+    "loggedIn" => null,
+    "alive" => $_POST['alive']
   ];
   $persons[] = $personData;
   saveDataIntoJson($persons);
-  redirect("../add-person.php", null);
+  redirect("../add-person.php", "success");
 }
-
-//if ($nik != null) {
-
-//  header("Location: ../add-person.php");
-//  exit();
-//} else {
-//  redirect("../add-person.php", "error=1");
-//}

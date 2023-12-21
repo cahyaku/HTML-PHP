@@ -526,11 +526,25 @@ require_once __DIR__ . "/Action/common-action.php";
                 <td>
                   <div class="table-button">
                     <div class="text-end">
+<!--                      <a class="edit btn-table" href="edit-person.php?id=--><?php // echo $personsData[$i]["id"]?><!--">-->
+<!--                        <button type="button" class="btn btn-outline-primary" name="btn-edit">-->
+<!--                          Edit-->
+<!--                        </button>-->
+<!--                      </a>-->
+
+                      <?php if(checkRole($_SESSION['email']) != null) { ?>
                       <a class="edit btn-table" href="edit-person.php?id=<?php  echo $personsData[$i]["id"]?>">
                         <button type="button" class="btn btn-outline-primary" name="btn-edit">
                           Edit
                         </button>
                       </a>
+                      <?php } else { ?>
+                        <a class="edit btn-table" href="persons.php?error=2">
+                          <button type="button" class="btn btn-outline-primary" name="btn-edit">
+                            Edit
+                          </button>
+                        </a>
+                      <?php }?>
                       <a class="view btn-table" href="view-person.php?id=<?php echo $personsData[$i]["id"]?>">
                         <button type="button" class="btn btn-outline-primary" name="btn-view">
                           View
@@ -559,9 +573,18 @@ require_once __DIR__ . "/Action/common-action.php";
             </div>
           <?php } ?>
           </tbody>
+        
           <?php ?>
         </table>
+        
+       
         <div class="page-position">
+          <?php if ($_GET["error"] == 2) : ?>
+            <div class="alert alert-danger" role="alert">
+              Only admin roles can edit person data!!!
+            </div>
+          <?php endif; ?>
+          
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
               <?php
@@ -599,6 +622,8 @@ require_once __DIR__ . "/Action/common-action.php";
             </ul>
           </nav>
         </div>
+        
+        
       </div>
     </div>
   </section>

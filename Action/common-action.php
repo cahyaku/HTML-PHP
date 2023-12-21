@@ -7,6 +7,13 @@ function personsData()
   return $person = loadDataFromJson("persons.json");
 }
 
+function inputString(?string $info): string
+{
+  echo "$info ";
+  $result = fgets(STDIN);
+  return trim($result);
+}
+
 //function redirect($url, $getParams)
 //{
 //  header('Location: ' . $url . '?' . $getParams);
@@ -48,7 +55,7 @@ function getPersonDataByEmail($email)
 
 function translateDateFromIntToString($date)
 {
-  return $date = date("m/d/Y", $date);
+  return $date = date("m-d-Y", $date);
 }
 
 function translateDateFromStringToInt($date)
@@ -172,22 +179,6 @@ function save($person)
   return null;
 }
 
-//function validate(string $nik, string $password, string $email): array
-//{
-//  $validate = [];
-////  if (checkNik($nik) == null) {
-////    $validate['nik'] = 1
-////  }
-//
-//  if (isNikExists($nik, null) == 0) {
-//    $validate['nik'] = 2
-//  }
-//
-//  if (checkPasswordInput($password) == null) {
-//    $validate['password'] = 1
-//  }
-//}
-
 function checkPasswordInput($password):bool
 {
   if (strlen($password) >= 8 && strlen($password) <= 16) {
@@ -199,6 +190,14 @@ function checkPasswordInput($password):bool
 function checkNikInput($nik):bool
 {
   if (strlen($nik) != 16) {
+    return false;
+  }
+  return true;
+}
+
+function checkNameInput($name): bool
+{
+  if (strlen($name) > 15) {
     return false;
   }
   return true;

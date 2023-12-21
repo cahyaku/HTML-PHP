@@ -4,9 +4,7 @@ if (!isset($_SESSION['email'])) {
   header("Location: login.php");
   exit(); // Terminate script execution after the redirect
 }
-
 require_once __DIR__ . "/Action/common-action.php";
-
 ?>
 
 <!DOCTYPE html>
@@ -367,11 +365,11 @@ require_once __DIR__ . "/Action/common-action.php";
               <h3 class="title">Edit person</h3>
             </div>
             <?php
-            if (isset($_GET['id']) == 1) {
+            if (isset($_GET['id'])) {
               $id = $_GET['id'];
-              $persons = getPersonData($id);
+              $person = getPersonData($id);
               ?>
-              <form class="person-form" action="#">
+              <form class="person-form" action="Action/edit-person-action.php" name="edit-form" method="post">
                 <div class="d-md-flex">
                   <div class="col-12 col-md-6 col-lg-6">
                     <div class="mb-3 form-padding">
@@ -383,9 +381,15 @@ require_once __DIR__ . "/Action/common-action.php";
                           class="form-control has-shadow input-data has-background"
                           id="exampleFormControlInput1"
                           placeholder="First name"
-                          value="<?php echo $persons['firstName'] ?>"
+                          name="firstName"
+                          value="<?php echo $person['firstName'] ?>"
                           required
                       />
+                      <?php if (isset($_SESSION["errorFirstName"])) : ?>
+                        <div class="alert alert-danger" role="alert">
+                          The maximum length of first name input is 15!!!
+                        </div>
+                      <?php endif; ?>
                     </div>
                   </div>
 
@@ -399,9 +403,15 @@ require_once __DIR__ . "/Action/common-action.php";
                           class="form-control has-shadow input-data has-background"
                           id="exampleFormControlInput1"
                           placeholder="Last name"
-                          value="<?php echo $persons['lastName'] ?>"
+                          value="<?php echo $person['lastName'] ?>"
+                          name="lastName"
                           required
                       />
+                      <?php if (isset($_SESSION["errorLastName"])) : ?>
+                        <div class="alert alert-danger" role="alert">
+                          The maximum length of last name input is 15!!!
+                        </div>
+                      <?php endif; ?>
                     </div>
                   </div>
                 </div>
@@ -417,10 +427,10 @@ require_once __DIR__ . "/Action/common-action.php";
                           id="exampleFormControlInput1"
                           placeholder="me@example.com"
                           name="email"
-                          value="<?php echo $persons['email']; ?>"
+                          value="<?php echo $person['email']; ?>"
                           required
                       />
-                      <?php if ($_GET["email"] == 1) : ?>
+                      <?php if (isset($_SESSION["errorEmail"])) : ?>
                         <div class="alert alert-danger" role="alert">
                           Sorry, email already exists!!!
                         </div>
@@ -439,9 +449,14 @@ require_once __DIR__ . "/Action/common-action.php";
                           id="exampleFormControlInput1"
                           placeholder="Password"
                           name="password"
-                          value="<?php echo $persons['password']; ?>"
+                          value="<?php echo $person['password']; ?>"
                           required
                       />
+                      <?php if (isset($_SESSION["errorPassword"])) : ?>
+                        <div class="alert alert-danger" role="alert">
+                          The minimum length of Password input is 8 characters and maximum 16 characters
+                        </div>
+                      <?php endif; ?>
                     </div>
                   </div>
                 </div>
@@ -458,18 +473,21 @@ require_once __DIR__ . "/Action/common-action.php";
                           id="exampleFormControlInput1"
                           placeholder="NIK"
                           name="nik"
-                          value="<?php echo $persons['nik']; ?>"
+                          value="<?php echo $person['nik']; ?>"
                           required
                       />
-                      <?php if ($_GET["nik"] == 1) : ?>
-                        <div class="alert alert-danger" role="alert">
-                          The maximum length of NIK input is 16 characters
-                        </div>
-                      <?php endif; ?>
-                      <?php if ($_GET["nik"] == 2) : ?>
-                        <div class="alert alert-danger" role="alert">
-                          Sorry, nik already exists!!!
-                        </div>
+                      <?php if (isset($_SESSION["errorNik"])) : ?>
+                        
+                        <?php if ($_SESSION['errorNik'] == 1) { ?>
+                          <div class="alert alert-danger" role="alert">
+                            The maximum length of NIK input is 16 characters
+                          </div>
+                        
+                        <?php } else { ?>
+                          <div class="alert alert-danger" role="alert">
+                            Sorry, nik already exists!!!
+                          </div>
+                        <?php } ?>
                       <?php endif; ?>
 
                     </div>
@@ -486,7 +504,7 @@ require_once __DIR__ . "/Action/common-action.php";
                           id="exampleFormControlInput1"
                           placeholder="Address"
                           name="address"
-                          value="<?php echo $persons['address']; ?>"
+                          value="<?php echo $person['address']; ?>"
                           required
                       />
                     </div>
@@ -499,12 +517,29 @@ require_once __DIR__ . "/Action/common-action.php";
                       <select
                           class="form-select form-select-lg mb-3 has-shadow select-text"
                           aria-label="Large select example"
+                          name="sex"
                       >
-                        <option selected>
-                          <?php echo $persons['sex'] ?>
-                        </option>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
+<!--                        <option selected disabled="disabled" value="">-->
+<!--                          --><?php //echo $person['sex'] ?>
+<!--                        </option>-->
+<!--                        <option value="1">Male</option>-->
+<!--                        <option value="2">Female</option>-->
+                        
+                        <?php if(isset($_GET['id'])) {?>
+                        <option selected disabled value="<?php echo $person['sex']?>"><?php echo $person['sex']?></option>
+                          <option value="MALE">Male</option>
+                          <option value="FEMALE">Female</option>
+                        <?php } else { ?>
+                        <?php
+                        if(isset($_GET['errorInput'])) {
+                          ?>
+                          <option value="<?php echo $_SESSION['inputSex']; ?>"><?php echo $_SESSION['inputSex']; ?></option>
+                        <?php } else { ?>
+                          <option selected disabled="disabled" value="">Open this select menu</option>
+                          <option value="MALE">Male</option>
+                          <option value="FEMALE">Female</option>
+                        <?php } ?>
+                        <?php } ?>
                       </select>
                     </div>
                   </div>
@@ -518,7 +553,10 @@ require_once __DIR__ . "/Action/common-action.php";
                           class="form-control has-shadow input-data has-background"
                           id="exampleFormControlInput1"
                           placeholder="Birth date"
-                          value="2005-08-03"
+                          value="<?php $birthDate = translateDateFromIntToString($person['birthDate']);
+                          echo $birthDate;
+                          ?>"
+                          name="birthDate"
                           required
                       />
                     </div>
@@ -535,12 +573,12 @@ require_once __DIR__ . "/Action/common-action.php";
                       id="exampleFormControlTextarea1"
                       rows="2"
                       name="internalNotes"
-                  ><?php echo $persons['internalNotes']; ?>
+                  ><?php echo $person['internalNotes']; ?>
                   </textarea>
                 </div>
 
                 <div class="form-check form-switch form-padding">
-                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive">
                   <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
                 </div>
                 
@@ -548,6 +586,7 @@ require_once __DIR__ . "/Action/common-action.php";
                   <button
                       type="submit"
                       class="btn btn-outline-primary btn-save"
+                      name="save-btn"
                   >
                     Save
                   </button>
@@ -587,5 +626,12 @@ require_once __DIR__ . "/Action/common-action.php";
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"
 ></script>
+<?php
+unset($_SESSION['errorNik']);
+unset($_SESSION['errorEmail']);
+unset($_SESSION['errorPassword']);
+unset($_SESSION['errorFirstName']);
+unset($_SESSION['errorLastName']);
+?>
 </body>
 </html>

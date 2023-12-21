@@ -19,8 +19,13 @@
 }
 
 .person-form {
-  padding-top: 2rem;
+  /*padding-top: 2rem;*/
+  margin-top: 2rem;
+  /*padding-top: 1.2rem;*/
   width: 100%;
+  /*background-color: #dbe4ff;*/
+  /*background-color: #edf2ff;*/
+  /*border-radius: 11px;*/
 }
 
 /* FORM ADD PERSON */
@@ -73,7 +78,12 @@
   font-weight: 400;
   /*color: #555;*/
   background: radial-gradient(#fff, #f8f9fa);
+  /*background-color:#fff;*/
 }
+
+/*.person-form .select-text-title {*/
+/*  color: red;*/
+/*}*/
 
 .has-background {
   background: radial-gradient(#fff, #f8f9fa);
@@ -105,13 +115,14 @@
   background: radial-gradient(circle, #fff, #f8f9fa);
 }
 
-.select-text {
-  font-size: 1.8rem;
-  color:#333;
-}
+/*.select-text {*/
+/*  font-size: 1.8rem;*/
+/*  color:#333;*/
+/*}*/
 
 .btn-padding {
   padding: 1rem 2rem;
+  /*margin-bottom: 1rem;*/
   margin-bottom: 3rem;
 }
 
@@ -136,4 +147,8 @@
 .link-save {
   text-decoration: none;
   color:#fff;
+}
+
+.alert-padding {
+  margin-top: 1rem;
 }

@@ -32,7 +32,7 @@ $loginData = loadDataFromJson("persons.json");
 function validateData($data)
 {
   for ($i = 0; $i < count($data); $i++) {
-    if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password']) {
+    if ($data[$i]["email"] == $_POST['email'] && $data[$i]["password"] == $_POST['password'] && $data[$i]["alive"] != null) {
       return $data[$i];
 //            return true;
     }

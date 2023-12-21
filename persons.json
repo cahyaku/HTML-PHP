@@ -11,7 +11,8 @@
         "address": "Baturiti",
         "role": "ADMIN",
         "internalNotes": "Hi, aku Cahya Kumala",
-        "loggedIn": 1702870300
+        "loggedIn": 1703127974,
+        "alive": "ALIVE"
     },
     {
         "id": 2,
@@ -25,7 +26,8 @@
         "address": "perean",
         "role": "ADMIN",
         "internalNotes": "hi aku Kitty cute",
-        "loggedIn": 1702537573
+        "loggedIn": 1702537573,
+        "alive": "ALIVE"
     },
     {
         "id": 3,
@@ -39,7 +41,8 @@
         "address": "Tabanan",
         "role": "MEMBER",
         "internalNotes": "Hi aku cia",
-        "loggedIn": null
+        "loggedIn": null,
+        "alive": "ALIVE"
     },
     {
         "id": 4,
@@ -53,7 +56,8 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": 1702537859
+        "loggedIn": 1702537859,
+        "alive": null
     },
     {
         "id": 5,
@@ -67,7 +71,8 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": 1702537901
+        "loggedIn": 1702537901,
+        "alive": null
     },
     {
         "id": 6,
@@ -81,7 +86,8 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": null
+        "loggedIn": null,
+        "alive": null
     },
     {
         "id": 7,
@@ -95,7 +101,8 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": 1229070124
+        "loggedIn": 1229070124,
+        "alive": null
     },
     {
         "id": 8,
@@ -109,7 +116,8 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": null
+        "loggedIn": null,
+        "alive": null
     },
     {
         "id": 9,
@@ -123,7 +131,8 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": null
+        "loggedIn": null,
+        "alive": null
     },
     {
         "id": 10,
@@ -137,7 +146,8 @@
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
-        "loggedIn": null
+        "loggedIn": null,
+        "alive": null
     },
     {
         "id": 11,
@@ -151,7 +161,8 @@
         "address": "perean",
         "role": "ADMIN",
         "internalNotes": "hi aku Kitty cute",
-        "loggedIn": null
+        "loggedIn": null,
+        "alive": null
     },
     {
         "id": 12,
@@ -165,7 +176,8 @@
         "address": "perean",
         "role": "ADMIN",
         "internalNotes": "hi aku Kitty cute",
-        "loggedIn": null
+        "loggedIn": null,
+        "alive": null
     },
     {
         "id": 13,
@@ -179,7 +191,8 @@
         "address": "perean",
         "role": "ADMIN",
         "internalNotes": "hi aku Kitty cute",
-        "loggedIn": null
+        "loggedIn": null,
+        "alive": null
     },
     {
         "id": 14,
@@ -191,22 +204,9 @@
         "email": "cahyakumala@gmail.com",
         "password": "cahya123",
         "address": "Br. Basangbe, Ds. Perean Kangin, Kec. Baturiti, Kab. Tabanan, Prov. Bali",
-        "role": "ADMIN",
-        "internalNotes": "",
-        "loggedIn": null
-    },
-    {
-        "id": 15,
-        "nik": "1234567898765234",
-        "firstName": "alin",
-        "lastName": "pbudino",
-        "birthDate": -23890291200,
-        "sex": "MALE",
-        "email": "alinbuni@gmail.com",
-        "password": "alin123ikw",
-        "address": "perean",
         "role": "MEMBER",
         "internalNotes": "",
-        "loggedIn": null
+        "loggedIn": null,
+        "alive": null
     }
 ]
