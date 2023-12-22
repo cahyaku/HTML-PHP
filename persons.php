@@ -363,7 +363,6 @@ require_once __DIR__ . "/Action/common-action.php";
           <h3 class="box-title">Persons</h3>
         </div>
         
-        
         <div class="add-button">
             <button type="button" class="btn btn-outline-primary btn-add">
               <?php
@@ -402,7 +401,7 @@ require_once __DIR__ . "/Action/common-action.php";
           <!--                        </button>-->
 
           <div class="searchByAge">
-            <select name="searchByAge" class="form-select has-shadow"
+            <select name="searchByAge" class="form-select has-shadow select-background"
                     aria-label="Default select example">
               <option selected>Search by age</option>
               <option value="productiveAges">Productive Ages</option>
@@ -577,8 +576,7 @@ require_once __DIR__ . "/Action/common-action.php";
           <?php ?>
         </table>
         
-       
-        <div class="page-position">
+        <div class="page-position ">
           <?php if ($_GET["error"] == 2) : ?>
             <div class="alert alert-danger" role="alert">
               Only admin roles can edit person data!!!
@@ -586,7 +584,7 @@ require_once __DIR__ . "/Action/common-action.php";
           <?php endif; ?>
           
           <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-center" >
               <?php
               if (isset($_GET['search']) != null && isset($_GET['searchByAge']) != null) {
                 $filterByAge = "?search=" . $_GET['search'] . "&searchByAge=" . $_GET['searchByAge'] . "&";
@@ -622,8 +620,6 @@ require_once __DIR__ . "/Action/common-action.php";
             </ul>
           </nav>
         </div>
-        
-        
       </div>
     </div>
   </section>

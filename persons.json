@@ -208,5 +208,20 @@
         "internalNotes": "",
         "loggedIn": null,
         "alive": null
+    },
+    {
+        "id": 15,
+        "nik": "2134567812345678",
+        "firstName": "cila",
+        "lastName": "Pricila",
+        "birthDate": 1123027200,
+        "sex": "MALE",
+        "email": "cilaCute@gmail.com",
+        "password": "caasfadadf",
+        "address": "perean",
+        "role": "ADMIN",
+        "internalNotes": "aku cila pricila",
+        "loggedIn": null,
+        "alive": "ALIVE"
     }
 ]

@@ -93,9 +93,16 @@ label {
 } */
 
 .has-shadow {
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+  /*box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);*/
+  box-shadow: 0 3px 5px rgba(148, 187, 233, 1);
+
 }
 
+.searchByAge .select-background {
+  background-color: #dbe4ff;
+  /*background-color: #bac8ff;*/
+  width: 100%;
+}
 /* .form input,
 .form button {
   padding: 0.5rem 1rem;
@@ -169,7 +176,10 @@ label {
 
 thead tr {
   font-size: 1.4rem;
-  background-color: #5c7cfa;
+  /*background-color: #5c7cfa;*/
+  /*background-color: #3b5bdb;*/
+  background-color: #748ffc;
+  /*background-color: #91a7ff;*/
 }
 
 .table-width {
@@ -186,6 +196,8 @@ td {
 
 tbody tr:nth-child(odd) {
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
+  /*box-shadow: 0 3px 5px rgba(148, 187, 233, 1);*/
+
   background-color: #f8f9fa;
 }
 

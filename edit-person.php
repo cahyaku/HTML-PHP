@@ -368,6 +368,7 @@ require_once __DIR__ . "/Action/common-action.php";
             if (isset($_GET['id'])) {
               $id = $_GET['id'];
               $person = getPersonData($id);
+              $_SESSION['id'] = $_GET['id'];
               ?>
               <form class="person-form" action="Action/edit-person-action.php" name="edit-form" method="post">
                 <div class="d-md-flex">
@@ -381,8 +382,13 @@ require_once __DIR__ . "/Action/common-action.php";
                           class="form-control has-shadow input-data has-background"
                           id="exampleFormControlInput1"
                           placeholder="First name"
+                          value="<?php if (isset($_SESSION['errorFirstName'])) {
+                            echo $_SESSION['inputFirstName'];
+                          } else {
+                            echo $person['firstName'];
+                          }
+                          ?>"
                           name="firstName"
-                          value="<?php echo $person['firstName'] ?>"
                           required
                       />
                       <?php if (isset($_SESSION["errorFirstName"])) : ?>
@@ -403,7 +409,12 @@ require_once __DIR__ . "/Action/common-action.php";
                           class="form-control has-shadow input-data has-background"
                           id="exampleFormControlInput1"
                           placeholder="Last name"
-                          value="<?php echo $person['lastName'] ?>"
+                          value="<?php if (isset($_SESSION['errorLastName'])) {
+                            echo $_SESSION['inputLastName'];
+                          } else {
+                            echo $person['lastName'];
+                          }
+                          ?>"
                           name="lastName"
                           required
                       />
@@ -427,7 +438,12 @@ require_once __DIR__ . "/Action/common-action.php";
                           id="exampleFormControlInput1"
                           placeholder="me@example.com"
                           name="email"
-                          value="<?php echo $person['email']; ?>"
+                          value="<?php if (isset($_SESSION['errorEmail'])) {
+                            echo $_SESSION['inputEmail'];
+                          } else {
+                            echo $person['email'];
+                          }
+                          ?>"
                           required
                       />
                       <?php if (isset($_SESSION["errorEmail"])) : ?>
@@ -437,6 +453,7 @@ require_once __DIR__ . "/Action/common-action.php";
                       <?php endif; ?>
                     </div>
                   </div>
+<!--                  value="--><?php //echo $person['email']; ?><!--"-->
 
                   <div class="col-12 col-md-6 col-lg-6">
                     <div class="mb-3 form-padding">
@@ -449,7 +466,12 @@ require_once __DIR__ . "/Action/common-action.php";
                           id="exampleFormControlInput1"
                           placeholder="Password"
                           name="password"
-                          value="<?php echo $person['password']; ?>"
+                          value="<?php if (isset($_SESSION['errorPassword'])) {
+                            echo $_SESSION['inputPassword'];
+                          } else {
+                            echo $person['password'];
+                          }
+                          ?>"
                           required
                       />
                       <?php if (isset($_SESSION["errorPassword"])) : ?>
@@ -473,23 +495,24 @@ require_once __DIR__ . "/Action/common-action.php";
                           id="exampleFormControlInput1"
                           placeholder="NIK"
                           name="nik"
-                          value="<?php echo $person['nik']; ?>"
+                          value="<?php if (isset($_SESSION['errorNik'])) {
+                            echo $_SESSION['inputNik'];
+                          }else {
+                            echo $person['nik'];
+                          }?>"
                           required
                       />
                       <?php if (isset($_SESSION["errorNik"])) : ?>
-                        
                         <?php if ($_SESSION['errorNik'] == 1) { ?>
                           <div class="alert alert-danger" role="alert">
                             The maximum length of NIK input is 16 characters
                           </div>
-                        
                         <?php } else { ?>
                           <div class="alert alert-danger" role="alert">
                             Sorry, nik already exists!!!
                           </div>
                         <?php } ?>
                       <?php endif; ?>
-
                     </div>
                   </div>
 
@@ -519,26 +542,36 @@ require_once __DIR__ . "/Action/common-action.php";
                           aria-label="Large select example"
                           name="sex"
                       >
-<!--                        <option selected disabled="disabled" value="">-->
-<!--                          --><?php //echo $person['sex'] ?>
-<!--                        </option>-->
-<!--                        <option value="1">Male</option>-->
-<!--                        <option value="2">Female</option>-->
+                        <!--                        --><?php //if ($_GET['id'] != null) { ?>
+                        <!--                          <option selected disabled-->
+                        <!--                                  value="--><?php //echo $person['sex'] ?><!--">-->
+                        <?php //echo $person['sex'] ?><!--</option>-->
+                        <!--                          <option value="MALE">Male</option>-->
+                        <!--                          <option value="FEMALE">Female</option>-->
+                        <!--                        --><?php //} else { ?>
+                        <!--                          --><?php
+                        ////                        if(isset($_GET['errorInput'])) {
+                        //                          if (isset($_SESSION['inputSex'])) {
+                        //                            ?>
+                        <!--                            <option-->
+                        <!--                                value="--><?php //echo $_SESSION['inputSex']; ?><!--">-->
+                        <?php //echo $_SESSION['inputSex']; ?><!--</option>-->
+                        <!--                          --><?php //} else { ?>
+                        <!--                            <option selected disabled="disabled" value="">Open this select menu</option>-->
+                        <!--                            <option value="MALE">Male</option>-->
+                        <!--                            <option value="FEMALE">Female</option>-->
+                        <!--                          --><?php //} ?>
+                        <!--                        --><?php //} ?>
                         
-                        <?php if(isset($_GET['id'])) {?>
-                        <option selected disabled value="<?php echo $person['sex']?>"><?php echo $person['sex']?></option>
+                        <?php if (($_GET['id']) != null) { ?>
+                          <option value="<?php if ($_GET['id'] != null) {
+                            echo $person['sex'];
+                          } else {
+                            echo "";
+                          }
+                          ?>" disabled> <?php echo $person['sex']; ?></option>
                           <option value="MALE">Male</option>
                           <option value="FEMALE">Female</option>
-                        <?php } else { ?>
-                        <?php
-                        if(isset($_GET['errorInput'])) {
-                          ?>
-                          <option value="<?php echo $_SESSION['inputSex']; ?>"><?php echo $_SESSION['inputSex']; ?></option>
-                        <?php } else { ?>
-                          <option selected disabled="disabled" value="">Open this select menu</option>
-                          <option value="MALE">Male</option>
-                          <option value="FEMALE">Female</option>
-                        <?php } ?>
                         <?php } ?>
                       </select>
                     </div>
@@ -553,16 +586,16 @@ require_once __DIR__ . "/Action/common-action.php";
                           class="form-control has-shadow input-data has-background"
                           id="exampleFormControlInput1"
                           placeholder="Birth date"
-                          value="<?php $birthDate = translateDateFromIntToString($person['birthDate']);
-                          echo $birthDate;
-                          ?>"
+                          value="<?php if ($_GET['id'] != null) {
+                            $birthDate = translateDateFromIntToString($person['birthDate']);
+                            echo $birthDate;
+                          } ?>"
                           name="birthDate"
                           required
                       />
                     </div>
                   </div>
                 </div>
-                
                 <div class="mb-3 text-area form-padding">
                   <label for="exampleFormControlTextarea1" class="form-label">
                     Internal notes
@@ -573,15 +606,29 @@ require_once __DIR__ . "/Action/common-action.php";
                       id="exampleFormControlTextarea1"
                       rows="2"
                       name="internalNotes"
-                  ><?php echo $person['internalNotes']; ?>
-                  </textarea>
+                  ><?php echo $person['internalNotes']; ?></textarea>
                 </div>
 
-                <div class="form-check form-switch form-padding">
-                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive">
-                  <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
-                </div>
+<!--                <div class="form-check form-switch form-padding">-->
+<!--                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"-->
+<!--                         value="ALIVE">-->
+<!--                  <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>-->
+<!--                </div>-->
                 
+                <?php
+                if ($person['alive'] == "ALIVE") {
+                ?>
+                  <div class="form-check form-switch form-padding">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"  value="ALIVE" checked>
+                    <label class="form-check-label" for="flexSwitchCheckChecked">This person is alive</label>
+                  </div>
+                <?php } else {?>
+                  <div class="form-check form-switch form-padding">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"
+                           value="ALIVE">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
+                  </div>
+                <?php } ?>
                 <div class="text-end btn-padding">
                   <button
                       type="submit"
@@ -632,6 +679,17 @@ unset($_SESSION['errorEmail']);
 unset($_SESSION['errorPassword']);
 unset($_SESSION['errorFirstName']);
 unset($_SESSION['errorLastName']);
+//unset($_SESSION['id']);
+unset ($_SESSION['inputEmail']);
+unset ($_SESSION['inputNik']);
+unset ($_SESSION['inputPassword']);
+unset ($_SESSION['inputFirstName']);
+unset ($_SESSION['inputLastName']);
+unset ($_SESSION['inputAddress']);
+unset ($_SESSION['inputSex']);
+unset ($_SESSION['inputRole']);
+unset ($_SESSION['inputBirthDate']);
+unset ($_SESSION['internalNotes']);
 ?>
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/json.php";
 
-function personsData()
+function personsData():array
 {
   return $person = loadDataFromJson("persons.json");
 }
@@ -14,16 +14,16 @@ function inputString(?string $info): string
   return trim($result);
 }
 
-//function redirect($url, $getParams)
+//function redirect($url, $getParams):void
 //{
 //  header('Location: ' . $url . '?' . $getParams);
 //  die();
 //}
 
-function redirect($url, $getParams)
+function redirect($url, $getParams):void
 {
   if ($getParams == null) {
-    header('Location: ' . $url . '?');
+    header('Location: ' . $url );
     die();
   } else {
     header('Location: ' . $url . '?' . $getParams);
@@ -53,12 +53,12 @@ function getPersonDataByEmail($email)
   return null;
 }
 
-function translateDateFromIntToString($date)
+function translateDateFromIntToString($date):string
 {
-  return $date = date("m-d-Y", $date);
+  return $date = date("Y-m-d", $date);
 }
 
-function translateDateFromStringToInt($date)
+function translateDateFromStringToInt($date):int
 {
   return $date = strtotime($date);
 }
@@ -112,6 +112,22 @@ function checkRole($email)
 //  }
 //}
 
+//function isNikExists($nik, ?int $id): bool
+//{
+//  foreach ($this->getAll() as $person => $value) {
+//    if ($id == null) {
+//      if ($value->getNik() == $nik) {
+//        return true;
+//      }
+//    } else {
+//      if ($nik == $value->getNik() && $id != $value->getId()) {
+//        return true;
+//      }
+//    }
+//  }
+//  return false;
+//}
+
 function isNikExists($nik, ?int $id): bool
 {
   $persons = personsData();
@@ -129,7 +145,24 @@ function isNikExists($nik, ?int $id): bool
   return false;
 }
 
-function isEmailExists($email, ?int $id): bool
+//function isNikExits(string $nik, int|null $id):bool
+//{
+//  $personsData = getPersonsData();
+//  foreach ($personsData as $person){
+//    if ($id == null) {
+//      if ($person['nik'] == $nik) {
+//        return true;
+//      }
+//    }else{
+//      if ($person['nik'] == $nik && $person['id'] != $id){
+//        return true;
+//      }
+//    }
+//  }
+//  return false;
+//}
+
+function isEmailExists($email, ?string $id): bool
 {
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) :
@@ -151,7 +184,7 @@ function generateId($array): int
   return $array == null ? 1 : (end($array['id']) + 1);
 }
 
-function save($person)
+function save($person):null
 {
   $persons = personsData();
   if ($person['id'] == null) {

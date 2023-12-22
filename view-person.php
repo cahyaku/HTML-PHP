@@ -419,6 +419,8 @@ require_once __DIR__ . "/Action/common-action.php";
                   <!--                  >-->
                   <!--                    Delete-->
                   <!--                  </button>-->
+                  
+                  <?php if(checkRole($_SESSION['email']) != null) { ?>
                   <button
                       type="reset"
                       class="btn btn-secondary btn-delete"
@@ -427,6 +429,8 @@ require_once __DIR__ . "/Action/common-action.php";
                   >
                       Delete
                   </button>
+                  <?php } ?>
+                  
                   <!-- Modal -->
                   <div
                       class="modal fade"

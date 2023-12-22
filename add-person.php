@@ -362,11 +362,11 @@ if (!isset($_SESSION['email'])) {
       <div class="container">
         <div class="row">
           <div class="col-12 col-lg-12 col-xl-12 col-md-12">
-           
+
             <div class="person-title">
               <h3 class="title">Add person</h3>
             </div>
-            
+
             <form class="person-form" action="Action/add-person-action.php" name="create-form" method="post">
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
@@ -491,7 +491,6 @@ if (!isset($_SESSION['email'])) {
                         <div class="alert alert-danger" role="alert">
                           The maximum length of NIK input is 16 characters
                         </div>
-                      
                       <?php } else { ?>
                         <div class="alert alert-danger" role="alert">
                           Sorry, nik already exists!!!
@@ -532,14 +531,49 @@ if (!isset($_SESSION['email'])) {
                         required
                     >
                       <?php
-                      if(isset($_GET['errorInput'])) {
-                      ?>
-                      <option value="<?php echo $_SESSION['inputSex']; ?>"><?php echo $_SESSION['inputSex']; ?></option>
+                      if (isset($_GET['errorInput'])) {
+                        ?>
+                        <option value="<?php echo $_SESSION['inputSex']; ?>">
+                          <?php echo $_SESSION['inputSex']; ?></option>
                       <?php } else { ?>
-                          <option selected disabled="disabled" value="">Open this select menu</option>
+                        <option selected disabled="disabled" value="">Open this select menu</option>
                         <option value="MALE">Male</option>
                         <option value="FEMALE">Female</option>
                       <?php } ?>
+                      
+<!--                      --><?php
+//                      if (isset($_GET['errorInput'])) {
+//                        ?>
+<!--                        <option value="--><?php
+//                        if ($_GET['errorInput'] != null) {echo $_SESSION['inputSex'];}
+//                        else {echo "";} ?><!--" selected disabled>-->
+<!--                          --><?php //echo $_SESSION['inputSex']; ?><!--</option>-->
+<!--                      --><?php //} else { ?>
+<!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
+<!--                        <option value="MALE">Male</option>-->
+<!--                        <option value="FEMALE">Female</option>-->
+<!--                      --><?php //} ?>
+                      <!--                      --><?php
+                      //                      if (isset($_GET['errorInput'])) {
+                      //                        ?>
+                      <!--                        <option value="--><?php //if ($_GET['errorInput'] != null) {
+                      //                          echo $_SESSION['inputSex'];
+                      //                        } else {
+                      //                          echo "";
+                      //                        } ?><!--">-->
+                      <!--                          --><?php //if ($_GET['errorInput'] != null) {
+                      //                            echo $_SESSION['inputSex'];
+                      //                          } else {
+                      //                            echo "Open this select menu";
+                      //                          }
+                      //                          ?><!--</option>-->
+                      <!--                        <option value="MALE">Male</option>-->
+                      <!--                        <option value="FEMALE">Female</option>-->
+                      <!--                      --><?php //} else { ?>
+                      <!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
+                      <!--                        <option value="MALE">Male</option>-->
+                      <!--                        <option value="FEMALE">Female</option>-->
+                      <!--                      --><?php //} ?>
                     </select>
                   </div>
                 </div>
@@ -557,7 +591,7 @@ if (!isset($_SESSION['email'])) {
                         name="birthDate"
                         value="<?php if ($_GET['errorInput'] == 1) {
                           echo $_SESSION['inputBirthDate'];
-                        }?>"
+                        } ?>"
                         required
                     />
                   </div>
@@ -575,15 +609,16 @@ if (!isset($_SESSION['email'])) {
                         required
                     >
                       <?php
-                      if(isset($_GET['errorInput'])) {
+                      if (isset($_GET['errorInput'])) {
                         ?>
-                        <option value="<?php echo $_SESSION['inputRole']; ?>"><?php echo $_SESSION['inputRole']; ?></option>
+                        <option
+                            value="<?php echo $_SESSION['inputRole']; ?>"><?php echo $_SESSION['inputRole']; ?></option>
                       <?php } else { ?>
                         <option selected disabled="disabled" value="">Open this select menu</option>
                         <option value="ADMIN">ADMIN</option>
                         <option value="MEMBER">MEMBER</option>
                       <?php } ?>
-                      
+
                     </select>
                   </div>
                 </div>
@@ -601,8 +636,8 @@ if (!isset($_SESSION['email'])) {
                           rows="1"
                           name="internalNotes"
                       ><?php if ($_GET['errorInput'] == 1) {
-                        echo $_SESSION['inputInternalNotes'];
-                        }?></textarea>
+                          echo $_SESSION['inputInternalNotes'];
+                        } ?></textarea>
                     </div>
                   </div>
                 </div>
@@ -619,19 +654,20 @@ if (!isset($_SESSION['email'])) {
               <!--                    name="internalNotes"-->
               <!--                ></textarea>-->
               <!--              </div>-->
-              
+
               <div class="form-check form-switch form-padding">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive" value="ALIVE" required>
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"
+                       value="ALIVE" required>
                 <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
               </div>
               <?php
               if (isset($_GET['success'])) {
-              ?>
-              <div class="alert alert-success form-padding alert-padding" role="alert">
-                Data person has been saved !!!
-              </div>
+                ?>
+                <div class="alert alert-success form-padding alert-padding" role="alert">
+                  Data person has been saved !!!
+                </div>
               <?php } ?>
-              
+
               <div class="text-end btn-padding">
                 <button
                     type="submit"
@@ -681,6 +717,17 @@ unset($_SESSION['errorEmail']);
 unset($_SESSION['errorPassword']);
 unset($_SESSION['errorFirstName']);
 unset($_SESSION['errorLastName']);
+
+unset ($_SESSION['inputEmail']);
+unset ($_SESSION['inputNik']);
+unset ($_SESSION['inputPassword']);
+unset ($_SESSION['inputFirstName']);
+unset ($_SESSION['inputLastName']);
+unset ($_SESSION['inputAddress']);
+unset ($_SESSION['inputSex']);
+unset ($_SESSION['inputRole']);
+unset ($_SESSION['inputBirthDate']);
+unset ($_SESSION['internalNotes']);
 ?>
 
 </body>
