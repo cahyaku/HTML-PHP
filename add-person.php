@@ -531,48 +531,45 @@ if (!isset($_SESSION['email'])) {
                         required
                     >
                       <?php
-                      if (isset($_GET['errorInput'])) {
-                        ?>
+                      if (isset($_SESSION['inputSex'])) {
+                      ?>
                         <option value="<?php echo $_SESSION['inputSex']; ?>">
-                          <?php echo $_SESSION['inputSex']; ?></option>
-                      <?php } else { ?>
+                          <?php echo ucwords($_SESSION['inputSex']); ?></option>
+                        <?php if($_SESSION['inputSex'] == "FEMALE") {?>
+                          <option value="MALE">Male</option>
+                        <?php }else { ?>
+                          <option value="FEMALE">Female</option>
+                      <?php } ?>
+                      <?php } else if ( isset($_GET['errorInput'])) { ?>
                         <option selected disabled="disabled" value="">Open this select menu</option>
                         <option value="MALE">Male</option>
                         <option value="FEMALE">Female</option>
+                          <?php } else {?>
+                      <option selected disabled="disabled" value="">Open this select menu</option>
+                      <option value="MALE">Male</option>
+                      <option value="FEMALE">Female</option>
                       <?php } ?>
                       
-<!--                      --><?php
-//                      if (isset($_GET['errorInput'])) {
-//                        ?>
-<!--                        <option value="--><?php
-//                        if ($_GET['errorInput'] != null) {echo $_SESSION['inputSex'];}
-//                        else {echo "";} ?><!--" selected disabled>-->
-<!--                          --><?php //echo $_SESSION['inputSex']; ?><!--</option>-->
-<!--                      --><?php //} else { ?>
-<!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
-<!--                        <option value="MALE">Male</option>-->
-<!--                        <option value="FEMALE">Female</option>-->
-<!--                      --><?php //} ?>
-                      <!--                      --><?php
-                      //                      if (isset($_GET['errorInput'])) {
-                      //                        ?>
-                      <!--                        <option value="--><?php //if ($_GET['errorInput'] != null) {
+                      
+                      <!--                        <option value="--><?php //if (isset($_GET['errorInput'])) {
                       //                          echo $_SESSION['inputSex'];
                       //                        } else {
                       //                          echo "";
-                      //                        } ?><!--">-->
-                      <!--                          --><?php //if ($_GET['errorInput'] != null) {
-                      //                            echo $_SESSION['inputSex'];
+                      //                        }
+                      //                        ?><!--" selected disabled>-->
+                      <!--                          --><?php //if (isset($_SESSION['inputSex'])) {
+                      //                            echo $_SESSION['inputSex'] == "Male" ? "MALE" : "FEMALE";
                       //                          } else {
                       //                            echo "Open this select menu";
-                      //                          }
-                      //                          ?><!--</option>-->
-                      <!--                        <option value="MALE">Male</option>-->
-                      <!--                        <option value="FEMALE">Female</option>-->
-                      <!--                      --><?php //} else { ?>
-                      <!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
-                      <!--                        <option value="MALE">Male</option>-->
-                      <!--                        <option value="FEMALE">Female</option>-->
+                      //                          } ?>
+                      <!--                        </option>-->
+                      <!--                        --><?php //if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
+                      <!--                          <option value="MALE">Male</option>-->
+                      <!--                        --><?php //} else if (isset($_SESSION['inputSex']) == "MALE") { ?>
+                      <!--                          <option value="FEMALE">Female</option>-->
+                      <!--                        --><?php //} else { ?>
+                      <!--                          <option value="MALE">Male</option>-->
+                      <!--                          <option value="FEMALE">Female</option>-->
                       <!--                      --><?php //} ?>
                     </select>
                   </div>
@@ -608,17 +605,36 @@ if (!isset($_SESSION['email'])) {
                         name="role"
                         required
                     >
+<!--                      --><?php
+//                      if (isset($_GET['errorInput'])) {
+//                        ?>
+<!--                        <option-->
+<!--                            value="--><?php //echo $_SESSION['inputRole']; ?><!--">--><?php //echo $_SESSION['inputRole']; ?><!--</option>-->
+<!--                      --><?php //} else { ?>
+<!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
+<!--                        <option value="ADMIN">ADMIN</option>-->
+<!--                        <option value="MEMBER">MEMBER</option>-->
+<!--                      --><?php //} ?>
+                      
                       <?php
-                      if (isset($_GET['errorInput'])) {
+                      if (isset($_SESSION['inputRole'])) {
                         ?>
-                        <option
-                            value="<?php echo $_SESSION['inputRole']; ?>"><?php echo $_SESSION['inputRole']; ?></option>
-                      <?php } else { ?>
+                        <option value="<?php echo $_SESSION['inputRole']; ?>">
+                          <?php echo ucwords($_SESSION['inputRole']); ?></option>
+                        <?php if($_SESSION['inputRole'] == "MEMBER") {?>
+                          <option value="ADMIN">ADMIN</option>
+                        <?php }else { ?>
+                          <option value="MEMBER">MEMBER</option>
+                        <?php } ?>
+                      <?php } else if ( isset($_GET['errorInput'])) { ?>
+                        <option selected disabled="disabled" value="">Open this select menu</option>
+                        <option value="ADMIN">ADMIN</option>
+                        <option value="MEMBER">MEMBER</option>
+                      <?php } else {?>
                         <option selected disabled="disabled" value="">Open this select menu</option>
                         <option value="ADMIN">ADMIN</option>
                         <option value="MEMBER">MEMBER</option>
                       <?php } ?>
-
                     </select>
                   </div>
                 </div>

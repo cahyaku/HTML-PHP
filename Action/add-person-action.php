@@ -139,6 +139,7 @@ if (count($errorData) != 0) {
   $_SESSION['inputRole'] = $_POST['role'];
   $_SESSION['inputBirthDate'] = $_POST['birthDate'];
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
+//  header("Location: ../add-person.php");
   header("Location: ../add-person.php?errorInput=1");
   exit();
 } else {

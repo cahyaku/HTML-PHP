@@ -321,7 +321,6 @@ require_once __DIR__ . "/Action/common-action.php";
             </li>
           </ul>
         </nav>
-
         <div class="dropdown">
           <hr/>
           <a
@@ -355,7 +354,6 @@ require_once __DIR__ . "/Action/common-action.php";
         </div>
       </div>
     </div>
-
     <!-- MAIN CONTENT -->
     <div class="main-content d-flex flex-column">
       <div class="container">
@@ -453,7 +451,7 @@ require_once __DIR__ . "/Action/common-action.php";
                       <?php endif; ?>
                     </div>
                   </div>
-<!--                  value="--><?php //echo $person['email']; ?><!--"-->
+                  <!--                  value="--><?php //echo $person['email']; ?><!--"-->
 
                   <div class="col-12 col-md-6 col-lg-6">
                     <div class="mb-3 form-padding">
@@ -497,9 +495,9 @@ require_once __DIR__ . "/Action/common-action.php";
                           name="nik"
                           value="<?php if (isset($_SESSION['errorNik'])) {
                             echo $_SESSION['inputNik'];
-                          }else {
+                          } else {
                             echo $person['nik'];
-                          }?>"
+                          } ?>"
                           required
                       />
                       <?php if (isset($_SESSION["errorNik"])) : ?>
@@ -555,22 +553,31 @@ require_once __DIR__ . "/Action/common-action.php";
                         //                            ?>
                         <!--                            <option-->
                         <!--                                value="--><?php //echo $_SESSION['inputSex']; ?><!--">-->
-                        <?php //echo $_SESSION['inputSex']; ?><!--</option>-->
-                        <!--                          --><?php //} else { ?>
-                        <!--                            <option selected disabled="disabled" value="">Open this select menu</option>-->
-                        <!--                            <option value="MALE">Male</option>-->
-                        <!--                            <option value="FEMALE">Female</option>-->
-                        <!--                          --><?php //} ?>
-                        <!--                        --><?php //} ?>
+                        <!--                        --><?php //echo $_SESSION['inputSex']; ?><!--</option>-->
+                        <!--                                                  --><?php //} else { ?>
+                        <!--                                                    <option selected disabled="disabled" value="">Open this select menu</option>-->
+                        <!--                                                    <option value="MALE">Male</option>-->
+                        <!--                                                    <option value="FEMALE">Female</option>-->
+                        <!--                                                  --><?php //} ?>
+                        <!--                                                --><?php //} ?>
                         
-                        <?php if (($_GET['id']) != null) { ?>
-                          <option value="<?php if ($_GET['id'] != null) {
-                            echo $person['sex'];
+                        <option value="<?php if (isset($_SESSION['inputSex'])) {
+                          echo $_SESSION['inputSex'];
+                        } else {
+                          echo $person['sex'];
+                        }
+                        ?>">
+                          <?php if (isset($_SESSION['inputSex'])) {
+                            echo $_SESSION['inputSex'] == "Male" ? "MALE" : "FEMALE";
                           } else {
-                            echo "";
-                          }
-                          ?>" disabled> <?php echo $person['sex']; ?></option>
+                            echo $person['sex'] == "MALE" ? "MALE" : "FEMALE";
+                          } ?>
+                        </option>
+                        <?php if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
                           <option value="MALE">Male</option>
+                        <?php } else if ($person['sex'] == "FEMALE") { ?>
+                          <option value="MALE">MALE</option>
+                        <?php } else { ?>
                           <option value="FEMALE">Female</option>
                         <?php } ?>
                       </select>
@@ -608,27 +615,29 @@ require_once __DIR__ . "/Action/common-action.php";
                       name="internalNotes"
                   ><?php echo $person['internalNotes']; ?></textarea>
                 </div>
-
-<!--                <div class="form-check form-switch form-padding">-->
-<!--                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"-->
-<!--                         value="ALIVE">-->
-<!--                  <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>-->
-<!--                </div>-->
+                <!--                <div class="form-check form-switch form-padding">-->
+                <!--                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"-->
+                <!--                         value="ALIVE">-->
+                <!--                  <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>-->
+                <!--                </div>-->
                 
                 <?php
                 if ($person['alive'] == "ALIVE") {
-                ?>
+                  ?>
                   <div class="form-check form-switch form-padding">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"  value="ALIVE" checked>
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                           value="ALIVE" checked>
                     <label class="form-check-label" for="flexSwitchCheckChecked">This person is alive</label>
                   </div>
-                <?php } else {?>
+                <?php } else { ?>
                   <div class="form-check form-switch form-padding">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"
-                           value="ALIVE">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                           name="alive"
+                           value="ALIVE ">
                     <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
                   </div>
                 <?php } ?>
+
                 <div class="text-end btn-padding">
                   <button
                       type="submit"

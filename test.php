@@ -402,3 +402,46 @@
 //    redirect("../edit.php", "saved=1");
 //  }
 //}
+
+<!--Create new person-->
+<!--                      --><?php
+//                      if (isset($_GET['errorInput'])) {
+//                        ?>
+<!--                        <option value="--><?php //if(isset($_SESSION['inputSex'])) {echo $_SESSION['inputSex']; } else {
+//                          echo "";
+//                        }?><!--" selected disabled>-->
+<!--                          --><?php //if(isset($_SESSION['inputSex'])) { echo $_SESSION['inputSex'];} else {
+//                            echo "Open this select menu";
+//                          }?><!--</option>-->
+<!--                        <option value="MALE">Male</option>-->
+<!--                        <option value="FEMALE">Female</option>-->
+<!--                      --><?php //} else { ?>
+<!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
+<!--                        <option value="MALE">Male</option>-->
+<!--                        <option value="FEMALE">Female</option>-->
+<!--                      --><?php //} ?>
+
+<!--                      --><?php
+//                      if (isset($_GET['errorInput'])) {
+//                        ?>
+<!--                        <option-->
+<!--                            value="--><?php //echo $_SESSION['inputSex']; ?><!--">--><?php //echo $_SESSION['inputRole']; ?><!--</option>-->
+<!--                      -->
+<!--                      --><?php //} else { ?>
+<!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
+<!--                        <option value="MALE ">MALE</option>-->
+<!--                        <option value="FEMALE">FEMALE</option>-->
+<!--                      --><?php //} ?>
+
+<!--                      --><?php
+//                      if (isset($_GET['errorInput'])) {
+//                        ?>
+<!--                        <option value="--><?php
+//                        if ($_GET['errorInput'] != null) {echo $_SESSION['inputSex'];}
+//                        else {echo "";} ?><!--" selected disabled>-->
+<!--                          --><?php //echo $_SESSION['inputSex']; ?><!--</option>-->
+<!--                      --><?php //} else { ?>
+<!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
+<!--                        <option value="MALE">Male</option>-->
+<!--                        <option value="FEMALE">Female</option>-->
+<!--                      --><?php //} ?>

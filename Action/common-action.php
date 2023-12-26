@@ -42,7 +42,7 @@ function getPersonData($id)
   return $persons[$i];
 }
 
-function getPersonDataByEmail($email)
+function getPersonDataByEmail($email):mixed
 {
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) {

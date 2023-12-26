@@ -9,7 +9,7 @@ function validateError(string $nik,
                        string $email,
                        string $firstName,
                        string $lastName,
-                       $id
+                              $id
 ): array
 {
   $validate = [];
@@ -38,13 +38,13 @@ function validateError(string $nik,
   }
   return $validate;
 }
-
+$person = getPersonDataByEmail($_SESSION['userEmail']);
 $errorData = validateError($_POST['nik'],
   $_POST['password'],
   $_POST['email'],
   $_POST['firstName'],
   $_POST['lastName'],
-  $_SESSION['id']);
+  $person['id']);
 if (count($errorData) != 0) {
   $_SESSION['errorNik'] = $errorData["nik"];
   $_SESSION['errorEmail'] = $errorData['email'];
@@ -58,11 +58,9 @@ if (count($errorData) != 0) {
   $_SESSION['inputLastName'] = $_POST['lastName'];
   $_SESSION['inputAddress'] = $_POST['address'];
   $_SESSION['inputSex'] = $_POST['sex'];
-  $_SESSION['inputRole'] = $_POST['role'];
   $_SESSION['inputBirthDate'] = $_POST['birthDate'];
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
-//  $_SESSION['id'] = $_GET['id'];
-  header("Location: ../edit-person.php?id=".$_SESSION['id']);
+  header("Location: ../edit-profile.php");
   exit();
 } else {
   unset($_SESSION['errorNik']);
@@ -70,7 +68,6 @@ if (count($errorData) != 0) {
   unset($_SESSION['errorPassword']);
   unset($_SESSION['errorFirstName']);
   unset($_SESSION['errorLastName']);
-//  unset($_SESSION['id']);
   unset($_SESSION['inputEmail']);
   unset($_SESSION['inputNik']);
   unset($_SESSION['inputPassword']);
@@ -78,40 +75,13 @@ if (count($errorData) != 0) {
   unset($_SESSION['inputLastName']);
   unset($_SESSION['inputAddress']);
   unset($_SESSION['inputSex']);
-  unset($_SESSION['inputRole']);
   unset($_SESSION['inputBirthDate']);
   unset($_SESSION['internalNotes']);
-
-//  $persons = personsData();
-//  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
-//  foreach ($persons as $person) {
-//    if ($person['id'] == $_SESSION['id']) {
-//      $person = [
-//        "id" => $person['id'],
-//        "nik" => $_POST['nik'],
-//        "firstName" => $_POST['firstName'],
-//        "lastName" => $_POST['lastName'],
-//        "birthDate" => $birthDate,
-//        "sex" => $_POST['sex'],
-//        "email" => $_POST['email'],
-//        "password" => $_POST['password'],
-//        "address" => $_POST['address'],
-//        "role" => $person['role'],
-//        "internalNotes" => $_POST['internalNotes'],
-//        "loggedIn" => null,
-//        "alive" => $_POST['alive']
-//      ];
-//      $persons[] = $person;
-//      $id = $person['id'];
-//      saveDataIntoJson($persons);
-//      redirect("../edit-person.php?id=$id", "success");
-//    }
-//  }
   
   $persons = personsData();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
-    if ($persons[$i]['id'] == $_SESSION['id']) {
+    if ($persons[$i]['email'] == $_SESSION['userEmail']) {
       $persons[$i]["nik"] = $_POST['nik'];
       $persons[$i]["firstName"] = $_POST['firstName'];
       $persons[$i]["lastName"] = $_POST['lastName'];
@@ -121,11 +91,8 @@ if (count($errorData) != 0) {
       $persons[$i]["password"] = $_POST['password'];
       $persons[$i]["address"] = $_POST['address'];
       $persons[$i]["internalNotes"] = $_POST['internalNotes'];
-      $persons[$i]["alive"] = $_POST['alive'];
       saveDataIntoJson($persons);
-      $id = $persons[$i]['id'];
-      redirect("../edit-person.php?id=$id",null);
+      redirect("../edit-profile.php", "success");
     }
   }
 }
-
