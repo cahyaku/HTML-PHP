@@ -515,7 +515,7 @@ require_once __DIR__ . "/Action/common-action.php";
                 <div class="d-md-flex">
                   <div class="col-12 col-md-6 col-lg-6">
                     <div class="form-padding">
-                      <label for="Role" class="form-label">Sex</label>
+                      <label for="Sex" class="form-label">Sex*</label>
                       <select
                           class="form-select form-select-lg mb-3 has-shadow select-text"
                           aria-label="Large select example"
@@ -622,42 +622,95 @@ require_once __DIR__ . "/Action/common-action.php";
                   </div>
                 </div>
 
-                <div class="card form-padding">
-                  <div class="card-header">
-                    Edit Password*
+                <div class="card card-margin has-shadow">
+                  <div class="card-header ">
+                    <strong> EDIT PASSWORD </strong>
                   </div>
-                  <div class="card-body">
+                  <div class="card-body has-background">
                     <!--                    <h5 class="card-title">Special title treatment</h5>-->
                     <!--                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+                    <div class="d-md-flex">
+                      <div class="col-12 col-md-6 col-lg-6">
+                        <div class="mb-3 form-padding">
+                          <label for="exampleFormControlInput1" class="form-label"
+                          >Current Password*</label
+                          >
+                          <input
+                              type="password"
+                              class="form-control has-shadow input-data has-background"
+                              id="exampleFormControlInput1"
+                              placeholder="Current Password..."
+                              name="currentPassword"
+                              value="<?php if (isset($_SESSION['errorCurrentPassword']) || isset($_SESSION['errorPassword'])
+                              || isset($_SESSION['errorConfirmPassword'])
+                              ) {
+                                echo $_SESSION['inputCurrentPassword'];
+                              }
+                              ?>"
+                              required
+                          />
+                          <?php if (isset($_SESSION["errorCurrentPassword"])) : ?>
+                            <div class="alert alert-danger" role="alert">
+                              Maaf, input password salah!
+                            </div>
+                          <?php endif; ?>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-md-6 col-lg-6">
+                        <div class="mb-3 form-padding">
+                          <label for="exampleFormControlInput1" class="form-label"
+                          >New Password*</label
+                          >
+                          <input
+                              type="password"
+                              class="form-control has-shadow input-data has-background"
+                              id="exampleFormControlInput1"
+                              placeholder="New Password..."
+                              name="password"
+                              value="<?php if (isset($_SESSION['errorPassword']) || isset($_SESSION['errorData'])) {
+                                echo $_SESSION['inputPassword'];
+                              } ?>"
+                              required
+                          />
+                          <?php if (isset($_SESSION["errorPassword"])) : ?>
+                            <div class="alert alert-danger" role="alert">
+                              The minimum length of Password input is 8 characters and maximum 16 characters
+                            </div>
+                          <?php endif; ?>
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="col-12 col-md-6 col-lg-6">
                       <div class="mb-3 form-padding">
                         <label for="exampleFormControlInput1" class="form-label"
-                        >Password*</label
+                        >Confirm Password*</label
                         >
                         <input
                             type="password"
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
-                            placeholder="Password"
-                            name="password"
-                            value="<?php if (isset($_SESSION['errorPassword'])) {
-                              echo $_SESSION['inputPassword'];
+                            placeholder="Confirm Password..."
+                            name="confirmPassword"
+                            value="<?php if (isset($_SESSION['errorConfirmPassword']) || isset($_SESSION['errorData'])) {
+                              echo $_SESSION['inputConfirmPassword'];
                             } else {
-                              echo $person['password'];
+                              echo $_SESSION['inputPassword'];
                             }
                             ?>"
                             required
                         />
-                        <?php if (isset($_SESSION["errorPassword"])) : ?>
+                        <?php if ($_SESSION['errorConfirmPassword'] != null ) : ?>
                           <div class="alert alert-danger" role="alert">
-                            The minimum length of Password input is 8 characters and maximum 16 characters
+                          Maaf, Konfirmasi password salah!
                           </div>
                         <?php endif; ?>
                       </div>
                     </div>
                   </div>
                 </div>
-
+                
                 <!--                <div class="mb-3 text-area form-padding">-->
                 <!--                  <label for="exampleFormControlTextarea1" class="form-label">-->
                 <!--                    Internal notes-->
@@ -755,6 +808,11 @@ unset ($_SESSION['inputSex']);
 unset ($_SESSION['inputRole']);
 unset ($_SESSION['inputBirthDate']);
 unset ($_SESSION['internalNotes']);
+
+unset ($_SESSION['errorConfirmPassword']);
+unset($_SESSION['errorCurrentPassword']);
+unset ($_SESSION['inputConfirmPassword']);
+unset($_SESSION['inputCurrentPassword']);
 ?>
 </body>
 </html>

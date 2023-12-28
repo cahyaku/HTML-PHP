@@ -5,14 +5,14 @@
         "firstName": "cahya",
         "lastName": "cahya",
         "birthDate": 1123027200,
-        "sex": "FEMALE",
+        "sex": "MALE",
         "email": "cahya@gmail.com",
-        "password": "cahya123",
+        "password": "kumalacute",
         "address": "perean lah",
         "role": "ADMIN",
         "internalNotes": "Hi aku cahya kumala",
         "loggedIn": 1703127974,
-        "alive": null
+        "alive": "ALIVE"
     },
     {
         "id": 2,
@@ -27,7 +27,7 @@
         "role": "ADMIN",
         "internalNotes": "hi aku Kitty cute",
         "loggedIn": 1702537573,
-        "alive": null
+        "alive": "ALIVE"
     },
     {
         "id": 3,
@@ -217,7 +217,7 @@
         "birthDate": 1123027200,
         "sex": "MALE",
         "email": "cilaCute@gmail.com",
-        "password": "cila Cute",
+        "password": "kumalacute",
         "address": "perean",
         "role": "ADMIN",
         "internalNotes": "aku cila pricila",

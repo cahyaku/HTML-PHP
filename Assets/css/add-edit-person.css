@@ -93,6 +93,25 @@
   margin: 0rem 2rem;
 }
 
+.card-margin {
+  margin: 1.5rem 2rem;
+}
+
+.password-margin-left {
+  margin-right: 2rem;
+}
+
+.password-margin-right {
+  margin-left: 2rem;
+}
+/*.card label,*/
+/*.check-text {*/
+/*  font-size: 1.2rem;*/
+/*  font-weight: 500;*/
+/*  !*color: #333;*!*/
+/*  margin-bottom: 0;*/
+/*}*/
+
 .person-form .form-check-input {
   height: 20px;
   /*width: 100px;*/

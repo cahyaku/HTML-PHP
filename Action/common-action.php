@@ -220,6 +220,32 @@ function checkPasswordInput($password):bool
   return false;
 }
 
+function checkCurrentPassword($currentPassword, $id):bool
+{
+  $persons = personsData();
+//  foreach ($persons as $person) {
+//    if ($person['password'] == $currentPassword) {
+//      return true;
+//    }
+//  }
+//  return false;
+  
+  for ($i = 0; $i < count($persons); $i++) {
+    if ($id == $persons[$i]['id'] &&  $persons[$i]['password'] == $currentPassword) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkConfirmPassword($password, $confirmPassword):bool
+{
+ if ($password == $confirmPassword) {
+   return true;
+ }
+ return false;
+}
+
 function checkNikInput($nik):bool
 {
   if (strlen($nik) != 16) {

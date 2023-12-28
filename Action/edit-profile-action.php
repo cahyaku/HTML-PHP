@@ -9,7 +9,9 @@ function validateError(string $nik,
                        string $email,
                        string $firstName,
                        string $lastName,
-                              $id
+                              $id,
+                              $currentPassword,
+                              $confirmPassword
 ): array
 {
   $validate = [];
@@ -36,21 +38,39 @@ function validateError(string $nik,
   if (!checkNameInput($lastName)) {
     $validate['lastName'] = "2";
   }
+  
+  if (!checkCurrentPassword($currentPassword, $id)) {
+    $validate['currentPassword'] = "2";
+  }
+  
+  if (!checkConfirmPassword($password, $confirmPassword)) {
+    $validate['confirmPassword'] = "3";
+  }
+  
   return $validate;
 }
+
 $person = getPersonDataByEmail($_SESSION['userEmail']);
 $errorData = validateError($_POST['nik'],
   $_POST['password'],
   $_POST['email'],
   $_POST['firstName'],
   $_POST['lastName'],
-  $person['id']);
+  $person['id'],
+  $_POST['currentPassword'],
+  $_POST['confirmPassword'])
+;
 if (count($errorData) != 0) {
+//  SESSION ERROR INPUT
   $_SESSION['errorNik'] = $errorData["nik"];
   $_SESSION['errorEmail'] = $errorData['email'];
   $_SESSION['errorPassword'] = $errorData['password'];
   $_SESSION['errorFirstName'] = $errorData['firstName'];
   $_SESSION['errorLastName'] = $errorData['lastName'];
+  $_SESSION['errorCurrentPassword'] = $errorData['currentPassword'];
+  $_SESSION['errorConfirmPassword'] = $errorData['confirmPassword'];
+  
+//  SESSION INPUT DATA
   $_SESSION['inputEmail'] = $_POST['email'];
   $_SESSION['inputNik'] = $_POST['nik'];
   $_SESSION['inputPassword'] = $_POST['password'];
@@ -60,6 +80,8 @@ if (count($errorData) != 0) {
   $_SESSION['inputSex'] = $_POST['sex'];
   $_SESSION['inputBirthDate'] = $_POST['birthDate'];
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
+  $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
+  $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
   $_SESSION['errorData'] = count($errorData);
   
   header("Location: ../edit-profile.php");
