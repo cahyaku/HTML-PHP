@@ -60,10 +60,9 @@ if (validateData($loginData)) {
   $_SESSION['userFirstName'] = validateData($loginData)['firstName'];
   $_SESSION['userLastName'] = validateData($loginData)['lastName'];
   $_SESSION['userLoggedIn'] = validateData($loginData)['loggedIn'];
-  header("Location: ../dashboard.php?");
+  header("Location: ../dashboard.php");
 } else {
 //  header('Location:../login.php?error=1');
   redirect("../login.php", "error=1");
-  
 }
 exit();

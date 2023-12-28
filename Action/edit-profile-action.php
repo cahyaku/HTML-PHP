@@ -101,6 +101,8 @@ if (count($errorData) != 0) {
   unset($_SESSION['inputSex']);
   unset($_SESSION['inputBirthDate']);
   unset($_SESSION['internalNotes']);
+  unset($_SESSION['inputCurrentPassword']);
+  unset($_SESSION['inputConfirmPassword']);
   
   $persons = personsData();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);

@@ -181,4 +181,5 @@ if (count($errorData) != 0) {
   $persons[] = $personData;
   saveDataIntoJson($persons);
   redirect("../add-person.php", "success");
+//  redirect("../persons.php", "success");
 }
