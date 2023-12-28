@@ -2,6 +2,7 @@
 session_start();
 require_once __DIR__ . "/json.php";
 require_once __DIR__ . "/common-action.php";
+
 //if (isset($_SESSION['email'])) {
 //  header("Location:../login.php");
 //  exit();
@@ -60,8 +61,9 @@ if (validateData($loginData)) {
   $_SESSION['userLastName'] = validateData($loginData)['lastName'];
   $_SESSION['userLoggedIn'] = validateData($loginData)['loggedIn'];
   header("Location: ../dashboard.php?");
-  exit();
 } else {
 //  header('Location:../login.php?error=1');
   redirect("../login.php", "error=1");
+  
 }
+exit();

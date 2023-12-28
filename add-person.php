@@ -534,7 +534,7 @@ if (!isset($_SESSION['email'])) {
                       if (isset($_SESSION['inputSex'])) {
                       ?>
                         <option value="<?php echo $_SESSION['inputSex']; ?>">
-                          <?php echo ucwords($_SESSION['inputSex']); ?></option>
+                          <?php echo ($_SESSION['inputSex']); ?></option>
                         <?php if($_SESSION['inputSex'] == "FEMALE") {?>
                           <option value="MALE">Male</option>
                         <?php }else { ?>
@@ -549,7 +549,6 @@ if (!isset($_SESSION['email'])) {
                       <option value="MALE">Male</option>
                       <option value="FEMALE">Female</option>
                       <?php } ?>
-                      
                       
                       <!--                        <option value="--><?php //if (isset($_GET['errorInput'])) {
                       //                          echo $_SESSION['inputSex'];

@@ -561,26 +561,47 @@ require_once __DIR__ . "/Action/common-action.php";
 <!--                          <option value="FEMALE">Female</option>-->
 <!--                        --><?php //} ?>
                         
-                        <option value="<?php if (isset($_SESSION['inputSex'])) {
+<!--                        <option value="--><?php //if (isset($_SESSION['inputSex'])) {
+//                          echo $_SESSION['inputSex'];
+//                        } else {
+//                          echo $person['sex'];
+//                        }
+//                        ?><!--">-->
+<!--                          --><?php //if (isset($_SESSION['inputSex'])) {
+//                            echo $_SESSION['inputSex'] == "Male" ? "MALE" : "FEMALE";
+//                          } else {
+//                            echo $person['sex'] == "MALE" ? "MALE" : "FEMALE";
+//                          } ?>
+<!--                        </option>-->
+<!--                        --><?php //if (isset($_SESSION['inputData']) == "FEMALE") { ?>
+<!--                          <option value="MALE">Male</option>-->
+<!--                        --><?php //} else if ($person['sex'] == "FEMALE") { ?>
+<!--                          <option value="MALE">MALE</option>-->
+<!--                        --><?php //} else { ?>
+<!--                          <option value="FEMALE">Female</option>-->
+<!--                        --><?php //} ?>
+                        
+                        <option value="<?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) {
                           echo $_SESSION['inputSex'];
                         } else {
                           echo $person['sex'];
                         }
                         ?>">
-                          <?php if (isset($_SESSION['inputSex'])) {
-                            echo $_SESSION['inputSex'] == "Male" ? "MALE" : "FEMALE";
+                          <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) {
+                            echo $_SESSION['inputSex'] == "MALE" ? "MALE" : "FEMALE";
                           } else {
                             echo $person['sex'] == "MALE" ? "MALE" : "FEMALE";
                           } ?>
                         </option>
-                        <?php if (isset($_SESSION['inputData']) == "FEMALE") { ?>
-                          <option value="MALE">Male</option>
+                        <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])){ ?>
+                          <option value="<?php echo $_SESSION['inputSex'] == "MALE" ?"FEMALE" : "MALE";?>"><?php echo $_SESSION['inputSex'] == "MALE" ? "FEMALE" : "MALE"; ?></option>
+                        <?php } else if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
+                          <option value="MALE">MALE</option>
                         <?php } else if ($person['sex'] == "FEMALE") { ?>
                           <option value="MALE">MALE</option>
-                        <?php } else { ?>
-                          <option value="FEMALE">Female</option>
+                        <?php } else  { ?>
+                          <option value="FEMALE">FEMALE</option>
                         <?php } ?>
-                        
                       </select>
                     </div>
                   </div>

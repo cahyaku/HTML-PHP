@@ -60,6 +60,8 @@ if (count($errorData) != 0) {
   $_SESSION['inputSex'] = $_POST['sex'];
   $_SESSION['inputBirthDate'] = $_POST['birthDate'];
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
+  $_SESSION['errorData'] = count($errorData);
+  
   header("Location: ../edit-profile.php");
   exit();
 } else {

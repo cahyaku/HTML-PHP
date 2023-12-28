@@ -9,7 +9,7 @@ function validateError(string $nik,
                        string $email,
                        string $firstName,
                        string $lastName,
-                       $id
+                              $id
 ): array
 {
   $validate = [];
@@ -61,8 +61,9 @@ if (count($errorData) != 0) {
   $_SESSION['inputRole'] = $_POST['role'];
   $_SESSION['inputBirthDate'] = $_POST['birthDate'];
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
-//  $_SESSION['id'] = $_GET['id'];
-  header("Location: ../edit-person.php?id=".$_SESSION['id']);
+  $_SESSION['errorData'] = count($errorData);
+  
+  header("Location: ../edit-person.php?id=" . $_SESSION['id']);
   exit();
 } else {
   unset($_SESSION['errorNik']);
@@ -124,7 +125,7 @@ if (count($errorData) != 0) {
       $persons[$i]["alive"] = $_POST['alive'];
       saveDataIntoJson($persons);
       $id = $persons[$i]['id'];
-      redirect("../edit-person.php?id=$id",null);
+      redirect("../edit-person.php?id=$id", null);
     }
   }
 }
