@@ -15,7 +15,7 @@
   font-weight: bold;
   color: #333;
   padding-top: 3rem;
-  margin-left: 2rem;
+  /*margin-left: 2rem;*/
 }
 
 .person-form {
@@ -24,8 +24,12 @@
   /*padding-top: 1.2rem;*/
   width: 100%;
   /*background-color: #dbe4ff;*/
-  /*background-color: #edf2ff;*/
-  /*border-radius: 11px;*/
+  background-color: #edf2ff;
+  border-radius: 9px;
+  padding: 2rem 0;
+  margin-bottom: 5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.212);
+
 }
 
 /* FORM ADD PERSON */
@@ -89,7 +93,11 @@
   background: radial-gradient(#fff, #f8f9fa);
 }
 
+.form-padding .has-background{
+  /*background: linear-gradient(#fff, #f8f9fa);*/
 
+ background-color: #f8f9fa;
+}
 
 .form-padding {
   margin: 0rem 2rem;
@@ -142,9 +150,9 @@
 /*}*/
 
 .btn-padding {
-  padding: 1rem 2rem;
+  padding: 0 2rem;
   /*margin-bottom: 1rem;*/
-  margin-bottom: 3rem;
+  /*margin-bottom: 3rem;*/
 }
 
 /* .has-shadow {
@@ -153,6 +161,20 @@
 
 .has-shadow {
   box-shadow: 0 3px 5px rgba(148, 187, 233, 1);
+}
+
+.card-shadow {
+  box-shadow: 4px 4px 10px rgba(148, 187, 233, 1);
+  margin-top: 2.4rem;
+}
+
+/*.card-background{*/
+/*  background-color: #dbe4ff;*/
+/*}*/
+
+.card .card-background-header {
+  /*background-color: #748ffc;*/
+  /*  background-color: #dbe4ff;*/
 }
 
 .persons-nav-link:link,

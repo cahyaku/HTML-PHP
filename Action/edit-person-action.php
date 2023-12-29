@@ -101,6 +101,7 @@ if (count($errorData) != 0) {
   unset($_SESSION['inputRole']);
   unset($_SESSION['inputBirthDate']);
   unset($_SESSION['internalNotes']);
+  
 //  $persons = personsData();
 //  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
 //  foreach ($persons as $person) {
@@ -126,10 +127,10 @@ if (count($errorData) != 0) {
 //      redirect("../edit-person.php?id=$id", "success");
 //    }
 //  }
-  
   $persons = personsData();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
+//    $password = checkedPassword($_POST['password'],$persons[$i]['password']);
     if ($persons[$i]['id'] == $_SESSION['id']) {
       $persons[$i]["nik"] = $_POST['nik'];
       $persons[$i]["firstName"] = $_POST['firstName'];
@@ -139,11 +140,12 @@ if (count($errorData) != 0) {
       $persons[$i]["email"] = $_POST['email'];
       $persons[$i]["password"] = $_POST['password'];
       $persons[$i]["address"] = $_POST['address'];
+      $persons[$i]["role"] = $_POST['role'];
       $persons[$i]["internalNotes"] = $_POST['internalNotes'];
       $persons[$i]["alive"] = $_POST['alive'];
       saveDataIntoJson($persons);
-      $id = $persons[$i]['id'];
-      redirect("../edit-person.php?id=$id", null);
+//      $id = $persons[$i]['id'];
+      redirect("../persons.php", "changed");
     }
   }
 }

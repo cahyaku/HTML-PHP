@@ -410,6 +410,7 @@ require_once __DIR__ . "/Action/common-action.php";
               <option value="allPersons" class="select-items">All Persons</option>
             </select>
           </div>
+          
           <!--              <option selected>Open this select menu</option>-->
           <!--              <option value="1">One</option>-->
           <!--              <option value="2">Two</option>-->
@@ -507,7 +508,7 @@ require_once __DIR__ . "/Action/common-action.php";
           <tbody>
           <?php
           if (count($persons) != 0) {
-            $limit = 3;
+            $limit = 5;
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $previous = $page - 1;
             $next = $page + 1;
@@ -525,12 +526,6 @@ require_once __DIR__ . "/Action/common-action.php";
                 <td>
                   <div class="table-button">
                     <div class="text-end">
-<!--                      <a class="edit btn-table" href="edit-person.php?id=--><?php // echo $personsData[$i]["id"]?><!--">-->
-<!--                        <button type="button" class="btn btn-outline-primary" name="btn-edit">-->
-<!--                          Edit-->
-<!--                        </button>-->
-<!--                      </a>-->
-
                       <?php if(checkRole($_SESSION['email']) != null) { ?>
                       <a class="edit btn-table" href="edit-person.php?id=<?php  echo $personsData[$i]["id"]?>">
                         <button type="button" class="btn btn-outline-primary" name="btn-edit">
@@ -549,18 +544,6 @@ require_once __DIR__ . "/Action/common-action.php";
                           View
                         </button>
                       </a>
-                      <!--                      <a class="view btn-table" href="view-person.php?>?value=-->
-                      <?php //echo "btn-form"
-                      ?><!--">-->
-                      <!--                        <button type="button" class="btn btn-outline-primary" name="btn-view" value="-->
-                      <?php //echo $personsData[$i]['id']
-                      ?><!--">-->
-                      <!--                          View-->
-                      <!--                        </button>-->
-                      <!--                        <input class="btn btn-primary" type="submit" value="-->
-                      <?php //$id =  $personsData[$i]['id']
-                      ?><!--">-->
-                      <!--                      </a>-->
                     </div>
                   </div>
                 </td>
@@ -572,17 +555,24 @@ require_once __DIR__ . "/Action/common-action.php";
             </div>
           <?php } ?>
           </tbody>
-        
           <?php ?>
         </table>
         
         <div class="page-position ">
+          
           <?php if ($_GET["error"] == 2) : ?>
             <div class="alert alert-danger" role="alert">
               Only admin roles can edit person data!!!
             </div>
+          <?php elseif(isset($_GET['success'])): ?>
+            <div class="alert alert-success form-padding alert-padding" role="alert">
+              Data person has been saved !!!
+            </div>
+          <?php elseif(isset($_GET['changed'])): ?>
+            <div class="alert alert-success form-padding alert-padding" role="alert">
+              Data person has been changed !!!
+            </div>
           <?php endif; ?>
-          
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center" >
               <?php

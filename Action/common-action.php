@@ -51,9 +51,29 @@ function translateDateFromIntToString($date):string
   return $date = date("Y-m-d", $date);
 }
 
+
 function translateDateFromStringToInt($date):int
 {
   return $date = strtotime($date);
+}
+
+
+function dateFormatToString($timestamp):string|null
+{
+  if ($timestamp != null) {
+    return $customFormat = date("d F Y", $timestamp);
+  }
+  return null;
+}
+
+function checkBirthDateInput($birthDateInput):bool
+{
+  $birthDate = translateDateFromStringToInt($birthDateInput);
+  $date = time();
+  if($birthDate > $date) {
+   return false;
+  }
+  return true;
 }
 
 function checkRole($email)
@@ -84,43 +104,6 @@ function checkRole($email)
 //   return null;
 //}
 
-//function askForNik( string $nik = null): string
-//{
-//  if ($nik != null) {
-//    while (true) {
-//      if (strlen($nik) != 16) {
-//        echo "The maximum length of NIK input is 16 characters" . "\n";
-//      } else {
-//        return $nik;
-//      }
-//    }
-//  } else {
-//    while (true) {
-//     if (strlen($nik) != 16) {
-//        echo "The maximum length of NIK input is 16 characters" . "\n";
-//      } else {
-//        return $nik;
-//      }
-//    }
-//  }
-//}
-
-//function isNikExists($nik, ?int $id): bool
-//{
-//  foreach ($this->getAll() as $person => $value) {
-//    if ($id == null) {
-//      if ($value->getNik() == $nik) {
-//        return true;
-//      }
-//    } else {
-//      if ($nik == $value->getNik() && $id != $value->getId()) {
-//        return true;
-//      }
-//    }
-//  }
-//  return false;
-//}
-
 function isNikExists($nik, ?int $id): bool
 {
   $persons = personsData();
@@ -137,23 +120,6 @@ function isNikExists($nik, ?int $id): bool
   endfor;
   return false;
 }
-
-//function isNikExits(string $nik, int|null $id):bool
-//{
-//  $personsData = getPersonsData();
-//  foreach ($personsData as $person){
-//    if ($id == null) {
-//      if ($person['nik'] == $nik) {
-//        return true;
-//      }
-//    }else{
-//      if ($person['nik'] == $nik && $person['id'] != $id){
-//        return true;
-//      }
-//    }
-//  }
-//  return false;
-//}
 
 function isEmailExists($email, ?string $id): bool
 {
@@ -213,6 +179,14 @@ function checkPasswordInput($password):bool
   return false;
 }
 
+//function checkedPassword($password, $currentPassword)
+//{
+//  if ($password == "") {
+//  return $currentPassword;
+//  }
+// return $password;
+//}
+
 function checkCurrentPassword($currentPassword, $id):bool
 {
   $persons = personsData();
@@ -247,5 +221,3 @@ function checkNameInput($name): bool
   }
   return true;
 }
-
-

@@ -212,11 +212,11 @@ tbody {
 }
 
 /* BUTTON ADD & EDIT */
-.text-end .btn-view {
-  background-color: #364fc7;
-  border: none;
-  color: #fff;
-}
+/*.text-end .btn-view {*/
+/*  background-color: #364fc7;*/
+/*  border: none;*/
+/*  color: #fff;*/
+/*}*/
 
 .btn-table {
   text-decoration: none;

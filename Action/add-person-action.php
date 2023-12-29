@@ -76,7 +76,11 @@ function validateError(string $nik,
                        string $password,
                        string $email,
                        string $firstName,
-                       string $lastName): array
+                       string $lastName,
+                       string $confirmPassword,
+                       string $birthDate
+): array
+
 {
   $validate = [];
 //  if (checkNikInput($nik) == false) {
@@ -118,16 +122,33 @@ function validateError(string $nik,
     $validate['lastName'] = "2";
   }
   
+  if (!checkConfirmPassword($password, $confirmPassword)) {
+    $validate['confirmPassword'] = "1";
+  }
+  
+  if (!checkBirthDateInput($birthDate)) {
+    $validate['birthDate'] = "1";
+  }
   return $validate;
 }
 
-$errorData = validateError($_POST['nik'], $_POST['password'], $_POST['email'], $_POST['firstName'], $_POST['lastName']);
+$errorData = validateError($_POST['nik'],
+  $_POST['password'],
+  $_POST['email'],
+  $_POST['firstName'],
+  $_POST['lastName'],
+  $_POST['confirmPassword'],
+  $_POST['birthDate']
+);
+
 if (count($errorData) != 0) {
   $_SESSION['errorNik'] = $errorData["nik"];
   $_SESSION['errorEmail'] = $errorData['email'];
   $_SESSION['errorPassword'] = $errorData['password'];
   $_SESSION['errorFirstName'] = $errorData['firstName'];
   $_SESSION['errorLastName'] = $errorData['lastName'];
+  $_SESSION['errorConfirmPassword'] = $errorData['confirmPassword'];
+  $_SESSION['errorBirthDate'] = $errorData['birthDate'];
   
   $_SESSION['inputEmail'] = $_POST['email'];
   $_SESSION['inputNik'] = $_POST['nik'];
@@ -139,7 +160,7 @@ if (count($errorData) != 0) {
   $_SESSION['inputRole'] = $_POST['role'];
   $_SESSION['inputBirthDate'] = $_POST['birthDate'];
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
-//  header("Location: ../add-person.php");
+  $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
   header("Location: ../add-person.php?errorInput=1");
   exit();
 } else {
@@ -148,6 +169,7 @@ if (count($errorData) != 0) {
   unset($_SESSION['errorPassword']);
   unset($_SESSION['errorFirstName']);
   unset($_SESSION['errorLastName']);
+  unset($_SESSION['errorBirthDate']);
   
   unset ($_SESSION['inputEmail']);
   unset ($_SESSION['inputNik']);
@@ -163,6 +185,7 @@ if (count($errorData) != 0) {
   $persons = personsData();
   $id = count($persons) + 1;
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
+  
   $personData = [
     "id" => $id,
     "nik" => $_POST['nik'],
@@ -180,6 +203,5 @@ if (count($errorData) != 0) {
   ];
   $persons[] = $personData;
   saveDataIntoJson($persons);
-  redirect("../add-person.php", "success");
-//  redirect("../persons.php", "success");
+  redirect("../persons.php", "success");
 }

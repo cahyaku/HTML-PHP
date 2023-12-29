@@ -17,7 +17,7 @@
 }
 
 .person-data {
-  padding-top: 2.4rem;
+  padding-top: 1rem;
   margin-bottom: 5rem;
 }
 
@@ -26,6 +26,10 @@
   font-weight: 500;
   margin-bottom: 0;
   color: #777;
+}
+
+.card-padding {
+  margin:1rem;
 }
 
 .data {
@@ -66,11 +70,22 @@
   box-shadow: 0 3px 5px rgb(119, 154, 194);
 }
 
+.card-shadow {
+  /*box-shadow: 0 5px 10px rgba(0, 0, 0, 0.212);*/
+  box-shadow: 0 5px 10px rgb(119, 154, 194);
+}
+
+.has-background {
+   /*background-color: #dbe4ff;*/
+  /*background-color: #edf2ff;*/
+}
+
 .btn-text {
   text-decoration: none;
   font-weight: bold;
   color: #fff;
 }
+
 
 .btn-space {
   margin-right: 0.5rem;

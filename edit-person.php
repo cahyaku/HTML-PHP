@@ -517,7 +517,7 @@ require_once __DIR__ . "/Action/common-action.php";
                     <div class="form-padding">
                       <label for="Sex" class="form-label">Sex*</label>
                       <select
-                          class="form-select form-select-lg mb-3 has-shadow select-text"
+                          class="form-select form-select-lg mb-3 has-shadow select-text has-background"
                           aria-label="Large select example"
                           name="sex"
                       >
@@ -590,6 +590,42 @@ require_once __DIR__ . "/Action/common-action.php";
 
                 <div class="d-md-flex">
                   <div class="col-12 col-md-6 col-lg-6">
+                    <div class="form-padding">
+                      <label for="Role" class="form-label">Role</label>
+                      <select
+                          class="form-select form-select-lg mb-3 has-shadow select-text"
+                          aria-label="Large select example "
+                          name="role"
+                          required
+                      >
+                        <option value="<?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputRole'])) {
+                          echo $_SESSION['inputRole'];
+                        } else {
+                          echo $person['role'];
+                        }
+                        ?>">
+                          <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputRole'])) {
+                            echo $_SESSION['inputRole'] == "ADMIN" ? "ADMIN" : "MEMBER";
+                          } else {
+                            echo $person['role'] == "ADMIN" ? "ADMIN" : "MEMBER";
+                          } ?>
+                        </option>
+                        <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputRole'])) { ?>
+                          <option
+                              value="<?php echo $_SESSION['inputRole'] == "ADMIN" ? "MEMBER" : "ADMIN"; ?>">
+                            <?php echo $_SESSION['inputRole'] == "ADMIN" ? "MEMBER" : "ADMIN"; ?></option>
+                        <?php } else if (isset($_SESSION['inputRole']) == "MEMBER") { ?>
+                          <option value="ADMIN">ADMIN</option>
+                        <?php } else if ($person['role'] == "MEMBER") { ?>
+                          <option value="ADMIN">ADMIN</option>
+                        <?php } else { ?>
+                          <option value="MEMBER">MEMBER</option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-6">
                     <div class="mb-3 form-padding">
                       <label for="exampleFormControlInput1" class="form-label"
                       >Address*</label
@@ -606,29 +642,40 @@ require_once __DIR__ . "/Action/common-action.php";
                     </div>
                   </div>
 
-                  <div class="col-12 col-md-6 col-lg-6">
-                    <div class="mb-3 text-area form-padding">
-                      <label for="exampleFormControlTextarea1" class="form-label">
-                        Internal notes
-                        <ion-icon name="pencil"></ion-icon>
-                      </label>
-                      <textarea
-                          class="form-control i-text has-background has-shadow"
-                          id="exampleFormControlTextarea1"
-                          rows="1"
-                          name="internalNotes"
-                      ><?php echo $person['internalNotes']; ?></textarea>
-                    </div>
-                  </div>
+                  <!--                  <div class="col-12 col-md-6 col-lg-6">-->
+                  <!--                    <div class="mb-3 text-area form-padding">-->
+                  <!--                      <label for="exampleFormControlTextarea1" class="form-label">-->
+                  <!--                        Internal notes-->
+                  <!--                        <ion-icon name="pencil"></ion-icon>-->
+                  <!--                      </label>-->
+                  <!--                      <textarea-->
+                  <!--                          class="form-control i-text has-background has-shadow"-->
+                  <!--                          id="exampleFormControlTextarea1"-->
+                  <!--                          rows="1"-->
+                  <!--                          name="internalNotes"-->
+                  <!--                      >--><?php //echo $person['internalNotes']; ?><!--</textarea>-->
+                  <!--                    </div>-->
+                  <!--                  </div>-->
                 </div>
 
-                <div class="card card-margin has-shadow">
-                  <div class="card-header ">
+                <div class="mb-3 text-area form-padding">
+                  <label for="exampleFormControlTextarea1" class="form-label">
+                    Internal notes
+                    <ion-icon name="pencil"></ion-icon>
+                  </label>
+                  <textarea
+                      class="form-control i-text has-background has-shadow"
+                      id="exampleFormControlTextarea1"
+                      rows="2"
+                      name="internalNotes"
+                  ><?php echo $person['internalNotes']; ?></textarea>
+                </div>
+
+                <div class="card card-margin card-shadow">
+                  <div class="card-header card-background-header">
                     <strong> EDIT PASSWORD </strong>
                   </div>
-                  <div class="card-body has-background">
-                    <!--                    <h5 class="card-title">Special title treatment</h5>-->
-                    <!--                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+                  <div class="card-body card-background">
                     <div class="d-md-flex">
                       <div class="col-12 col-md-6 col-lg-6">
                         <div class="mb-3 form-padding">
@@ -642,7 +689,7 @@ require_once __DIR__ . "/Action/common-action.php";
                               placeholder="Current Password..."
                               name="currentPassword"
                               value="<?php if (isset($_SESSION['errorCurrentPassword']) || isset($_SESSION['errorPassword'])
-                              || isset($_SESSION['errorConfirmPassword'])
+                                || isset($_SESSION['errorConfirmPassword'])
                               ) {
                                 echo $_SESSION['inputCurrentPassword'];
                               }
@@ -701,52 +748,47 @@ require_once __DIR__ . "/Action/common-action.php";
                             ?>"
                             required
                         />
-                        <?php if ($_SESSION['errorConfirmPassword'] != null ) : ?>
+                        <?php if ($_SESSION['errorConfirmPassword'] != null) : ?>
                           <div class="alert alert-danger" role="alert">
-                          Maaf, Konfirmasi password salah!
+                            Maaf, Konfirmasi password salah!
                           </div>
                         <?php endif; ?>
                       </div>
                     </div>
                   </div>
                 </div>
-                
-                <!--                <div class="mb-3 text-area form-padding">-->
-                <!--                  <label for="exampleFormControlTextarea1" class="form-label">-->
-                <!--                    Internal notes-->
-                <!--                    <ion-icon name="pencil"></ion-icon>-->
-                <!--                  </label>-->
-                <!--                  <textarea-->
-                <!--                      class="form-control i-text has-background has-shadow"-->
-                <!--                      id="exampleFormControlTextarea1"-->
-                <!--                      rows="1"-->
-                <!--                      name="internalNotes"-->
-                <!--                  >--><?php //echo $person['internalNotes']; ?><!--</textarea>-->
-                <!--                </div>-->
 
+                <div class="form-check form-switch form-padding">
+                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"
+                         value="ALIVE"
+                         value="<?php if (isset($_SESSION['errorData'])) {
+                           echo $_SESSION['inputAlive'];
+                         } ?>"
+                    <?php
+                    if ($person['alive'] == "ALIVE") {
+                      echo "checked";
+                    }
+                    ?>
+                  >
+                  <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
+                </div>
 
-                <!--                <div class="form-check form-switch form-padding">-->
-                <!--                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"-->
-                <!--                         value="ALIVE">-->
-                <!--                  <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>-->
-                <!--                </div>-->
-                
-                <?php
-                if ($person['alive'] == "ALIVE") {
-                  ?>
-                  <div class="form-check form-switch form-padding">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
-                           value="ALIVE" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">This person is alive</label>
-                  </div>
-                <?php } else { ?>
-                  <div class="form-check form-switch form-padding">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
-                           name="alive"
-                           value="ALIVE">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
-                  </div>
-                <?php } ?>
+                <!--                --><?php
+                //                if ($person['alive'] == "ALIVE") {
+                //                  ?>
+                <!--                  <div class="form-check form-switch form-padding">-->
+                <!--                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"-->
+                <!--                           value="ALIVE" checked>-->
+                <!--                    <label class="form-check-label" for="flexSwitchCheckChecked">This person is alive</label>-->
+                <!--                  </div>-->
+                <!--                --><?php //} else { ?>
+                <!--                  <div class="form-check form-switch form-padding">-->
+                <!--                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"-->
+                <!--                           name="alive"-->
+                <!--                           value="ALIVE">-->
+                <!--                    <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>-->
+                <!--                  </div>-->
+                <!--                --><?php //} ?>
                 <div class="text-end btn-padding">
                   <button
                       type="submit"

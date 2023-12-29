@@ -3,15 +3,15 @@
         "id": 1,
         "nik": "1234567812345612",
         "firstName": "cahya",
-        "lastName": "cahya",
+        "lastName": "kumala",
         "birthDate": 1123027200,
-        "sex": "MALE",
+        "sex": "FEMALE",
         "email": "cahya@gmail.com",
-        "password": "kumalacute",
+        "password": "kumala123",
         "address": "perean lah",
         "role": "ADMIN",
         "internalNotes": "Hi aku cahya kumala",
-        "loggedIn": 1703127974,
+        "loggedIn": 1703812303,
         "alive": "ALIVE"
     },
     {
@@ -49,15 +49,15 @@
         "nik": "1111111111111114",
         "firstName": "Alin",
         "lastName": "hudino",
-        "birthDate": "1104531170",
+        "birthDate": 1104451200,
         "sex": "MALE",
         "email": "alin@gmail.com",
-        "password": "alin123",
+        "password": "alin12345",
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
         "loggedIn": 1702537859,
-        "alive": null
+        "alive": "ALIVE"
     },
     {
         "id": 5,
@@ -207,7 +207,7 @@
         "role": "MEMBER",
         "internalNotes": "",
         "loggedIn": null,
-        "alive": null
+        "alive": "ALIVE"
     },
     {
         "id": 15,
@@ -223,5 +223,20 @@
         "internalNotes": "aku cila pricila",
         "loggedIn": null,
         "alive": null
+    },
+    {
+        "id": 16,
+        "nik": "1234567812399678",
+        "firstName": "cila",
+        "lastName": "mila",
+        "birthDate": 1125446400,
+        "sex": "FEMALE",
+        "email": "cahya@gmail.comca",
+        "password": "cajdksjad",
+        "address": "perean",
+        "role": "ADMIN",
+        "internalNotes": "",
+        "loggedIn": null,
+        "alive": "ALIVE"
     }
 ]

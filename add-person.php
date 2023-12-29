@@ -422,56 +422,6 @@ if (!isset($_SESSION['email'])) {
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
                     <label for="exampleFormControlInput1" class="form-label"
-                    >Email*</label
-                    >
-                    <input
-                        type="email"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="me@example.com"
-                        name="email"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputEmail'];
-                        } ?>"
-                        required
-                    />
-                    <?php if (isset($_SESSION["errorEmail"])) : ?>
-                      <div class="alert alert-danger" role="alert">
-                        Sorry, email already exists!!!
-                      </div>
-                    <?php endif; ?>
-                  </div>
-                </div>
-
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
-                    >Password*</label
-                    >
-                    <input
-                        type="password"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="Password"
-                        name="password"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputPassword'];
-                        } ?>"
-                        required
-                    />
-                    <?php if (isset($_SESSION["errorPassword"])) : ?>
-                      <div class="alert alert-danger" role="alert">
-                        The minimum length of Password input is 8 characters and maximum 16 characters
-                      </div>
-                    <?php endif; ?>
-                  </div>
-                </div>
-              </div>
-
-              <div class="d-md-flex">
-                <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
                     >NIK*</label
                     >
                     <input
@@ -503,23 +453,77 @@ if (!isset($_SESSION['email'])) {
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
                     <label for="exampleFormControlInput1" class="form-label"
-                    >Address*</label
+                    >Email*</label
                     >
                     <input
-                        type="text"
+                        type="email"
                         class="form-control has-shadow input-data has-background"
                         id="exampleFormControlInput1"
-                        placeholder="Address"
-                        name="address"
+                        placeholder="me@example.com"
+                        name="email"
                         value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputAddress'];
+                          echo $_SESSION['inputEmail'];
                         } ?>"
                         required
                     />
+                    <?php if (isset($_SESSION["errorEmail"])) : ?>
+                      <div class="alert alert-danger" role="alert">
+                        Sorry, email already exists!!!
+                      </div>
+                    <?php endif; ?>
                   </div>
                 </div>
               </div>
 
+              <div class="d-md-flex">
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="mb-3 form-padding">
+                    <label for="exampleFormControlInput1" class="form-label"
+                    >Password*</label
+                    >
+                    <input
+                        type="password"
+                        class="form-control has-shadow input-data has-background"
+                        id="exampleFormControlInput1"
+                        placeholder="Password"
+                        name="password"
+                        value="<?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputPassword'];
+                        } ?>"
+                        required
+                    />
+                    <?php if (isset($_SESSION["errorPassword"])) : ?>
+                      <div class="alert alert-danger" role="alert">
+                        The minimum length of Password input is 8 characters and maximum 16 characters
+                      </div>
+                    <?php endif; ?>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="mb-3 form-padding">
+                    <label for="exampleFormControlInput1" class="form-label"
+                    >Confirm Password*</label
+                    >
+                    <input
+                        type="password"
+                        class="form-control has-shadow input-data has-background"
+                        id="exampleFormControlInput1"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        value="<?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputConfirmPassword'];
+                        } ?>"
+                        required
+                    />
+                    <?php if (isset($_SESSION["errorConfirmPassword"])) : ?>
+                      <div class="alert alert-danger" role="alert">
+                        Maaf, konfirmasi password salah!
+                      </div>
+                    <?php endif; ?>
+                  </div>
+                </div>
+              </div>
+              
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="form-padding">
@@ -532,24 +536,23 @@ if (!isset($_SESSION['email'])) {
                     >
                       <?php
                       if (isset($_SESSION['inputSex'])) {
-                      ?>
+                        ?>
                         <option value="<?php echo $_SESSION['inputSex']; ?>">
-                          <?php echo ($_SESSION['inputSex']); ?></option>
-                        <?php if($_SESSION['inputSex'] == "FEMALE") {?>
-                          <option value="MALE">Male</option>
-                        <?php }else { ?>
-                          <option value="FEMALE">Female</option>
-                      <?php } ?>
-                      <?php } else if ( isset($_GET['errorInput'])) { ?>
+                          <?php echo($_SESSION['inputSex']); ?></option>
+                        <?php if ($_SESSION['inputSex'] == "FEMALE") { ?>
+                          <option value="MALE">MALE</option>
+                        <?php } else { ?>
+                          <option value="FEMALE">FEMALE</option>
+                        <?php } ?>
+                      <?php } else if (isset($_GET['errorInput'])) { ?>
                         <option selected disabled="disabled" value="">Open this select menu</option>
-                        <option value="MALE">Male</option>
-                        <option value="FEMALE">Female</option>
-                          <?php } else {?>
-                      <option selected disabled="disabled" value="">Open this select menu</option>
-                      <option value="MALE">Male</option>
-                      <option value="FEMALE">Female</option>
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
+                      <?php } else { ?>
+                        <option selected disabled="disabled" value="">Open this select menu</option>
+                        <option value="MALE">MALE</option>
+                        <option value="FEMALE">FEMALE</option>
                       <?php } ?>
-                      
                       <!--                        <option value="--><?php //if (isset($_GET['errorInput'])) {
                       //                          echo $_SESSION['inputSex'];
                       //                        } else {
@@ -573,7 +576,6 @@ if (!isset($_SESSION['email'])) {
                     </select>
                   </div>
                 </div>
-
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
                     <label for="exampleFormControlInput1" class="form-label"
@@ -590,6 +592,11 @@ if (!isset($_SESSION['email'])) {
                         } ?>"
                         required
                     />
+                    <?php if (isset($_SESSION["errorBirthDate"])) : ?>
+                      <div class="alert alert-danger" role="alert">
+                        Maaf, input tanggal lahir tidak valid!
+                      </div>
+                    <?php endif; ?>
                   </div>
                 </div>
               </div>
@@ -604,32 +611,32 @@ if (!isset($_SESSION['email'])) {
                         name="role"
                         required
                     >
-<!--                      --><?php
-//                      if (isset($_GET['errorInput'])) {
-//                        ?>
-<!--                        <option-->
-<!--                            value="--><?php //echo $_SESSION['inputRole']; ?><!--">--><?php //echo $_SESSION['inputRole']; ?><!--</option>-->
-<!--                      --><?php //} else { ?>
-<!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
-<!--                        <option value="ADMIN">ADMIN</option>-->
-<!--                        <option value="MEMBER">MEMBER</option>-->
-<!--                      --><?php //} ?>
-                      
+                      <!--                      --><?php
+                      //                      if (isset($_GET['errorInput'])) {
+                      //                        ?>
+                      <!--                        <option-->
+                      <!--                            value="--><?php //echo $_SESSION['inputRole']; ?><!--">-->
+                      <?php //echo $_SESSION['inputRole']; ?><!--</option>-->
+                      <!--                      --><?php //} else { ?>
+                      <!--                        <option selected disabled="disabled" value="">Open this select menu</option>-->
+                      <!--                        <option value="ADMIN">ADMIN</option>-->
+                      <!--                        <option value="MEMBER">MEMBER</option>-->
+                      <!--                      --><?php //} ?>
                       <?php
                       if (isset($_SESSION['inputRole'])) {
                         ?>
                         <option value="<?php echo $_SESSION['inputRole']; ?>">
                           <?php echo ucwords($_SESSION['inputRole']); ?></option>
-                        <?php if($_SESSION['inputRole'] == "MEMBER") {?>
+                        <?php if ($_SESSION['inputRole'] == "MEMBER") { ?>
                           <option value="ADMIN">ADMIN</option>
-                        <?php }else { ?>
+                        <?php } else { ?>
                           <option value="MEMBER">MEMBER</option>
                         <?php } ?>
-                      <?php } else if ( isset($_GET['errorInput'])) { ?>
+                      <?php } else if (isset($_GET['errorInput'])) { ?>
                         <option selected disabled="disabled" value="">Open this select menu</option>
                         <option value="ADMIN">ADMIN</option>
                         <option value="MEMBER">MEMBER</option>
-                      <?php } else {?>
+                      <?php } else { ?>
                         <option selected disabled="disabled" value="">Open this select menu</option>
                         <option value="ADMIN">ADMIN</option>
                         <option value="MEMBER">MEMBER</option>
@@ -639,49 +646,46 @@ if (!isset($_SESSION['email'])) {
                 </div>
 
                 <div class="col-12 col-md-6 col-lg-6">
-                  <div class="form-padding">
-                    <div class="mb-3 text-area">
-                      <label for="exampleFormControlTextarea1" class="form-label">
-                        Internal notes
-                        <ion-icon name="pencil"></ion-icon>
-                      </label>
-                      <textarea
-                          class="form-control i-text has-background has-shadow"
-                          id="exampleFormControlTextarea1"
-                          rows="1"
-                          name="internalNotes"
-                      ><?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputInternalNotes'];
-                        } ?></textarea>
-                    </div>
+                  <div class="mb-3 form-padding">
+                    <label for="exampleFormControlInput1" class="form-label"
+                    >Address*</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control has-shadow input-data has-background"
+                        id="exampleFormControlInput1"
+                        placeholder="Address"
+                        name="address"
+                        value="<?php if ($_GET['errorInput'] == 1) {
+                          echo $_SESSION['inputAddress'];
+                        } ?>"
+                        required
+                    />
                   </div>
                 </div>
               </div>
-              <!--              <div class="mb-3 text-area form-padding">-->
-              <!--                <label for="exampleFormControlTextarea1" class="form-label">-->
-              <!--                  Internal notes-->
-              <!--                  <ion-icon name="pencil"></ion-icon>-->
-              <!--                </label>-->
-              <!--                <textarea-->
-              <!--                    class="form-control i-text has-background has-shadow"-->
-              <!--                    id="exampleFormControlTextarea1"-->
-              <!--                    rows="2"-->
-              <!--                    name="internalNotes"-->
-              <!--                ></textarea>-->
-              <!--              </div>-->
 
+              <div class="form-padding">
+                <div class="mb-3 text-area">
+                  <label for="exampleFormControlTextarea1" class="form-label">
+                    Internal notes
+                    <ion-icon name="pencil"></ion-icon>
+                  </label>
+                  <textarea
+                      class="form-control i-text has-background has-shadow"
+                      id="exampleFormControlTextarea1"
+                      rows="2"
+                      name="internalNotes"
+                  ><?php if ($_GET['errorInput'] == 1) {
+                      echo $_SESSION['inputInternalNotes'];
+                    } ?></textarea>
+                </div>
+              </div>
               <div class="form-check form-switch form-padding">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"
-                       value="ALIVE" required>
+                       value="ALIVE">
                 <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
               </div>
-              <?php
-              if (isset($_GET['success'])) {
-                ?>
-                <div class="alert alert-success form-padding alert-padding" role="alert">
-                  Data person has been saved !!!
-                </div>
-              <?php } ?>
 
               <div class="text-end btn-padding">
                 <button
@@ -726,12 +730,15 @@ if (!isset($_SESSION['email'])) {
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"
 ></script>
+
 <?php
 unset($_SESSION['errorNik']);
 unset($_SESSION['errorEmail']);
 unset($_SESSION['errorPassword']);
 unset($_SESSION['errorFirstName']);
 unset($_SESSION['errorLastName']);
+unset($_SESSION['errorConfirmPassword']);
+unset($_SESSION['errorBirthDate']);
 
 unset ($_SESSION['inputEmail']);
 unset ($_SESSION['inputNik']);
@@ -743,6 +750,7 @@ unset ($_SESSION['inputSex']);
 unset ($_SESSION['inputRole']);
 unset ($_SESSION['inputBirthDate']);
 unset ($_SESSION['internalNotes']);
+unset ($_SESSION['inputConfirmPassword']);
 ?>
 
 </body>
