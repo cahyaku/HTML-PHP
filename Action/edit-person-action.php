@@ -4,6 +4,25 @@ session_start();
 require_once __DIR__ . "/json.php";
 require_once __DIR__ . "/common-action.php";
 
+
+//function passwordValidate(int $id, string $currentPassword, string $newPassword, string $confirmPassword):array
+//{
+//  $validate = [];
+//  if ($currentPassword != null){
+//    if (!checkCurrentPassword($currentPassword, $id)){
+//      $validate['currentPass'] = "Password input is not correct";
+//    }else{
+//      $errorNewPass = checkNewPasswordInput($newPassword, $currentPassword);
+//      if ($errorNewPass != "") {
+//        $validate['newPass'] = $errorNewPass;
+//      }
+//    }
+//  }else{
+//    $validate['currentPass'] = "Please input the current password first!";
+//  }
+//  return $validate;
+//}
+
 function validateError(string $nik,
                        string $password,
                        string $email,
@@ -23,7 +42,7 @@ function validateError(string $nik,
     $validate['nik'] = "2";
   }
   
-  if (!checkPasswordInput($password)) {
+  if (!checkNewPasswordInput($password)) {
     $validate['password'] = "1";
   }
   
@@ -42,10 +61,41 @@ function validateError(string $nik,
   if (!checkCurrentPassword($currentPassword, $id)) {
     $validate['currentPassword'] = "2";
   }
+
+//  if ($_POST['currentPassword'] != null || $_POST['newPassword']) {
+//    $validate = passwordValidate($_SESSION['id'], $_POST['currentPassword'], $_POST['newPassword'], $_POST['confirmPassword']);
+//  }else{
+//    $validate = [];
+//  }
+//  if ($_POST['currentPassword'] != null || $_POST['password'] != null) {
+//    if (!checkCurrentPassword($currentPassword, $id)) {
+//      $validate['currentPassword'] = "2";
+//    }
+//  } else {
+//    $validate['currentPassword'] = "3";
+//  }
+//  if ($_POST['currentPassword'] != null){
+//    if (!checkCurrentPassword($currentPassword, $id)) {
+//      $validate['currentPassword'] = "2";
+//    }
+//  }
+  
+  if ($_POST['currentPassword'] != null || $_POST['password'] == null) {
+    $validate['currentPassword'] = "1";
+  }
+  
+
   
   if (!checkConfirmPassword($password, $confirmPassword)) {
-      $validate['confirmPassword'] = "3";
-  }
+      $validate['confirmPassword'] = "2";
+    }
+
+//  }
+//  if ($_POST['currentPassword'] != "" || $_POST['newPassword'] != null) {
+//    $errorPass = passwordValidate($_SESSION['personId'], $_POST['currentPassword'], $_POST['newPassword'], $_POST['confirmPassword']);
+//  }else{
+//    $errorPass = [];
+//  }
   return $validate;
 }
 
@@ -67,7 +117,7 @@ if (count($errorData) != 0) {
   $_SESSION['errorLastName'] = $errorData['lastName'];
   $_SESSION['errorCurrentPassword'] = $errorData['currentPassword'];
   $_SESSION['errorConfirmPassword'] = $errorData['confirmPassword'];
-
+  $_SESSION['inputNewPassword'] = $errorData['inputPassword'];
 //  SESSION INPUT DATA
   $_SESSION['inputEmail'] = $_POST['email'];
   $_SESSION['inputNik'] = $_POST['nik'];
@@ -101,7 +151,7 @@ if (count($errorData) != 0) {
   unset($_SESSION['inputRole']);
   unset($_SESSION['inputBirthDate']);
   unset($_SESSION['internalNotes']);
-  
+
 //  $persons = personsData();
 //  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
 //  foreach ($persons as $person) {
@@ -127,10 +177,12 @@ if (count($errorData) != 0) {
 //      redirect("../edit-person.php?id=$id", "success");
 //    }
 //  }
+  
   $persons = personsData();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
-//    $password = checkedPassword($_POST['password'],$persons[$i]['password']);
+    $password = checkedPassword($_POST['password'], $persons[$i]['password']);
+    
     if ($persons[$i]['id'] == $_SESSION['id']) {
       $persons[$i]["nik"] = $_POST['nik'];
       $persons[$i]["firstName"] = $_POST['firstName'];
@@ -138,7 +190,7 @@ if (count($errorData) != 0) {
       $persons[$i]["birthDate"] = $birthDate;
       $persons[$i]["sex"] = $_POST['sex'];
       $persons[$i]["email"] = $_POST['email'];
-      $persons[$i]["password"] = $_POST['password'];
+      $persons[$i]["password"] = $password;
       $persons[$i]["address"] = $_POST['address'];
       $persons[$i]["role"] = $_POST['role'];
       $persons[$i]["internalNotes"] = $_POST['internalNotes'];

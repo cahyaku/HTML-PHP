@@ -106,7 +106,7 @@ function validateError(string $nik,
     $validate['nik'] = "2";
   }
   
-  if (!checkPasswordInput($password)) {
+  if (!checkNewPasswordInput($password)) {
     $validate['password'] = "1";
   }
   

@@ -2,7 +2,7 @@
 
 require_once __DIR__ . "/json.php";
 
-function personsData():array
+function personsData(): array
 {
   return $person = loadDataFromJson("persons.json");
 }
@@ -13,10 +13,10 @@ function personsData():array
 //  die();
 //}
 
-function redirect($url, $getParams):void
+function redirect($url, $getParams): void
 {
   if ($getParams == null) {
-    header('Location: ' . $url );
+    header('Location: ' . $url);
     die();
   } else {
     header('Location: ' . $url . '?' . $getParams);
@@ -35,7 +35,7 @@ function getPersonData($id)
   return $persons[$i];
 }
 
-function getPersonDataByEmail($email):mixed
+function getPersonDataByEmail($email): mixed
 {
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) {
@@ -46,19 +46,19 @@ function getPersonDataByEmail($email):mixed
   return null;
 }
 
-function translateDateFromIntToString($date):string
+function translateDateFromIntToString($date): string
 {
   return $date = date("Y-m-d", $date);
 }
 
 
-function translateDateFromStringToInt($date):int
+function translateDateFromStringToInt($date): int
 {
   return $date = strtotime($date);
 }
 
 
-function dateFormatToString($timestamp):string|null
+function dateFormatToString($timestamp): string|null
 {
   if ($timestamp != null) {
     return $customFormat = date("d F Y", $timestamp);
@@ -66,12 +66,12 @@ function dateFormatToString($timestamp):string|null
   return null;
 }
 
-function checkBirthDateInput($birthDateInput):bool
+function checkBirthDateInput($birthDateInput): bool
 {
   $birthDate = translateDateFromStringToInt($birthDateInput);
   $date = time();
-  if($birthDate > $date) {
-   return false;
+  if ($birthDate > $date) {
+    return false;
   }
   return true;
 }
@@ -171,42 +171,59 @@ function isEmailExists($email, ?string $id): bool
 //  return null;
 //}
 
-function checkPasswordInput($password):bool
+function checkNewPasswordInput($password, ?string $currentPassword = null): bool
 {
-  if (strlen($password) >= 8 && strlen($password) <= 16) {
+  if ($currentPassword == "" && $password == "") {
+    return true;
+  } else if (strlen($password) >= 8 && strlen($password) <= 16) {
+    return true;
+  } else if ($password == "") {
     return true;
   }
   return false;
 }
 
-//function checkedPassword($password, $currentPassword)
-//{
-//  if ($password == "") {
-//  return $currentPassword;
-//  }
-// return $password;
-//}
+function checkedPassword($password, $currentPassword)
+{
+  if ($password == "") {
+    return $currentPassword;
+  } else {
+    return $password;
+  }
+}
 
-function checkCurrentPassword($currentPassword, $id):bool
+function checkPasswordInput($currentPassword, $password, $confirmPassword): bool
+{
+  if ($currentPassword != "" && $password == "" || $password != "" && $currentPassword == "") {
+    return false;
+  } else if ($password != "" && $confirmPassword == "") {
+    return false;
+  }
+  return true;
+}
+
+function checkCurrentPassword($currentPassword, $id): bool
 {
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) {
-    if ($id == $persons[$i]['id'] &&  $persons[$i]['password'] == $currentPassword) {
+    if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword) {
+      return true;
+    } elseif ($currentPassword == "") {
       return true;
     }
   }
   return false;
 }
 
-function checkConfirmPassword($password, $confirmPassword):bool
+function checkConfirmPassword($password, $confirmPassword): bool
 {
- if ($password == $confirmPassword) {
-   return true;
- }
- return false;
+  if ($password == $confirmPassword) {
+    return true;
+  }
+  return false;
 }
 
-function checkNikInput($nik):bool
+function checkNikInput($nik): bool
 {
   if (strlen($nik) != 16) {
     return false;

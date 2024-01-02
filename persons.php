@@ -403,7 +403,7 @@ require_once __DIR__ . "/Action/common-action.php";
           <div class="searchByAge">
             <select name="searchByAge" class="form-select has-shadow select-background"
                     aria-label="Default select example">
-              <option selected>Search by age</option>
+              <option selected disabled>Search by age</option>
               <option value="productiveAges">Productive Ages</option>
               <option value="passedAway">Passed Away</option>
               <option value="toddler">Toddler</option>
@@ -502,14 +502,24 @@ require_once __DIR__ . "/Action/common-action.php";
             <th scope="col">Email</th>
             <th scope="col">Name</th>
             <th scope="col">Role</th>
+            <th scope="col">Age</th>
+            <th scope="col">Status</th>
             <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
+          
           <?php
           if (count($persons) != 0) {
+            if ($_GET['page'] < 1) {
+              $page = 1;
+            } else if (isset($_GET['page']) && !is_numeric($_GET['page'])) {
+              $page = 1;
+            } else {
+              $page = $_GET['page'];
+            }
             $limit = 5;
-            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+//            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $previous = $page - 1;
             $next = $page + 1;
             $data = paginatedData($persons, $page, $limit);
@@ -523,6 +533,14 @@ require_once __DIR__ . "/Action/common-action.php";
                 <td>
                   <?php echo ucwords($personsData[$i]["firstName"]) . " " . ucwords($personsData[$i]["lastName"]) ?></td>
                 <td><?php echo $personsData[$i]["role"] ?></td>
+                <td><?php echo checkAges($personsData[$i]["birthDate"])?></td>
+                <td><?php
+                  if ($personsData[$i]["alive"] == null) {
+                     echo "Passed away";
+                  } else {
+                    echo "Alive";
+                  }
+                  ?></td>
                 <td>
                   <div class="table-button">
                     <div class="text-end">

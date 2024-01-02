@@ -692,11 +692,17 @@ require_once __DIR__ . "/Action/common-action.php";
                                 || isset($_SESSION['errorConfirmPassword'])
                               ) {
                                 echo $_SESSION['inputCurrentPassword'];
+                              } else {
+                                echo "";
                               }
                               ?>"
-                              required
+                              <?php
+                              if(isset($_SESSION['inputCurrentPassword']) || isset($_SESSION['errorPassword'])){
+                                echo "required";
+                              }
+                              ?>
                           />
-                          <?php if (isset($_SESSION["errorCurrentPassword"])) : ?>
+                          <?php if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["inputCurrentPassword"] == 1) : ?>
                             <div class="alert alert-danger" role="alert">
                               Maaf, input password salah!
                             </div>
@@ -717,9 +723,17 @@ require_once __DIR__ . "/Action/common-action.php";
                               name="password"
                               value="<?php if (isset($_SESSION['errorPassword']) || isset($_SESSION['errorData'])) {
                                 echo $_SESSION['inputPassword'];
-                              } ?>"
-                              required
+                              } else {
+                                echo "";
+                              }
+                              ?>"
+                              <?php
+                              if ($_SESSION['inputCurrentPassword'] != "" && $_SESSION['inputPassword'] == ""){
+                                echo "required";
+                              }
+                              ?>
                           />
+                          
                           <?php if (isset($_SESSION["errorPassword"])) : ?>
                             <div class="alert alert-danger" role="alert">
                               The minimum length of Password input is 8 characters and maximum 16 characters
@@ -743,10 +757,15 @@ require_once __DIR__ . "/Action/common-action.php";
                             value="<?php if (isset($_SESSION['errorConfirmPassword']) || isset($_SESSION['errorData'])) {
                               echo $_SESSION['inputConfirmPassword'];
                             } else {
-                              echo $_SESSION['inputPassword'];
+                              echo "";
                             }
                             ?>"
-                            required
+                            
+                          <?php
+                          if (isset($_SESSION['inputCurrentPassword']) || isset($_SESSION['inputPassword']) || isset($_SESSION['inputConfirmPassword'])){
+                            echo "required";
+                          }
+                          ?>
                         />
                         <?php if ($_SESSION['errorConfirmPassword'] != null) : ?>
                           <div class="alert alert-danger" role="alert">
