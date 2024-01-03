@@ -79,12 +79,9 @@ function validateError(string $nik,
 //      $validate['currentPassword'] = "2";
 //    }
 //  }
-  
-  if ($_POST['currentPassword'] != null || $_POST['password'] == null) {
-    $validate['currentPassword'] = "1";
-  }
-  
-
+//  if ($_POST['currentPassword'] != null || $_POST['password'] == null) {
+//    $validate['currentPassword'] = "1";
+//  }
   
   if (!checkConfirmPassword($password, $confirmPassword)) {
       $validate['confirmPassword'] = "2";
@@ -118,6 +115,7 @@ if (count($errorData) != 0) {
   $_SESSION['errorCurrentPassword'] = $errorData['currentPassword'];
   $_SESSION['errorConfirmPassword'] = $errorData['confirmPassword'];
   $_SESSION['inputNewPassword'] = $errorData['inputPassword'];
+  
 //  SESSION INPUT DATA
   $_SESSION['inputEmail'] = $_POST['email'];
   $_SESSION['inputNik'] = $_POST['nik'];
@@ -182,7 +180,6 @@ if (count($errorData) != 0) {
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
     $password = checkedPassword($_POST['password'], $persons[$i]['password']);
-    
     if ($persons[$i]['id'] == $_SESSION['id']) {
       $persons[$i]["nik"] = $_POST['nik'];
       $persons[$i]["firstName"] = $_POST['firstName'];

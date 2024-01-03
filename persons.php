@@ -403,14 +403,51 @@ require_once __DIR__ . "/Action/common-action.php";
           <div class="searchByAge">
             <select name="searchByAge" class="form-select has-shadow select-background"
                     aria-label="Default select example">
-              <option selected disabled>Search by age</option>
+<!--              <option selected disabled>Search by age</option>-->
+<!--              <option value="productiveAges">Productive Ages</option>-->
+<!--              <option value="passedAway">Passed Away</option>-->
+<!--              <option value="toddler">Toddler</option>-->
+<!--              <option value="allPersons" class="select-items">All Persons</option>-->
+              
+              <option name="searchByAge" class="select-item selected" value="<?php if (isset($_GET['searchByAge'])) {
+                echo $_GET['searchByAge'];
+              } else {
+                echo "allPersons";
+              } ?>" selected disabled>
+<!--                --><?php //if (isset($_GET['searchByAge'])) {
+//                  echo ucwords($_GET['searchByAge']);
+//                } else {
+//                  echo "All Persons";
+//                } ?>
+                
+                
+                <?php if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges") {
+                  echo "Productive Ages";
+                } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway"){
+                  echo "Passed Away";
+                }  else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler"){
+                  echo "Toddler";
+                } else {
+                  echo "All Persons";
+                } ?>
+              </option>
               <option value="productiveAges">Productive Ages</option>
               <option value="passedAway">Passed Away</option>
               <option value="toddler">Toddler</option>
               <option value="allPersons" class="select-items">All Persons</option>
+              
+              
+<!--              <option name="filter" class="select-item selected" value="--><?php //if (isset($_GET['filter'])) {
+//                echo $_GET['filter'];
+//              } else {
+//                echo "allPersons";
+//              } ?><!--" selected>--><?php //if (isset($_GET['filter'])) {
+//                  echo getFilter($_GET['filter']);
+//                } else {
+//                  echo "All Persons Data";
+//                } ?><!--</option>-->
             </select>
           </div>
-          
           <!--              <option selected>Open this select menu</option>-->
           <!--              <option value="1">One</option>-->
           <!--              <option value="2">Two</option>-->
@@ -447,6 +484,7 @@ require_once __DIR__ . "/Action/common-action.php";
 
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
+<!--          <table class="table-primary table-bordered border-primary table-width" id="table">-->
           <!--TABLE (SEARCH BY AGE)-->
           <!--          --><?php
           //          if (isset($_GET['toddler'])) {
@@ -492,7 +530,8 @@ require_once __DIR__ . "/Action/common-action.php";
           } else if ($_GET["search"]) {
             $searchInput = $_GET["search"];
             $persons = search($searchInput);
-          } else {
+          }
+          else {
             $persons = personsData();
           }
           ?>

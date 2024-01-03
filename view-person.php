@@ -363,7 +363,14 @@ require_once __DIR__ . "/Action/common-action.php";
             <h3 class="title">View person data</h3>
           </div>
           <?php
-          if (isset($_GET['id']) == 1) {
+          if (isset($_GET['id'])) {
+//            if ($_GET['id'] >= 1) {
+//              $id = $_GET['id'];
+//            } else if (!is_numeric($_GET['id'])) {
+//              $id = $_GET['id'];
+//            } else {
+//              $id = $_GET['id'];
+//            }
           $id = $_GET['id'];
           $persons = getPersonData($id);
           ?>
