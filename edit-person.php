@@ -483,33 +483,6 @@ require_once __DIR__ . "/Action/common-action.php";
                       <?php endif; ?>
                     </div>
                   </div>
-
-                  <!--                  <div class="col-12 col-md-6 col-lg-6">-->
-                  <!--                    <div class="mb-3 form-padding">-->
-                  <!--                      <label for="exampleFormControlInput1" class="form-label"-->
-                  <!--                      >Password*</label-->
-                  <!--                      >-->
-                  <!--                      <input-->
-                  <!--                          type="password"-->
-                  <!--                          class="form-control has-shadow input-data has-background"-->
-                  <!--                          id="exampleFormControlInput1"-->
-                  <!--                          placeholder="Password"-->
-                  <!--                          name="password"-->
-                  <!--                          value="--><?php //if (isset($_SESSION['errorPassword'])) {
-                  //                            echo $_SESSION['inputPassword'];
-                  //                          } else {
-                  //                            echo $person['password'];
-                  //                          }
-                  //                          ?><!--"-->
-                  <!--                          required-->
-                  <!--                      />-->
-                  <!--                      --><?php //if (isset($_SESSION["errorPassword"])) : ?>
-                  <!--                        <div class="alert alert-danger" role="alert">-->
-                  <!--                          The minimum length of Password input is 8 characters and maximum 16 characters-->
-                  <!--                        </div>-->
-                  <!--                      --><?php //endif; ?>
-                  <!--                    </div>-->
-                  <!--                  </div>-->
                 </div>
 
                 <div class="d-md-flex">
@@ -641,21 +614,6 @@ require_once __DIR__ . "/Action/common-action.php";
                       />
                     </div>
                   </div>
-
-                  <!--                  <div class="col-12 col-md-6 col-lg-6">-->
-                  <!--                    <div class="mb-3 text-area form-padding">-->
-                  <!--                      <label for="exampleFormControlTextarea1" class="form-label">-->
-                  <!--                        Internal notes-->
-                  <!--                        <ion-icon name="pencil"></ion-icon>-->
-                  <!--                      </label>-->
-                  <!--                      <textarea-->
-                  <!--                          class="form-control i-text has-background has-shadow"-->
-                  <!--                          id="exampleFormControlTextarea1"-->
-                  <!--                          rows="1"-->
-                  <!--                          name="internalNotes"-->
-                  <!--                      >--><?php //echo $person['internalNotes']; ?><!--</textarea>-->
-                  <!--                    </div>-->
-                  <!--                  </div>-->
                 </div>
 
                 <div class="mb-3 text-area form-padding">
@@ -696,15 +654,16 @@ require_once __DIR__ . "/Action/common-action.php";
                                 echo "";
                               }
                               ?>"
-                              <?php
-                              if(isset($_SESSION['inputCurrentPassword']) || isset($_SESSION['errorPassword'])){
-                                echo "required";
-                              }
-                              ?>
+                            <?php
+                            if (isset($_SESSION['inputCurrentPassword']) || isset($_SESSION['errorPassword'])) {
+                              echo "required";
+                            }
+                            ?>
                           />
-                          <?php if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["inputCurrentPassword"] == 1) : ?>
+                          
+                          <?php if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["errorCurrentPassword"] == 1) : ?>
                             <div class="alert alert-danger" role="alert">
-                              Maaf, input password salah!
+                              Password input is not correct!
                             </div>
                           <?php endif; ?>
                         </div>
@@ -727,18 +686,25 @@ require_once __DIR__ . "/Action/common-action.php";
                                 echo "";
                               }
                               ?>"
-                              <?php
-                              if ($_SESSION['inputCurrentPassword'] != "" && $_SESSION['inputPassword'] == ""){
-                                echo "required";
-                              }
-                              ?>
+                            <?php
+                            if ($_SESSION['inputCurrentPassword'] != "" && $_SESSION['inputPassword'] == "") {
+                              echo "required";
+                            }
+                            ?>
                           />
+                          
                           
                           <?php if (isset($_SESSION["errorPassword"])) : ?>
                             <div class="alert alert-danger" role="alert">
                               The minimum length of Password input is 8 characters and maximum 16 characters
                             </div>
                           <?php endif; ?>
+                          
+<!--                          --><?php //if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["errorCurrentPassword"] == 1) : ?>
+<!--                            <div class="alert alert-danger" role="alert">-->
+<!--                              Silahkan tambahkan input password terlebih dahulu!-->
+<!--                            </div>-->
+<!--                          --><?php //endif; ?>
                         </div>
                       </div>
                     </div>
@@ -760,16 +726,16 @@ require_once __DIR__ . "/Action/common-action.php";
                               echo "";
                             }
                             ?>"
-                            
                           <?php
-                          if (isset($_SESSION['inputCurrentPassword']) || isset($_SESSION['inputPassword']) || isset($_SESSION['inputConfirmPassword'])){
+                          if (isset($_SESSION['inputCurrentPassword']) || isset($_SESSION['inputPassword']) || isset($_SESSION['inputConfirmPassword'])) {
                             echo "required";
                           }
                           ?>
                         />
+                        
                         <?php if ($_SESSION['errorConfirmPassword'] != null) : ?>
                           <div class="alert alert-danger" role="alert">
-                            Maaf, Konfirmasi password salah!
+                            Confirm password input is not correct!
                           </div>
                         <?php endif; ?>
                       </div>
@@ -791,7 +757,6 @@ require_once __DIR__ . "/Action/common-action.php";
                   >
                   <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
                 </div>
-
                 <!--                --><?php
                 //                if ($person['alive'] == "ALIVE") {
                 //                  ?>
@@ -833,7 +798,6 @@ require_once __DIR__ . "/Action/common-action.php";
     </div>
   </section>
 </main>
-
 <!-- BOOTSTRAPS -->
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"

@@ -138,12 +138,12 @@ function isEmailExists($email, ?string $id): bool
   return false;
 }
 
-//function generateId($array): int
-//{
-//  return $array == null ? 1 : (end($array['id']) + 1);
-//}
-//
-//function save($person):null
+function generateId($array): int
+{
+  return $array == null ? 1 : (end($array['id']) + 1);
+}
+
+//function save($person):void
 //{
 //  $persons = personsData();
 //  if ($person['id'] == null) {
@@ -168,7 +168,6 @@ function isEmailExists($email, ?string $id): bool
 //      }
 //    }
 //  }
-//  return null;
 //}
 
 function checkNewPasswordInput($password, ?string $currentPassword = null): bool
@@ -204,11 +203,20 @@ function checkPasswordInput($currentPassword, $password, $confirmPassword): bool
 
 function checkCurrentPassword($currentPassword, $id): bool
 {
+    $persons = personsData();
+    for ($i = 0; $i < count($persons); $i++) {
+      if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword) {
+        return true;
+      }
+    }
+    return false;
+}
+
+function checkCurrentPasswordInput($currentPassword, $id, $password):bool
+{
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) {
-    if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword) {
-      return true;
-    } elseif ($currentPassword == "") {
+    if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword && $password != null) {
       return true;
     }
   }

@@ -4,25 +4,6 @@ session_start();
 require_once __DIR__ . "/json.php";
 require_once __DIR__ . "/common-action.php";
 
-
-//function passwordValidate(int $id, string $currentPassword, string $newPassword, string $confirmPassword):array
-//{
-//  $validate = [];
-//  if ($currentPassword != null){
-//    if (!checkCurrentPassword($currentPassword, $id)){
-//      $validate['currentPass'] = "Password input is not correct";
-//    }else{
-//      $errorNewPass = checkNewPasswordInput($newPassword, $currentPassword);
-//      if ($errorNewPass != "") {
-//        $validate['newPass'] = $errorNewPass;
-//      }
-//    }
-//  }else{
-//    $validate['currentPass'] = "Please input the current password first!";
-//  }
-//  return $validate;
-//}
-
 function validateError(string $nik,
                        string $password,
                        string $email,
@@ -58,10 +39,22 @@ function validateError(string $nik,
     $validate['lastName'] = "2";
   }
   
-  if (!checkCurrentPassword($currentPassword, $id)) {
-    $validate['currentPassword'] = "2";
+//  if (!checkCurrentPassword($currentPassword, $id)) {
+//    $validate['currentPassword'] = "2";
+//  }
+  
+  if ($_POST['password'] != null || $_POST['currentPassword'] != null) {
+    if (!checkCurrentPassword($currentPassword, $id)) {
+      $validate['currentPassword'] = "1";
+    }
+  } else {
+    $validate = [];
   }
-
+  
+  if (!checkConfirmPassword($password, $confirmPassword)) {
+    $validate['confirmPassword'] = "2";
+  }
+  
 //  if ($_POST['currentPassword'] != null || $_POST['newPassword']) {
 //    $validate = passwordValidate($_SESSION['id'], $_POST['currentPassword'], $_POST['newPassword'], $_POST['confirmPassword']);
 //  }else{
@@ -79,14 +72,21 @@ function validateError(string $nik,
 //      $validate['currentPassword'] = "2";
 //    }
 //  }
-//  if ($_POST['currentPassword'] != null || $_POST['password'] == null) {
+//  else if ($_POST['currentPassword'] != null || $_POST['password'] == null) {
 //    $validate['currentPassword'] = "1";
 //  }
   
-  if (!checkConfirmPassword($password, $confirmPassword)) {
-      $validate['confirmPassword'] = "2";
-    }
-
+//  if ($currentPassword != "") {
+//    if (!checkCurrentPassword($currentPassword, $id)) {
+//      $validate['currentPassword'] = "1";
+//    } else {
+//      if (checkNewPasswordInput($password, $confirmPassword)) {
+//        $validate['confirmPassword'] = "2";
+//      }
+//    }
+//  } else {
+//    $validate['currentPassword'] = "2";
+//  }
 //  }
 //  if ($_POST['currentPassword'] != "" || $_POST['newPassword'] != null) {
 //    $errorPass = passwordValidate($_SESSION['personId'], $_POST['currentPassword'], $_POST['newPassword'], $_POST['confirmPassword']);
@@ -139,6 +139,8 @@ if (count($errorData) != 0) {
   unset($_SESSION['errorPassword']);
   unset($_SESSION['errorFirstName']);
   unset($_SESSION['errorLastName']);
+  unset($_SESSION['errorCurrentPassword']);
+  unset($_SESSION['errorConfirmPassword']);
   unset($_SESSION['inputEmail']);
   unset($_SESSION['inputNik']);
   unset($_SESSION['inputPassword']);
@@ -149,8 +151,10 @@ if (count($errorData) != 0) {
   unset($_SESSION['inputRole']);
   unset($_SESSION['inputBirthDate']);
   unset($_SESSION['internalNotes']);
-
-//  $persons = personsData();
+  unset($_SESSION['inputCurrentPassword']);
+  unset($_SESSION['inputConfirmPassword']);
+  
+//  $persons = personsData()
 //  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
 //  foreach ($persons as $person) {
 //    if ($person['id'] == $_SESSION['id']) {
@@ -175,7 +179,6 @@ if (count($errorData) != 0) {
 //      redirect("../edit-person.php?id=$id", "success");
 //    }
 //  }
-  
   $persons = personsData();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {

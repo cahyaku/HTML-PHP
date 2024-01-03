@@ -45,6 +45,18 @@ function searchByAges($search, $persons): array
   return $searchResult;
 }
 
+function filterByAge($personsAge):null|string
+{
+  if ($personsAge <= 5 ) {
+     return "toddler";
+  } else if ($personsAge <= 60) {
+     return "productiveAges";
+  } else if ($personsAge >= 61) {
+     return "passedAway";
+  }
+  return null;
+}
+
 //function searchByProductive($search): array
 //{
 //  $persons = toddler();

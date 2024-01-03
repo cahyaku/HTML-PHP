@@ -519,6 +519,7 @@ require_once __DIR__ . "/Action/common-action.php";
           } else if ($_GET["search"]) {
             $searchInput = $_GET["search"];
             $persons = search($searchInput);
+//            $persons= filterByAge($persons);
           }
           else {
             $persons = personsData();
@@ -536,7 +537,6 @@ require_once __DIR__ . "/Action/common-action.php";
           </tr>
           </thead>
           <tbody>
-          
           <?php
           if (count($persons) != 0) {
             if ($_GET['page'] < 1) {

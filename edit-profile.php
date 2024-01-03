@@ -591,7 +591,6 @@ require_once __DIR__ . "/Action/common-action.php";
                     </div>
                   </div>
 
-
                   <div class="col-12 col-md-6 col-lg-6">
                     <div class="mb-3 form-padding">
                       <label for="exampleFormControlInput1" class="form-label"
@@ -609,7 +608,6 @@ require_once __DIR__ . "/Action/common-action.php";
                     </div>
                   </div>
                 </div>
-
 
                 <div class="d-md-flex">
                   <div class="col-12 col-md-6 col-lg-6">
@@ -646,15 +644,11 @@ require_once __DIR__ . "/Action/common-action.php";
                     </div>
                   </div>
                 </div>
-
-
                 <div class="card card-margin has-shadow">
                   <div class="card-header ">
                     <strong> EDIT PASSWORD </strong>
                   </div>
                   <div class="card-body has-background">
-                    <!--                    <h5 class="card-title">Special title treatment</h5>-->
-                    <!--                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
                     <div class="d-md-flex">
                       <div class="col-12 col-md-6 col-lg-6">
                         <div class="mb-3 form-padding">
@@ -673,13 +667,12 @@ require_once __DIR__ . "/Action/common-action.php";
                                 echo $_SESSION['inputCurrentPassword'];
                               }
                               ?>"
-                              required
                           />
-                          <?php if (isset($_SESSION["errorCurrentPassword"])) : ?>
+                          <?php if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["errorCurrentPassword"] == "1") { ?>
                             <div class="alert alert-danger" role="alert">
-                              Maaf, input password salah!
+                              Password input is not correct!
                             </div>
-                          <?php endif; ?>
+                          <?php } ?>
                         </div>
                       </div>
 
@@ -697,7 +690,7 @@ require_once __DIR__ . "/Action/common-action.php";
                               value="<?php if (isset($_SESSION['errorPassword']) || isset($_SESSION['errorData'])) {
                                 echo $_SESSION['inputPassword'];
                               } ?>"
-                              required
+
                           />
                           <?php if (isset($_SESSION["errorPassword"])) : ?>
                             <div class="alert alert-danger" role="alert">
@@ -707,7 +700,6 @@ require_once __DIR__ . "/Action/common-action.php";
                         </div>
                       </div>
                     </div>
-
                     <div class="col-12 col-md-6 col-lg-6">
                       <div class="mb-3 form-padding">
                         <label for="exampleFormControlInput1" class="form-label"
@@ -725,11 +717,10 @@ require_once __DIR__ . "/Action/common-action.php";
                               echo $_SESSION['inputPassword'];
                             }
                             ?>"
-                            required
                         />
-                        <?php if ($_SESSION['errorConfirmPassword'] != null ) : ?>
+                        <?php if ($_SESSION['errorConfirmPassword'] != null) : ?>
                           <div class="alert alert-danger" role="alert">
-                            Maaf, Konfirmasi password salah!
+                            Confirm password input is not correct!
                           </div>
                         <?php endif; ?>
                       </div>

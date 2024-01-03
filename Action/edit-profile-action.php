@@ -39,16 +39,54 @@ function validateError(string $nik,
     $validate['lastName'] = "2";
   }
   
-  if (!checkCurrentPassword($currentPassword, $id)) {
-    $validate['currentPassword'] = "2";
+  if ($_POST['password'] != null || $_POST['currentPassword'] != null) {
+    if (!checkCurrentPassword($currentPassword, $id)) {
+      $validate['currentPassword'] = "1";
+    }
+  } else {
+    $validate = [];
   }
+  
+//  if (!checkCurrentPasswordInput($currentPassword, $id , $password)) {
+//    $validate['currentPassword'] = "2";
+//  }
   
   if (!checkConfirmPassword($password, $confirmPassword)) {
     $validate['confirmPassword'] = "3";
   }
-  
   return $validate;
 }
+
+//function validatePassword($password, $currentPassword, $id): array
+//{
+//  $validatePass = [];
+//  if ($password != "") {
+//    if (!checkCurrentPassword($currentPassword, $id)) {
+//      $validatePass['currentPassword'] = "1";
+//    }
+//  } else {
+//    $validatePass['currentPassword'] = [];
+//  }
+//  return $validatePass;
+//}
+
+//function passwordValidate(int $id, string $currentPassword, string $newPassword, string $confirmPassword):array
+//{
+//  $validate = [];
+//  if ($currentPassword != null){
+//    if (!checkCurrentPassword($currentPassword, $id)){
+//      $validate['currentPass'] = "Password input is not correct";
+//    }else{
+//      $errorNewPass = checkNewPasswordInput($newPassword, $currentPassword);
+//      if ($errorNewPass != "") {
+//        $validate['newPass'] = $errorNewPass;
+//      }
+//    }
+//  }else{
+//    $validate['currentPass'] = "Please input the current password first!";
+//  }
+//  return $validate;
+//}
 
 $person = getPersonDataByEmail($_SESSION['userEmail']);
 $errorData = validateError($_POST['nik'],
@@ -58,8 +96,7 @@ $errorData = validateError($_POST['nik'],
   $_POST['lastName'],
   $person['id'],
   $_POST['currentPassword'],
-  $_POST['confirmPassword'])
-;
+  $_POST['confirmPassword']);
 if (count($errorData) != 0) {
 //  SESSION ERROR INPUT
   $_SESSION['errorNik'] = $errorData["nik"];
@@ -69,7 +106,7 @@ if (count($errorData) != 0) {
   $_SESSION['errorLastName'] = $errorData['lastName'];
   $_SESSION['errorCurrentPassword'] = $errorData['currentPassword'];
   $_SESSION['errorConfirmPassword'] = $errorData['confirmPassword'];
-  
+
 //  SESSION INPUT DATA
   $_SESSION['inputEmail'] = $_POST['email'];
   $_SESSION['inputNik'] = $_POST['nik'];
@@ -83,7 +120,6 @@ if (count($errorData) != 0) {
   $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
   $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
   $_SESSION['errorData'] = count($errorData);
-  
   header("Location: ../edit-profile.php");
   exit();
 } else {
@@ -101,12 +137,11 @@ if (count($errorData) != 0) {
   unset($_SESSION['inputSex']);
   unset($_SESSION['inputBirthDate']);
   unset($_SESSION['internalNotes']);
-  unset($_SESSION['inputCurrentPassword']);
-  unset($_SESSION['inputConfirmPassword']);
   
   $persons = personsData();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
+    $password = checkedPassword($_POST['password'], $persons[$i]['password']);
     if ($persons[$i]['email'] == $_SESSION['userEmail']) {
       $persons[$i]["nik"] = $_POST['nik'];
       $persons[$i]["firstName"] = $_POST['firstName'];
@@ -114,11 +149,11 @@ if (count($errorData) != 0) {
       $persons[$i]["birthDate"] = $birthDate;
       $persons[$i]["sex"] = $_POST['sex'];
       $persons[$i]["email"] = $_POST['email'];
-      $persons[$i]["password"] = $_POST['password'];
+      $persons[$i]["password"] = $password;
       $persons[$i]["address"] = $_POST['address'];
       $persons[$i]["internalNotes"] = $_POST['internalNotes'];
       saveDataIntoJson($persons);
-      redirect("../edit-profile.php", "success");
+      redirect("../persons.php", "changed");
     }
   }
 }

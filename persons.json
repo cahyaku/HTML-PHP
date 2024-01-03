@@ -5,13 +5,13 @@
         "firstName": "cahya",
         "lastName": "kumala",
         "birthDate": 1123027200,
-        "sex": "FEMALE",
+        "sex": "MALE",
         "email": "cahya@gmail.com",
-        "password": "akucahya",
+        "password": "cahyakumala",
         "address": "perean lah",
         "role": "ADMIN",
         "internalNotes": "Hi aku cahya kumala",
-        "loggedIn": 1703812303,
+        "loggedIn": 1704275725,
         "alive": "ALIVE"
     },
     {
