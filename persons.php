@@ -435,17 +435,6 @@ require_once __DIR__ . "/Action/common-action.php";
               <option value="passedAway">Passed Away</option>
               <option value="toddler">Toddler</option>
               <option value="allPersons" class="select-items">All Persons</option>
-              
-              
-<!--              <option name="filter" class="select-item selected" value="--><?php //if (isset($_GET['filter'])) {
-//                echo $_GET['filter'];
-//              } else {
-//                echo "allPersons";
-//              } ?><!--" selected>--><?php //if (isset($_GET['filter'])) {
-//                  echo getFilter($_GET['filter']);
-//                } else {
-//                  echo "All Persons Data";
-//                } ?><!--</option>-->
             </select>
           </div>
           <!--              <option selected>Open this select menu</option>-->
