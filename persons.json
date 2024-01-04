@@ -1,13 +1,13 @@
 [
     {
         "id": 1,
-        "nik": "1234567812345611",
+        "nik": "1234567812395678",
         "firstName": "cahya",
         "lastName": "kumala",
         "birthDate": 1123027200,
         "sex": "MALE",
         "email": "cahya@gmail.com",
-        "password": "cahyakumala",
+        "password": "cahya123",
         "address": "perean lah",
         "role": "ADMIN",
         "internalNotes": "Hi aku cahya kumala",
@@ -19,7 +19,7 @@
         "nik": "1111111111111112",
         "firstName": "kitty",
         "lastName": "toddler1",
-        "birthDate": 1577923530,
+        "birthDate": 1577923200,
         "sex": "MALE",
         "email": "kitty@gmail.com",
         "password": "kitty123",
@@ -87,7 +87,7 @@
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
         "loggedIn": null,
-        "alive": null
+        "alive": "ALIVE"
     },
     {
         "id": 7,
@@ -238,5 +238,20 @@
         "internalNotes": "",
         "loggedIn": null,
         "alive": "ALIVE"
+    },
+    {
+        "id": 17,
+        "nik": "cahyacahyacahyak",
+        "firstName": "salakda",
+        "lastName": "dakksad",
+        "birthDate": 1123027200,
+        "sex": "FEMALE",
+        "email": "kumalasaskja@nad.dskda",
+        "password": "cahya123",
+        "address": "perean",
+        "role": "MEMBER",
+        "internalNotes": "",
+        "loggedIn": null,
+        "alive": null
     }
 ]

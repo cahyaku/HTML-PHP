@@ -138,12 +138,12 @@ function isEmailExists($email, ?string $id): bool
   return false;
 }
 
-function generateId($array): int
-{
-  return $array == null ? 1 : (end($array['id']) + 1);
-}
-
-//function save($person):void
+//function generateId(array|null $array): int
+//{
+//  return $array == null ? 1 : (end($array['id']) + 1);
+//}
+//
+//function save($person): void
 //{
 //  $persons = personsData();
 //  if ($person['id'] == null) {
@@ -170,20 +170,39 @@ function generateId($array): int
 //  }
 //}
 
-function checkNewPasswordInput($password, ?string $currentPassword = null): bool
+function checkNewPasswordInput($password): string
 {
-  if ($currentPassword == "" && $password == "") {
-    return true;
-  } else if (strlen($password) >= 8 && strlen($password) <= 16) {
-    return true;
-  } else if ($password == "") {
+//  if ($currentPassword == "" && $password == "") {
+//    return true;
+//  } else
+  //  else if ($password == "") {
+//    return "Invalid password";
+//  }
+
+  if (strlen($password) >= 8 && strlen($password) <= 16) {
     return true;
   }
-  return false;
+  
+//  $hash = '$2y$10$.vGA1O9wmRjrwAVXD98HNOgsNpDczlqm3Jq7KnEd1rVAGv3Fykk1a';
+//  if (password_verify($password, $hash)) {
+//    return true;
+//  }
+  return "";
 }
 
 function checkedPassword($password, $currentPassword)
 {
+//  $plaintext_password = $password;
+//  if ($password == "") {
+//    $hash = password_hash($currentPassword,
+//      PASSWORD_DEFAULT);
+//    return $hash;
+//  } else {
+//    $hash = password_hash($password,
+//      PASSWORD_DEFAULT);
+//    return $hash;
+//  }
+
   if ($password == "") {
     return $currentPassword;
   } else {
@@ -191,32 +210,21 @@ function checkedPassword($password, $currentPassword)
   }
 }
 
-function checkPasswordInput($currentPassword, $password, $confirmPassword): bool
-{
-  if ($currentPassword != "" && $password == "" || $password != "" && $currentPassword == "") {
-    return false;
-  } else if ($password != "" && $confirmPassword == "") {
-    return false;
-  }
-  return true;
-}
+//function checkPasswordInput($currentPassword, $password, $confirmPassword): bool
+//{
+//  if ($currentPassword != "" && $password == "" || $password != "" && $currentPassword == "") {
+//    return false;
+//  } else if ($password != "" && $confirmPassword == "") {
+//    return false;
+//  }
+//  return true;
+//}
 
 function checkCurrentPassword($currentPassword, $id): bool
 {
-    $persons = personsData();
-    for ($i = 0; $i < count($persons); $i++) {
-      if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword) {
-        return true;
-      }
-    }
-    return false;
-}
-
-function checkCurrentPasswordInput($currentPassword, $id, $password):bool
-{
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) {
-    if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword && $password != null) {
+    if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword) {
       return true;
     }
   }
@@ -245,4 +253,80 @@ function checkNameInput($name): bool
     return false;
   }
   return true;
+}
+
+/**
+ * validation for input person data
+ * @param string $nik
+ * @param string $email
+ * @param string $firstName
+ * @param string $lastName
+ * @param $id
+ * @return array
+ */
+function validateErrorInput(string $nik,
+                       string $email,
+                       string $firstName,
+                       string $lastName,
+                              $id,
+                             
+): array
+{
+  $validate = [];
+  if (!checkNikInput($nik)) {
+    $validate['nik'] = "1";
+  }
+  
+  if (isNikExists($nik, $id) == true) {
+    $validate['nik'] = "2";
+  }
+  
+  if (isEmailExists($email, $id) == true) {
+    $validate['email'] = "1";
+  }
+  
+  if (!checkNameInput($firstName)) {
+    $validate['firstName'] = "1";
+  }
+  
+  if (!checkNameInput($lastName)) {
+    $validate['lastName'] = "2";
+  }
+  return $validate;
+}
+
+/**
+ * validation for password input
+ *
+ * @param $currentPassword
+ * @param $password
+ * @param $confirmPassword
+ * @param $id
+ * @return array
+ */
+function validatePassword($currentPassword, $password, $confirmPassword , $id) :array
+{
+  $validatePassword = [];
+  if ($_POST['currentPassword'] != null) {
+    if (checkCurrentPassword($currentPassword, $id) == false) {
+      $validatePassword['currentPassword'] = "1";
+    } else {
+      $errorPass = checkNewPasswordInput($password);
+      if ($errorPass == "") {
+        $validatePassword['password'] = "1";
+      }
+    }
+  } else {
+    $validatePassword = [];
+  }
+  
+  if ($_POST['currentPassword'] == null && $password != null || $_POST['currentPassword'] == null && $password == null && $confirmPassword != null) {
+    $validatePassword['confirmPassword'] = "1";
+  }
+  else {
+    if (!checkConfirmPassword($password, $confirmPassword)) {
+      $validatePassword['confirmPassword'] = "2";
+    }
+  }
+  return $validatePassword;
 }

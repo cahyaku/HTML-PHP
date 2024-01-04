@@ -72,84 +72,97 @@ require_once __DIR__ . "/common-action.php";
 //saveDataIntoJson($persons);
 //redirect("../persons.php", null);
 
-function validateError(string $nik,
-                       string $password,
-                       string $email,
-                       string $firstName,
-                       string $lastName,
-                       string $confirmPassword,
-                       string $birthDate
-): array
-
-{
-  $validate = [];
-//  if (checkNikInput($nik) == false) {
+//function validateError(string $nik,
+//                       string $password,
+//                       string $email,
+//                       string $firstName,
+//                       string $lastName,
+//                       string $confirmPassword,
+//                       string $birthDate
+//): array
+//
+//{
+//  $validate = [];
+////  if (checkNikInput($nik) == false) {
+////    $validate['nik'] = "1";
+////  }
+////
+////  if (isNikExists($nik, null) == true) {
+////    $validate['nik'] = "2";
+////  }
+////
+////  if (checkPasswordInput($password) == false) {
+////    $validate['password'] = "1";
+////  }
+////
+////  if (isEmailExists($email, null) == 1) {
+////    $validate['email'] = "1";
+////  }
+//  if (!checkNikInput($nik)) {
 //    $validate['nik'] = "1";
 //  }
 //
-//  if (isNikExists($nik, null) == true) {
+//  if (isNikExists($nik, null)) {
 //    $validate['nik'] = "2";
 //  }
 //
-//  if (checkPasswordInput($password) == false) {
+//  if (!checkNewPasswordInput($password)) {
 //    $validate['password'] = "1";
 //  }
 //
 //  if (isEmailExists($email, null) == 1) {
 //    $validate['email'] = "1";
 //  }
-  if (!checkNikInput($nik)) {
-    $validate['nik'] = "1";
-  }
-  
-  if (isNikExists($nik, null)) {
-    $validate['nik'] = "2";
-  }
-  
-  if (!checkNewPasswordInput($password)) {
-    $validate['password'] = "1";
-  }
-  
-  if (isEmailExists($email, null) == 1) {
-    $validate['email'] = "1";
-  }
-  
-  if (!checkNameInput($firstName)) {
-    $validate['firstName'] = "1";
-  }
-  
-  if (!checkNameInput($lastName)) {
-    $validate['lastName'] = "2";
-  }
-  
-  if (!checkConfirmPassword($password, $confirmPassword)) {
-    $validate['confirmPassword'] = "1";
-  }
-  
-  if (!checkBirthDateInput($birthDate)) {
-    $validate['birthDate'] = "1";
-  }
-  return $validate;
-}
-
-$errorData = validateError($_POST['nik'],
-  $_POST['password'],
+//
+//  if (!checkNameInput($firstName)) {
+//    $validate['firstName'] = "1";
+//  }
+//
+//  if (!checkNameInput($lastName)) {
+//    $validate['lastName'] = "2";
+//  }
+//
+//  if (!checkConfirmPassword($password, $confirmPassword)) {
+//    $validate['confirmPassword'] = "1";
+//  }
+//
+//  if (!checkBirthDateInput($birthDate)) {
+//    $validate['birthDate'] = "1";
+//  }
+//  return $validate;
+//}
+//
+//$errorData = validateError($_POST['nik'],
+//  $_POST['password'],
+//  $_POST['email'],
+//  $_POST['firstName'],
+//  $_POST['lastName'],
+//  $_POST['confirmPassword'],
+//  $_POST['birthDate']
+//);
+$errorData = validateErrorInput($_POST['nik'],
   $_POST['email'],
   $_POST['firstName'],
   $_POST['lastName'],
-  $_POST['confirmPassword'],
-  $_POST['birthDate']
+  $_SESSION['id'],
 );
 
-if (count($errorData) != 0) {
+$errorPassword = validatePassword($_POST['currentPassword'],
+  $_POST['password'],
+  $_POST['confirmPassword'],
+  $_SESSION['id']
+);
+
+if (count($errorData) != 0 || count($errorPassword) != 0) {
   $_SESSION['errorNik'] = $errorData["nik"];
   $_SESSION['errorEmail'] = $errorData['email'];
-  $_SESSION['errorPassword'] = $errorData['password'];
+  $_SESSION['errorPassword'] = $errorPassword['password'];
   $_SESSION['errorFirstName'] = $errorData['firstName'];
   $_SESSION['errorLastName'] = $errorData['lastName'];
-  $_SESSION['errorConfirmPassword'] = $errorData['confirmPassword'];
-  $_SESSION['errorBirthDate'] = $errorData['birthDate'];
-  
+  $_SESSION['errorCurrentPassword'] = $errorPassword['currentPassword'];
+  $_SESSION['errorConfirmPassword'] = $errorPassword['confirmPassword'];
+
+//  SESSION INPUT DATA
   $_SESSION['inputEmail'] = $_POST['email'];
   $_SESSION['inputNik'] = $_POST['nik'];
   $_SESSION['inputPassword'] = $_POST['password'];
@@ -160,7 +173,9 @@ if (count($errorData) != 0) {
   $_SESSION['inputRole'] = $_POST['role'];
   $_SESSION['inputBirthDate'] = $_POST['birthDate'];
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
+  $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
   $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
+  $_SESSION['errorData'] = count($errorData);
   header("Location: ../add-person.php?errorInput=1");
   exit();
 } else {

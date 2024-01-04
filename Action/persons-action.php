@@ -104,11 +104,12 @@ function filterByAge($personsAge):null|string
 //  $total = time() - $date;
 //  return floor($total / (60 * 60 * 24 * 365));
 //}
+
 function toddler()
 {
   $persons = personsData();
   foreach ($persons as $person) {
-    if (checkAges($person["birthDate"]) <= 5 ) {
+    if (checkAges($person["birthDate"]) <= 5  &&  $person["alive"] != null) {
       $toddler[] = $person;
     }
   }
@@ -119,7 +120,10 @@ function passedAway()
 {
   $persons = personsData();
   foreach ($persons as $person) {
-    if (checkAges($person["birthDate"]) > 60 ) {
+//    if (checkAges($person["birthDate"]) > 60 ) {
+//      $passedAway[] = $person;
+//    }
+    if ($person["alive"] == null) {
       $passedAway[] = $person;
     }
   }
@@ -130,7 +134,7 @@ function productiveAges()
 {
   $persons = personsData();
   foreach ($persons as $person) {
-    if (checkAges($person["birthDate"]) >= 6 && checkAges($person["birthDate"]) <= 60) {
+    if (checkAges($person["birthDate"]) >= 6 &&  $person["alive"] != null) {
       $productiveAges[] = $person;
     }
   }

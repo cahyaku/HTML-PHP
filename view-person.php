@@ -364,29 +364,20 @@ require_once __DIR__ . "/Action/common-action.php";
           </div>
           <?php
           if (isset($_GET['id'])) {
-//            if ($_GET['id'] >= 1) {
+//            if ($_GET['id'] < 1) {
 //              $id = $_GET['id'];
 //            } else if (!is_numeric($_GET['id'])) {
 //              $id = $_GET['id'];
 //            } else {
 //              $id = $_GET['id'];
 //            }
+          
           $id = $_GET['id'];
           $persons = getPersonData($id);
           ?>
           <div class="person-data">
             <div class="card card-shadow">
               <div class="card-body has-background">
-                <!--                --><?php
-                //                if (isset($_GET['id']) == 1) {
-                //                $id = $_GET['id'];
-                //                $persons = getPersonData($id);
-                //
-                ////                if (isset($_GET['btn-view']) == "id") {
-                ////                $persons = getPerson();
-                //
-                //                ?>
-
                 <div class="d-md-flex ">
                   <div class="col-12 col-md-6 col-lg-6 ">
                     <div class="card-padding">

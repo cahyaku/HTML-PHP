@@ -4,58 +4,58 @@ session_start();
 require_once __DIR__ . "/json.php";
 require_once __DIR__ . "/common-action.php";
 
-function validateError(string $nik,
-                       string $password,
-                       string $email,
-                       string $firstName,
-                       string $lastName,
-                              $id,
-                              $currentPassword,
-                              $confirmPassword
-): array
-{
-  $validate = [];
-  if (!checkNikInput($nik)) {
-    $validate['nik'] = "1";
-  }
-  
-  if (isNikExists($nik, $id) == true) {
-    $validate['nik'] = "2";
-  }
-  
-  if (!checkNewPasswordInput($password)) {
-    $validate['password'] = "1";
-  }
-  
-  if (isEmailExists($email, $id) == true) {
-    $validate['email'] = "1";
-  }
-  
-  if (!checkNameInput($firstName)) {
-    $validate['firstName'] = "1";
-  }
-  
-  if (!checkNameInput($lastName)) {
-    $validate['lastName'] = "2";
-  }
-  
-  if ($_POST['password'] != null || $_POST['currentPassword'] != null) {
-    if (!checkCurrentPassword($currentPassword, $id)) {
-      $validate['currentPassword'] = "1";
-    }
-  } else {
-    $validate = [];
-  }
-  
-//  if (!checkCurrentPasswordInput($currentPassword, $id , $password)) {
-//    $validate['currentPassword'] = "2";
+//function validateError(string $nik,
+//                       string $password,
+//                       string $email,
+//                       string $firstName,
+//                       string $lastName,
+//                              $id,
+//                              $currentPassword,
+//                              $confirmPassword
+//): array
+//{
+//  $validate = [];
+//  if (!checkNikInput($nik)) {
+//    $validate['nik'] = "1";
 //  }
-  
-  if (!checkConfirmPassword($password, $confirmPassword)) {
-    $validate['confirmPassword'] = "3";
-  }
-  return $validate;
-}
+//
+//  if (isNikExists($nik, $id) == true) {
+//    $validate['nik'] = "2";
+//  }
+//
+//  if (!checkNewPasswordInput($password)) {
+//    $validate['password'] = "1";
+//  }
+//
+//  if (isEmailExists($email, $id) == true) {
+//    $validate['email'] = "1";
+//  }
+//
+//  if (!checkNameInput($firstName)) {
+//    $validate['firstName'] = "1";
+//  }
+//
+//  if (!checkNameInput($lastName)) {
+//    $validate['lastName'] = "2";
+//  }
+//
+//  if ($_POST['password'] != null || $_POST['currentPassword'] != null) {
+//    if (!checkCurrentPassword($currentPassword, $id)) {
+//      $validate['currentPassword'] = "1";
+//    }
+//  } else {
+//    $validate = [];
+//  }
+//
+////  if (!checkCurrentPasswordInput($currentPassword, $id , $password)) {
+////    $validate['currentPassword'] = "2";
+////  }
+//
+//  if (!checkConfirmPassword($password, $confirmPassword)) {
+//    $validate['confirmPassword'] = "3";
+//  }
+//  return $validate;
+//}
 
 //function validatePassword($password, $currentPassword, $id): array
 //{
@@ -88,24 +88,31 @@ function validateError(string $nik,
 //  return $validate;
 //}
 
-$person = getPersonDataByEmail($_SESSION['userEmail']);
-$errorData = validateError($_POST['nik'],
-  $_POST['password'],
+$errorData = validateErrorInput($_POST['nik'],
   $_POST['email'],
   $_POST['firstName'],
   $_POST['lastName'],
-  $person['id'],
-  $_POST['currentPassword'],
-  $_POST['confirmPassword']);
-if (count($errorData) != 0) {
+  $_SESSION['id'],
+);
+
+$errorPassword = validatePassword($_POST['currentPassword'],
+  $_POST['password'],
+  $_POST['confirmPassword'],
+  $_SESSION['id']
+);
+
+$person = getPersonDataByEmail($_SESSION['userEmail']);
+//if (count($errorData) != 0) {
+  if (count($errorData) != 0 || count($errorPassword) != 0) {
+  
 //  SESSION ERROR INPUT
   $_SESSION['errorNik'] = $errorData["nik"];
   $_SESSION['errorEmail'] = $errorData['email'];
-  $_SESSION['errorPassword'] = $errorData['password'];
+  $_SESSION['errorPassword'] = $errorPassword['password'];
   $_SESSION['errorFirstName'] = $errorData['firstName'];
   $_SESSION['errorLastName'] = $errorData['lastName'];
-  $_SESSION['errorCurrentPassword'] = $errorData['currentPassword'];
-  $_SESSION['errorConfirmPassword'] = $errorData['confirmPassword'];
+  $_SESSION['errorCurrentPassword'] = $errorPassword['currentPassword'];
+  $_SESSION['errorConfirmPassword'] = $errorPassword['confirmPassword'];
 
 //  SESSION INPUT DATA
   $_SESSION['inputEmail'] = $_POST['email'];

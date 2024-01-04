@@ -461,6 +461,17 @@ require_once __DIR__ . "/Action/common-action.php";
               aria-label="Search"
               value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>"
           />
+          
+          <?php if (isset($_GET['search']) || isset($_GET['searchByAge'])){?>
+              <a href="persons.php">
+          <button
+              type="button"
+              class="btn btn-outline-primary has-shadow reset-btn"
+          >
+            Reset</button>
+              </a>
+          <?php } ?>
+          
           <button
               type="submit"
               class="btn btn-outline-primary has-shadow"
