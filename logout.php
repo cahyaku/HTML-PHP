@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . "/Action/common-action.php";
-require_once __DIR__ . "/Action/json.php";
+require_once __DIR__ . "/action/common-action.php";
+require_once __DIR__ . "/action/json.php";
 
 session_start();
 //if (!isset($_SESSION['email'])) {

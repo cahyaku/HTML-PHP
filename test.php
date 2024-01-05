@@ -445,3 +445,25 @@
 <!--                        <option value="MALE">Male</option>-->
 <!--                        <option value="FEMALE">Female</option>-->
 <!--                      --><?php //} ?>
+
+<!--edit person cek sex input (edit person page)-->
+<!--                        <option value="-->
+<?php //if (isset($_SESSION['inputSex']) && $_SESSION['errorData'] != null) {
+//                          echo $_SESSION['inputSex'];
+//                        } else {
+//                          echo $person['sex'];
+//                        }
+//                        ?><!--">-->
+<!--                          --><?php //if (isset($_SESSION['inputSex']) && $_SESSION['errorData'] != 0) {
+//                            echo $_SESSION['inputSex'] == "Male" ? "MALE" : "FEMALE";
+//                          } else {
+//                            echo $person['sex'] == "MALE" ? "MALE" : "FEMALE";
+//                          } ?>
+<!--                        </option>-->
+<!--                        --><?php //if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
+<!--                          <option value="MALE">Male</option>-->
+<!--                        --><?php //} else if ($person['sex'] == "FEMALE") { ?>
+<!--                          <option value="MALE">MALE</option>-->
+<!--                        --><?php //} else { ?>
+<!--                          <option value="FEMALE">Female</option>-->
+<!--                        --><?php //} ?>

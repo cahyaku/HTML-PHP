@@ -1,11 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['email'])) {
-  header("Location: login.php");
-  exit(); // Terminate script execution after the redirect
-}
+require_once __DIR__ . "/action/common-action.php";
+successLogin($_SESSION['email']);
 
-require_once __DIR__ . "/Action/common-action.php";
+//if (!isset($_SESSION['email'])) {
+//  header("Location: login.php");
+//  exit(); // Terminate script execution after the redirect
+//}
 ?>
 
 <!DOCTYPE html>
@@ -17,82 +18,82 @@ require_once __DIR__ . "/Action/common-action.php";
   <link
       rel="apple-touch-icon"
       sizes="57x57"
-      href="Assets/logo-pma/apple-icon-57x57.png"
+      href="assets/logo-pma/apple-icon-57x57.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="60x60"
-      href="Assets/logo-pma/apple-icon-60x60.png"
+      href="assets/logo-pma/apple-icon-60x60.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="72x72"
-      href="Assets/logo-pma/apple-icon-72x72.png"
+      href="assets/logo-pma/apple-icon-72x72.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="76x76"
-      href="Assets/logo-pma/apple-icon-76x76.png"
+      href="assets/logo-pma/apple-icon-76x76.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="114x114"
-      href="Assets/logo-pma/apple-icon-114x114.png"
+      href="assets/logo-pma/apple-icon-114x114.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="120x120"
-      href="Assets/logo-pma/apple-icon-120x120.png"
+      href="assets/logo-pma/apple-icon-120x120.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="144x144"
-      href="Assets/logo-pma/apple-icon-144x144.png"
+      href="assets/logo-pma/apple-icon-144x144.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="152x152"
-      href="Assets/logo-pma/apple-icon-152x152.png"
+      href="assets/logo-pma/apple-icon-152x152.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="Assets/logo-pma/apple-icon-180x180.png"
+      href="assets/logo-pma/apple-icon-180x180.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="192x192"
-      href="Assets/logo-pma/android-icon-192x192.png"
+      href="assets/logo-pma/android-icon-192x192.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="Assets/logo-pma/favicon-32x32.png"
+      href="assets/logo-pma/favicon-32x32.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="96x96"
-      href="Assets/logo-pma/favicon-96x96.png"
+      href="assets/logo-pma/favicon-96x96.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="Assets/logo-pma/favicon-16x16.png"
+      href="assets/logo-pma/favicon-16x16.png"
   />
-  <link rel="manifest" href="Assets/logo-pma/manifest.json"/>
+  <link rel="manifest" href="assets/logo-pma/manifest.json"/>
   <meta name="msapplication-TileColor" content="#ffffff"/>
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
   <meta name="theme-color" content="#ffffff"/>
   <title>Edit-Profile-PMA</title>
 
   <!-- LINK CSS FILE -->
-  <link rel="stylesheet" href="Assets/css/add-edit-person.css"/>
-  <link rel="stylesheet" href="Assets/css/general.css"/>
-  <link rel="stylesheet" href="Assets/css/queries.css"/>
+  <link rel="stylesheet" href="assets/css/add-edit-person.css"/>
+  <link rel="stylesheet" href="assets/css/general.css"/>
+  <link rel="stylesheet" href="assets/css/queries.css"/>
 
   <!-- LINK ION ICON -->
   <script
@@ -135,7 +136,7 @@ require_once __DIR__ . "/Action/common-action.php";
         <div class="d-flex">
           <div class="logo-pma">
             <a href="persons.php">
-              <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
+              <img src="assets/img/logo-pma-3.png" class="logo-pma"/>
             </a>
           </div>
           <p class="d-none d-md-flex PMA-title align-items-center">
@@ -153,7 +154,7 @@ require_once __DIR__ . "/Action/common-action.php";
           <div class="offcanvas-header">
             <div class="d-flex align-items-center gx-2 sidebar-padding">
               <div class="logo-pma">
-                <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
+                <img src="assets/img/logo-pma-3.png" class="logo-pma"/>
               </div>
               <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
                 <strong class="PMA">PMA</strong><br/>
@@ -368,7 +369,7 @@ require_once __DIR__ . "/Action/common-action.php";
               $_SESSION['userEmail'] = $_SESSION['email'];
               $_SESSION['id'] = $person['id'];
               ?>
-              <form class="person-form" action="Action/edit-profile-action.php" name="edit-profile-form" method="post">
+              <form class="person-form" action="action/edit-profile-action.php" name="edit-profile-form" method="post">
 
                 <div class="d-md-flex">
                   <div class="col-12 col-md-6 col-lg-6">
@@ -556,6 +557,9 @@ require_once __DIR__ . "/Action/common-action.php";
                       />
                     </div>
                   </div>
+                  <?php
+                  if (checkRole($_SESSION['email']) != null) {
+                  ?>
                   <div class="col-12 col-md-6 col-lg-6">
                     <div class="mb-3 text-area form-padding">
                       <label
@@ -573,94 +577,13 @@ require_once __DIR__ . "/Action/common-action.php";
                       ><?php echo $person['internalNotes'] ?></textarea>
                     </div>
                   </div>
+                  <?php } ?>
                 </div>
-<!--                <div class="card card-margin has-shadow">-->
-<!--                  <div class="card-header ">-->
-<!--                    <strong> EDIT PASSWORD </strong>-->
-<!--                  </div>-->
-<!--                  <div class="card-body has-background">-->
-<!--                    <div class="d-md-flex">-->
-<!--                      <div class="col-12 col-md-6 col-lg-6">-->
-<!--                        <div class="mb-3 form-padding">-->
-<!--                          <label for="exampleFormControlInput1" class="form-label"-->
-<!--                          >Current Password*</label-->
-<!--                          >-->
-<!--                          <input-->
-<!--                              type="password"-->
-<!--                              class="form-control has-shadow input-data has-background"-->
-<!--                              id="exampleFormControlInput1"-->
-<!--                              placeholder="Current Password..."-->
-<!--                              name="currentPassword"-->
-<!--                              value="--><?php //if (isset($_SESSION['errorCurrentPassword']) || isset($_SESSION['errorPassword'])
-//                                || isset($_SESSION['errorConfirmPassword'])
-//                              ) {
-//                                echo $_SESSION['inputCurrentPassword'];
-//                              }
-//                              ?><!--"-->
-<!--                          />-->
-<!--                          --><?php //if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["errorCurrentPassword"] == "1") { ?>
-<!--                            <div class="alert alert-danger" role="alert">-->
-<!--                              Password input is not correct!-->
-<!--                            </div>-->
-<!--                          --><?php //} ?>
-<!--                        </div>-->
-<!--                      </div>-->
-<!---->
-<!--                      <div class="col-12 col-md-6 col-lg-6">-->
-<!--                        <div class="mb-3 form-padding">-->
-<!--                          <label for="exampleFormControlInput1" class="form-label"-->
-<!--                          >New Password*</label-->
-<!--                          >-->
-<!--                          <input-->
-<!--                              type="password"-->
-<!--                              class="form-control has-shadow input-data has-background"-->
-<!--                              id="exampleFormControlInput1"-->
-<!--                              placeholder="New Password..."-->
-<!--                              name="password"-->
-<!--                              value="--><?php //if (isset($_SESSION['errorPassword']) || isset($_SESSION['errorData'])) {
-//                                echo $_SESSION['inputPassword'];
-//                              } ?><!--"-->
-<!---->
-<!--                          />-->
-<!--                          --><?php //if (isset($_SESSION["errorPassword"]) && $_SESSION["errorPassword"] == 1) : ?>
-<!--                            <div class="alert alert-danger" role="alert">-->
-<!--                              The minimum length of Password input is 8 characters and maximum 16 characters-->
-<!--                            </div>-->
-<!--                          --><?php //endif; ?>
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                    <div class="col-12 col-md-6 col-lg-6">-->
-<!--                      <div class="mb-3 form-padding">-->
-<!--                        <label for="exampleFormControlInput1" class="form-label"-->
-<!--                        >Confirm Password*</label-->
-<!--                        >-->
-<!--                        <input-->
-<!--                            type="password"-->
-<!--                            class="form-control has-shadow input-data has-background"-->
-<!--                            id="exampleFormControlInput1"-->
-<!--                            placeholder="Confirm Password..."-->
-<!--                            name="confirmPassword"-->
-<!--                            value="--><?php //if (isset($_SESSION['errorConfirmPassword']) || isset($_SESSION['errorData'])) {
-//                              echo $_SESSION['inputConfirmPassword'];
-//                            } else {
-//                              echo $_SESSION['inputPassword'];
-//                            }
-//                            ?><!--"-->
-<!--                        />-->
-<!--                        --><?php //if ($_SESSION['errorConfirmPassword'] != null) : ?>
-<!--                          <div class="alert alert-danger" role="alert">-->
-<!--                            Confirm password input is not correct!-->
-<!--                          </div>-->
-<!--                        --><?php //endif; ?>
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-
                 <div class="card card-margin card-shadow">
                   <div class="card-header card-background-header">
-                    <strong> EDIT PASSWORD <ion-icon name="lock-closed-outline"></ion-icon></strong>
+                    <strong> EDIT PASSWORD
+                      <ion-icon name="lock-closed-outline"></ion-icon>
+                    </strong>
                   </div>
                   <div class="card-body card-background">
                     <div class="d-md-flex">
@@ -730,23 +653,11 @@ require_once __DIR__ . "/Action/common-action.php";
                           
                           <?php if ($_SESSION["errorPassword"] == "1") { ?>
                             <div class="alert alert-danger" role="alert">
-                              The minimum length of Password input is 8 characters and maximum 16 characters
+<!--                              The minimum length of Password input is 8 characters and maximum 16 characters-->
+                              Password must have at least 1 capital letter, 1 non-capital letter, 1 number.
+                              with a minimum length of 8 characters and a maximum of 16 characters.
                             </div>
                           <?php } ?>
-
-                          <!--//                        else { ?>-->
-                          <!--                          <div class="alert alert-danger" role="alert">-->
-                          <!--                            Please input new password!!!-->
-                          <!--                          </div>-->
-                          <!--                        --><?php //} ?>
-
-                          <!--                          --><?php //if (isset($_SESSION["errorPassword"]) && $_SESSION["errorPassword"] == "1" || $_SESSION["errorPassword"] == "") { ?>
-                          <!--                              --><?php //if($_SESSION["errorPassword"] == "1") {?>
-                          <!--                              <div class="alert alert-danger" role="alert">-->
-                          <!--                                The minimum length of Password input is 8 characters and maximum 16 characters-->
-                          <!--                              </div>-->
-                          <!--                                --><?php //} ?>
-                          <!--                          --><?php //} ?>
                         </div>
                       </div>
                     </div>
@@ -777,15 +688,14 @@ require_once __DIR__ . "/Action/common-action.php";
                         
                         <?php if ($_SESSION['errorConfirmPassword'] == 2) : ?>
                           <div class="alert alert-danger" role="alert">
-                            Confirm password input is not correct!
+                            Confirm password is not correct!
                           </div>
                         <?php endif; ?>
                       </div>
                     </div>
                   </div>
                 </div>
-
-
+                
                 <?php
                 if (isset($_GET['success'])) {
                   ?>

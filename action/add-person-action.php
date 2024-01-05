@@ -5,30 +5,6 @@ session_start();
 require_once __DIR__ . "/json.php";
 require_once __DIR__ . "/common-action.php";
 
-//function createPerson($nik, $email)
-//{
-//  $persons = personsData();
-//  $id = count($persons) + 1;
-//  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
-//  $personData = [
-//    "id" => $id,
-//    "nik" => $nik,
-//    "firstName" => $_POST['firstName'],
-//    "lastName" => $_POST['lastName'],
-//    "birthDate" => $birthDate,
-//    "sex" => $_POST['sex'],
-//    "email" => $email,
-//    "password" => $_POST['password'],
-//    "address" => $_POST['address'],
-//    "role" => $_POST['role'],
-//    "internalNotes" => $_POST['internalNotes'],
-//    "loggedIn" => null
-//  ];
-//  $persons[] = $personData;
-//  saveDataIntoJson($persons);
-//  redirect("../persons.php", null);
-//}
-
 //if (isNikExists($_POST['nik'], null) == 1 && isNikExists($_POST['email'], null) ==1 ) {
 //  redirect("../add-person.php", "nik=1?email=1");
 //}
@@ -72,95 +48,68 @@ require_once __DIR__ . "/common-action.php";
 //saveDataIntoJson($persons);
 //redirect("../persons.php", null);
 
-//function validateError(string $nik,
-//                       string $password,
-//                       string $email,
-//                       string $firstName,
-//                       string $lastName,
-//                       string $confirmPassword,
-//                       string $birthDate
-//): array
-//
-//{
-//  $validate = [];
-////  if (checkNikInput($nik) == false) {
-////    $validate['nik'] = "1";
-////  }
-////
-////  if (isNikExists($nik, null) == true) {
-////    $validate['nik'] = "2";
-////  }
-////
-////  if (checkPasswordInput($password) == false) {
-////    $validate['password'] = "1";
-////  }
-////
-////  if (isEmailExists($email, null) == 1) {
-////    $validate['email'] = "1";
-////  }
-//  if (!checkNikInput($nik)) {
-//    $validate['nik'] = "1";
-//  }
-//
-//  if (isNikExists($nik, null)) {
-//    $validate['nik'] = "2";
-//  }
-//
-//  if (!checkNewPasswordInput($password)) {
-//    $validate['password'] = "1";
-//  }
-//
-//  if (isEmailExists($email, null) == 1) {
-//    $validate['email'] = "1";
-//  }
-//
-//  if (!checkNameInput($firstName)) {
-//    $validate['firstName'] = "1";
-//  }
-//
-//  if (!checkNameInput($lastName)) {
-//    $validate['lastName'] = "2";
-//  }
-//
-//  if (!checkConfirmPassword($password, $confirmPassword)) {
-//    $validate['confirmPassword'] = "1";
-//  }
-//
-//  if (!checkBirthDateInput($birthDate)) {
-//    $validate['birthDate'] = "1";
-//  }
-//  return $validate;
-//}
-//
-//$errorData = validateError($_POST['nik'],
-//  $_POST['password'],
-//  $_POST['email'],
-//  $_POST['firstName'],
-//  $_POST['lastName'],
-//  $_POST['confirmPassword'],
-//  $_POST['birthDate']
-//);
-$errorData = validateErrorInput($_POST['nik'],
+function validateError(string $nik,
+                       string $password,
+                       string $email,
+                       string $firstName,
+                       string $lastName,
+                       string $confirmPassword,
+                       string $birthDate
+): array
+
+{
+  $validate = [];
+  if (!checkNikInput($nik)) {
+    $validate['nik'] = "1";
+  }
+
+  if (isNikExists($nik, null)) {
+    $validate['nik'] = "2";
+  }
+
+  if (!checkNewPasswordInput($password)) {
+    $validate['password'] = "1";
+  }
+
+  if (isEmailExists($email, null) == 1) {
+    $validate['email'] = "1";
+  }
+
+  if (!checkNameInput($firstName)) {
+    $validate['firstName'] = "1";
+  }
+
+  if (!checkNameInput($lastName)) {
+    $validate['lastName'] = "2";
+  }
+
+  if (!checkConfirmPassword($password, $confirmPassword)) {
+    $validate['confirmPassword'] = "1";
+  }
+
+  if (!checkBirthDateInput($birthDate)) {
+    $validate['birthDate'] = "1";
+  }
+  return $validate;
+}
+
+$errorData = validateError($_POST['nik'],
+  $_POST['password'],
   $_POST['email'],
   $_POST['firstName'],
   $_POST['lastName'],
-  $_SESSION['id'],
-);
-
-$errorPassword = validatePassword($_POST['currentPassword'],
-  $_POST['password'],
   $_POST['confirmPassword'],
-  $_SESSION['id']
+  $_POST['birthDate']
 );
 
-if (count($errorData) != 0 || count($errorPassword) != 0) {
+if (count($errorData) != 0) {
   $_SESSION['errorNik'] = $errorData["nik"];
   $_SESSION['errorEmail'] = $errorData['email'];
-  $_SESSION['errorPassword'] = $errorPassword['password'];
+  $_SESSION['errorPassword'] = $errorData['password'];
   $_SESSION['errorFirstName'] = $errorData['firstName'];
   $_SESSION['errorLastName'] = $errorData['lastName'];
-  $_SESSION['errorCurrentPassword'] = $errorPassword['currentPassword'];
-  $_SESSION['errorConfirmPassword'] = $errorPassword['confirmPassword'];
+  $_SESSION['errorBirthDate'] = $errorData['birthDate'];
+  $_SESSION['errorConfirmPassword'] = $errorData['confirmPassword'];
 
 //  SESSION INPUT DATA
   $_SESSION['inputEmail'] = $_POST['email'];
@@ -175,6 +124,7 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
   $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
   $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
+  $_SESSION['inputStatus'] = $_POST['alive'];
   $_SESSION['errorData'] = count($errorData);
   header("Location: ../add-person.php?errorInput=1");
   exit();
@@ -200,7 +150,10 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
   $persons = personsData();
   $id = count($persons) + 1;
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
-  
+//  $plaintext_password = $_POST['password'];
+//  $hash = password_hash($plaintext_password,
+//    PASSWORD_DEFAULT);
+  $password = passwordHash($_POST['password']);
   $personData = [
     "id" => $id,
     "nik" => $_POST['nik'],
@@ -209,7 +162,7 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
     "birthDate" => $birthDate,
     "sex" => $_POST['sex'],
     "email" => $_POST['email'],
-    "password" => $_POST['password'],
+    "password" => $password,
     "address" => $_POST['address'],
     "role" => $_POST['role'],
     "internalNotes" => $_POST['internalNotes'],

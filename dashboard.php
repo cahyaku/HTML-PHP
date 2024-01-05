@@ -5,9 +5,9 @@ if (!isset($_SESSION['email'])) {
   exit(); // Terminate script execution after the redirect
 }
 
-require_once __DIR__ . "/Action/persons-action.php";
-require_once __DIR__ . "/Action/common-action.php";
-require_once __DIR__ . "/Action/dashboard-action.php";
+require_once __DIR__ . "/action/persons-action.php";
+require_once __DIR__ . "/action/common-action.php";
+require_once __DIR__ . "/action/dashboard-action.php";
 ?>
 
 <!DOCTYPE html>
@@ -17,29 +17,29 @@ require_once __DIR__ . "/Action/dashboard-action.php";
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <!-- FAVICON -->
-  <link rel="apple-touch-icon" sizes="57x57" href="Assets/logo-pma/apple-icon-57x57.png"/>
-  <link rel="apple-touch-icon" sizes="60x60" href="Assets/logo-pma/apple-icon-60x60.png"/>
-  <link rel="apple-touch-icon" sizes="72x72" href="Assets/logo-pma/apple-icon-72x72.png"/>
-  <link rel="apple-touch-icon" sizes="76x76" href="Assets/logo-pma/apple-icon-76x76.png"/>
-  <link rel="apple-touch-icon" sizes="114x114" href="Assets/logo-pma/apple-icon-114x114.png"/>
-  <link rel="apple-touch-icon" sizes="120x120" href="Assets/logo-pma/apple-icon-120x120.png"/>
-  <link rel="apple-touch-icon" sizes="144x144" href="Assets/logo-pma/apple-icon-144x144.png"/>
-  <link rel="apple-touch-icon" sizes="152x152" href="Assets/logo-pma/apple-icon-152x152.png"/>
-  <link rel="apple-touch-icon" sizes="180x180" href="Assets/logo-pma/apple-icon-180x180.png"/>
-  <link rel="icon" type="image/png" sizes="192x192" href="Assets/logo-pma/android-icon-192x192.png"/>
-  <link rel="icon" type="image/png" sizes="32x32" href="Assets/logo-pma/favicon-32x32.png"/>
-  <link rel="icon" type="image/png" sizes="96x96" href="Assets/logo-pma/favicon-96x96.png"/>
-  <link rel="icon" type="image/png" sizes="16x16" href="Assets/logo-pma/favicon-16x16.png"/>
-  <link rel="manifest" href="Assets/logo-pma/manifest.json"/>
+  <link rel="apple-touch-icon" sizes="57x57" href="assets/logo-pma/apple-icon-57x57.png"/>
+  <link rel="apple-touch-icon" sizes="60x60" href="assets/logo-pma/apple-icon-60x60.png"/>
+  <link rel="apple-touch-icon" sizes="72x72" href="assets/logo-pma/apple-icon-72x72.png"/>
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/logo-pma/apple-icon-76x76.png"/>
+  <link rel="apple-touch-icon" sizes="114x114" href="assets/logo-pma/apple-icon-114x114.png"/>
+  <link rel="apple-touch-icon" sizes="120x120" href="assets/logo-pma/apple-icon-120x120.png"/>
+  <link rel="apple-touch-icon" sizes="144x144" href="assets/logo-pma/apple-icon-144x144.png"/>
+  <link rel="apple-touch-icon" sizes="152x152" href="assets/logo-pma/apple-icon-152x152.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/logo-pma/apple-icon-180x180.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/logo-pma/android-icon-192x192.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo-pma/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/logo-pma/favicon-96x96.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/logo-pma/favicon-16x16.png"/>
+  <link rel="manifest" href="assets/logo-pma/manifest.json"/>
   <meta name="msapplication-TileColor" content="#ffffff"/>
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
   <meta name="theme-color" content="#ffffff"/>
   <title>Dashboard-PMA</title>
 
   <!-- LINK CSS FILE -->
-  <link rel="stylesheet" href="Assets/css/dashboard.css"/>
-  <link rel="stylesheet" href="Assets/css/general.css"/>
-  <link rel="stylesheet" href="Assets/css/queries.css"/>
+  <link rel="stylesheet" href="assets/css/dashboard.css"/>
+  <link rel="stylesheet" href="assets/css/general.css"/>
+  <link rel="stylesheet" href="assets/css/queries.css"/>
 
   <!-- LINK ION ICON -->
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -68,7 +68,7 @@ require_once __DIR__ . "/Action/dashboard-action.php";
         </button>
         <div class="d-flex">
           <div class="logo-pma">
-            <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
+            <img src="assets/img/logo-pma-3.png" class="logo-pma"/>
           </div>
           <p class="d-none d-md-flex PMA-title align-items-center">
             <strong class="PMA">PMA</strong>- Persons Management App
@@ -80,7 +80,7 @@ require_once __DIR__ . "/Action/dashboard-action.php";
           <div class="offcanvas-header">
             <div class="d-flex align-items-center gx-2 sidebar-padding">
               <div class="logo-pma">
-                <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
+                <img src="assets/img/logo-pma-3.png" class="logo-pma"/>
               </div>
               <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
                 <strong class="PMA">PMA</strong><br/>

@@ -1,10 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['email'])) {
-  header("Location: login.php");
-  exit(); // Terminate script execution after the redirect
-}
-require_once __DIR__ . "/Action/common-action.php";
+require_once __DIR__ . "/action/common-action.php";
+successLogin($_SESSION['email']);
+
+//if (!isset($_SESSION['email'])) {
+//  header("Location: login.php");
+//  exit(); // Terminate script execution after the redirect
+//}
 ?>
 
 <!DOCTYPE html>
@@ -16,82 +18,82 @@ require_once __DIR__ . "/Action/common-action.php";
   <link
       rel="apple-touch-icon"
       sizes="57x57"
-      href="Assets/logo-pma/apple-icon-57x57.png"
+      href="assets/logo-pma/apple-icon-57x57.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="60x60"
-      href="Assets/logo-pma/apple-icon-60x60.png"
+      href="assets/logo-pma/apple-icon-60x60.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="72x72"
-      href="Assets/logo-pma/apple-icon-72x72.png"
+      href="assets/logo-pma/apple-icon-72x72.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="76x76"
-      href="Assets/logo-pma/apple-icon-76x76.png"
+      href="assets/logo-pma/apple-icon-76x76.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="114x114"
-      href="Assets/logo-pma/apple-icon-114x114.png"
+      href="assets/logo-pma/apple-icon-114x114.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="120x120"
-      href="Assets/logo-pma/apple-icon-120x120.png"
+      href="assets/logo-pma/apple-icon-120x120.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="144x144"
-      href="Assets/logo-pma/apple-icon-144x144.png"
+      href="assets/logo-pma/apple-icon-144x144.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="152x152"
-      href="Assets/logo-pma/apple-icon-152x152.png"
+      href="assets/logo-pma/apple-icon-152x152.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="Assets/logo-pma/apple-icon-180x180.png"
+      href="assets/logo-pma/apple-icon-180x180.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="192x192"
-      href="Assets/logo-pma/android-icon-192x192.png"
+      href="assets/logo-pma/android-icon-192x192.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="Assets/logo-pma/favicon-32x32.png"
+      href="assets/logo-pma/favicon-32x32.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="96x96"
-      href="Assets/logo-pma/favicon-96x96.png"
+      href="assets/logo-pma/favicon-96x96.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="Assets/logo-pma/favicon-16x16.png"
+      href="assets/logo-pma/favicon-16x16.png"
   />
-  <link rel="manifest" href="Assets/logo-pma/manifest.json"/>
+  <link rel="manifest" href="assets/logo-pma/manifest.json"/>
   <meta name="msapplication-TileColor" content="#ffffff"/>
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
   <meta name="theme-color" content="#ffffff"/>
   <title>Edit-Person-PMA</title>
 
   <!-- LINK CSS FILE -->
-  <link rel="stylesheet" href="Assets/css/add-edit-person.css"/>
-  <link rel="stylesheet" href="Assets/css/general.css"/>
-  <link rel="stylesheet" href="Assets/css/queries.css"/>
+  <link rel="stylesheet" href="assets/css/add-edit-person.css"/>
+  <link rel="stylesheet" href="assets/css/general.css"/>
+  <link rel="stylesheet" href="assets/css/queries.css"/>
 
   <!-- LINK ION ICON -->
   <script
@@ -134,7 +136,7 @@ require_once __DIR__ . "/Action/common-action.php";
         <div class="d-flex">
           <div class="logo-pma">
             <a href="persons.php">
-              <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
+              <img src="assets/img/logo-pma-3.png" class="logo-pma"/>
             </a>
           </div>
           <p class="d-none d-md-flex PMA-title align-items-center">
@@ -152,7 +154,7 @@ require_once __DIR__ . "/Action/common-action.php";
           <div class="offcanvas-header">
             <div class="d-flex align-items-center gx-2 sidebar-padding">
               <div class="logo-pma">
-                <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
+                <img src="assets/img/logo-pma-3.png" class="logo-pma"/>
               </div>
               <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
                 <strong class="PMA">PMA</strong><br/>
@@ -368,7 +370,13 @@ require_once __DIR__ . "/Action/common-action.php";
             $person = getPersonData($id);
             $_SESSION['id'] = $_GET['id'];
             ?>
-            <form class="person-form" action="Action/edit-person-action.php" name="edit-form" method="post">
+              
+<!--              --><?php //if (isset($_SESSION["errorData"]) && $_SESSION['errorData'] != null) : ?>
+<!--                <div class="alert alert-danger" role="alert">-->
+<!--                  The maximum length of last name input is 15!!!-->
+<!--                </div>-->
+<!--              --><?php //endif; ?>
+            <form class="person-form" action="action/edit-person-action.php" name="edit-form" method="post">
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
@@ -494,27 +502,6 @@ require_once __DIR__ . "/Action/common-action.php";
                         aria-label="Large select example"
                         name="sex"
                     >
-                      <!--                        <option value="-->
-                      <?php //if (isset($_SESSION['inputSex']) && $_SESSION['errorData'] != null) {
-                      //                          echo $_SESSION['inputSex'];
-                      //                        } else {
-                      //                          echo $person['sex'];
-                      //                        }
-                      //                        ?><!--">-->
-                      <!--                          --><?php //if (isset($_SESSION['inputSex']) && $_SESSION['errorData'] != 0) {
-                      //                            echo $_SESSION['inputSex'] == "Male" ? "MALE" : "FEMALE";
-                      //                          } else {
-                      //                            echo $person['sex'] == "MALE" ? "MALE" : "FEMALE";
-                      //                          } ?>
-                      <!--                        </option>-->
-                      <!--                        --><?php //if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
-                      <!--                          <option value="MALE">Male</option>-->
-                      <!--                        --><?php //} else if ($person['sex'] == "FEMALE") { ?>
-                      <!--                          <option value="MALE">MALE</option>-->
-                      <!--                        --><?php //} else { ?>
-                      <!--                          <option value="FEMALE">Female</option>-->
-                      <!--                        --><?php //} ?>
-
                       <option value="<?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) {
                         echo $_SESSION['inputSex'];
                       } else {
@@ -655,12 +642,6 @@ require_once __DIR__ . "/Action/common-action.php";
                             }
                             ?>"
                         />
-                        <!--                          --><?php
-                        //                          if (isset($_SESSION['errorPassword'])) {
-                        //                            echo "required";
-                        //                          }
-                        //                          ?>
-                        
                         <?php if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["errorCurrentPassword"] == 1) : ?>
                           <div class="alert alert-danger" role="alert">
                             Password input is not correct!
@@ -693,31 +674,12 @@ require_once __DIR__ . "/Action/common-action.php";
                             }
                             ?>"
                         />
-                        <!--                          --><?php
-                        //                          if ($_SESSION['inputCurrentPassword'] != "" && $_SESSION['inputPassword'] == "") {
-                        //                            echo "required";
-                        //                          }
-                        //                          ?>
-                        
                         <?php if ($_SESSION["errorPassword"] == "1") { ?>
                           <div class="alert alert-danger" role="alert">
-                            The minimum length of Password input is 8 characters and maximum 16 characters
+                            Password must have at least 1 capital letter, 1 non-capital letter, 1 number.
+                            with a minimum length of 8 characters and a maximum of 16 characters.
                           </div>
                         <?php } ?>
-                        
-<!--//                        else { ?>-->
-<!--                          <div class="alert alert-danger" role="alert">-->
-<!--                            Please input new password!!!-->
-<!--                          </div>-->
-<!--                        --><?php //} ?>
-
-                        <!--                          --><?php //if (isset($_SESSION["errorPassword"]) && $_SESSION["errorPassword"] == "1" || $_SESSION["errorPassword"] == "") { ?>
-                        <!--                              --><?php //if($_SESSION["errorPassword"] == "1") {?>
-                        <!--                              <div class="alert alert-danger" role="alert">-->
-                        <!--                                The minimum length of Password input is 8 characters and maximum 16 characters-->
-                        <!--                              </div>-->
-                        <!--                                --><?php //} ?>
-                        <!--                          --><?php //} ?>
                       </div>
                     </div>
                   </div>
@@ -740,15 +702,9 @@ require_once __DIR__ . "/Action/common-action.php";
                           }
                           ?>"
                       />
-                      <!--                        --><?php
-                      //                        if (isset($_SESSION['errorCurrentPassword']) || isset($_SESSION['errorPassword']) || isset($_SESSION['errorConfirmPassword'])) {
-                      //                          echo "required";
-                      //                        }
-                      //                        ?>
-                      
                       <?php if ($_SESSION['errorConfirmPassword'] == 2) : ?>
                         <div class="alert alert-danger" role="alert">
-                          Confirm password input is not correct!
+                          Confirm password is not correct!
                         </div>
                       <?php endif; ?>
                     </div>

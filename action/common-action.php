@@ -24,6 +24,14 @@ function redirect($url, $getParams): void
   }
 }
 
+function successLogin($email): void
+{
+  if (!isset($email)) {
+    header("Location: login.php");
+    exit(); // Terminate script execution after the redirect
+  }
+}
+
 function getPersonData($id)
 {
   $persons = personsData();
@@ -170,25 +178,66 @@ function isEmailExists($email, ?string $id): bool
 //  }
 //}
 
+function passwordHash($password):string
+{
+  $plaintext_password = $password;
+  return password_hash($plaintext_password, PASSWORD_DEFAULT);
+}
+
+//function passwordVerify($plaintextPassword, $hash):bool
+//{
+//  return $verify = password_verify($plaintextPassword, $hash);
+//}//
+
+
 function checkNewPasswordInput($password): string
 {
 //  if ($currentPassword == "" && $password == "") {
 //    return true;
 //  } else
-  //  else if ($password == "") {
+////  else if ($password == "") {
 //    return "Invalid password";
 //  }
-
-  if (strlen($password) >= 8 && strlen($password) <= 16) {
-    return true;
-  }
-  
-//  $hash = '$2y$10$.vGA1O9wmRjrwAVXD98HNOgsNpDczlqm3Jq7KnEd1rVAGv3Fykk1a';
-//  if (password_verify($password, $hash)) {
+//  if (strlen($password) >= 8 && strlen($password) <= 16) {
 //    return true;
 //  }
+  
+  if (preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/", $password)) {
+    return true;
+  }
   return "";
 }
+
+//function askForNewPassword(): null|string
+//{
+//  while (true) {
+//    $newPassword = askForHiddenString("Password: ");
+//    if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/", $newPassword)) {
+//      echo "Password harus memiliki setidaknya 1 huruf kapital, 1 huruf non-kapital, 1 angka," .
+//        " dengan panjang minimal 8 karakter dan maksimal 16 karakter." . PHP_EOL;
+//    } else {
+//      echo PHP_EOL;
+//      $confirmPassword = askForHiddenString("Konfirmasi password: ");
+//      if ($newPassword != $confirmPassword) {
+//        echo "Maaf, konfirmasi password baru salah" . PHP_EOL;
+//      } else {
+//        return $newPassword;
+//      }
+//    }
+//  }
+//
+//  // shit happens
+//  return null;
+//}
+
+//function askForHiddenString(string|null $sentence = null): null|string
+//{
+//
+//    system("stty -echo");
+//    $password = trim(fgets(STDIN));
+//    system("stty echo");
+//  return $password;
+//}
 
 function checkedPassword($password, $currentPassword)
 {
@@ -224,8 +273,14 @@ function checkCurrentPassword($currentPassword, $id): bool
 {
   $persons = personsData();
   for ($i = 0; $i < count($persons); $i++) {
-    if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword) {
-      return true;
+//    if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword) {
+//      return true;
+//    }
+    if ($id == $persons[$i]['id']) {
+      $verify = password_verify($currentPassword, $persons[$i]['password']);
+      if ($verify) {
+        return true;
+      }
     }
   }
   return false;

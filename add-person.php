@@ -1,9 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['email'])) {
-  header("Location: login.php");
-  exit(); // Terminate script execution after the redirect
-}
+require_once __DIR__ . "/action/common-action.php";
+successLogin($_SESSION['email']);
+
+//if (!isset($_SESSION['email'])) {
+//  header("Location: login.php");
+//  exit(); // Terminate script execution after the redirect
+//}
 ?>
 
 <!DOCTYPE html>
@@ -15,82 +18,82 @@ if (!isset($_SESSION['email'])) {
   <link
       rel="apple-touch-icon"
       sizes="57x57"
-      href="Assets/logo-pma/apple-icon-57x57.png"
+      href="assets/logo-pma/apple-icon-57x57.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="60x60"
-      href="Assets/logo-pma/apple-icon-60x60.png"
+      href="assets/logo-pma/apple-icon-60x60.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="72x72"
-      href="Assets/logo-pma/apple-icon-72x72.png"
+      href="assets/logo-pma/apple-icon-72x72.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="76x76"
-      href="Assets/logo-pma/apple-icon-76x76.png"
+      href="assets/logo-pma/apple-icon-76x76.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="114x114"
-      href="Assets/logo-pma/apple-icon-114x114.png"
+      href="assets/logo-pma/apple-icon-114x114.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="120x120"
-      href="Assets/logo-pma/apple-icon-120x120.png"
+      href="assets/logo-pma/apple-icon-120x120.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="144x144"
-      href="Assets/logo-pma/apple-icon-144x144.png"
+      href="assets/logo-pma/apple-icon-144x144.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="152x152"
-      href="Assets/logo-pma/apple-icon-152x152.png"
+      href="assets/logo-pma/apple-icon-152x152.png"
   />
   <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="Assets/logo-pma/apple-icon-180x180.png"
+      href="assets/logo-pma/apple-icon-180x180.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="192x192"
-      href="Assets/logo-pma/android-icon-192x192.png"
+      href="assets/logo-pma/android-icon-192x192.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="32x32"
-      href="Assets/logo-pma/favicon-32x32.png"
+      href="assets/logo-pma/favicon-32x32.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="96x96"
-      href="Assets/logo-pma/favicon-96x96.png"
+      href="assets/logo-pma/favicon-96x96.png"
   />
   <link
       rel="icon"
       type="image/png"
       sizes="16x16"
-      href="Assets/logo-pma/favicon-16x16.png"
+      href="assets/logo-pma/favicon-16x16.png"
   />
-  <link rel="manifest" href="Assets/logo-pma/manifest.json"/>
+  <link rel="manifest" href="assets/logo-pma/manifest.json"/>
   <meta name="msapplication-TileColor" content="#ffffff"/>
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"/>
   <meta name="theme-color" content="#ffffff"/>
   <title>Add-Person-PMA</title>
 
   <!-- LINK CSS FILE -->
-  <link rel="stylesheet" href="Assets/css/add-edit-person.css"/>
-  <link rel="stylesheet" href="Assets/css/general.css"/>
-  <link rel="stylesheet" href="Assets/css/queries.css"/>
+  <link rel="stylesheet" href="assets/css/add-edit-person.css"/>
+  <link rel="stylesheet" href="assets/css/general.css"/>
+  <link rel="stylesheet" href="assets/css/queries.css"/>
 
   <!-- LINK ION ICON -->
   <script
@@ -133,7 +136,7 @@ if (!isset($_SESSION['email'])) {
         <div class="d-flex">
           <div class="logo-pma">
             <a href="persons.php">
-              <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
+              <img src="assets/img/logo-pma-3.png" class="logo-pma"/>
             </a>
           </div>
           <p class="d-none d-md-flex PMA-title align-items-center">
@@ -151,7 +154,7 @@ if (!isset($_SESSION['email'])) {
           <div class="offcanvas-header">
             <div class="d-flex align-items-center gx-2 sidebar-padding">
               <div class="logo-pma">
-                <img src="Assets/img/logo-pma-3.png" class="logo-pma"/>
+                <img src="assets/img/logo-pma-3.png" class="logo-pma"/>
               </div>
               <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
                 <strong class="PMA">PMA</strong><br/>
@@ -367,7 +370,7 @@ if (!isset($_SESSION['email'])) {
               <h3 class="title">Add person</h3>
             </div>
 
-            <form class="person-form" action="Action/add-person-action.php" name="create-form" method="post">
+            <form class="person-form" action="action/add-person-action.php" name="create-form" method="post">
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
@@ -494,7 +497,9 @@ if (!isset($_SESSION['email'])) {
                     />
                     <?php if (isset($_SESSION["errorPassword"])) : ?>
                       <div class="alert alert-danger" role="alert">
-                        The minimum length of Password input is 8 characters and maximum 16 characters
+<!--                        The minimum length of Password input is 8 characters and maximum 16 characters-->
+                        Password must have at least 1 capital letter, 1 non-capital letter, 1 number.
+                        with a minimum length of 8 characters and a maximum of 16 characters.
                       </div>
                     <?php endif; ?>
                   </div>
@@ -517,7 +522,7 @@ if (!isset($_SESSION['email'])) {
                     />
                     <?php if (isset($_SESSION["errorConfirmPassword"])) : ?>
                       <div class="alert alert-danger" role="alert">
-                        Maaf, konfirmasi password salah!
+                        Confirm password is not correct!
                       </div>
                     <?php endif; ?>
                   </div>
@@ -681,12 +686,24 @@ if (!isset($_SESSION['email'])) {
                     } ?></textarea>
                 </div>
               </div>
+<!--              <div class="form-check form-switch form-padding">-->
+<!--                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"-->
+<!--                       value="ALIVE">-->
+<!--                <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>-->
+<!--              </div>-->
+
               <div class="form-check form-switch form-padding">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"
-                       value="ALIVE">
+                       value="ALIVE"
+                <?php
+                if ($_GET['errorInput'] == 1 && $_SESSION['inputStatus'] != null) {
+                  echo "checked";
+                }
+                ?>
+                >
                 <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
               </div>
-
+              
               <div class="text-end btn-padding">
                 <button
                     type="submit"
