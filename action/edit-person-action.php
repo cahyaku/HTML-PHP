@@ -77,6 +77,8 @@ require_once __DIR__ . "/common-action.php";
 //  $_POST['confirmPassword']
 //);
 
+//validateDataAndSaved();
+
 $errorData = validateErrorInput($_POST['nik'],
   $_POST['email'],
   $_POST['firstName'],
@@ -99,7 +101,7 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
   $_SESSION['errorLastName'] = $errorData['lastName'];
   $_SESSION['errorCurrentPassword'] = $errorPassword['currentPassword'];
   $_SESSION['errorConfirmPassword'] = $errorPassword['confirmPassword'];
-  
+
 //  SESSION INPUT DATA
   $_SESSION['inputEmail'] = $_POST['email'];
   $_SESSION['inputNik'] = $_POST['nik'];
@@ -115,34 +117,15 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
   $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
   $_SESSION['errorData'] = $errorData;
   $_SESSION['errorPasswordData'] = $errorPassword;
-  
+
   header("Location: ../edit-person.php?id=" . $_SESSION['id']);
   exit();
 } else {
-//  unset($_SESSION['errorNik']);
-//  unset($_SESSION['errorEmail']);
-//  unset($_SESSION['errorPassword']);
-//  unset($_SESSION['errorFirstName']);
-//  unset($_SESSION['errorLastName']);
-//  unset($_SESSION['errorCurrentPassword']);
-//  unset($_SESSION['errorConfirmPassword']);
-//  unset($_SESSION['inputEmail']);
-//  unset($_SESSION['inputNik']);
-//  unset($_SESSION['inputPassword']);
-//  unset($_SESSION['inputFirstName']);
-//  unset($_SESSION['inputLastName']);
-//  unset($_SESSION['inputAddress']);
-//  unset($_SESSION['inputSex']);
-//  unset($_SESSION['inputRole']);
-//  unset($_SESSION['inputBirthDate']);
-//  unset($_SESSION['internalNotes']);
-//  unset($_SESSION['inputCurrentPassword']);
-//  unset($_SESSION['inputConfirmPassword']);
   $persons = personsData();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
-    $checkedPassword = checkedPassword($_POST['password'], $persons[$i]['password']);
-    $password = passwordHash($checkedPassword);
+    $password = checkedPassword($_POST['password'], $persons[$i]['password']);
+//    $password = passwordHash($checkedPassword);
     if ($persons[$i]['id'] == $_SESSION['id']) {
       $persons[$i]["nik"] = $_POST['nik'];
       $persons[$i]["firstName"] = $_POST['firstName'];

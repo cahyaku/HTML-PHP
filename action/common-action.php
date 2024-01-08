@@ -59,12 +59,10 @@ function translateDateFromIntToString($date): string
   return $date = date("Y-m-d", $date);
 }
 
-
 function translateDateFromStringToInt($date): int
 {
   return $date = strtotime($date);
 }
-
 
 function dateFormatToString($timestamp): string|null
 {
@@ -255,7 +253,8 @@ function checkedPassword($password, $currentPassword)
   if ($password == "") {
     return $currentPassword;
   } else {
-    return $password;
+    return passwordHash($password);
+//    return $password;
   }
 }
 
@@ -385,3 +384,71 @@ function validatePassword($currentPassword, $password, $confirmPassword , $id) :
   }
   return $validatePassword;
 }
+
+//function validateDataAndSaved():void
+//{
+//  $errorData = validateErrorInput($_POST['nik'],
+//    $_POST['email'],
+//    $_POST['firstName'],
+//    $_POST['lastName'],
+//    $_SESSION['id'],
+//  );
+//
+//  $errorPassword = validatePassword($_POST['currentPassword'],
+//    $_POST['password'],
+//    $_POST['confirmPassword'],
+//    $_SESSION['id']
+//  );
+//
+//  if (count($errorData) != 0 || count($errorPassword) != 0) {
+////  SESSION ERROR INPUT
+//    $_SESSION['errorNik'] = $errorData["nik"];
+//    $_SESSION['errorEmail'] = $errorData['email'];
+//    $_SESSION['errorPassword'] = $errorPassword['password'];
+//    $_SESSION['errorFirstName'] = $errorData['firstName'];
+//    $_SESSION['errorLastName'] = $errorData['lastName'];
+//    $_SESSION['errorCurrentPassword'] = $errorPassword['currentPassword'];
+//    $_SESSION['errorConfirmPassword'] = $errorPassword['confirmPassword'];
+//
+////  SESSION INPUT DATA
+//    $_SESSION['inputEmail'] = $_POST['email'];
+//    $_SESSION['inputNik'] = $_POST['nik'];
+//    $_SESSION['inputPassword'] = $_POST['password'];
+//    $_SESSION['inputFirstName'] = $_POST['firstName'];
+//    $_SESSION['inputLastName'] = $_POST['lastName'];
+//    $_SESSION['inputAddress'] = $_POST['address'];
+//    $_SESSION['inputSex'] = $_POST['sex'];
+//    $_SESSION['inputRole'] = $_POST['role'];
+//    $_SESSION['inputBirthDate'] = $_POST['birthDate'];
+//    $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
+//    $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
+//    $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
+//    $_SESSION['errorData'] = $errorData;
+//    $_SESSION['errorPasswordData'] = $errorPassword;
+//
+//    header("Location: ../edit-person.php?id=" . $_SESSION['id']);
+//    exit();
+//  } else {
+//    $persons = personsData();
+//    $birthDate = translateDateFromStringToInt($_POST['birthDate']);
+//    for ($i = 0; $i < count($persons); $i++) {
+//      $password = checkedPassword($_POST['password'], $persons[$i]['password']);
+////    $password = passwordHash($checkedPassword);
+//      if ($persons[$i]['id'] == $_SESSION['id']) {
+//        $persons[$i]["nik"] = $_POST['nik'];
+//        $persons[$i]["firstName"] = $_POST['firstName'];
+//        $persons[$i]["lastName"] = $_POST['lastName'];
+//        $persons[$i]["birthDate"] = $birthDate;
+//        $persons[$i]["sex"] = $_POST['sex'];
+//        $persons[$i]["email"] = $_POST['email'];
+//        $persons[$i]["password"] = $password;
+//        $persons[$i]["address"] = $_POST['address'];
+//        $persons[$i]["role"] = $_POST['role'];
+//        $persons[$i]["internalNotes"] = $_POST['internalNotes'];
+//        $persons[$i]["alive"] = $_POST['alive'];
+//        saveDataIntoJson($persons);
+//        redirect("../persons.php", "changed");
+//      }
+//    }
+//  }
+//}

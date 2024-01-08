@@ -2,12 +2,12 @@
     {
         "id": 1,
         "nik": "1234567812395678",
-        "firstName": "cahya",
+        "firstName": "Cahya",
         "lastName": "AkuCahya123",
-        "birthDate": 1123027200,
+        "birthDate": 965865600,
         "sex": "MALE",
         "email": "cahya@gmail.com",
-        "password": "$2y$10$caGRcLUbVFyspkMOywzYbO4wDGRQf2ndz78N0RbEj3\/v6F6IErxfK",
+        "password": "$2y$10$dng8sJEvA.hsXNPwbX.V2O7qoTj7bMZowDfjhzq7eeD3c86FlwG4m",
         "address": "perean lah",
         "role": "ADMIN",
         "internalNotes": "sakdkda",
@@ -48,11 +48,11 @@
         "id": 4,
         "nik": "1111111111111114",
         "firstName": "Alin",
-        "lastName": "hudino",
+        "lastName": "hudino cahya123",
         "birthDate": 1104451200,
         "sex": "MALE",
         "email": "alin@gmail.com",
-        "password": "$2y$10$ZrGvo.XcqfS5SiYS9pDDTeircJdZUyiHzW2axJnfttBtajKDggFp.",
+        "password": "$2y$10$PgU7i251mKeKPwlDGWc5gOq.V0RVeYzvZvkn6056WwHMRxYnTHxNG",
         "address": "Tabanan",
         "role": "ADMIN",
         "internalNotes": "Hi aku cia",
@@ -177,7 +177,7 @@
         "role": "ADMIN",
         "internalNotes": "hi aku Kitty cute",
         "loggedIn": null,
-        "alive": null
+        "alive": "ALIVE"
     },
     {
         "id": 13,
@@ -253,5 +253,20 @@
         "internalNotes": "",
         "loggedIn": null,
         "alive": null
+    },
+    {
+        "id": 18,
+        "nik": "0912346712821122",
+        "firstName": "Omang",
+        "lastName": "Nilam Cute",
+        "birthDate": 1100044800,
+        "sex": "FEMALE",
+        "email": "martaNilam@gmail.com",
+        "password": "$2y$10$nqYLRL8xHdJQueP2\/TavcuJ7PTnbfeaN82OmbSZvU2CBvHGJ8VILO",
+        "address": "baturiti",
+        "role": "ADMIN",
+        "internalNotes": "",
+        "loggedIn": null,
+        "alive": "ALIVE"
     }
 ]

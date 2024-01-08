@@ -11,7 +11,7 @@ function search($search): array
         $searchResult[] = $value;
       }
     }
-    
+
 //    else if (preg_match("/$search/i", $value["lastName"])) {
 //      if (in_array($value["lastName"], $searchResult) == false) {
 //        $searchResult[] = $value;
@@ -30,7 +30,7 @@ function searchByAges($search, $persons): array
 {
 //  $persons = $filter;
   $searchResult = [];
-  foreach ($persons as $person => $value ) {
+  foreach ($persons as $person => $value) {
     if (preg_match("/$search/i", $value["firstName"])) {
       if (in_array($value["firstName"], $searchResult) == false) {
         $searchResult[] = $value;
@@ -45,14 +45,14 @@ function searchByAges($search, $persons): array
   return $searchResult;
 }
 
-function filterByAge($personsAge):null|string
+function filterByAge($personsAge): null|string
 {
-  if ($personsAge <= 5 ) {
-     return "toddler";
+  if ($personsAge <= 5) {
+    return "toddler";
   } else if ($personsAge <= 60) {
-     return "productiveAges";
+    return "productiveAges";
   } else if ($personsAge >= 61) {
-     return "passedAway";
+    return "passedAway";
   }
   return null;
 }
@@ -105,24 +105,21 @@ function filterByAge($personsAge):null|string
 //  return floor($total / (60 * 60 * 24 * 365));
 //}
 
-function toddler()
+function toddler(): array
 {
   $persons = personsData();
   foreach ($persons as $person) {
-    if (checkAges($person["birthDate"]) <= 5  &&  $person["alive"] != null) {
+    if (checkAges($person["birthDate"]) <= 5 && $person["alive"] != null) {
       $toddler[] = $person;
     }
   }
   return $toddler;
 }
 
-function passedAway()
+function passedAway(): array
 {
   $persons = personsData();
   foreach ($persons as $person) {
-//    if (checkAges($person["birthDate"]) > 60 ) {
-//      $passedAway[] = $person;
-//    }
     if ($person["alive"] == null) {
       $passedAway[] = $person;
     }
@@ -130,27 +127,38 @@ function passedAway()
   return $passedAway;
 }
 
-function productiveAges()
+function productiveAges(): array
 {
   $persons = personsData();
   foreach ($persons as $person) {
-    if (checkAges($person["birthDate"]) >= 6 &&  $person["alive"] != null) {
+    if (checkAges($person["birthDate"]) >= 6 && checkAges($person["birthDate"]) <= 60 && $person["alive"] != null) {
       $productiveAges[] = $person;
     }
   }
   return $productiveAges;
 }
 
+function elderly():array
+{
+  $persons = personsData();
+  foreach ($persons as $person) {
+    if (checkAges($person["birthDate"]) > 60 && $person["alive"] != null) {
+      $elderly[] = $person;
+    }
+  }
+  return $elderly;
+}
+
 function checkAges($birthDate)
 {
   $date = date("d-m-Y", $birthDate);
-  list($day,$month,$year) = explode('-',$date);
+  list($day, $month, $year) = explode('-', $date);
   $born = mktime(0, 0, 0, (int)$day, (int)$month, $year); //jam,menit,detik,tanggal,bulan,tahun
   $t = time();
-  $age = ($born < 0) ? ( $t + ($born * -1) ) : $t - $born;
+  $age = ($born < 0) ? ($t + ($born * -1)) : $t - $born;
   $years = 60 * 60 * 24 * 365;
   $yearOfBirthDate = $age / $years;
-  $currentAge = floor($yearOfBirthDate) ;
+  $currentAge = floor($yearOfBirthDate);
   return $currentAge;
 }
 
@@ -209,4 +217,21 @@ function checkAges($birthDate)
 //    }
 //  }
 //  return null;
+//}
+//
+//function filterPersonDataByAge(): array
+//{
+//  $toddler = toddler();
+//  $passedAway = passedAway();
+//  $productiveAges = productiveAges();
+//  $elderly = elderly();
+//  if (count($toddler) != 0) {
+//    return $toddler;
+//  } else if (count($passedAway) != 0) {
+//    return $passedAway;
+//  } else if (count($productiveAges) != 0) {
+//    return $productiveAges;
+//  } else {
+//    return $elderly;
+//  }
 //}

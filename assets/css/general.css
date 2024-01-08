@@ -223,6 +223,16 @@ body {
   color: #364fc7;
 }
 
+/*.persons-nav-link:link,*/
+/*.persons-nav-link:visited {*/
+/*  color: #364fc7;*/
+/*}*/
+
+/*.profile-nav-link:link,*/
+/*.profile-nav-link:visited {*/
+/*  color: #364fc7;*/
+/*}*/
+
 .logout-link:link,
 .logout-link:visited {
   color: red;
@@ -284,10 +294,10 @@ body {
 }
 
 /* person main nav link */
-.persons-nav-link:link,
-.persons-nav-link:visited {
-  color: #364fc7;
-}
+/*.persons-nav-link:link,*/
+/*.persons-nav-link:visited {*/
+/*  color: #364fc7;*/
+/*}*/
 
 .PMA-title {
   color: #222;

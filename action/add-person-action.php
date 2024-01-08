@@ -87,7 +87,7 @@ function validateError(string $nik,
     $validate['confirmPassword'] = "1";
   }
 
-  if (!checkBirthDateInput($birthDate)) {
+  if (!checkBirthDateInput($birthDate) || translateDateFromStringToInt($birthDate) == null) {
     $validate['birthDate'] = "1";
   }
   return $validate;

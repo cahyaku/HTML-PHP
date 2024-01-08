@@ -56,7 +56,6 @@ require_once __DIR__ . "/common-action.php";
 //  }
 //  return $validate;
 //}
-
 //function validatePassword($password, $currentPassword, $id): array
 //{
 //  $validatePass = [];
@@ -69,7 +68,6 @@ require_once __DIR__ . "/common-action.php";
 //  }
 //  return $validatePass;
 //}
-
 //function passwordValidate(int $id, string $currentPassword, string $newPassword, string $confirmPassword):array
 //{
 //  $validate = [];
@@ -87,6 +85,8 @@ require_once __DIR__ . "/common-action.php";
 //  }
 //  return $validate;
 //}
+
+//validateDataAndSaved();
 
 $errorData = validateErrorInput($_POST['nik'],
   $_POST['email'],
@@ -142,12 +142,12 @@ $person = getPersonDataByEmail($_SESSION['userEmail']);
 //  unset($_SESSION['inputSex']);
 //  unset($_SESSION['inputBirthDate']);
 //  unset($_SESSION['internalNotes']);
-  
+
   $persons = personsData();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
-    $checkedPassword = checkedPassword($_POST['password'], $persons[$i]['password']);
-    $password = passwordHash($checkedPassword);
+    $password= checkedPassword($_POST['password'], $persons[$i]['password']);
+//    $password = passwordHash($checkedPassword);
     if ($persons[$i]['email'] == $_SESSION['userEmail']) {
       $persons[$i]["nik"] = $_POST['nik'];
       $persons[$i]["firstName"] = $_POST['firstName'];
