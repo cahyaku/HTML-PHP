@@ -1,17 +1,17 @@
 [
     {
         "id": 1,
-        "nik": "1234567812395678",
-        "firstName": "Cahya",
+        "nik": "1234567891982346",
+        "firstName": "cahya",
         "lastName": "AkuCahya123",
-        "birthDate": 965865600,
-        "sex": "MALE",
+        "birthDate": 1123027200,
+        "sex": "FEMALE",
         "email": "cahya@gmail.com",
         "password": "$2y$10$dng8sJEvA.hsXNPwbX.V2O7qoTj7bMZowDfjhzq7eeD3c86FlwG4m",
         "address": "perean lah",
         "role": "ADMIN",
-        "internalNotes": "sakdkda",
-        "loggedIn": 1704437860,
+        "internalNotes": "kumaladslakdkafa",
+        "loggedIn": 1704878680,
         "alive": "ALIVE"
     },
     {
@@ -267,6 +267,21 @@
         "role": "ADMIN",
         "internalNotes": "",
         "loggedIn": null,
+        "alive": "ALIVE"
+    },
+    {
+        "id": 19,
+        "nik": "5004567812345678",
+        "firstName": "kevin",
+        "lastName": "AkuKevin123",
+        "birthDate": 1123027200,
+        "sex": "MALE",
+        "email": "kevin@gmail.com",
+        "password": "$2y$10$BY2t20e3Bl.Nb0Y6L1NYmeXe5zMtO2RuHz84CZ9Pcq\/rg5zntS5j.",
+        "address": "perean",
+        "role": "ADMIN",
+        "internalNotes": "",
+        "loggedIn": 1704872118,
         "alive": "ALIVE"
     }
 ]

@@ -2,6 +2,9 @@
 session_start();
 require_once __DIR__ . "/action/common-action.php";
 successLogin($_SESSION['email']);
+if (checkRole($_SESSION['email']) == null) {
+  redirect("../dashboard.php", null);
+}
 ?>
 
 <?php

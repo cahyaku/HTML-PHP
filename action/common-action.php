@@ -147,29 +147,34 @@ function isEmailExists($email, ?string $id): bool
 //function generateId(array|null $array): int
 //{
 //  return $array == null ? 1 : (end($array['id']) + 1);
+//
 //}
 //
 //function save($person): void
 //{
 //  $persons = personsData();
 //  if ($person['id'] == null) {
-//    $id = generateId($persons);
+////    $id = generateId($persons);
+//    $lastPerson = $persons[count($persons) -1];
+//    $id = $lastPerson["id"] + 1;
 //    $person['id'] = $id;
 //    $persons[] = $person;
 //    saveDataIntoJson($persons);
 //  } else {
 //    for ($i = 0; $i < count($persons); $i++) {
 //      if ($persons[$i]['id'] == $person['id']) {
+//        $persons[$i]['nik'] = $person['nik'];
 //        $persons[$i]['firstName'] = $person['firstName'];
 //        $persons[$i]['lastName'] = $person['lastName'];
-//        $persons[$i]['email'] = $person['email'];
-//        $persons[$i]['nik'] = $person['nik'];
-//        $persons[$i]['sex'] = $person['sex'];
-//        $persons[$i]['role'] = $person['role'];
 //        $persons[$i]['birthDate'] = $person['birthDate'];
-//        $persons[$i]['internalNotes'] = $person['internalNotes'];
+//        $persons[$i]['sex'] = $person['sex'];
+//        $persons[$i]['email'] = $person['email'];
 //        $persons[$i]['password'] = $person['password'];
+//        $persons[$i]['address'] = $person['address'];
+//        $persons[$i]['role'] = $person['role'];
+//        $persons[$i]['internalNotes'] = $person['internalNotes'];
 //        $persons[$i]['loggedIn'] = $person['loggedIn'];
+//        $persons[$i]['alive'] = $person['alive'];
 //        saveDataIntoJson($persons);
 //      }
 //    }
@@ -206,50 +211,8 @@ function checkNewPasswordInput($password): string
   return "";
 }
 
-//function askForNewPassword(): null|string
-//{
-//  while (true) {
-//    $newPassword = askForHiddenString("Password: ");
-//    if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/", $newPassword)) {
-//      echo "Password harus memiliki setidaknya 1 huruf kapital, 1 huruf non-kapital, 1 angka," .
-//        " dengan panjang minimal 8 karakter dan maksimal 16 karakter." . PHP_EOL;
-//    } else {
-//      echo PHP_EOL;
-//      $confirmPassword = askForHiddenString("Konfirmasi password: ");
-//      if ($newPassword != $confirmPassword) {
-//        echo "Maaf, konfirmasi password baru salah" . PHP_EOL;
-//      } else {
-//        return $newPassword;
-//      }
-//    }
-//  }
-//
-//  // shit happens
-//  return null;
-//}
-
-//function askForHiddenString(string|null $sentence = null): null|string
-//{
-//
-//    system("stty -echo");
-//    $password = trim(fgets(STDIN));
-//    system("stty echo");
-//  return $password;
-//}
-
 function checkedPassword($password, $currentPassword)
 {
-//  $plaintext_password = $password;
-//  if ($password == "") {
-//    $hash = password_hash($currentPassword,
-//      PASSWORD_DEFAULT);
-//    return $hash;
-//  } else {
-//    $hash = password_hash($password,
-//      PASSWORD_DEFAULT);
-//    return $hash;
-//  }
-
   if ($password == "") {
     return $currentPassword;
   } else {
@@ -322,6 +285,7 @@ function validateErrorInput(string $nik,
                        string $email,
                        string $firstName,
                        string $lastName,
+                              string $birthDate,
                               $id,
                              
 ): array
@@ -345,6 +309,10 @@ function validateErrorInput(string $nik,
   
   if (!checkNameInput($lastName)) {
     $validate['lastName'] = "2";
+  }
+  
+  if (!checkBirthDateInput($birthDate) || translateDateFromStringToInt($birthDate) == null) {
+    $validate['birthDate'] = "1";
   }
   return $validate;
 }
@@ -385,70 +353,28 @@ function validatePassword($currentPassword, $password, $confirmPassword , $id) :
   return $validatePassword;
 }
 
-//function validateDataAndSaved():void
-//{
-//  $errorData = validateErrorInput($_POST['nik'],
-//    $_POST['email'],
-//    $_POST['firstName'],
-//    $_POST['lastName'],
-//    $_SESSION['id'],
-//  );
-//
-//  $errorPassword = validatePassword($_POST['currentPassword'],
-//    $_POST['password'],
-//    $_POST['confirmPassword'],
-//    $_SESSION['id']
-//  );
-//
-//  if (count($errorData) != 0 || count($errorPassword) != 0) {
-////  SESSION ERROR INPUT
-//    $_SESSION['errorNik'] = $errorData["nik"];
-//    $_SESSION['errorEmail'] = $errorData['email'];
-//    $_SESSION['errorPassword'] = $errorPassword['password'];
-//    $_SESSION['errorFirstName'] = $errorData['firstName'];
-//    $_SESSION['errorLastName'] = $errorData['lastName'];
-//    $_SESSION['errorCurrentPassword'] = $errorPassword['currentPassword'];
-//    $_SESSION['errorConfirmPassword'] = $errorPassword['confirmPassword'];
-//
-////  SESSION INPUT DATA
-//    $_SESSION['inputEmail'] = $_POST['email'];
-//    $_SESSION['inputNik'] = $_POST['nik'];
-//    $_SESSION['inputPassword'] = $_POST['password'];
-//    $_SESSION['inputFirstName'] = $_POST['firstName'];
-//    $_SESSION['inputLastName'] = $_POST['lastName'];
-//    $_SESSION['inputAddress'] = $_POST['address'];
-//    $_SESSION['inputSex'] = $_POST['sex'];
-//    $_SESSION['inputRole'] = $_POST['role'];
-//    $_SESSION['inputBirthDate'] = $_POST['birthDate'];
-//    $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
-//    $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
-//    $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
-//    $_SESSION['errorData'] = $errorData;
-//    $_SESSION['errorPasswordData'] = $errorPassword;
-//
-//    header("Location: ../edit-person.php?id=" . $_SESSION['id']);
-//    exit();
-//  } else {
-//    $persons = personsData();
-//    $birthDate = translateDateFromStringToInt($_POST['birthDate']);
-//    for ($i = 0; $i < count($persons); $i++) {
-//      $password = checkedPassword($_POST['password'], $persons[$i]['password']);
-////    $password = passwordHash($checkedPassword);
-//      if ($persons[$i]['id'] == $_SESSION['id']) {
-//        $persons[$i]["nik"] = $_POST['nik'];
-//        $persons[$i]["firstName"] = $_POST['firstName'];
-//        $persons[$i]["lastName"] = $_POST['lastName'];
-//        $persons[$i]["birthDate"] = $birthDate;
-//        $persons[$i]["sex"] = $_POST['sex'];
-//        $persons[$i]["email"] = $_POST['email'];
-//        $persons[$i]["password"] = $password;
-//        $persons[$i]["address"] = $_POST['address'];
-//        $persons[$i]["role"] = $_POST['role'];
-//        $persons[$i]["internalNotes"] = $_POST['internalNotes'];
-//        $persons[$i]["alive"] = $_POST['alive'];
-//        saveDataIntoJson($persons);
-//        redirect("../persons.php", "changed");
-//      }
-//    }
-//  }
-//}
+function checkErrorValue($currentInput, $personData): void
+{
+  if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
+    || isset($_SESSION['errorEmail']) || isset($_SESSION['errorPassword']) || isset($_SESSION['errorConfirmPassword'])
+    || isset($_SESSION['errorCurrentPassword'])) {
+    echo $currentInput;
+  } else {
+    echo $personData;
+  }
+}
+
+function inputData():void
+{
+  $_SESSION['inputEmail'] = $_POST['email'];
+  $_SESSION['inputNik'] = $_POST['nik'];
+  $_SESSION['inputPassword'] = $_POST['password'];
+  $_SESSION['inputFirstName'] = $_POST['firstName'];
+  $_SESSION['inputLastName'] = $_POST['lastName'];
+  $_SESSION['inputAddress'] = $_POST['address'];
+  $_SESSION['inputSex'] = $_POST['sex'];
+  $_SESSION['inputBirthDate'] = $_POST['birthDate'];
+  $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
+  $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
+  $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
+}

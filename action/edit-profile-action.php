@@ -92,6 +92,7 @@ $errorData = validateErrorInput($_POST['nik'],
   $_POST['email'],
   $_POST['firstName'],
   $_POST['lastName'],
+  $_POST['birthDate'],
   $_SESSION['id'],
 );
 
@@ -113,17 +114,18 @@ $person = getPersonDataByEmail($_SESSION['userEmail']);
   $_SESSION['errorConfirmPassword'] = $errorPassword['confirmPassword'];
 
 //  SESSION INPUT DATA
-  $_SESSION['inputEmail'] = $_POST['email'];
-  $_SESSION['inputNik'] = $_POST['nik'];
-  $_SESSION['inputPassword'] = $_POST['password'];
-  $_SESSION['inputFirstName'] = $_POST['firstName'];
-  $_SESSION['inputLastName'] = $_POST['lastName'];
-  $_SESSION['inputAddress'] = $_POST['address'];
-  $_SESSION['inputSex'] = $_POST['sex'];
-  $_SESSION['inputBirthDate'] = $_POST['birthDate'];
-  $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
-  $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
-  $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
+//  $_SESSION['inputEmail'] = $_POST['email'];
+//  $_SESSION['inputNik'] = $_POST['nik'];
+//  $_SESSION['inputPassword'] = $_POST['password'];
+//  $_SESSION['inputFirstName'] = $_POST['firstName'];
+//  $_SESSION['inputLastName'] = $_POST['lastName'];
+//  $_SESSION['inputAddress'] = $_POST['address'];
+//  $_SESSION['inputSex'] = $_POST['sex'];
+//  $_SESSION['inputBirthDate'] = $_POST['birthDate'];
+//  $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
+//  $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
+//  $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
+  inputData();
   $_SESSION['errorData'] = count($errorData);
   header("Location: ../edit-profile.php");
   exit();

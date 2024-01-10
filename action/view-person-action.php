@@ -24,7 +24,7 @@ if (isset($_GET['id'])) {
       unset ($persons[$i]);
       $persons = array_values($persons);
       saveDataIntoJson($persons);
-      redirect("../persons.php", null);
+      redirect("../persons.php", "deleted");
     }
   endfor;
 }

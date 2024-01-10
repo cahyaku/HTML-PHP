@@ -558,3 +558,76 @@
 <!--        </div>-->
 <!--      </div>-->
 <!--    </div>-->
+
+<!--Validasi password saat edit-->
+//function validateError(string $nik,
+//                       string $password,
+//                       string $email,
+//                       string $firstName,
+//                       string $lastName,
+//                              $id,
+//                              $currentPassword,
+//                              $confirmPassword
+//): array
+//{
+//  $validate = [];
+//  if (!checkNikInput($nik)) {
+//    $validate['nik'] = "1";
+//  }
+//
+//  if (isNikExists($nik, $id) == true) {
+//    $validate['nik'] = "2";
+//  }
+//
+////  if (!checkNewPasswordInput($password)) {
+////    $validate['password'] = "1";
+////  }
+//
+//  if (isEmailExists($email, $id) == true) {
+//    $validate['email'] = "1";
+//  }
+//
+//  if (!checkNameInput($firstName)) {
+//    $validate['firstName'] = "1";
+//  }
+//
+//  if (!checkNameInput($lastName)) {
+//    $validate['lastName'] = "2";
+//  }
+//
+////  if (!checkCurrentPassword($currentPassword, $id)) {
+////    $validate['currentPassword'] = "2";
+////  }
+//
+////  if ($_POST['currentPassword'] != null) {
+//  if ($currentPassword != null) {
+//    if (checkCurrentPassword($currentPassword, $id) == false) {
+//      $validate['currentPassword'] = "1";
+//    } else {
+//      $errorPass = checkNewPasswordInput($password);
+//      if ($errorPass == "") {
+//      $validate['password'] = "1";
+//      }
+//    }
+//  } else {
+//    $validate = [];
+//  }
+//
+//  if ($_POST['currentPassword'] == null && $password != null) {
+//    $validate['confirmPassword'] = "1";
+//  } else {
+//    if (!checkConfirmPassword($password, $confirmPassword)) {
+//      $validate['confirmPassword'] = "2";
+//    }
+//  }
+//  return $validate;
+//}
+//$errorData = validateError($_POST['nik'],
+//  $_POST['password'],
+//  $_POST['email'],
+//  $_POST['firstName'],
+//  $_POST['lastName'],
+//  $_SESSION['id'],
+//  $_POST['currentPassword'],
+//  $_POST['confirmPassword']
+//);

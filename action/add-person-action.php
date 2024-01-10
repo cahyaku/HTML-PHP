@@ -87,9 +87,10 @@ function validateError(string $nik,
     $validate['confirmPassword'] = "1";
   }
 
-  if (!checkBirthDateInput($birthDate) || translateDateFromStringToInt($birthDate) == null) {
+  if (!checkBirthDateInput($birthDate)) {
     $validate['birthDate'] = "1";
   }
+  
   return $validate;
 }
 
@@ -122,7 +123,6 @@ if (count($errorData) != 0) {
   $_SESSION['inputRole'] = $_POST['role'];
   $_SESSION['inputBirthDate'] = $_POST['birthDate'];
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
-  $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
   $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
   $_SESSION['inputStatus'] = $_POST['alive'];
   $_SESSION['errorData'] = count($errorData);
@@ -148,7 +148,9 @@ if (count($errorData) != 0) {
   unset ($_SESSION['internalNotes']);
   
   $persons = personsData();
-  $id = count($persons) + 1;
+//  $id = count($persons) + 1;
+  $lastPerson = $persons[count($persons) -1];
+  $id = $lastPerson["id"] + 1;
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
 //  $plaintext_password = $_POST['password'];
 //  $hash = password_hash($plaintext_password,
@@ -169,6 +171,7 @@ if (count($errorData) != 0) {
     "loggedIn" => null,
     "alive" => $_POST['alive']
   ];
+//  save($personData);
   $persons[] = $personData;
   saveDataIntoJson($persons);
   redirect("../persons.php", "success");

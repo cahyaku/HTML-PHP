@@ -276,7 +276,11 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             </div>
           <?php elseif (isset($_GET['changed'])): ?>
             <div class="alert alert-success form-padding alert-padding" role="alert">
-              Data person has been changed !!!
+              Person data has been changed !!!
+            </div>
+          <?php elseif (isset($_GET['deleted'])): ?>
+            <div class="alert alert-success form-padding alert-padding" role="alert">
+              Person data has been deleted !!!
             </div>
           <?php endif; ?>
           <nav aria-label="Page navigation example">

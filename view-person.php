@@ -7,17 +7,17 @@ successLogin($_SESSION['email']);
 <!-- HEADER -->
 <?php
 require_once __DIR__ . "/include/header.php";
-showHeader("Persons-PMA","view-person.css","persons.css",personsNav: "persons-nav-link");
+showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons-nav-link");
 ?>
 <main>
   <section class="section-View-person d-flex">
-    
-<!--  SIDEBAR  -->
+
+    <!--  SIDEBAR  -->
     <?php
     require_once __DIR__ . "/include/sidebar.php";
     showSidebar(personsNav: "persons-nav-link");
     ?>
-    
+
     <!-- MAIN CONTENT -->
     <div class="main-content d-flex flex-column">
       <div class="container">
@@ -27,16 +27,13 @@ showHeader("Persons-PMA","view-person.css","persons.css",personsNav: "persons-na
           </div>
           <?php
           if (isset($_GET['id'])) {
-//            if ($_GET['id'] < 1) {
-//              $id = $_GET['id'];
-//            } else if (!is_numeric($_GET['id'])) {
-//              $id = $_GET['id'];
-//            } else {
-//              $id = $_GET['id'];
-//            }
-          
           $id = $_GET['id'];
           $persons = getPersonData($id);
+          
+//          if (!is_numeric($_GET['id'])){
+//            $id = null;
+//          } else {
+//          $persons = getPersonData($_GET['id']);
           ?>
           <div class="person-data">
             <div class="card card-shadow">
@@ -113,26 +110,27 @@ showHeader("Persons-PMA","view-person.css","persons.css",personsNav: "persons-na
                 </div>
 
                 <div class="text-end">
-<!--                  <button-->
-<!--                      type="button"-->
-<!--                      class="btn btn-outline-primary btn-edit btn-space"-->
-<!--                  >-->
-<!--                    <a class="edit btn-text" href="edit-person.php?id=--><?php //echo $persons['id'] ?><!--">-->
-<!--                      Edit&ensp;🐻-->
-<!--                    </a>-->
-<!--                  </button>-->
+                  <!--                  <button-->
+                  <!--                      type="button"-->
+                  <!--                      class="btn btn-outline-primary btn-edit btn-space"-->
+                  <!--                  >-->
+                  <!--                    <a class="edit btn-text" href="edit-person.php?id=-->
+                  <?php //echo $persons['id'] ?><!--">-->
+                  <!--                      Edit&ensp;🐻-->
+                  <!--                    </a>-->
+                  <!--                  </button>-->
                   
                   <?php if (checkRole($_SESSION['email']) != null) { ?>
-                  <button
-                      type="button"
-                      class="btn btn-outline-primary btn-edit btn-space"
-                  >
-                    <a class="edit btn-text" href="edit-person.php?id=<?php echo $persons['id'] ?>">
-                      Edit&ensp;🐻
-                    </a>
-                  </button>
+                    <button
+                        type="button"
+                        class="btn btn-outline-primary btn-edit btn-space"
+                    >
+                      <a class="edit btn-text" href="edit-person.php?id=<?php echo $persons['id'] ?>">
+                        Edit&ensp;🐻
+                      </a>
+                    </button>
                   <?php } ?>
-                  
+
                   <button
                       type="button"
                       class="btn btn-secondary btn-back btn-space"
@@ -205,14 +203,13 @@ showHeader("Persons-PMA","view-person.css","persons.css",personsNav: "persons-na
                 </div>
               </div>
             </div>
-            <?php } ?>
+            <?php }?>
             <?php if ($_GET["error"] == 1) : ?>
-            <div class="alert alert-danger" role="alert">
-              Only admin roles can edit person data!!!
-            </div>
-            
-            <?php endif;?>
-          
+              <div class="alert alert-danger" role="alert">
+                Only admin roles can edit person data!!!
+              </div>
+            <?php endif; ?>
+
           </div>
         </div>
       </div>
