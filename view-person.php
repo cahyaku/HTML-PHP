@@ -2,6 +2,10 @@
 session_start();
 require_once __DIR__ . "/action/common-action.php";
 successLogin($_SESSION['email']);
+
+if ($_GET['id'] == null) {
+  redirect("/dashboard.php", null);
+}
 ?>
 
 <!-- HEADER -->
@@ -25,15 +29,26 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
           <div class="person-title">
             <h3 class="title">View person data</h3>
           </div>
-          <?php
-          if (isset($_GET['id'])) {
-          $id = $_GET['id'];
-          $persons = getPersonData($id);
+          <!--          --><?php
+          ////          if (isset($_GET['id'])) {
+          ////          $id = $_GET['id'];
+          ////          $persons = getPersonData($id);
+          //          ?>
           
-//          if (!is_numeric($_GET['id'])){
-//            $id = null;
-//          } else {
-//          $persons = getPersonData($_GET['id']);
+          <?php
+          $persons = personsData();
+          if (!is_numeric($_GET['id'])) {
+            ?>
+            <div class="alert alert-danger" role="alert">
+              Person data was not found!!!
+            </div>
+          <?php }
+          else if ($_GET['id'] < 1 || $_GET['id'] > count($persons)) { ?>
+            <div class="alert alert-danger" role="alert">
+              Person data was not found!!!
+            </div>
+          <?php } else {
+          $persons = getPersonData($_GET['id']);
           ?>
           <div class="person-data">
             <div class="card card-shadow">
@@ -110,16 +125,6 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                 </div>
 
                 <div class="text-end">
-                  <!--                  <button-->
-                  <!--                      type="button"-->
-                  <!--                      class="btn btn-outline-primary btn-edit btn-space"-->
-                  <!--                  >-->
-                  <!--                    <a class="edit btn-text" href="edit-person.php?id=-->
-                  <?php //echo $persons['id'] ?><!--">-->
-                  <!--                      Edit&ensp;🐻-->
-                  <!--                    </a>-->
-                  <!--                  </button>-->
-                  
                   <?php if (checkRole($_SESSION['email']) != null) { ?>
                     <button
                         type="button"
@@ -138,15 +143,6 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                     <a class="back btn-text" href="persons.php"> Back </a>
                   </button>
                   <!-- Button trigger modal -->
-                  <!--                  <button-->
-                  <!--                      type="reset"-->
-                  <!--                      class="btn btn-secondary btn-delete"-->
-                  <!--                      data-bs-toggle="modal"-->
-                  <!--                      data-bs-target="#exampleModal"-->
-                  <!--                  >-->
-                  <!--                    Delete-->
-                  <!--                  </button>-->
-                  
                   <?php if (checkRole($_SESSION['email']) != null) { ?>
                     <button
                         type="reset"
@@ -203,7 +199,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                 </div>
               </div>
             </div>
-            <?php }?>
+            <?php } ?>
             <?php if ($_GET["error"] == 1) : ?>
               <div class="alert alert-danger" role="alert">
                 Only admin roles can edit person data!!!

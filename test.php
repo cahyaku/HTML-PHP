@@ -631,3 +631,105 @@
 //  $_POST['currentPassword'],
 //  $_POST['confirmPassword']
 //);
+
+<!-- edit password page edit person-->
+<!--                  <div class="card card-margin card-shadow">-->
+<!--                    <div class="card-header card-background-header">-->
+<!--                      <strong> EDIT PASSWORD-->
+<!--                        <ion-icon name="lock-closed-outline"></ion-icon>-->
+<!--                      </strong>-->
+<!--                    </div>-->
+<!--                    <div class="card-body card-background">-->
+<!--                      <div class="d-md-flex">-->
+<!--                        <div class="col-12 col-md-6 col-lg-6">-->
+<!--                          <div class="mb-3 form-padding">-->
+<!--                            <label for="exampleFormControlInput1" class="form-label"-->
+<!--                            >Current Password*</label-->
+<!--                            >-->
+<!--                            <input-->
+<!--                                type="password"-->
+<!--                                class="form-control has-shadow input-data has-background"-->
+<!--                                id="exampleFormControlInput1"-->
+<!--                                placeholder="Current Password..."-->
+<!--                                name="currentPassword"-->
+<!--                                value="-->
+<?php //if (isset($_SESSION['errorCurrentPassword']) || isset($_SESSION['errorPassword'])
+//                                  || isset($_SESSION['errorConfirmPassword'])
+//                                ) {
+//                                  echo $_SESSION['inputCurrentPassword'];
+//                                } else {
+//                                  echo "";
+//                                }
+//                                ?><!--"-->
+<!--                            />-->
+<!--                            --><?php //if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["errorCurrentPassword"] == 1) : ?>
+<!--                              <div class="alert alert-danger" role="alert">-->
+<!--                                Password input is not correct!-->
+<!--                              </div>-->
+<!--                            --><?php //endif; ?>
+<!--                            -->
+<!--                            --><?php //if ($_SESSION['errorConfirmPassword'] == 1) : ?>
+<!--                              <div class="alert alert-danger" role="alert">-->
+<!--                                Please input current password!!!-->
+<!--                              </div>-->
+<!--                            --><?php //endif; ?>
+<!--                          </div>-->
+<!--                        </div>-->
+<!---->
+<!--                        <div class="col-12 col-md-6 col-lg-6">-->
+<!--                          <div class="mb-3 form-padding">-->
+<!--                            <label for="exampleFormControlInput1" class="form-label"-->
+<!--                            >New Password*</label-->
+<!--                            >-->
+<!--                            <input-->
+<!--                                type="password"-->
+<!--                                class="form-control has-shadow input-data has-background"-->
+<!--                                id="exampleFormControlInput1"-->
+<!--                                placeholder="New Password..."-->
+<!--                                name="password"-->
+<!--                                value="-->
+<?php //if (isset($_SESSION['errorPassword']) || isset($_SESSION['errorData'])) {
+//                                  echo $_SESSION['inputPassword'];
+//                                } else {
+//                                  echo "";
+//                                }
+//                                ?><!--"-->
+<!--                            />-->
+<!--                            --><?php //if ($_SESSION["errorPassword"] == "1") { ?>
+<!--                              <div class="alert alert-danger" role="alert">-->
+<!--                                Password must have at least 1 capital letter, 1 non-capital letter, 1 number.-->
+<!--                                with a minimum length of 8 characters and a maximum of 16 characters.-->
+<!--                              </div>-->
+<!--                            --><?php //} ?>
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!---->
+<!--                      <div class="col-12 col-md-6 col-lg-6">-->
+<!--                        <div class="mb-3 form-padding">-->
+<!--                          <label for="exampleFormControlInput1" class="form-label"-->
+<!--                          >Confirm Password*</label-->
+<!--                          >-->
+<!--                          <input-->
+<!--                              type="password"-->
+<!--                              class="form-control has-shadow input-data has-background"-->
+<!--                              id="exampleFormControlInput1"-->
+<!--                              placeholder="Confirm Password..."-->
+<!--                              name="confirmPassword"-->
+<!--                              value="-->
+<?php //if (isset($_SESSION['errorConfirmPassword']) || isset($_SESSION['errorData'])) {
+//                                echo $_SESSION['inputConfirmPassword'];
+//                              } else {
+//                                echo "";
+//                              }
+//                              ?><!--"-->
+<!--                          />-->
+<!--                          --><?php //if ($_SESSION['errorConfirmPassword'] == 2) : ?>
+<!--                            <div class="alert alert-danger" role="alert">-->
+<!--                              Confirm password is not correct!-->
+<!--                            </div>-->
+<!--                          --><?php //endif; ?>
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->

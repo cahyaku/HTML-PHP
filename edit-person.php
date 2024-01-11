@@ -5,12 +5,10 @@ successLogin($_SESSION['email']);
 if (checkRole($_SESSION['email']) == null) {
   redirect("../dashboard.php", null);
 }
+if ($_GET['id'] == null) {
+  redirect("/dashboard.php", null);
+}
 ?>
-
-<?php
-//require_once __DIR__ . "/include/header.php";
-//showHeader("Edit-Profile-PMA","add-edit-person.css","general.css", "queries.css", "add-edit-nav.css",personsNav: "persons-nav-link");
-//?>
 
 <?php
 require_once __DIR__ . "/include/header.php";
@@ -32,20 +30,55 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                 <h3 class="title">Edit person</h3>
               </div>
               <?php
-              if (isset($_GET['id'])) {
-                $id = $_GET['id'];
-                $person = getPersonData($id);
-                $_SESSION['id'] = $_GET['id'];
-                $birthDate = translateDateFromIntToString($person['birthDate']);
-                
+              $persons = personsData();
+              if (!is_numeric($_GET['id'])) {
                 ?>
+                <div class="alert alert-danger" role="alert">
+                  Person data was not found!!!
+                </div>
+              <?php } else if ($_GET['id'] < 1 || $_GET['id'] > count($persons)) { ?>
+                <div class="alert alert-danger" role="alert">
+                  Person data was not found!!!
+                </div>
+              <?php } else {
+                $person = getPersonData($_GET['id']);
+                $birthDate = translateDateFromIntToString($person['birthDate']);
+                $_SESSION['id'] = $_GET['id'];
+                ?>
+
+                <!--              --><?php
+//              if (isset($_GET['id'])) {
+//                $id = $_GET['id'];
+//                $person = getPersonData($id);
+//                $_SESSION['id'] = $_GET['id'];
+//                $birthDate = translateDateFromIntToString($person['birthDate']);
+//                ?>
+
+                <!--                --><?php //if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
+//                  || isset($_SESSION['errorEmail'])) { ?>
+                <!--                  <div class="alert alert-danger" role="alert">-->
+                <!--                    Error while submitting the form:<br>-->
+                <!--                    <hr>-->
+                <!--                    --><?php //if (isset($_SESSION['errorFirstName'])) { ?>
+                <!--                      - Invalid first name<br>-->
+                <!--                    --><?php //} ?>
+                <!--                    --><?php //if (isset($_SESSION['errorLastName'])) { ?>
+                <!--                      - Invalid last name<br>-->
+                <!--                    --><?php //} ?>
+                <!--                    --><?php //if (isset($_SESSION['errorNik'])) { ?>
+                <!--                      - Invalid NIK<br>-->
+                <!--                    --><?php //} ?>
+                <!--                    --><?php //if (isset($_SESSION['errorEmail'])) { ?>
+                <!--                      - Invalid Email<br>-->
+                <!--                    --><?php //} ?>
+                <!--                  </div>-->
+                <!--                --><?php //} ?>
                 
-<!--                --><?php //if (isset($_SESSION['errorInputData']) && $_SESSION['errorInputData'] != 0 ||
-//                  isset($_SESSION['errorPasswordData']) && $_SESSION['errorPasswordData'] != 0) { ?>
-                  <?php if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
-                    || isset($_SESSION['errorEmail'])) { ?>
+                <?php if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
+                  || isset($_SESSION['errorEmail']) || isset($_SESSION['errorPassword']) || isset($_SESSION['errorConfirmPassword'])) { ?>
                   <div class="alert alert-danger" role="alert">
-                    Error while submitting the form:<br><hr>
+                    Error while submitting the form:<br>
+                    <hr>
                     <?php if (isset($_SESSION['errorFirstName'])) { ?>
                       - Invalid first name<br>
                     <?php } ?>
@@ -57,6 +90,12 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                     <?php } ?>
                     <?php if (isset($_SESSION['errorEmail'])) { ?>
                       - Invalid Email<br>
+                    <?php } ?>
+                    <?php if ($_SESSION['errorPassword'] == 1) { ?>
+                      - Invalid password<br>
+                    <?php } ?>
+                    <?php if ($_SESSION['errorConfirmPassword'] == 1) { ?>
+                      - New password and confirm password value didn't match<br>
                     <?php } ?>
                   </div>
                 <?php } ?>
@@ -73,7 +112,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="First name"
-                            value="<?php checkErrorValue($_SESSION['inputFirstName'],$person['firstName']); ?>"
+                            value="<?php checkErrorValue($_SESSION['inputFirstName'], $person['firstName']); ?>"
                             name="firstName"
                             required
                         />
@@ -95,7 +134,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="Last name"
-                            value="<?php checkErrorValue($_SESSION['inputLastName'],$person['lastName']); ?>"
+                            value="<?php checkErrorValue($_SESSION['inputLastName'], $person['lastName']); ?>"
                             name="lastName"
                             required
                         />
@@ -120,8 +159,8 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             id="exampleFormControlInput1"
                             placeholder="NIK"
                             name="nik"
-                            value="<?php checkErrorValue($_SESSION['inputNik'],$person['nik'])?>"
-                            
+                            value="<?php checkErrorValue($_SESSION['inputNik'], $person['nik']) ?>"
+
                             required
                         />
                         <?php if (isset($_SESSION["errorNik"])) : ?>
@@ -148,7 +187,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             id="exampleFormControlInput1"
                             placeholder="me@example.com"
                             name="email"
-                            value="<?php checkErrorValue($_SESSION['inputEmail'],$person['email'])?>"
+                            value="<?php checkErrorValue($_SESSION['inputEmail'], $person['email']) ?>"
                             required
                         />
                         <?php if (isset($_SESSION["errorEmail"])) : ?>
@@ -204,7 +243,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="Birth date"
-                            value="<?php checkErrorValue($_SESSION['inputBirthDate'],$birthDate)?>"
+                            value="<?php checkErrorValue($_SESSION['inputBirthDate'], $birthDate) ?>"
                             name="birthDate"
                             required
                         />
@@ -260,123 +299,126 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             id="exampleFormControlInput1"
                             placeholder="Address"
                             name="address"
-                            value="<?php checkErrorValue($_SESSION['inputAddress'],$person['address'])?>"
+                            value="<?php checkErrorValue($_SESSION['inputAddress'], $person['address']) ?>"
                             required
                         />
                       </div>
                     </div>
                   </div>
+                  
+                  <?php if ($person['role'] == "ADMIN") { ?>
+                    <div class="mb-3 text-area form-padding">
+                      <label for="exampleFormControlTextarea1" class="form-label">
+                        Internal notes
+                        <ion-icon name="pencil"></ion-icon>
+                      </label>
+                      <textarea
+                          class="form-control i-text has-background has-shadow"
+                          id="exampleFormControlTextarea1"
+                          rows="2"
+                          name="internalNotes"
+                      ><?php checkErrorValue($_SESSION['inputInternalNotes'], $person['internalNotes']) ?></textarea>
+                    </div>
+                  <?php } ?>
 
-                  <div class="mb-3 text-area form-padding">
-                    <label for="exampleFormControlTextarea1" class="form-label">
-                      Internal notes
-                      <ion-icon name="pencil"></ion-icon>
-                    </label>
-                    <textarea
-                        class="form-control i-text has-background has-shadow"
-                        id="exampleFormControlTextarea1"
-                        rows="2"
-                        name="internalNotes"
-                    ><?php checkErrorValue($_SESSION['inputInternalNotes'],$person['internalNotes'])?></textarea>
-                  </div>
 
-<!--                  <div class="card card-margin card-shadow">-->
-<!--                    <div class="card-header card-background-header">-->
-<!--                      <strong> EDIT PASSWORD-->
-<!--                        <ion-icon name="lock-closed-outline"></ion-icon>-->
-<!--                      </strong>-->
-<!--                    </div>-->
-<!--                    <div class="card-body card-background">-->
-<!--                      <div class="d-md-flex">-->
-<!--                        <div class="col-12 col-md-6 col-lg-6">-->
-<!--                          <div class="mb-3 form-padding">-->
-<!--                            <label for="exampleFormControlInput1" class="form-label"-->
-<!--                            >Current Password*</label-->
-<!--                            >-->
-<!--                            <input-->
-<!--                                type="password"-->
-<!--                                class="form-control has-shadow input-data has-background"-->
-<!--                                id="exampleFormControlInput1"-->
-<!--                                placeholder="Current Password..."-->
-<!--                                name="currentPassword"-->
-<!--                                value="--><?php //if (isset($_SESSION['errorCurrentPassword']) || isset($_SESSION['errorPassword'])
-//                                  || isset($_SESSION['errorConfirmPassword'])
-//                                ) {
-//                                  echo $_SESSION['inputCurrentPassword'];
-//                                } else {
-//                                  echo "";
-//                                }
-//                                ?><!--"-->
-<!--                            />-->
-<!--                            --><?php //if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["errorCurrentPassword"] == 1) : ?>
-<!--                              <div class="alert alert-danger" role="alert">-->
-<!--                                Password input is not correct!-->
-<!--                              </div>-->
-<!--                            --><?php //endif; ?>
-<!--                            -->
-<!--                            --><?php //if ($_SESSION['errorConfirmPassword'] == 1) : ?>
-<!--                              <div class="alert alert-danger" role="alert">-->
-<!--                                Please input current password!!!-->
-<!--                              </div>-->
-<!--                            --><?php //endif; ?>
-<!--                          </div>-->
-<!--                        </div>-->
-<!---->
-<!--                        <div class="col-12 col-md-6 col-lg-6">-->
-<!--                          <div class="mb-3 form-padding">-->
-<!--                            <label for="exampleFormControlInput1" class="form-label"-->
-<!--                            >New Password*</label-->
-<!--                            >-->
-<!--                            <input-->
-<!--                                type="password"-->
-<!--                                class="form-control has-shadow input-data has-background"-->
-<!--                                id="exampleFormControlInput1"-->
-<!--                                placeholder="New Password..."-->
-<!--                                name="password"-->
-<!--                                value="--><?php //if (isset($_SESSION['errorPassword']) || isset($_SESSION['errorData'])) {
-//                                  echo $_SESSION['inputPassword'];
-//                                } else {
-//                                  echo "";
-//                                }
-//                                ?><!--"-->
-<!--                            />-->
-<!--                            --><?php //if ($_SESSION["errorPassword"] == "1") { ?>
-<!--                              <div class="alert alert-danger" role="alert">-->
-<!--                                Password must have at least 1 capital letter, 1 non-capital letter, 1 number.-->
-<!--                                with a minimum length of 8 characters and a maximum of 16 characters.-->
-<!--                              </div>-->
-<!--                            --><?php //} ?>
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!---->
-<!--                      <div class="col-12 col-md-6 col-lg-6">-->
-<!--                        <div class="mb-3 form-padding">-->
-<!--                          <label for="exampleFormControlInput1" class="form-label"-->
-<!--                          >Confirm Password*</label-->
-<!--                          >-->
-<!--                          <input-->
-<!--                              type="password"-->
-<!--                              class="form-control has-shadow input-data has-background"-->
-<!--                              id="exampleFormControlInput1"-->
-<!--                              placeholder="Confirm Password..."-->
-<!--                              name="confirmPassword"-->
-<!--                              value="--><?php //if (isset($_SESSION['errorConfirmPassword']) || isset($_SESSION['errorData'])) {
-//                                echo $_SESSION['inputConfirmPassword'];
-//                              } else {
-//                                echo "";
-//                              }
-//                              ?><!--"-->
-<!--                          />-->
-<!--                          --><?php //if ($_SESSION['errorConfirmPassword'] == 2) : ?>
-<!--                            <div class="alert alert-danger" role="alert">-->
-<!--                              Confirm password is not correct!-->
+                  <div class="card card-margin card-shadow">
+                    <div class="card-header card-background-header">
+                      <strong> EDIT PASSWORD
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                      </strong>
+                    </div>
+                    <div class="card-body card-background">
+                      <div class="d-md-flex">
+<!--                          <div class="col-12 col-md-6 col-lg-6">-->
+<!--                            <div class="mb-3 form-padding">-->
+<!--                              <label for="exampleFormControlInput1" class="form-label"-->
+<!--                              >Current Password*</label-->
+<!--                              >-->
+<!--                              <input-->
+<!--                                  type="password"-->
+<!--                                  class="form-control has-shadow input-data has-background"-->
+<!--                                  id="exampleFormControlInput1"-->
+<!--                                  placeholder="Current Password..."-->
+<!--                                  name="currentPassword"-->
+<!--                                  value="--><?php //if (isset($_SESSION['errorCurrentPassword']) || isset($_SESSION['errorPassword'])
+//                                    || isset($_SESSION['errorConfirmPassword'])
+//                                  ) {
+//                                    echo $_SESSION['inputCurrentPassword'];
+//                                  } else {
+//                                    echo "";
+//                                  }
+//                                  ?><!--"-->
+<!--                              />-->
+<!--                              --><?php //if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["errorCurrentPassword"] == 1) : ?>
+<!--                                <div class="alert alert-danger" role="alert">-->
+<!--                                  Password input is not correct!-->
+<!--                                </div>-->
+<!--                              --><?php //endif; ?>
+<!--                              -->
+<!--                              --><?php //if ($_SESSION['errorConfirmPassword'] == 1) : ?>
+<!--                                <div class="alert alert-danger" role="alert">-->
+<!--                                  Please input current password!!!-->
+<!--                                </div>-->
+<!--                              --><?php //endif; ?>
 <!--                            </div>-->
-<!--                          --><?php //endif; ?>
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
+<!--                          </div>-->
+
+                        <div class="col-12 col-md-6 col-lg-6">
+                          <div class="mb-3 form-padding">
+                            <label for="exampleFormControlInput1" class="form-label"
+                            >New Password*</label
+                            >
+                            <input
+                                type="password"
+                                class="form-control has-shadow input-data has-background"
+                                id="exampleFormControlInput1"
+                                placeholder="New Password..."
+                                name="password"
+                                value="<?php if (isset($_SESSION['errorPassword']) || isset($_SESSION['errorData'])) {
+                                  echo $_SESSION['inputPassword'];
+                                } else {
+                                  echo "";
+                                }
+                                ?>"
+                            />
+                            <?php if (isset($_SESSION["errorPassword"])) { ?>
+                              <div class="alert alert-danger" role="alert">
+                                Password must have at least 1 capital letter, 1 non-capital letter, 1 number.
+                                with a minimum length of 8 characters and a maximum of 16 characters.
+                              </div>
+                            <?php } ?>
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-6">
+                          <div class="mb-3 form-padding">
+                            <label for="exampleFormControlInput1" class="form-label"
+                            >Confirm Password*</label
+                            >
+                            <input
+                                type="password"
+                                class="form-control has-shadow input-data has-background"
+                                id="exampleFormControlInput1"
+                                placeholder="Confirm Password..."
+                                name="confirmPassword"
+                                value="<?php if (isset($_SESSION['errorConfirmPassword']) || isset($_SESSION['errorData'])) {
+                                  echo $_SESSION['inputConfirmPassword'];
+                                } else {
+                                  echo "";
+                                }
+                                ?>"
+                            />
+                            <?php if (isset($_SESSION['errorConfirmPassword'])) : ?>
+                              <div class="alert alert-danger" role="alert">
+                                Confirm password is not correct!
+                              </div>
+                            <?php endif; ?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
                   <div class="form-check form-switch form-padding">
                     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
@@ -420,15 +462,35 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
   </main>
 
 <?php
+//unset($_SESSION['errorNik']);
+//unset($_SESSION['errorEmail']);
+//unset($_SESSION['errorPassword']);
+//unset($_SESSION['errorFirstName']);
+//unset($_SESSION['errorLastName']);
+////unset($_SESSION['id']);
+//unset ($_SESSION['inputEmail']);
+//unset ($_SESSION['inputNik']);
+//unset ($_SESSION['inputPassword']);
+//unset ($_SESSION['inputFirstName']);
+//unset ($_SESSION['inputLastName']);
+//unset ($_SESSION['inputAddress']);
+//unset ($_SESSION['inputSex']);
+//unset ($_SESSION['inputRole']);
+//unset ($_SESSION['inputBirthDate']);
+//unset ($_SESSION['internalNotes']);
+//unset ($_SESSION['errorConfirmPassword']);
+//unset($_SESSION['errorCurrentPassword']);
+//unset ($_SESSION['inputConfirmPassword']);
+//unset($_SESSION['inputCurrentPassword']);
+
 unset($_SESSION['errorNik']);
 unset($_SESSION['errorEmail']);
-//unset($_SESSION['errorPassword']);
+unset($_SESSION['errorPassword']);
 unset($_SESSION['errorFirstName']);
 unset($_SESSION['errorLastName']);
-//unset($_SESSION['id']);
 unset ($_SESSION['inputEmail']);
 unset ($_SESSION['inputNik']);
-//unset ($_SESSION['inputPassword']);
+unset ($_SESSION['inputPassword']);
 unset ($_SESSION['inputFirstName']);
 unset ($_SESSION['inputLastName']);
 unset ($_SESSION['inputAddress']);
@@ -436,9 +498,10 @@ unset ($_SESSION['inputSex']);
 unset ($_SESSION['inputRole']);
 unset ($_SESSION['inputBirthDate']);
 unset ($_SESSION['internalNotes']);
-//unset ($_SESSION['errorConfirmPassword']);
+
+unset ($_SESSION['errorConfirmPassword']);
 //unset($_SESSION['errorCurrentPassword']);
-//unset ($_SESSION['inputConfirmPassword']);
+unset ($_SESSION['inputConfirmPassword']);
 //unset($_SESSION['inputCurrentPassword']);
 ?>
 

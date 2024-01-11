@@ -8,13 +8,8 @@ if (checkRole($_SESSION['email']) == null) {
 ?>
 
 <?php
-//require_once __DIR__ ."/include/header.php";
-//showHeader("Add-Person-PMA", "add-edit-person.css", "general.css", "queries.css",personsNav: "persons-nav-link");
-//?>
-
-<?php
-require_once __DIR__ ."/include/header.php";
-showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link");
+require_once __DIR__ . "/include/header.php";
+showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-link");
 ?>
 <main>
   <section class="section-add-person d-flex">
@@ -31,6 +26,35 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
             <div class="person-title">
               <h3 class="title">Add person</h3>
             </div>
+            
+            <?php if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
+              || isset($_SESSION['errorEmail']) || isset($_SESSION['errorPassword']) || isset($_SESSION['errorConfirmPassword'])) { ?>
+              <div class="alert alert-danger" role="alert">
+                Error while submitting the form:<br>
+                <hr>
+                <?php if (isset($_SESSION['errorFirstName'])) { ?>
+                  - Invalid first name<br>
+                <?php } ?>
+                <?php if (isset($_SESSION['errorLastName'])) { ?>
+                  - Invalid last name<br>
+                <?php } ?>
+                <?php if (isset($_SESSION['errorNik'])) { ?>
+                  - Invalid NIK<br>
+                <?php } ?>
+                <?php if (isset($_SESSION['errorEmail'])) { ?>
+                  - Invalid Email<br>
+                <?php } ?>
+                <?php if (isset($_SESSION['errorPassword'])) { ?>
+                  - Invalid password<br>
+                <?php } ?>
+                <?php if (isset($_SESSION['errorConfirmPassword']) && $_SESSION['errorConfirmPassword'] != 1) { ?>
+                  - New password and confirm password value didn't match<br>
+                <?php } ?>
+                <?php if ($_SESSION['errorConfirmPassword'] == 1) : ?>
+                  - Invalid current password
+                <?php endif; ?>
+              </div>
+            <?php } ?>
 
             <form class="person-form" action="action/add-person-action.php" name="create-form" method="post">
               <div class="d-md-flex">
@@ -45,9 +69,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                         id="exampleFormControlInput1"
                         placeholder="First Name"
                         name="firstName"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputFirstName'];
-                        } ?>"
+                        value="<?php checkErrorInput($_SESSION['inputFirstName']); ?>"
                         required
                     />
                     <?php if (isset($_SESSION["errorFirstName"])) : ?>
@@ -69,9 +91,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                         id="exampleFormControlInput1"
                         placeholder="Last Name"
                         name="lastName"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputLastName'];
-                        } ?>"
+                        value="<?php checkErrorInput($_SESSION['inputLastName']); ?>"
                         required
                     />
                     <?php if (isset($_SESSION["errorLastName"])) : ?>
@@ -95,9 +115,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                         id="exampleFormControlInput1"
                         placeholder="NIK"
                         name="nik"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputNik'];
-                        } ?>"
+                        value="<?php checkErrorInput($_SESSION['inputNik']); ?>"
                         required
                     />
                     <?php if (isset($_SESSION["errorNik"])) : ?>
@@ -126,9 +144,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                         id="exampleFormControlInput1"
                         placeholder="me@example.com"
                         name="email"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputEmail'];
-                        } ?>"
+                        value="<?php checkErrorInput($_SESSION['inputEmail']); ?>"
                         required
                     />
                     <?php if (isset($_SESSION["errorEmail"])) : ?>
@@ -152,9 +168,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                         id="exampleFormControlInput1"
                         placeholder="Password"
                         name="password"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputPassword'];
-                        } ?>"
+                        value="<?php checkErrorInput($_SESSION['inputPassword']); ?>"
                         required
                     />
                     <?php if (isset($_SESSION["errorPassword"])) : ?>
@@ -165,6 +179,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                     <?php endif; ?>
                   </div>
                 </div>
+                
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
                     <label for="exampleFormControlInput1" class="form-label"
@@ -176,9 +191,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                         id="exampleFormControlInput1"
                         placeholder="Confirm Password"
                         name="confirmPassword"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputConfirmPassword'];
-                        } ?>"
+                        value="<?php checkErrorInput($_SESSION['inputConfirmPassword']);?>"
                         required
                     />
                     <?php if (isset($_SESSION["errorConfirmPassword"])) : ?>
@@ -189,7 +202,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                   </div>
                 </div>
               </div>
-              
+
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="form-padding">
@@ -219,26 +232,6 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                         <option value="MALE">MALE</option>
                         <option value="FEMALE">FEMALE</option>
                       <?php } ?>
-                      <!--                        <option value="--><?php //if (isset($_GET['errorInput'])) {
-                      //                          echo $_SESSION['inputSex'];
-                      //                        } else {
-                      //                          echo "";
-                      //                        }
-                      //                        ?><!--" selected disabled>-->
-                      <!--                          --><?php //if (isset($_SESSION['inputSex'])) {
-                      //                            echo $_SESSION['inputSex'] == "Male" ? "MALE" : "FEMALE";
-                      //                          } else {
-                      //                            echo "Open this select menu";
-                      //                          } ?>
-                      <!--                        </option>-->
-                      <!--                        --><?php //if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
-                      <!--                          <option value="MALE">Male</option>-->
-                      <!--                        --><?php //} else if (isset($_SESSION['inputSex']) == "MALE") { ?>
-                      <!--                          <option value="FEMALE">Female</option>-->
-                      <!--                        --><?php //} else { ?>
-                      <!--                          <option value="MALE">Male</option>-->
-                      <!--                          <option value="FEMALE">Female</option>-->
-                      <!--                      --><?php //} ?>
                     </select>
                   </div>
                 </div>
@@ -253,14 +246,12 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                         id="exampleFormControlInput1"
                         placeholder="Birth date"
                         name="birthDate"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputBirthDate'];
-                        } ?>"
+                        value="<?php checkErrorInput($_SESSION['inputBirthDate']);?>"
                         required
                     />
                     <?php if (isset($_SESSION["errorBirthDate"])) : ?>
                       <div class="alert alert-danger" role="alert">
-                        Maaf, input tanggal lahir tidak valid!
+                      Invalid birthdate!
                       </div>
                     <?php endif; ?>
                   </div>
@@ -311,9 +302,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                         id="exampleFormControlInput1"
                         placeholder="Address"
                         name="address"
-                        value="<?php if ($_GET['errorInput'] == 1) {
-                          echo $_SESSION['inputAddress'];
-                        } ?>"
+                        value="<?php checkErrorInput($_SESSION['inputAddress']);?>"
                         required
                     />
                   </div>
@@ -331,29 +320,24 @@ showHeader("Add-Person-PMA", "add-edit-person.css",personsNav: "persons-nav-link
                       id="exampleFormControlTextarea1"
                       rows="2"
                       name="internalNotes"
-                  ><?php if ($_GET['errorInput'] == 1) {
-                      echo $_SESSION['inputInternalNotes'];
-                    } ?></textarea>
+                  ><?php checkErrorInput($_SESSION['inputInternalNotes']);?></textarea>
                 </div>
               </div>
-<!--              <div class="form-check form-switch form-padding">-->
-<!--                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"-->
-<!--                       value="ALIVE">-->
-<!--                <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>-->
-<!--              </div>-->
-
               <div class="form-check form-switch form-padding">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"
                        value="ALIVE"
                 <?php
-                if ($_GET['errorInput'] == 1 && $_SESSION['inputStatus'] != null) {
+//                if ($_GET['errorInput'] == 1 && $_SESSION['inputStatus'] != null) {
+//                  echo "checked";
+//                }
+                if ( $_SESSION['inputStatus'] != null) {
                   echo "checked";
                 }
-                ?>
+//                ?>
                 >
                 <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
               </div>
-              
+
               <div class="text-end btn-padding">
                 <button
                     type="submit"
@@ -396,7 +380,7 @@ unset ($_SESSION['inputLastName']);
 unset ($_SESSION['inputAddress']);
 unset ($_SESSION['inputSex']);
 unset ($_SESSION['inputRole']);
-unset ($_SESSION['inputBirthDate']);
+unset ($_SESSION['inputStatus']);
 unset ($_SESSION['internalNotes']);
 unset ($_SESSION['inputConfirmPassword']);
 ?>

@@ -85,7 +85,6 @@ require_once __DIR__ . "/common-action.php";
 //  }
 //  return $validate;
 //}
-
 //validateDataAndSaved();
 
 $errorData = validateErrorInput($_POST['nik'],
@@ -151,15 +150,15 @@ $person = getPersonDataByEmail($_SESSION['userEmail']);
     $password= checkedPassword($_POST['password'], $persons[$i]['password']);
 //    $password = passwordHash($checkedPassword);
     if ($persons[$i]['email'] == $_SESSION['userEmail']) {
-      $persons[$i]["nik"] = $_POST['nik'];
-      $persons[$i]["firstName"] = $_POST['firstName'];
-      $persons[$i]["lastName"] = $_POST['lastName'];
+      $persons[$i]["nik"] = htmlspecialchars($_POST['nik']);
+      $persons[$i]["firstName"] = htmlspecialchars($_POST['firstName']);
+      $persons[$i]["lastName"] = htmlspecialchars($_POST['lastName']);
       $persons[$i]["birthDate"] = $birthDate;
       $persons[$i]["sex"] = $_POST['sex'];
-      $persons[$i]["email"] = $_POST['email'];
+      $persons[$i]["email"] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
       $persons[$i]["password"] = $password;
-      $persons[$i]["address"] = $_POST['address'];
-      $persons[$i]["internalNotes"] = $_POST['internalNotes'];
+      $persons[$i]["address"] = htmlspecialchars($_POST['address']);
+      $persons[$i]["internalNotes"] = htmlspecialchars($_POST['internalNotes']);
       saveDataIntoJson($persons);
       redirect("../persons.php", "changed");
     }

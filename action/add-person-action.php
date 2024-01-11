@@ -1,52 +1,8 @@
 <?php
 
 session_start();
-
 require_once __DIR__ . "/json.php";
 require_once __DIR__ . "/common-action.php";
-
-//if (isNikExists($_POST['nik'], null) == 1 && isNikExists($_POST['email'], null) ==1 ) {
-//  redirect("../add-person.php", "nik=1?email=1");
-//}
-//$email = [];
-//if (isEmailExists($_POST['email'], null) == 0) {
-//  $email = $_POST['email'];
-//}  else {
-//  redirect("../add-person.php", "email=1");
-//}
-//
-//$nik = [];
-//if (strlen($_POST['nik']) != 16) {
-//  redirect("../add-person.php", "nik=1");
-//} elseif (isNikExists($_POST['nik'], null) == 0) {
-//  $nik = $_POST['nik'];
-//} else if (isNikExists($_POST['nik'], null) == 1) {
-//  redirect("../add-person.php", "nik=2");
-//} else {
-//   $nik = $_POST['nik'];
-//}
-//
-//$persons = personsData();
-//$id = count($persons) + 1;
-//$birthDate = translateDateFromStringToInt($_POST['birthDate']);
-//
-//$personData = [
-//  "id" => $id,
-//  "nik" => $nik,
-//  "firstName" => $_POST['firstName'],
-//  "lastName" => $_POST['lastName'],
-//  "birthDate" => $birthDate,
-//  "sex" => $_POST['sex'],
-//  "email" => $_POST['email'],
-//  "password" => $_POST['password'],
-//  "address" => $_POST['address'],
-//  "role" => $_POST['role'],
-//  "internalNotes" => $_POST['internalNotes'],
-//  "loggedIn" => null
-//];
-//$persons[] = $personData;
-//saveDataIntoJson($persons);
-//redirect("../persons.php", null);
 
 function validateError(string $nik,
                        string $password,
@@ -158,16 +114,16 @@ if (count($errorData) != 0) {
   $password = passwordHash($_POST['password']);
   $personData = [
     "id" => $id,
-    "nik" => $_POST['nik'],
-    "firstName" => $_POST['firstName'],
-    "lastName" => $_POST['lastName'],
+    "nik" => htmlspecialchars($_POST['nik']),
+    "firstName" =>htmlspecialchars($_POST['firstName']),
+    "lastName" => htmlspecialchars($_POST['lastName']),
     "birthDate" => $birthDate,
     "sex" => $_POST['sex'],
-    "email" => $_POST['email'],
+    "email" => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
     "password" => $password,
-    "address" => $_POST['address'],
+    "address" => htmlspecialchars($_POST['address']),
     "role" => $_POST['role'],
-    "internalNotes" => $_POST['internalNotes'],
+    "internalNotes" => htmlspecialchars($_POST['internalNotes']),
     "loggedIn" => null,
     "alive" => $_POST['alive']
   ];

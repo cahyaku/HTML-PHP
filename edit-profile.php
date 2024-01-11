@@ -5,11 +5,6 @@ successLogin($_SESSION['email']);
 ?>
 
 <?php
-//require_once __DIR__ . "/include/header.php";
-//showHeader("Edit-Profile-PMA","add-edit-person.css","general.css", "queries.css",editProfileNav: "profile-nav-link");
-//?>
-
-<?php
 require_once __DIR__ . "/include/header.php";
 showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-nav-link");
 ?>
@@ -58,7 +53,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                       - Invalid password<br>
                     <?php } ?>
                     <?php if (isset($_SESSION['errorCurrentPassword'])) { ?>
-                      - Current password value didn't match<br>
+                      - Invalid current password!<br>
                     <?php } ?>
                     <?php if (isset($_SESSION['errorConfirmPassword']) && $_SESSION['errorConfirmPassword'] != 1) { ?>
                       - New password and confirm password value didn't match<br>

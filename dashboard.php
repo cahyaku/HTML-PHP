@@ -12,10 +12,6 @@ require_once __DIR__ . "/include/header.php";
 ?>
 
 <?php
-//showHeader("Dashboard-PMA","dashboard.css","general.css","queries.css",dashboardNav: "dashboard-link" );
-//?>
-
-<?php
 showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
 ?>
 <main>
@@ -82,34 +78,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
               </div>
             </div>
           </div>
-
-          <!--          <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">-->
-          <!--            <div class="card has-shadow">-->
-          <!--              <div class="card-body card-box card-1">-->
-          <!--                <div class="d-flex align-items-center card-title-box">-->
-          <!--                  <div>-->
-          <!--                    <ion-icon name="people-circle-outline" class="dashboard-icon"></ion-icon>-->
-          <!--                  </div>-->
-          <!--                  --><?php
-          //                  $allPersons = count(personsData());
-          //                  echo "<h2 class='title'>";
-          //                  echo "$allPersons";
-          //                  echo "</h2>";
-          //                  ?>
-          <!--                </div>-->
-          <!---->
-          <!--                <p class="card-text">Number of persons</p>-->
-          <!--                <p class="card-text-box">-->
-          <!--                  Some quick example text to build on the card title and-->
-          <!--                  make up the bulk of the card's content.-->
-          <!--                </p>-->
-          <!--                <a href="persons.php">-->
-          <!--                  <button class="more-info">More info &rAarr;</button>-->
-          <!--                </a>-->
-          <!--              </div>-->
-          <!--            </div>-->
-          <!--          </div>-->
-
+          
           <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
             <div class="card has-shadow">
               <div class="card-body card-box">
@@ -124,7 +93,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                   echo "</h2>";
                   ?>
                 </div>
-                <p class="card-text">toddler</p>
+                <p class="card-text">Toddler</p>
                 <p class="card-text-box">
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
@@ -164,32 +133,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
 
           <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
             <div class="card has-shadow">
-              <div class="card-body card-box card-3">
-                <div class="d-flex align-items-center card-title-box">
-                  <div>
-                    <ion-icon name="man" class="dashboard-icon"></ion-icon>
-                  </div>
-                  <?php
-                  $passedAway = count(passedAway());
-                  echo "<h2 class='title'>";
-                  echo "$passedAway";
-                  echo "</h2>";
-                  ?>
-                </div>
-                <p class="card-text">passed away</p>
-                <p class="card-text-box">
-                  Some quick example text to build on the card title and
-                  make up the bulk of the card's content.
-                </p>
-                <a href="persons.php?searchByAge=passedAway&search=">
-                  <button class="more-info">More info &rAarr;</button>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
-            <div class="card has-shadow">
               <div class="card-body card-box">
                 <div class="d-flex align-items-center card-title-box">
                   <div>
@@ -202,12 +145,38 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                   echo "</h2>";
                   ?>
                 </div>
-                <p class="card-text">elderly</p>
+                <p class="card-text">Elderly</p>
                 <p class="card-text-box">
                   Some quick example text to build on the card title and
                   make up the bulk of the card's content.
                 </p>
                 <a href="persons.php?searchByAge=elderly&search=">
+                  <button class="more-info">More info &rAarr;</button>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
+            <div class="card has-shadow">
+              <div class="card-body card-box card-3">
+                <div class="d-flex align-items-center card-title-box">
+                  <div>
+                    <ion-icon name="man" class="dashboard-icon"></ion-icon>
+                  </div>
+                  <?php
+                  $passedAway = count(passedAway());
+                  echo "<h2 class='title'>";
+                  echo "$passedAway";
+                  echo "</h2>";
+                  ?>
+                </div>
+                <p class="card-text">Passed Away</p>
+                <p class="card-text-box">
+                  Some quick example text to build on the card title and
+                  make up the bulk of the card's content.
+                </p>
+                <a href="persons.php?searchByAge=passedAway&search=">
                   <button class="more-info">More info &rAarr;</button>
                 </a>
               </div>

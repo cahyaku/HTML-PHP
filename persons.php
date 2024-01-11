@@ -8,11 +8,6 @@ require_once __DIR__ . "/assets/constants.php";
 ?>
 
 <?php
-//require_once __DIR__ . "/include/header.php";
-//showHeader("Persons-PMA","general.css" , "persons.css", "queries.css", personsNav: "persons-nav-link");
-//?>
-
-<?php
 require_once __DIR__ . "/include/header.php";
 showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
 ?>
@@ -51,30 +46,10 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
         </div>
       <?php endif; ?>
       <div class="search-box">
-        <!--        <div class="d-flex">-->
         <form class="form d-flex" name="search-form" role="search" method="get" action="#table">
-          <!--          <div class="searchByAges">-->
-          <!--                    <div class="dropdown">-->
-          <!--                        <button-->
-          <!--                            class="btn btn-secondary dropdown-toggle btn-dropdown"-->
-          <!--                            type="button"-->
-          <!--                            data-bs-toggle="dropdown"-->
-          <!--                            aria-expanded="false"-->
-          <!--                            id="searchByAge"-->
-          <!--                            name="dropdown-search"-->
-          <!--                        >-->
-          <!--                          Search by age-->
-          <!--                        </button>-->
-
           <div class="searchByAge">
             <select name="searchByAge" class="form-select has-shadow select-background"
                     aria-label="Default select example">
-              <!--              <option selected disabled>Search by age</option>-->
-              <!--              <option value="productiveAges">Productive Ages</option>-->
-              <!--              <option value="passedAway">Passed Away</option>-->
-              <!--              <option value="toddler">Toddler</option>-->
-              <!--              <option value="allPersons" class="select-items">All Persons</option>-->
-
               <option name="searchByAge" class="select-item selected" value="<?php if (isset($_GET['searchByAge'])) {
                 echo $_GET['searchByAge'];
               } else {
@@ -85,7 +60,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 //                } else {
                 //                  echo "All Persons";
                 //                } ?>
-                
                 
                 <?php if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges") {
                   echo "Productive Ages";
@@ -149,12 +123,10 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             Search
           </button>
         </form>
-        <!--        </div>-->
       </div>
 
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
-          <!--          <table class="table-primary table-bordered border-primary table-width" id="table">-->
           <?php
           if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null) {
             $toddler = toddler();
@@ -232,8 +204,14 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 <td>
                   <div class="table-button">
                     <div class="text-end">
-                      <?php if (checkRole($_SESSION['email']) != null) { ?>
+                      <?php if (checkRole($_SESSION['email']) != null && $_SESSION['email'] != $personsData[$i]["email"]) { ?>
                         <a class="edit btn-table" href="edit-person.php?id=<?php echo $personsData[$i]["id"] ?>">
+                          <button type="button" class="btn btn-outline-primary" name="btn-edit">
+                            Edit
+                          </button>
+                        </a>
+                        <?php } else if (checkRole($_SESSION['email']) != null && $_SESSION['email'] == $personsData[$i]["email"]) {?>
+                        <a class="edit btn-table" href="edit-profile.php">
                           <button type="button" class="btn btn-outline-primary" name="btn-edit">
                             Edit
                           </button>
@@ -255,15 +233,19 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 </td>
               </tr>
             <?php endfor;
-          } else { ?>
-            <div class="alert alert-danger" role="alert">
-              Data person was not found!!!
-            </div>
-          <?php } ?>
+          } ?>
           </tbody>
           <?php ?>
         </table>
         
+        <?php
+        if (count($persons) == 0) {
+          ?>
+          <div class="alert alert-danger" role="alert">
+            Person data was not found!!!
+          </div>
+        <?php } ?>
+
         <div class="page-position ">
           
           <?php if ($_GET["error"] == 2) : ?>

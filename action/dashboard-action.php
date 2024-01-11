@@ -12,7 +12,7 @@
 //  return [];
 //}
 
-function customDateToString($timestamp)
+function customDateToString($timestamp):string
 {
   if ($timestamp != null) {
 //    $customFormat = date("F j, Y, H:i:s", $timestamp);
