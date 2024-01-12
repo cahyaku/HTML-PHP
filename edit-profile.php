@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/action/common-action.php";
-successLogin($_SESSION['email']);
+redirectWhenNotLoggedIn($_SESSION['email']);
 ?>
 
 <?php
@@ -385,7 +385,6 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
       </div>
     </section>
   </main>
-
 <?php
 unset($_SESSION['errorNik']);
 unset($_SESSION['errorEmail']);
@@ -401,7 +400,6 @@ unset ($_SESSION['inputAddress']);
 unset ($_SESSION['inputSex']);
 unset ($_SESSION['inputBirthDate']);
 unset ($_SESSION['internalNotes']);
-
 unset ($_SESSION['errorConfirmPassword']);
 unset($_SESSION['errorCurrentPassword']);
 unset ($_SESSION['inputConfirmPassword']);

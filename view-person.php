@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/action/common-action.php";
-successLogin($_SESSION['email']);
+redirectWhenNotLoggedIn($_SESSION['email']);
 
 if ($_GET['id'] == null) {
   redirect("/dashboard.php", null);
@@ -29,14 +29,8 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
           <div class="person-title">
             <h3 class="title">View person data</h3>
           </div>
-          <!--          --><?php
-          ////          if (isset($_GET['id'])) {
-          ////          $id = $_GET['id'];
-          ////          $persons = getPersonData($id);
-          //          ?>
-          
           <?php
-          $persons = personsData();
+          $persons = getPersonsDataFromJson();
           if (!is_numeric($_GET['id'])) {
             ?>
             <div class="alert alert-danger" role="alert">
@@ -125,7 +119,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                 </div>
 
                 <div class="text-end">
-                  <?php if (checkRole($_SESSION['email']) != null) { ?>
+                  <?php if (checkRole($_SESSION['email']) != null && $_SESSION['email'] != $persons['email']) { ?>
                     <button
                         type="button"
                         class="btn btn-outline-primary btn-edit btn-space"
@@ -134,8 +128,17 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                         Edit&ensp;🐻
                       </a>
                     </button>
+                  <?php } else if (checkRole($_SESSION['email']) != null && $_SESSION['email'] == $persons['email']) { ?>
+                    <button
+                        type="button"
+                        class="btn btn-outline-primary btn-edit btn-space"
+                    >
+                      <a class="edit btn-text" href="edit-profile.php">
+                        Edit&ensp;🐻
+                      </a>
+                    </button>
                   <?php } ?>
-
+                  
                   <button
                       type="button"
                       class="btn btn-secondary btn-back btn-space"
@@ -143,7 +146,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                     <a class="back btn-text" href="persons.php"> Back </a>
                   </button>
                   <!-- Button trigger modal -->
-                  <?php if (checkRole($_SESSION['email']) != null) { ?>
+                  <?php if (checkRole($_SESSION['email']) != null && $_SESSION['email'] != $persons['email']) { ?>
                     <button
                         type="reset"
                         class="btn btn-secondary btn-delete"

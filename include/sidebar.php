@@ -79,7 +79,7 @@ function showSidebar(string $personsNav = null,
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
           <li>
-            <a class="dropdown-item" href="#">New project...</a>
+            <a class="dropdown-item" href="/persons.php">New project...</a>
           </li>
           <li><a class="dropdown-item" href="#">Settings</a></li>
           <li><a class="dropdown-item" href="/edit-profile.php">Profile</a></li>

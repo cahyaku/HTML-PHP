@@ -2,16 +2,10 @@
 
 require_once __DIR__ . "/json.php";
 
-function personsData(): array
+function getPersonsDataFromJson(): array
 {
-  return $person = loadDataFromJson("persons.json");
+  return loadDataFromJson("persons.json");
 }
-
-//function redirect($url, $getParams):void
-//{
-//  header('Location: ' . $url . '?' . $getParams);
-//  die();
-//}
 
 function redirect($url, $getParams): void
 {
@@ -24,7 +18,13 @@ function redirect($url, $getParams): void
   }
 }
 
-function successLogin($email): void
+/**
+ * Redirect people to the login page when people fail to logged in
+ *
+ * @param $email
+ * @return void
+ */
+function redirectWhenNotLoggedIn($email): void
 {
   if (!isset($email)) {
     header("Location: login.php");
@@ -32,9 +32,14 @@ function successLogin($email): void
   }
 }
 
-function getPersonData($id)
+/**
+ * Get person data by id
+ * @param $id
+ * @return array
+ */
+function getPersonData($id): array
 {
-  $persons = personsData();
+  $persons = getPersonsDataFromJson();
   for ($i = 0; $i < count($persons); $i++) {
     if ($id == $persons[$i]['id']) {
       return $persons[$i];
@@ -43,9 +48,14 @@ function getPersonData($id)
   return $persons[$i];
 }
 
+/**
+ * Get person data by email
+ * @param $email
+ * @return mixed
+ */
 function getPersonDataByEmail($email): mixed
 {
-  $persons = personsData();
+  $persons = getPersonsDataFromJson();
   for ($i = 0; $i < count($persons); $i++) {
     if ($email == $persons[$i]['email']) {
       return $persons[$i];
@@ -54,40 +64,61 @@ function getPersonDataByEmail($email): mixed
   return null;
 }
 
+/**
+ * Translate date from int to string, format (Y-m-d)
+ *
+ * @param $date
+ * @return string
+ */
 function translateDateFromIntToString($date): string
 {
-  return $date = date("Y-m-d", $date);
+  return date("Y-m-d", $date);
 }
 
+/**
+ * Translate date from string to int
+ * @param $date
+ * @return int
+ */
 function translateDateFromStringToInt($date): int
 {
   return strtotime($date);
 }
 
+/**
+ * Translate date to string, format(d F Y )
+ * @param $timestamp
+ * @return string|null
+ */
 function dateFormatToString($timestamp): string|null
 {
   if ($timestamp != null) {
-    return $customFormat = date("d F Y", $timestamp);
+    return date("d F Y", $timestamp);
   }
   return null;
 }
 
+/**
+ * Check birthdate input, if birthdate input > time() return false.
+ * @param $birthDateInput
+ * @return bool
+ */
 function checkBirthDateInput($birthDateInput): bool
 {
   $birthDate = translateDateFromStringToInt($birthDateInput);
   $date = time();
-//  if($birthDate == null) {
-//    return false;
-//  }
   if ($birthDate > $date) {
     return false;
   }
   return true;
 }
 
-function checkRole($email)
+/**
+ * Check person role
+ */
+function checkRole($email): array|null
 {
-  $persons = personsData();
+  $persons = getPersonsDataFromJson();
   foreach ($persons as $person):
     if ($email == $person['email'] && $person['role'] == "ADMIN") {
       return $person;
@@ -96,26 +127,15 @@ function checkRole($email)
   return null;
 }
 
-//function translateRoleIntoString($role){
-//   if($role == 1) {
-//     return "ADMIN";
-//   } else if ($role == 2) {
-//     return "MEMBER";
-//   }
-//   return null;
-//}
-//function translateGenderIntoString($sex){
-//  if($sex == 1) {
-//     return "MALE";
-//   } else if ($sex == 2) {
-//     return "FEMALE";
-//   }
-//   return null;
-//}
-
+/**
+ * Check is NIK exists
+ * @param $nik
+ * @param int|null $id
+ * @return bool
+ */
 function isNikExists($nik, ?int $id): bool
 {
-  $persons = personsData();
+  $persons = getPersonsDataFromJson();
   for ($i = 0; $i < count($persons); $i++) :
     if ($id == null) {
       if ($persons[$i]['nik'] == $nik) {
@@ -130,9 +150,15 @@ function isNikExists($nik, ?int $id): bool
   return false;
 }
 
+/**
+ * Check is email exists
+ * @param $email
+ * @param string|null $id
+ * @return bool
+ */
 function isEmailExists($email, ?string $id): bool
 {
-  $persons = personsData();
+  $persons = getPersonsDataFromJson();
   for ($i = 0; $i < count($persons); $i++) :
     if ($id == null) {
       if ($persons[$i]['email'] == $email) {
@@ -147,90 +173,43 @@ function isEmailExists($email, ?string $id): bool
   return false;
 }
 
-//function generateId(array|null $array): int
-//{
-//  return $array == null ? 1 : (end($array['id']) + 1);
-//
-//}
-//
-//function save($person): void
-//{
-//  $persons = personsData();
-//  if ($person['id'] == null) {
-////    $id = generateId($persons);
-//    $lastPerson = $persons[count($persons) -1];
-//    $id = $lastPerson["id"] + 1;
-//    $person['id'] = $id;
-//    $persons[] = $person;
-//    saveDataIntoJson($persons);
-//  } else {
-//    for ($i = 0; $i < count($persons); $i++) {
-//      if ($persons[$i]['id'] == $person['id']) {
-//        $persons[$i]['nik'] = $person['nik'];
-//        $persons[$i]['firstName'] = $person['firstName'];
-//        $persons[$i]['lastName'] = $person['lastName'];
-//        $persons[$i]['birthDate'] = $person['birthDate'];
-//        $persons[$i]['sex'] = $person['sex'];
-//        $persons[$i]['email'] = $person['email'];
-//        $persons[$i]['password'] = $person['password'];
-//        $persons[$i]['address'] = $person['address'];
-//        $persons[$i]['role'] = $person['role'];
-//        $persons[$i]['internalNotes'] = $person['internalNotes'];
-//        $persons[$i]['loggedIn'] = $person['loggedIn'];
-//        $persons[$i]['alive'] = $person['alive'];
-//        saveDataIntoJson($persons);
-//      }
-//    }
-//  }
-//}
-
-function passwordHash($password): string
+function encryptPassword($password): string
 {
-  $plaintext_password = $password;
-  return password_hash($plaintext_password, PASSWORD_DEFAULT);
+  return password_hash($password, PASSWORD_DEFAULT);
 }
 
-//function passwordVerify($plaintextPassword, $hash):bool
-//{
-//  return $verify = password_verify($plaintextPassword, $hash);
-//}//
-
-
+/**
+ * Validate new password.
+ * New password  must have at least 1 capital letter, 1 non-capital letter, 1 number.
+ * with a minimum length of 8 characters and a maximum of 16 characters.
+ *
+ * @param $password
+ * @return string
+ */
 function checkNewPasswordInput($password): string
 {
-//  if ($currentPassword == "" && $password == "") {
-//    return true;
-//  } else
-////  else if ($password == "") {
-//    return "Invalid password";
-//  }
-//  if (strlen($password) >= 8 && strlen($password) <= 16) {
-//    return true;
-//  }
-  
   if (preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$/", $password)) {
     return true;
   }
   return "";
 }
 
-function checkedPassword($password, $currentPassword)
+function checkedPassword($password, $currentPassword): string
 {
   if ($password == "") {
     return $currentPassword;
   } else {
-    return passwordHash($password);
-//    return $password;
+    return encryptPassword($password);
   }
 }
 
+/**
+ * Check current password input mush match
+ */
 function checkCurrentPassword($currentPassword, $id): bool
 {
-  $persons = personsData();
+  $persons = getPersonsDataFromJson();
   for ($i = 0; $i < count($persons); $i++) {
-//    if ($id == $persons[$i]['id'] && $persons[$i]['password'] == $currentPassword) {
-//      return true;
-//    }
     if ($id == $persons[$i]['id']) {
       $verify = password_verify($currentPassword, $persons[$i]['password']);
       if ($verify) {
@@ -241,6 +220,12 @@ function checkCurrentPassword($currentPassword, $id): bool
   return false;
 }
 
+/**
+ * Check confirm password (the new password and confirmation password must match)
+ * @param $password
+ * @param $confirmPassword
+ * @return bool
+ */
 function checkConfirmPassword($password, $confirmPassword): bool
 {
   if ($password == $confirmPassword) {
@@ -249,6 +234,11 @@ function checkConfirmPassword($password, $confirmPassword): bool
   return false;
 }
 
+/**
+ * Check NIK input (length of NIK must 16 characters)
+ * @param $nik
+ * @return bool
+ */
 function checkNikInput($nik): bool
 {
   if (strlen($nik) != 16) {
@@ -257,6 +247,11 @@ function checkNikInput($nik): bool
   return true;
 }
 
+/**
+ * Check name input (maximum length of name input is 15)
+ * @param $name
+ * @return bool
+ */
 function checkNameInput($name): bool
 {
   if (strlen($name) > 15) {
@@ -266,6 +261,7 @@ function checkNameInput($name): bool
 }
 
 /**
+ * Check error input from $_POST when edit person data
  * @param string $nik
  * @param string $email
  * @param string $firstName
@@ -311,6 +307,7 @@ function validateErrorInput(string $nik,
 }
 
 /**
+ * Validate current password, new password, and confirm password when edit password data
  * @param $currentPassword
  * @param $password
  * @param $confirmPassword
@@ -320,26 +317,29 @@ function validateErrorInput(string $nik,
 function validatePassword($currentPassword, $password, $confirmPassword, $id): array
 {
   $validatePassword = [];
-      if ($_POST['currentPassword'] != null) {
-        if (checkCurrentPassword($currentPassword, $id) == false) {
-          $validatePassword['currentPassword'] = "1";
-        } else {
-          $errorPass = checkNewPasswordInput($password);
-          if ($errorPass == "") {
-            $validatePassword['password'] = "1";
-          }
-        }
+  if ($_POST['currentPassword'] != null) {
+    if (!checkCurrentPassword($currentPassword, $id)) {
+      $validatePassword['currentPassword'] = "1";
+    } else {
+      $errorPass = checkNewPasswordInput($password);
+      if ($errorPass == "") {
+        $validatePassword['password'] = "1";
       }
-      if ($_POST['currentPassword'] == null && $password != null || $_POST['currentPassword'] == null && $password == null && $confirmPassword != null) {
-        $validatePassword['confirmPassword'] = "1";
-      } else {
-        if (!checkConfirmPassword($password, $confirmPassword)) {
-          $validatePassword['confirmPassword'] = "2";
-        }
-      }
+    }
+  }
+  if ($_POST['currentPassword'] == null && $password != null || $_POST['currentPassword'] == null && $password == null && $confirmPassword != null) {
+    $validatePassword['confirmPassword'] = "1";
+  } else {
+    if (!checkConfirmPassword($password, $confirmPassword)) {
+      $validatePassword['confirmPassword'] = "2";
+    }
+  }
   return $validatePassword;
 }
 
+/**
+ * Check if exists error value when edit person data
+ */
 function checkErrorValue($currentInput, $personData): void
 {
   if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
@@ -351,6 +351,11 @@ function checkErrorValue($currentInput, $personData): void
   }
 }
 
+/**
+ * Check if exists error from input data when create new data
+ * @param $inputData
+ * @return void
+ */
 function checkErrorInput($inputData): void
 {
   if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
@@ -359,7 +364,10 @@ function checkErrorInput($inputData): void
   }
 }
 
-function inputData(): void
+/**
+ * Transform person form into session
+ */
+function transformPersonFormIntoSession(): void
 {
   $_SESSION['inputEmail'] = $_POST['email'];
   $_SESSION['inputNik'] = $_POST['nik'];
@@ -373,38 +381,3 @@ function inputData(): void
   $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
   $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
 }
-
-//function validateInputPassword($currentPassword, $password, $confirmPassword, $id): array
-//{
-//  $validatePassword = [];
-//  $persons = personsData();
-//  for ($i = 0; $i < count($persons); $i++) {
-//    if ($persons[$i]['id'] == $id && $persons[$i]['role'] == "ADMIN") {
-//      if (!checkNewPasswordInput($password)) {
-//        $validatePassword['password'] = "1";
-//      }
-//      if (!checkConfirmPassword($password, $confirmPassword)) {
-//        $validatePassword['confirmPassword'] = "2";
-//      }
-//    } else {
-//      if ($_POST['currentPassword'] != null) {
-//        if (checkCurrentPassword($currentPassword, $id) == false) {
-//          $validatePassword['currentPassword'] = "1";
-//        } else {
-//          $errorPass = checkNewPasswordInput($password);
-//          if ($errorPass == "") {
-//            $validatePassword['password'] = "1";
-//          }
-//        }
-//      }
-//      if ($_POST['currentPassword'] == null && $password != null || $_POST['currentPassword'] == null && $password == null && $confirmPassword != null) {
-//        $validatePassword['confirmPassword'] = "1";
-//      } else {
-//        if (!checkConfirmPassword($password, $confirmPassword)) {
-//          $validatePassword['confirmPassword'] = "2";
-//        }
-//      }
-//    }
-//  }
-//  return $validatePassword;
-//}

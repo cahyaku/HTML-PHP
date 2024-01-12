@@ -18,7 +18,7 @@ require_once __DIR__ . "/json.php";
 
 // DELETE PERSON
 if (isset($_GET['id'])) {
-  $persons = personsData();
+  $persons = getPersonsDataFromJson();
     for($i = 0; $i < count($persons); $i++):
     if ($_GET['id'] == $persons[$i]['id']) {
       unset ($persons[$i]);

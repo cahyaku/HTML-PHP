@@ -19,12 +19,4 @@ function loadDataFromJson(string $fileName): array
   return [];
 }
 
-//function saveDataIntoJson(array $array)
-//{
-//  $path = __DIR__ . "/../persons.json";
-//  if (file_exists($path)) {
-//    $json = json_encode($array, JSON_PRETTY_PRINT);
-//    $array = file_put_contents($path, $json);
-//  }
-//}
 

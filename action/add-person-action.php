@@ -4,6 +4,17 @@ session_start();
 require_once __DIR__ . "/json.php";
 require_once __DIR__ . "/common-action.php";
 
+/**
+ * validate error input new person data
+ * @param string $nik
+ * @param string $password
+ * @param string $email
+ * @param string $firstName
+ * @param string $lastName
+ * @param string $confirmPassword
+ * @param string $birthDate
+ * @return array
+ */
 function validateError(string $nik,
                        string $password,
                        string $email,
@@ -103,15 +114,12 @@ if (count($errorData) != 0) {
   unset ($_SESSION['inputBirthDate']);
   unset ($_SESSION['internalNotes']);
   
-  $persons = personsData();
+  $persons = getPersonsDataFromJson();
 //  $id = count($persons) + 1;
   $lastPerson = $persons[count($persons) -1];
   $id = $lastPerson["id"] + 1;
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
-//  $plaintext_password = $_POST['password'];
-//  $hash = password_hash($plaintext_password,
-//    PASSWORD_DEFAULT);
-  $password = passwordHash($_POST['password']);
+  $password = encryptPassword($_POST['password']);
   $personData = [
     "id" => $id,
     "nik" => htmlspecialchars($_POST['nik']),
@@ -127,7 +135,6 @@ if (count($errorData) != 0) {
     "loggedIn" => null,
     "alive" => $_POST['alive']
   ];
-//  save($personData);
   $persons[] = $personData;
   saveDataIntoJson($persons);
   redirect("../persons.php", "success");

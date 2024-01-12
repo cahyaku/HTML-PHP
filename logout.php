@@ -8,7 +8,7 @@ session_start();
 //  exit();
 //}
 //if (isset($_SESSION['email'])) {
-  $persons = personsData();
+  $persons = getPersonsDataFromJson();
   for ($i = 0; $i < count($persons); $i++) {
     if ($persons[$i]["email"] == $_SESSION['email']) {
       $persons[$i]["loggedIn"] = time();

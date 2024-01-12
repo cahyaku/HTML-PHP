@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/action/common-action.php";
-successLogin($_SESSION['email']);
+redirectWhenNotLoggedIn($_SESSION['email']);
 if (checkRole($_SESSION['email']) == null) {
   redirect("../dashboard.php", null);
 }
@@ -179,7 +179,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                     <?php endif; ?>
                   </div>
                 </div>
-                
+
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="mb-3 form-padding">
                     <label for="exampleFormControlInput1" class="form-label"
@@ -191,7 +191,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                         id="exampleFormControlInput1"
                         placeholder="Confirm Password"
                         name="confirmPassword"
-                        value="<?php checkErrorInput($_SESSION['inputConfirmPassword']);?>"
+                        value="<?php checkErrorInput($_SESSION['inputConfirmPassword']); ?>"
                         required
                     />
                     <?php if (isset($_SESSION["errorConfirmPassword"])) : ?>
@@ -246,12 +246,12 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                         id="exampleFormControlInput1"
                         placeholder="Birth date"
                         name="birthDate"
-                        value="<?php checkErrorInput($_SESSION['inputBirthDate']);?>"
+                        value="<?php checkErrorInput($_SESSION['inputBirthDate']); ?>"
                         required
                     />
                     <?php if (isset($_SESSION["errorBirthDate"])) : ?>
                       <div class="alert alert-danger" role="alert">
-                      Invalid birthdate!
+                        Invalid birthdate!
                       </div>
                     <?php endif; ?>
                   </div>
@@ -302,7 +302,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                         id="exampleFormControlInput1"
                         placeholder="Address"
                         name="address"
-                        value="<?php checkErrorInput($_SESSION['inputAddress']);?>"
+                        value="<?php checkErrorInput($_SESSION['inputAddress']); ?>"
                         required
                     />
                   </div>
@@ -320,20 +320,17 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                       id="exampleFormControlTextarea1"
                       rows="2"
                       name="internalNotes"
-                  ><?php checkErrorInput($_SESSION['inputInternalNotes']);?></textarea>
+                  ><?php checkErrorInput($_SESSION['inputInternalNotes']); ?></textarea>
                 </div>
               </div>
               <div class="form-check form-switch form-padding">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"
                        value="ALIVE"
-                <?php
-//                if ($_GET['errorInput'] == 1 && $_SESSION['inputStatus'] != null) {
-//                  echo "checked";
-//                }
-                if ( $_SESSION['inputStatus'] != null) {
-                  echo "checked";
-                }
-//                ?>
+                  <?php
+                  if ($_SESSION['inputStatus'] != null) {
+                    echo "checked";
+                  }
+                  ?>
                 >
                 <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
               </div>
@@ -371,7 +368,6 @@ unset($_SESSION['errorFirstName']);
 unset($_SESSION['errorLastName']);
 unset($_SESSION['errorConfirmPassword']);
 unset($_SESSION['errorBirthDate']);
-
 unset ($_SESSION['inputEmail']);
 unset ($_SESSION['inputNik']);
 unset ($_SESSION['inputPassword']);

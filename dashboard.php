@@ -25,16 +25,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
     <div class="main-content-dashboard d-flex flex-column">
       <div class="dashboard-content">
         <div class="dashboard-header">
-          <!--              <h3 class="dashboard-title">Hi, Cahya Kumala...</h3>-->
-          <!--                              --><?php //if (isset($_GET["name"]) == 1):
-          //                                  echo "<h3 class='dashboard-title'>";
-          //                                  echo "Hi, " . $_GET["name"] . "...";
-          //                                  echo "</h3>";
-          //                              else :
-          //                                  echo "<h3 class='dashboard-title'>";
-          //                                  echo "Selamat datang di halaman dashboard!!!";
-          //                                  echo "</h3>"; ?>
-          <!--                              --><?php //endif; ?>
           <?php
           echo "<h3 class='dashboard-title'>";
           echo "Hi, " . $_SESSION['userFirstName'] . " " . $_SESSION['userLastName'] . "...";
@@ -51,7 +41,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
 
       <div class="dashboard-boxs">
         <div class="row row-gap-4">
-
           <!--ALL PERSONS-->
           <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
             <div class="card has-shadow">
@@ -61,7 +50,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $allPersons = count(personsData());
+                  $allPersons = count(getPersonsDataFromJson());
                   echo "<h2 class='title'>";
                   echo "$allPersons";
                   echo "</h2>";
@@ -87,7 +76,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="happy" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $toddler = count(toddler());
+                  $toddler = count(getToddlerData());
                   echo "<h2 class='title'>";
                   echo "$toddler";
                   echo "</h2>";
@@ -113,7 +102,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="accessibility" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $productiveAges = count(productiveAges());
+                  $productiveAges = count(getProductiveAgesData());
                   echo "<h2 class='title'>";
                   echo "$productiveAges";
                   echo "</h2>";
@@ -139,7 +128,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $elderly = count(elderly());
+                  $elderly = count(getElderlyData());
                   echo "<h2 class='title'>";
                   echo "$elderly";
                   echo "</h2>";
@@ -165,7 +154,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="man" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $passedAway = count(passedAway());
+                  $passedAway = count(getPassedAwayData());
                   echo "<h2 class='title'>";
                   echo "$passedAway";
                   echo "</h2>";

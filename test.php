@@ -1,138 +1,3 @@
-
-<!--          <tr>-->
-                <!--            <th scope="row">1</th>-->
-                <!--            <td>cahya@gmail.com</td>-->
-                <!--            <td>Cahya</td>-->
-                <!--            <td>ADMIN</td>-->
-                <!--            <td>-->
-                <!--              <div class="table-button">-->
-                <!--                <div class="text-end">-->
-                <!--                  <a class="edit btn-table" href="edit-person.php">-->
-                <!--                    <button type="button" class="btn btn-outline-primary">-->
-                <!--                      Edit-->
-                <!--                    </button>-->
-                <!--                  </a>-->
-                <!---->
-                <!--                  <a class="view btn-table" href="view-person.php">-->
-                <!--                    <button type="button" class="btn btn-outline-primary">-->
-                <!--                      View-->
-                <!--                    </button>-->
-                <!--                  </a>-->
-                <!--                </div>-->
-                <!--              </div>-->
-                <!--            </td>-->
-                <!--          </tr>-->
-                <!--          <tr>-->
-                <!--                      <th scope="row">2</th>-->
-                <!--                      <td>Kumala@a.com</td>-->
-                <!--                      <td>Kumala</td>-->
-                <!--                      <td>MEMBER</td>-->
-                <!--                      <td>-->
-                <!--                        <div class="table-button">-->
-                <!--                          <div class="text-end">-->
-                <!--                            <a class="edit btn-table" href="edit-person.php">-->
-                <!--                              <button type="button" class="btn btn-outline-primary">-->
-                <!--                                Edit-->
-                <!--                              </button>-->
-                <!--                            </a>-->
-                <!--                            <a class="view btn-table" href="view-person.php">-->
-                <!--                              <button type="button" class="btn btn-outline-primary">-->
-                <!--                                View-->
-                <!--                              </button>-->
-                <!--                            </a>-->
-                <!--                          </div>-->
-                <!--                        </div>-->
-                <!--                      </td>-->
-                <!--                    </tr>-->
-                <!--                    <tr>-->
-                <!--                      <th scope="row">3</th>-->
-                <!--                      <td>Ayong@gmail.com</td>-->
-                <!--                      <td>Ayong</td>-->
-                <!--                      <td>ADMIN</td>-->
-                <!--                      <td>-->
-                <!--                        <div class="table-button">-->
-                <!--                          <div class="text-end">-->
-                <!--                            <a class="edit btn-table" href="edit-person.php">-->
-                <!--                              <button type="button" class="btn btn-outline-primary">-->
-                <!--                                Edit-->
-                <!--                              </button>-->
-                <!--                            </a>-->
-                <!--          -->
-                <!--                            <a class="view btn-table" href="view-person.php">-->
-                <!--                              <button type="button" class="btn btn-outline-primary">-->
-                <!--                                View-->
-                <!--                              </button>-->
-                <!--                            </a>-->
-                <!--                          </div>-->
-                <!--                        </div>-->
-                <!--                      </td>-->
-                <!--                    </tr>-->
-                <!--                    <tr>-->
-                <!--                      <th scope="row">4</th>-->
-                <!--                      <td>Nilam@gmail.com</td>-->
-                <!--                      <td>Nilam</td>-->
-                <!--                      <td>MEMBER</td>-->
-                <!--                      <td>-->
-                <!--                        <div class="table-button">-->
-                <!--                          <div class="text-end">-->
-                <!--                            <button type="button" class="btn btn-outline-primary">-->
-                <!--                              Edit-->
-                <!--                            </button>-->
-                <!--                            <button type="button" class="btn btn-outline-primary">-->
-                <!--                              View-->
-                <!--                            </button>-->
-                <!--                          </div>-->
-                <!--                        </div>-->
-                <!--                      </td>-->
-                <!--                    </tr>-->
-                <!--                    <tr>-->
-                <!--                      <th scope="row">5</th>-->
-                <!--                      <td>Shifa@gmail.com</td>-->
-                <!--                      <td>Shifa</td>-->
-                <!--                      <td>ADMIN</td>-->
-                <!--                      <td>-->
-                <!--                        <div class="table-button">-->
-                <!--                          <div class="text-end">-->
-                <!--                            <a class="edit btn-table" href="edit-person.php">-->
-                <!--                              <button type="button" class="btn btn-outline-primary">-->
-                <!--                                Edit-->
-                <!--                              </button>-->
-                <!--                            </a>-->
-                <!--          -->
-                <!--                            <a class="view btn-table" href="view-person.php">-->
-                <!--                              <button type="button" class="btn btn-outline-primary">-->
-                <!--                                View-->
-                <!--                              </button>-->
-                <!--                            </a>-->
-                <!--                          </div>-->
-                <!--                        </div>-->
-                <!--                      </td>-->
-                <!--                    </tr>-->
-
-
-<!-- PAGINATION FOR PERSON TABLE -->
-//          $limit = 3;
-//          $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-//          $start_page = ($page > 1) ? ($page * $limit) - $limit : 0;
-//          $previous = $page - 1;
-//          $next = $page + 1;
-//          $data = personData();
-//
-//          $total_page = ceil(count($data) / $limit);
-//          $number = $start_page + 1;
-
-<!---->
-<!--              <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--              <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--              <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--              <li class="page-item">-->
-<!--                <a class="page-link" href="#" aria-label="Next">-->
-<!--                  <span aria-hidden="true">&raquo;</span>-->
-<!--                </a>-->
-<!--              </li>-->
-
-
-
 <!--TABLE FOR SEARCH INPUT-->
 <!--          --><?php
 //          if (isset($_GET["search"])) {
@@ -285,36 +150,6 @@
 //          }
 //          ?>
 
-<!--if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null) {-->
-<!--$filterByAge = "?searchByAge=" . $_GET['searchByAge'] . "&" . "search=" . $_GET['search'] . "&";-->
-<!--} else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler") {-->
-<!--$filterByAge = "?toddler=" . $_GET['searchByAge'] . "&search=" . "&";-->
-<!--} else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null) {-->
-<!--$filterByAge = "?searchByAge=" . $_GET['searchByAge'] . "&search=" . $_GET['search'] . "&";-->
-<!--} else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges") {-->
-<!--$filterByAge = "?productiveAge=" . $_GET['searchByAge'] . "&search=" . "&";-->
-<!--} else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null) {-->
-<!--$filterByAge = "?searchByAge=" . $_GET['searchByAge'] . "&search=" . $_GET['search'] . "&";-->
-<!--} else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway") {-->
-<!--$filterByAge = "?passedAway=" . $_GET['searchByAge'] . "&search=" . "&";-->
-<!--} else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons") {-->
-<!--$filterByAge = "?allPersons=" . $_GET['searchByAge'] . "&search=" . "&";-->
-<!--} else if ($_GET["search"]) {-->
-<!--$filterByAge = "?search=" . $_GET['search'] . "&";-->
-<!--} else {-->
-<!--$filterByAge = "?";-->
-<!--}-->
-<!--?>-->
-
-<?php
-//if (isset($_GET['search']) != null && isset($_GET['filter']) != null){
-//  $url = "?search=" . $_GET['search'] . "&filter=" . $_GET['filter'] . "&";
-//
-//
-//} else {
-//  $url = "?";
-//} ?>
-
 <?php
 //              if (isset($_GET["toddler"])) {
 //                $searchByAges = "?toddler&";
@@ -359,50 +194,6 @@
 //              ?>
 
 <!--1702537446-->
-
-//$persons = personsData();
-//$id = count($persons) + 1;
-//$birthDate = translateDateFromStringToInt($_POST['birthDate']);
-//$personData = [
-//  "id" => $id,
-//  "nik" => $_POST['nik'],
-//  "firstName" => $_POST['firstName'],
-//  "lastName" => $_POST['lastName'],
-//  "birthDate" => $birthDate,
-//  "sex" => $_POST['sex'],
-//  "email" => $_POST['email'],
-//  "password" => $_POST['password'],
-//  "address" => $_POST['address'],
-//  "role" => $_POST['role'],
-//  "internalNotes" => "internalNotes",
-//  "loggedIn" => null
-//];
-//$persons[] = $personData;
-//saveDataIntoJson($persons);
-//redirect("../persons.php", null);
-////  print_r($persons);
-////    exit();
-//
-
-
-//$errorData = editValidate($_POST['nik'], $_POST['password'], $_POST['email'], $_SESSION['personId']);
-//
-//if (count($errorData) != 0){
-//  $_SESSION['nikError'] = $errorData['nik'];
-//  $_SESSION['emailError'] = $errorData['email'];
-//  $_SESSION['passwordError'] = $errorData['password'];
-//
-//  var_dump($_SESSION);
-//
-//  header("Location: ../edit.php?salah");
-//  exit();
-//}else{
-//  $saved = saveUpdateData($_SESSION['personId']);
-//  if($saved) {
-//    redirect("../edit.php", "saved=1");
-//  }
-//}
-
 <!--Create new person-->
 <!--                      --><?php
 //                      if (isset($_GET['errorInput'])) {
@@ -733,3 +524,161 @@
 <!--                      </div>-->
 <!--                    </div>-->
 <!--                  </div>-->
+
+<!-- Password validation-->
+//function validateInputPassword($currentPassword, $password, $confirmPassword, $id): array
+//{
+//  $validatePassword = [];
+//  $persons = personsData();
+//  for ($i = 0; $i < count($persons); $i++) {
+//    if ($persons[$i]['id'] == $id && $persons[$i]['role'] == "ADMIN") {
+//      if (!checkNewPasswordInput($password)) {
+//        $validatePassword['password'] = "1";
+//      }
+//      if (!checkConfirmPassword($password, $confirmPassword)) {
+//        $validatePassword['confirmPassword'] = "2";
+//      }
+//    } else {
+//      if ($_POST['currentPassword'] != null) {
+//        if (checkCurrentPassword($currentPassword, $id) == false) {
+//          $validatePassword['currentPassword'] = "1";
+//        } else {
+//          $errorPass = checkNewPasswordInput($password);
+//          if ($errorPass == "") {
+//            $validatePassword['password'] = "1";
+//          }
+//        }
+//      }
+//      if ($_POST['currentPassword'] == null && $password != null || $_POST['currentPassword'] == null && $password == null && $confirmPassword != null) {
+//        $validatePassword['confirmPassword'] = "1";
+//      } else {
+//        if (!checkConfirmPassword($password, $confirmPassword)) {
+//          $validatePassword['confirmPassword'] = "2";
+//        }
+//      }
+//    }
+//  }
+//  return $validatePassword;
+//}
+
+
+//function generateId(array|null $array): int
+//{
+//  return $array == null ? 1 : (end($array['id']) + 1);
+//
+//}
+//
+//function save($person): void
+//{
+//  $persons = personsData();
+//  if ($person['id'] == null) {
+////    $id = generateId($persons);
+//    $lastPerson = $persons[count($persons) -1];
+//    $id = $lastPerson["id"] + 1;
+//    $person['id'] = $id;
+//    $persons[] = $person;
+//    saveDataIntoJson($persons);
+//  } else {
+//    for ($i = 0; $i < count($persons); $i++) {
+//      if ($persons[$i]['id'] == $person['id']) {
+//        $persons[$i]['nik'] = $person['nik'];
+//        $persons[$i]['firstName'] = $person['firstName'];
+//        $persons[$i]['lastName'] = $person['lastName'];
+//        $persons[$i]['birthDate'] = $person['birthDate'];
+//        $persons[$i]['sex'] = $person['sex'];
+//        $persons[$i]['email'] = $person['email'];
+//        $persons[$i]['password'] = $person['password'];
+//        $persons[$i]['address'] = $person['address'];
+//        $persons[$i]['role'] = $person['role'];
+//        $persons[$i]['internalNotes'] = $person['internalNotes'];
+//        $persons[$i]['loggedIn'] = $person['loggedIn'];
+//        $persons[$i]['alive'] = $person['alive'];
+//        saveDataIntoJson($persons);
+//      }
+//    }
+//  }
+//}
+
+<!-- validation edit profile action-->
+//function validateError(string $nik,
+//                       string $password,
+//                       string $email,
+//                       string $firstName,
+//                       string $lastName,
+//                              $id,
+//                              $currentPassword,
+//                              $confirmPassword
+//): array
+//{
+//  $validate = [];
+//  if (!checkNikInput($nik)) {
+//    $validate['nik'] = "1";
+//  }
+//
+//  if (isNikExists($nik, $id) == true) {
+//    $validate['nik'] = "2";
+//  }
+//
+//  if (!checkNewPasswordInput($password)) {
+//    $validate['password'] = "1";
+//  }
+//
+//  if (isEmailExists($email, $id) == true) {
+//    $validate['email'] = "1";
+//  }
+//
+//  if (!checkNameInput($firstName)) {
+//    $validate['firstName'] = "1";
+//  }
+//
+//  if (!checkNameInput($lastName)) {
+//    $validate['lastName'] = "2";
+//  }
+//
+//  if ($_POST['password'] != null || $_POST['currentPassword'] != null) {
+//    if (!checkCurrentPassword($currentPassword, $id)) {
+//      $validate['currentPassword'] = "1";
+//    }
+//  } else {
+//    $validate = [];
+//  }
+//
+////  if (!checkCurrentPasswordInput($currentPassword, $id , $password)) {
+////    $validate['currentPassword'] = "2";
+////  }
+//
+//  if (!checkConfirmPassword($password, $confirmPassword)) {
+//    $validate['confirmPassword'] = "3";
+//  }
+//  return $validate;
+//}
+//function validatePassword($password, $currentPassword, $id): array
+//{
+//  $validatePass = [];
+//  if ($password != "") {
+//    if (!checkCurrentPassword($currentPassword, $id)) {
+//      $validatePass['currentPassword'] = "1";
+//    }
+//  } else {
+//    $validatePass['currentPassword'] = [];
+//  }
+//  return $validatePass;
+//}
+//function passwordValidate(int $id, string $currentPassword, string $newPassword, string $confirmPassword):array
+//{
+//  $validate = [];
+//  if ($currentPassword != null){
+//    if (!checkCurrentPassword($currentPassword, $id)){
+//      $validate['currentPass'] = "Password input is not correct";
+//    }else{
+//      $errorNewPass = checkNewPasswordInput($newPassword, $currentPassword);
+//      if ($errorNewPass != "") {
+//        $validate['newPass'] = $errorNewPass;
+//      }
+//    }
+//  }else{
+//    $validate['currentPass'] = "Please input the current password first!";
+//  }
+//  return $validate;
+//}
+//validateDataAndSaved();

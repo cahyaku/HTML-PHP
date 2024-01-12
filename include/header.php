@@ -1,17 +1,4 @@
 <?php
-//
-//function showHeader($title,
-//                    string $cssStyle1 = null,
-//                    string $cssStyle2 = null,
-//                    string $cssStyle3 = null,
-//                    string $cssStyle4 = null,
-//                    string $personsNav = null,
-//                    string $dashboardNav = null,
-//                    string $editProfileNav = null
-//):void
-//{ ?>
-
-<?php
 
 function showHeader($title,
                     string $cssStyle = null,
@@ -108,12 +95,6 @@ function showHeader($title,
   <link rel="stylesheet" href="assets/css/queries.css"/>
   <?php if ($cssStyle2 != null) {?>
   <link rel="stylesheet" href="assets/css/<?php echo $cssStyle2?>"/>
-  
-<!--  <link rel="stylesheet" href="assets/css/--><?php //echo $cssStyle1?><!--"/>-->
-<!--  <link rel="stylesheet" href="assets/css/--><?php //echo $cssStyle2?><!--"/>-->
-<!--  <link rel="stylesheet" href="assets/css/--><?php //echo $cssStyle3?><!--"/>-->
-<!--  --><?php //if ($cssStyle4 != null) {?>
-<!--    <link rel="stylesheet" href="assets/css/--><?php //echo $cssStyle4?><!--"/>-->
   <?php } ?>
   
   <!-- LINK ION ICON -->
@@ -259,14 +240,14 @@ function showHeader($title,
                   class="dropdown-menu dropdown-menu-dark text-small shadow"
               >
                 <li>
-                  <a class="dropdown-item" href="#">New project...</a>
+                  <a class="dropdown-item" href="/persons.php">New project...</a>
                 </li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
-                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="/edit-profile.php">Profile</a></li>
                 <li>
                   <hr class="dropdown-divider"/>
                 </li>
-                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                <li><a class="dropdown-item" href="/logout.php">Sign out</a></li>
               </ul>
             </div>
           </div>

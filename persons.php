@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/action/common-action.php";
-successLogin($_SESSION['email']);
+redirectWhenNotLoggedIn($_SESSION['email']);
 require_once __DIR__ . "/action/persons-action.php";
 require_once __DIR__ . "/assets/pagination.php";
 require_once __DIR__ . "/assets/constants.php";
@@ -55,12 +55,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
               } else {
                 echo "allPersons";
               } ?>" selected disabled>
-                <!--                --><?php //if (isset($_GET['searchByAge'])) {
-                //                  echo ucwords($_GET['searchByAge']);
-                //                } else {
-                //                  echo "All Persons";
-                //                } ?>
-                
                 <?php if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges") {
                   echo "Productive Ages";
                 } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway") {
@@ -80,20 +74,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
               <option value="allPersons" class="select-items">All Persons</option>
             </select>
           </div>
-          <!--              <option selected>Open this select menu</option>-->
-          <!--              <option value="1">One</option>-->
-          <!--              <option value="2">Two</option>-->
-          <!--              <option value="3">Three</option>-->
-          <!--                        <ul class="dropdown-menu">-->
-          <!--                          <li>-->
-          <!--                            <a class="dropdown-item" href="?productiveAges">Productive ages</a>-->
-          <!--                          </li>-->
-          <!--                          <li><a class="dropdown-item" href="?passedAway">Passed away</a></li>-->
-          <!--                          <li>-->
-          <!--                            <a class="dropdown-item" href="?toddler">Toddler</a>-->
-          <!--                          </li>-->
-          <!--                        </ul>-->
-          <!--                    </div>-->
+         
           <label for="search-input"></label>
           <input
               id="search-input"
@@ -129,32 +110,32 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
         <table class="table-primary table-width" id="table">
           <?php
           if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null) {
-            $toddler = toddler();
+            $toddler = getToddlerData();
             $persons = searchByAges($_GET['search'], $toddler);
           } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler") {
-            $persons = toddler();
+            $persons = getToddlerData();
           } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null) {
-            $productiveAges = productiveAges();
+            $productiveAges = getProductiveAgesData();
             $persons = searchByAges($_GET['search'], $productiveAges);
           } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges") {
-            $persons = productiveAges();
+            $persons = getProductiveAgesData();
           } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null) {
-            $passedAway = passedAway();
+            $passedAway = getPassedAwayData();
             $persons = searchByAges($_GET['search'], $passedAway);
           } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway") {
-            $persons = passedAway();
+            $persons = getPassedAwayData();
           } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly" && $_GET['search'] != null) {
-            $passedAway = elderly();
+            $passedAway = getElderlyData();
             $persons = searchByAges($_GET['search'], $passedAway);
           } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly") {
-            $persons = elderly();
+            $persons = getElderlyData();
           } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons") {
-            $persons = personsData();
+            $persons = getPersonsDataFromJson();
           } else if ($_GET["search"]) {
             $searchInput = $_GET["search"];
             $persons = search($searchInput);
           } else {
-            $persons = personsData();
+            $persons = getPersonsDataFromJson();
           }
           ?>
           <thead>
@@ -179,7 +160,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
               $page = $_GET['page'];
             }
             $limit = 5;
-//            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $previous = $page - 1;
             $next = $page + 1;
             $data = paginatedData($persons, $page, $limit);
