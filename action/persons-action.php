@@ -1,45 +1,53 @@
 <?php
 require_once __DIR__ . "/common-action.php";
+require_once __DIR__ ."/constants.php";
+
+//function search($search): array
+//{
+//  $persons = getPersonsDataFromJson();
+//  $searchResult = [];
+//  foreach ($persons as $person => $value) {
+//    if (preg_match("/$search/i", $value["firstName"])) {
+//      if (in_array($value["firstName"], $searchResult) == false) {
+//        $searchResult[] = $value;
+//      }
+//    }
+//    if (preg_match("/$search/i", $value["nik"])) {
+//      if (in_array($value["nik"], $searchResult) == false) {
+//        $searchResult[] = $value;
+//      }
+//    }
+//  }
+//  return $searchResult;
+//}
+
+function paginatedData(array $array, int $page, int $limit): array
+{
+  $totalPage = ceil((float)count($array) / (float)$limit);
+  $indexStart = ($page - 1) * $limit;
+  $length = $limit;
+  if (($indexStart + $limit) > count($array)) {
+    $length = count($array) - $indexStart;
+  }
+  return [
+    PAGING_TOTAL_PAGE => $totalPage,
+    PAGING_DATA => array_slice($array, $indexStart, $length),
+    PAGING_CURRENT_PAGE => $page,
+  ];
+}
 
 /**
  * Search person data by first name or NIK
- *
- * @param $search
- * @return array
  */
-function search($search): array
+function searchPersons($search, ?array $persons = null): array
 {
-  $persons = getPersonsDataFromJson();
+  if ($persons == null) {
+    $persons = getPersonsDataFromJson();
+  }
   $searchResult = [];
   foreach ($persons as $person => $value) {
     if (preg_match("/$search/i", $value["firstName"])) {
       if (in_array($value["firstName"], $searchResult) == false) {
-        $searchResult[] = $value;
-      }
-    }
-    if (preg_match("/$search/i", $value["nik"])) {
-      if (in_array($value["nik"], $searchResult) == false) {
-        $searchResult[] = $value;
-      }
-    }
-  }
-  return $searchResult;
-}
-
-/**
- * Search person data by age
- *
- * @param $search
- * @param $persons
- * @return array
- */
-function searchByAges($search, $persons): array
-{
-//  $persons = $filter;
-  $searchResult = [];
-  foreach ($persons as $person => $value) {
-    if (preg_match("/$search/i", $value["firstName"])) {
-      if (!in_array($value["firstName"], $searchResult)) {
         $searchResult[] = $value;
       }
     }
@@ -84,7 +92,7 @@ function getPassedAwayData(): array
 }
 
 /**
- * get productive ages data
+ * Get productive ages data
  * @return array
  */
 function getProductiveAgesData(): array

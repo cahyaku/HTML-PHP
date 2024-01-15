@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once __DIR__ . "/json.php";
+require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/common-action.php";
 
 $errorData = validateErrorInput($_POST['nik'],
@@ -36,6 +36,7 @@ function editPasswordValidate($password, $confirmPassword): array
   }
   return $validatePassword;
 }
+
 $errorPassword = editPasswordValidate($_POST['password'], $_POST['confirmPassword']);
 
 $_SESSION['errorInputData'] = $errorData;
@@ -60,7 +61,7 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
   $persons = getPersonsDataFromJson();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
-    $password = checkedPassword($_POST['password'], $persons[$i]['password']);
+    $password = checkPassword($_POST['password'], $persons[$i]['password']);
     if ($persons[$i]['id'] == $_SESSION['id']) {
       $persons[$i]["nik"] = htmlspecialchars($_POST['nik']);
       $persons[$i]["firstName"] = htmlspecialchars($_POST['firstName']);
@@ -73,7 +74,7 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
       $persons[$i]["role"] = $_POST['role'];
       $persons[$i]["internalNotes"] = htmlspecialchars($_POST['internalNotes']);
       $persons[$i]["alive"] = $_POST['alive'];
-      saveDataIntoJson($persons);
+      saveDataIntoJson("persons.json", $persons);
       redirect("../persons.php", "changed");
     }
   }

@@ -1,22 +1,15 @@
 <?php
 require_once __DIR__ . "/action/common-action.php";
-require_once __DIR__ . "/action/json.php";
+require_once __DIR__ . "/action/json-helper.php";
 
 session_start();
-//if (!isset($_SESSION['email'])) {
-//  header("Location: login.php");
-//  exit();
-//}
-//if (isset($_SESSION['email'])) {
-  $persons = getPersonsDataFromJson();
-  for ($i = 0; $i < count($persons); $i++) {
-    if ($persons[$i]["email"] == $_SESSION['email']) {
-      $persons[$i]["loggedIn"] = time();
-      saveDataIntoJson($persons);
-    }
+$persons = getPersonsDataFromJson();
+for ($i = 0; $i < count($persons); $i++) {
+  if ($persons[$i]["email"] == $_SESSION['email']) {
+    $persons[$i]["loggedIn"] = time();
+    saveDataIntoJson("persons.json",$persons);
   }
-//  return null;
-//}
+}
 session_unset();
 session_destroy();
 header('Location:login.php');

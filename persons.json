@@ -11,14 +11,14 @@
         "address": "perean lah",
         "role": "ADMIN",
         "internalNotes": "kumaladslakdkafa",
-        "loggedIn": 1705048785,
+        "loggedIn": 1705293236,
         "alive": "ALIVE"
     },
     {
         "id": 2,
         "nik": "1111111111111112",
         "firstName": "Kitty123",
-        "lastName": "cila ",
+        "lastName": "cila",
         "birthDate": 1577923200,
         "sex": "MALE",
         "email": "kitty@gmail.com",
@@ -34,14 +34,14 @@
         "nik": "1111111111111113",
         "firstName": "cia cahya",
         "lastName": "hudin Cahya123",
-        "birthDate": 1546387200,
+        "birthDate": 1609545600,
         "sex": "FEMALE",
         "email": "cia@gmail.com",
-        "password": "$2y$10$QU6T6uyXKQY0iK1k0S\/0e.lzplTH21Eh0wp5fof0DKNEGQqHGGRUO",
+        "password": "$2y$10$IfA213YaQ7C25Tn6W2sK4ujLp5I2y33aEUHV2MyJlZEt4fMZ7HIq.",
         "address": "Tabanan",
         "role": "MEMBER",
         "internalNotes": "",
-        "loggedIn": 1705048810,
+        "loggedIn": 1705289944,
         "alive": "ALIVE"
     },
     {
@@ -267,6 +267,36 @@
         "role": "ADMIN",
         "internalNotes": "",
         "loggedIn": 1704872118,
+        "alive": "ALIVE"
+    },
+    {
+        "id": 19,
+        "nik": "1234567812345999",
+        "firstName": "dsakjd",
+        "lastName": "cahya",
+        "birthDate": 1123027200,
+        "sex": "FEMALE",
+        "email": "cahya@gmail.codsadm",
+        "password": "$2y$10$LSSZYpLR\/SLydahR1t8Qz.De9e4pSxnEOaX9AIK6ANKppBLP4ewwK",
+        "address": "perean",
+        "role": "ADMIN",
+        "internalNotes": "",
+        "loggedIn": null,
+        "alive": null
+    },
+    {
+        "id": 20,
+        "nik": "1234567812345622",
+        "firstName": "cah",
+        "lastName": "Aksd",
+        "birthDate": 1123027200,
+        "sex": "FEMALE",
+        "email": "cahya@gmail.comdsadf",
+        "password": "$2y$10$FaY6IoSEfcGTfzxOjXQuqeYf4iBLkFt6nwSkkDsuPw95XqSSQkeVe",
+        "address": "perean",
+        "role": "ADMIN",
+        "internalNotes": "",
+        "loggedIn": null,
         "alive": "ALIVE"
     }
 ]

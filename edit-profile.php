@@ -37,27 +37,27 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                   <div class="alert alert-danger" role="alert">
                     Error while submitting the form:<br>
                     <hr>
-                    <?php if (isset($_SESSION['errorFirstName'])) { ?>
+                    <?php if (isset($_SESSION['errorFirstName'])): ?>
                       - Invalid first name<br>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['errorLastName'])) { ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['errorLastName'])): ?>
                       - Invalid last name<br>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['errorNik'])) { ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['errorNik'])): ?>
                       - Invalid NIK<br>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['errorEmail'])) { ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['errorEmail'])): ?>
                       - Invalid Email<br>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['errorPassword'])) { ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['errorPassword'])): ?>
                       - Invalid password<br>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['errorCurrentPassword'])) { ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['errorCurrentPassword'])): ?>
                       - Invalid current password!<br>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['errorConfirmPassword']) && $_SESSION['errorConfirmPassword'] != 1) { ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['errorConfirmPassword']) && $_SESSION['errorConfirmPassword'] != 1): ?>
                       - New password and confirm password value didn't match<br>
-                    <?php } ?>
+                    <?php endif; ?>
                     <?php if ($_SESSION['errorConfirmPassword'] == 1) : ?>
                       - Invalid current password
                     <?php endif; ?>
@@ -286,7 +286,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                             />
                             <?php if (isset($_SESSION["errorCurrentPassword"]) && $_SESSION["errorCurrentPassword"] == 1) : ?>
                               <div class="alert alert-danger" role="alert">
-                                Password input is not correct!
+                                Current password input is not correct!
                               </div>
                             <?php endif; ?>
                             

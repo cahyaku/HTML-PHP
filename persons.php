@@ -3,8 +3,6 @@ session_start();
 require_once __DIR__ . "/action/common-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 require_once __DIR__ . "/action/persons-action.php";
-require_once __DIR__ . "/assets/pagination.php";
-require_once __DIR__ . "/assets/constants.php";
 ?>
 
 <?php
@@ -74,7 +72,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
               <option value="allPersons" class="select-items">All Persons</option>
             </select>
           </div>
-         
+
           <label for="search-input"></label>
           <input
               id="search-input"
@@ -109,34 +107,34 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
           <?php
-          if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null) {
+          if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null):
             $toddler = getToddlerData();
-            $persons = searchByAges($_GET['search'], $toddler);
-          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler") {
+            $persons = searchPersons($_GET['search'], $toddler);
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler"):
             $persons = getToddlerData();
-          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null) {
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null):
             $productiveAges = getProductiveAgesData();
-            $persons = searchByAges($_GET['search'], $productiveAges);
-          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges") {
+            $persons = searchPersons($_GET['search'], $productiveAges);
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges"):
             $persons = getProductiveAgesData();
-          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null) {
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null):
             $passedAway = getPassedAwayData();
-            $persons = searchByAges($_GET['search'], $passedAway);
-          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway") {
+            $persons = searchPersons($_GET['search'], $passedAway);
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway"):
             $persons = getPassedAwayData();
-          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly" && $_GET['search'] != null) {
-            $passedAway = getElderlyData();
-            $persons = searchByAges($_GET['search'], $passedAway);
-          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly") {
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly" && $_GET['search'] != null):
+            $elderly = getElderlyData();
+            $persons = searchPersons($_GET['search'], $elderly);
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly"):
             $persons = getElderlyData();
-          } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons") {
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
             $persons = getPersonsDataFromJson();
-          } else if ($_GET["search"]) {
+          elseif ($_GET["search"]):
             $searchInput = $_GET["search"];
-            $persons = search($searchInput);
-          } else {
+            $persons = searchPersons($searchInput);
+          else:
             $persons = getPersonsDataFromJson();
-          }
+          endif;
           ?>
           <thead>
           <tr class="test-color">
@@ -190,7 +188,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                             Edit
                           </button>
                         </a>
-                        <?php } else if (checkRole($_SESSION['email']) != null && $_SESSION['email'] == $personsData[$i]["email"]) {?>
+                      <?php } else if (checkRole($_SESSION['email']) != null && $_SESSION['email'] == $personsData[$i]["email"]) { ?>
                         <a class="edit btn-table" href="edit-profile.php">
                           <button type="button" class="btn btn-outline-primary" name="btn-edit">
                             Edit

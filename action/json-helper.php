@@ -1,8 +1,9 @@
 <?php
-function saveDataIntoJson(array $array)
+function saveDataIntoJson(string $fileName, array $array):void
 {
+  $path = __DIR__ . "/../" . $fileName;
   $json = json_encode($array, JSON_PRETTY_PRINT);
-  file_put_contents(__DIR__ . "/../persons.json", $json);
+  file_put_contents($path, $json);
 }
 
 function loadDataFromJson(string $fileName): array
@@ -18,5 +19,3 @@ function loadDataFromJson(string $fileName): array
   }
   return [];
 }
-
-

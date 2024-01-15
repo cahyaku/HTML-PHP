@@ -36,7 +36,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                 <div class="alert alert-danger" role="alert">
                   Person data was not found!!!
                 </div>
-              <?php } else if ($_GET['id'] < 1 || $_GET['id'] > count($persons)) { ?>
+              <?php } else if ($_GET['id'] < 1) { ?>
                 <div class="alert alert-danger" role="alert">
                   Person data was not found!!!
                 </div>
@@ -50,24 +50,24 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                   <div class="alert alert-danger" role="alert">
                     Error while submitting the form:<br>
                     <hr>
-                    <?php if (isset($_SESSION['errorFirstName'])) { ?>
+                    <?php if (isset($_SESSION['errorFirstName'])): ?>
                       - Invalid first name<br>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['errorLastName'])) { ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['errorLastName'])): ?>
                       - Invalid last name<br>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['errorNik'])) { ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['errorNik'])): ?>
                       - Invalid NIK<br>
-                    <?php } ?>
-                    <?php if (isset($_SESSION['errorEmail'])) { ?>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['errorEmail'])): ?>
                       - Invalid Email<br>
-                    <?php } ?>
-                    <?php if ($_SESSION['errorPassword'] == 1 || $_SESSION['errorPassword'] == 2) { ?>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['errorPassword'] == 1 || $_SESSION['errorPassword'] == 2): ?>
                       - Invalid password<br>
-                    <?php } ?>
-                    <?php if ($_SESSION['errorConfirmPassword'] == 1) { ?>
+                    <?php endif; ?>
+                    <?php if ($_SESSION['errorConfirmPassword'] == 1): ?>
                       - New password and confirm password value didn't match<br>
-                    <?php } ?>
+                    <?php endif; ?>
                   </div>
                 <?php } ?>
 

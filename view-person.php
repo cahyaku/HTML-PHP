@@ -37,7 +37,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
               Person data was not found!!!
             </div>
           <?php }
-          else if ($_GET['id'] < 1 || $_GET['id'] > count($persons)) { ?>
+          else if ($_GET['id'] < 1) { ?>
             <div class="alert alert-danger" role="alert">
               Person data was not found!!!
             </div>
@@ -138,7 +138,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                       </a>
                     </button>
                   <?php } ?>
-                  
+
                   <button
                       type="button"
                       class="btn btn-secondary btn-back btn-space"

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . "/json.php";
+require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/common-action.php";
 
 $loginData = loadDataFromJson("persons.json");

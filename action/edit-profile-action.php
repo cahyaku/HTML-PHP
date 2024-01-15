@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once __DIR__ . "/json.php";
+require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/common-action.php";
 
 $errorData = validateErrorInput($_POST['nik'],
@@ -37,7 +37,7 @@ $person = getPersonDataByEmail($_SESSION['userEmail']);
   $persons = getPersonsDataFromJson();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
-    $password= checkedPassword($_POST['password'], $persons[$i]['password']);
+    $password = checkPassword($_POST['password'], $persons[$i]['password']);
     if ($persons[$i]['email'] == $_SESSION['userEmail']) {
       $persons[$i]["nik"] = htmlspecialchars($_POST['nik']);
       $persons[$i]["firstName"] = htmlspecialchars($_POST['firstName']);
@@ -48,7 +48,7 @@ $person = getPersonDataByEmail($_SESSION['userEmail']);
       $persons[$i]["password"] = $password;
       $persons[$i]["address"] = htmlspecialchars($_POST['address']);
       $persons[$i]["internalNotes"] = htmlspecialchars($_POST['internalNotes']);
-      saveDataIntoJson($persons);
+      saveDataIntoJson("persons.json",$persons);
       redirect("../persons.php", "changed");
     }
   }

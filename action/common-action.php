@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/json.php";
+require_once __DIR__ . "/json-helper.php";
 
 function getPersonsDataFromJson(): array
 {
@@ -194,7 +194,11 @@ function checkNewPasswordInput($password): string
   return "";
 }
 
-function checkedPassword($password, $currentPassword): string
+/**
+ * Password encryption when the user edits the password data,
+ * if the user does not edit the password, then the current password will be returned
+ */
+function checkPassword($password, $currentPassword): string
 {
   if ($password == "") {
     return $currentPassword;
@@ -262,13 +266,6 @@ function checkNameInput($name): bool
 
 /**
  * Check error input from $_POST when edit person data
- * @param string $nik
- * @param string $email
- * @param string $firstName
- * @param string $lastName
- * @param string $birthDate
- * @param $id
- * @return array
  */
 function validateErrorInput(string $nik,
                             string $email,
@@ -300,7 +297,7 @@ function validateErrorInput(string $nik,
     $validate['lastName'] = "2";
   }
   
-  if (!checkBirthDateInput($birthDate) || translateDateFromStringToInt($birthDate) == null) {
+  if (!checkBirthDateInput($birthDate)) {
     $validate['birthDate'] = "1";
   }
   return $validate;
@@ -308,11 +305,6 @@ function validateErrorInput(string $nik,
 
 /**
  * Validate current password, new password, and confirm password when edit password data
- * @param $currentPassword
- * @param $password
- * @param $confirmPassword
- * @param $id
- * @return array
  */
 function validatePassword($currentPassword, $password, $confirmPassword, $id): array
 {
@@ -352,7 +344,7 @@ function checkErrorValue($currentInput, $personData): void
 }
 
 /**
- * Check if exists error from input data when create new data
+ * Check if exists error input when create new data
  * @param $inputData
  * @return void
  */

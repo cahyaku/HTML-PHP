@@ -1,20 +1,7 @@
 <?php
 
 require_once __DIR__ . "/common-action.php";
-require_once __DIR__ . "/json.php";
-
-//function deletePerson($personId)
-//{
-//  $persons = personsData();
-//  foreach ($persons as $person) {
-//    if ($personId == $person['id']) {
-//      unset ($person);
-//      $persons = array_values($persons);
-//      saveDataIntoJson($persons);
-//    }
-//  }
-//}
-//session_start();
+require_once __DIR__ . "/json-helper.php";
 
 // DELETE PERSON
 if (isset($_GET['id'])) {
@@ -23,17 +10,8 @@ if (isset($_GET['id'])) {
     if ($_GET['id'] == $persons[$i]['id']) {
       unset ($persons[$i]);
       $persons = array_values($persons);
-      saveDataIntoJson($persons);
+      saveDataIntoJson("persons.json",$persons);
       redirect("../persons.php", "deleted");
     }
   endfor;
 }
-
-//session_unset();
-//session_destroy();
-//header('Location:persons.php');
-//exit();
-//session_unset();
-//session_destroy();
-//header('Location:persons.php');
-//exit();

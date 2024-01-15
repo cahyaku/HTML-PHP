@@ -1,19 +1,11 @@
 <?php
 
 session_start();
-require_once __DIR__ . "/json.php";
+require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/common-action.php";
 
 /**
- * validate error input new person data
- * @param string $nik
- * @param string $password
- * @param string $email
- * @param string $firstName
- * @param string $lastName
- * @param string $confirmPassword
- * @param string $birthDate
- * @return array
+ * Validate error input when add new person data
  */
 function validateError(string $nik,
                        string $password,
@@ -115,7 +107,6 @@ if (count($errorData) != 0) {
   unset ($_SESSION['internalNotes']);
   
   $persons = getPersonsDataFromJson();
-//  $id = count($persons) + 1;
   $lastPerson = $persons[count($persons) -1];
   $id = $lastPerson["id"] + 1;
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
@@ -136,6 +127,6 @@ if (count($errorData) != 0) {
     "alive" => $_POST['alive']
   ];
   $persons[] = $personData;
-  saveDataIntoJson($persons);
+  saveDataIntoJson("persons.json",$persons);
   redirect("../persons.php", "success");
 }
