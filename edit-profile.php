@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . "/action/common-action.php";
+require_once __DIR__ . "/action/utils-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 ?>
 

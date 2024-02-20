@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . "/action/common-action.php";
+require_once __DIR__ . "/action/utils-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 require_once __DIR__ . "/action/persons-action.php";
 ?>
@@ -232,7 +232,8 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             </div>
           <?php elseif (isset($_GET['success'])): ?>
             <div class="alert alert-success form-padding alert-padding" role="alert">
-              Data person has been saved !!!
+<!--              Data person has been saved !!!-->
+              <?php echo $_SESSION['info']; ?>
             </div>
           <?php elseif (isset($_GET['changed'])): ?>
             <div class="alert alert-success form-padding alert-padding" role="alert">

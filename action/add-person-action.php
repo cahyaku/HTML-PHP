@@ -1,8 +1,9 @@
 <?php
-
+global $PDO;
 session_start();
 require_once __DIR__ . "/json-helper.php";
-require_once __DIR__ . "/common-action.php";
+require_once __DIR__ . "/utils-action.php";
+require_once __DIR__ . "/../include/db.php";
 
 /**
  * Validate error input when add new person data
@@ -106,27 +107,57 @@ if (count($errorData) != 0) {
   unset ($_SESSION['inputBirthDate']);
   unset ($_SESSION['internalNotes']);
   
-  $persons = getPersonsDataFromJson();
-  $lastPerson = $persons[count($persons) -1];
-  $id = $lastPerson["id"] + 1;
+//  $persons = getPersonsDataFromJson();
+//  $lastPerson = $persons[count($persons) -1];
+//  $id = $lastPerson["id"] + 1;
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   $password = encryptPassword($_POST['password']);
-  $personData = [
-    "id" => $id,
-    "nik" => htmlspecialchars($_POST['nik']),
-    "firstName" =>htmlspecialchars($_POST['firstName']),
-    "lastName" => htmlspecialchars($_POST['lastName']),
-    "birthDate" => $birthDate,
-    "sex" => $_POST['sex'],
-    "email" => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
-    "password" => $password,
-    "address" => htmlspecialchars($_POST['address']),
-    "role" => $_POST['role'],
-    "internalNotes" => htmlspecialchars($_POST['internalNotes']),
-    "loggedIn" => null,
-    "alive" => $_POST['alive']
-  ];
-  $persons[] = $personData;
-  saveDataIntoJson("persons.json",$persons);
-  redirect("../persons.php", "success");
+  $sex = translateGender($_POST["sex"]);
+  $role = translateRole($_POST["role"]);
+  $status = translateStatus($_POST["status"]);
+//  $personData = [
+//    "id" => $id,
+//    "nik" => htmlspecialchars($_POST['nik']),
+//    "firstName" =>htmlspecialchars($_POST['firstName']),
+//    "lastName" => htmlspecialchars($_POST['lastName']),
+//    "birthDate" => $birthDate,
+//    "sex" => $_POST['sex'],
+//    "email" => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
+//    "password" => $password,
+//    "address" => htmlspecialchars($_POST['address']),
+//    "role" => $_POST['role'],
+//    "internalNotes" => htmlspecialchars($_POST['internalNotes']),
+//    "loggedIn" => null,
+//    "alive" => $_POST['alive']
+//  ];
+//  $persons[] = $personData;
+//  saveDataIntoJson("persons.json",$persons);
+//  redirect("../persons.php", "success");
+  try {
+    $query = 'INSERT INTO persons(nik,first_name,last_name,birth_date,sex,email, password,address,role,internal_notes,status)
+VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:role,:internal_notes,:status)';
+    $statement = $PDO->prepare( $query );
+    $statement->execute( array(
+      "nik" =>$_POST["nik"],
+      "first_name" => $_POST["firstName"],
+      "last_name" => $_POST["lastName"],
+      "birth_date" => $birthDate,
+      "sex" => $sex,
+      "email" => $_POST["email"],
+      "password" => $password,
+      "address" =>$_POST["address"],
+      "role" => $role,
+      "internal_notes" => $_POST["internalNotes"],
+      "status" => $status
+      ) );
+    $name = $_POST["firstName"];
+    $_SESSION['info'] = "New person data has been saved ($name).";
+    redirect("../persons.php", "success");
+  } catch ( PDOException $e ) {
+    $_SESSION['error'] = 'Query error: ' . $e->getMessage();
+    header( 'Location: ../persons.php' );
+    die();
+  }
 }
+header( 'Location: ../index.php' );
+die();

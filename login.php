@@ -89,7 +89,7 @@ if (isset($_SESSION['email'])) {
                                 <ion-icon name="mail"></ion-icon>
                                 Email
                               </label>
-                              <input class="form-contol" id="email" name="email"
+                              <input class="form-control" id="email" name="email"
                                      type="email" placeholder="me@example.com" required/>
                             </div>
                             <div class="mb-3">
@@ -97,7 +97,7 @@ if (isset($_SESSION['email'])) {
                                 <ion-icon name="key"></ion-icon>
                                 Password
                               </label>
-                              <input class="form-contol" id="password" name="password"
+                              <input class="form-control" id="password" name="password"
                                      type="password" placeholder="Password" required/>
                             </div>
                             <?php if ($_GET["error"] == 1) : ?>

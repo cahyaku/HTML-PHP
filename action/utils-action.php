@@ -1,10 +1,17 @@
 <?php
-
 require_once __DIR__ . "/json-helper.php";
-
+require_once __DIR__ . "/../include/db.php";
+global $PDO;
 function getPersonsDataFromJson(): array
 {
   return loadDataFromJson("persons.json");
+}
+
+function getPersonsData($PDO)
+{
+  $query = 'SELECT * FROM persons';
+  $statement = $PDO->prepare( $query );
+  return $persons = $statement->fetch(PDO::FETCH_ASSOC);
 }
 
 function redirect($url, $getParams): void
@@ -37,7 +44,7 @@ function redirectWhenNotLoggedIn($email): void
  * @param $id
  * @return array
  */
-function getPersonData($id): array
+function getPersonDataById($id): array
 {
   $persons = getPersonsDataFromJson();
   for ($i = 0; $i < count($persons); $i++) {
@@ -372,4 +379,36 @@ function transformPersonFormIntoSession(): void
   $_SESSION['inputInternalNotes'] = $_POST['internalNotes'];
   $_SESSION['inputCurrentPassword'] = $_POST['currentPassword'];
   $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
+}
+
+// untuk mengubah value saat proses input data
+function translateGender($gender):string|null
+{
+  if ($gender == "FEMALE") {
+    return "F";
+  }
+  if ($gender == "MALE"){
+    return "M";
+  }
+  return null;
+}
+
+function translateRole($role):string|null
+{
+  if ($role == "ADMIN") {
+    return "A";
+  }
+  if ($role == "MEMBER"){
+    return "M";
+  }
+  return null;
+}
+
+function translateStatus($status):int|null
+{
+  if ($status == "ALIVE") {
+    return 1;
+  } else {
+    return 0;
+  }
 }

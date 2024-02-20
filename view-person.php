@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . "/action/common-action.php";
+require_once __DIR__ . "/action/utils-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 
 if ($_GET['id'] == null) {
@@ -42,7 +42,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
               Person data was not found!!!
             </div>
           <?php } else {
-          $persons = getPersonData($_GET['id']);
+          $persons = getPersonDataById($_GET['id']);
           ?>
           <div class="person-data">
             <div class="card card-shadow">

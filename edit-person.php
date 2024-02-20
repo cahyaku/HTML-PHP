@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . "/action/common-action.php";
+require_once __DIR__ . "/action/utils-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 if (checkRole($_SESSION['email']) == null) {
   redirect("../dashboard.php", null);
@@ -41,7 +41,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                   Person data was not found!!!
                 </div>
               <?php } else {
-                $person = getPersonData($_GET['id']);
+                $person = getPersonDataById($_GET['id']);
                 $birthDate = translateDateFromIntToString($person['birthDate']);
                 $_SESSION['id'] = $_GET['id'];
                 ?>

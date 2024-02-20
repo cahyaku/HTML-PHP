@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . "/action/common-action.php";
+require_once __DIR__ . "/action/utils-action.php";
+require_once __DIR__ . "/include/db.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 if (checkRole($_SESSION['email']) == null) {
   redirect("../dashboard.php", null);
@@ -324,7 +325,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                 </div>
               </div>
               <div class="form-check form-switch form-padding">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="alive"
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="status"
                        value="ALIVE"
                   <?php
                   if ($_SESSION['inputStatus'] != null) {
