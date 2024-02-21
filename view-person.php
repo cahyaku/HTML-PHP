@@ -1,11 +1,13 @@
 <?php
+
 session_start();
 require_once __DIR__ . "/action/utils-action.php";
+require_once __DIR__ . "/include/db.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
-
 if ($_GET['id'] == null) {
   redirect("/dashboard.php", null);
 }
+global $PDO;
 ?>
 
 <!-- HEADER -->
@@ -31,6 +33,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
           </div>
           <?php
           $persons = getPersonsDataFromJson();
+//          $id = $_GET["id"];
           if (!is_numeric($_GET['id'])) {
             ?>
             <div class="alert alert-danger" role="alert">
@@ -42,7 +45,16 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
               Person data was not found!!!
             </div>
           <?php } else {
-          $persons = getPersonDataById($_GET['id']);
+                    $query = 'SELECT * FROM persons WHERE id = :id';
+                    $statement = $PDO->prepare($query);
+                    $statement ->execute(array("id" =>$_GET["id"]));
+                    $persons = $statement->fetch(PDO::FETCH_ASSOC);
+          
+//          $query = 'SELECT * FROM Persons WHERE ID = :personId';
+//          $statement = $PDO->prepare($query);
+//          $statement ->execute(array('personId' => $_GET['person']));
+//          $thePerson = $statement->fetch(PDO::FETCH_ASSOC);
+//          $persons = getPersonDataById($_GET['id']);
           ?>
           <div class="person-data">
             <div class="card card-shadow">
@@ -51,13 +63,13 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                   <div class="col-12 col-md-6 col-lg-6 ">
                     <div class="card-padding">
                       <p class="text-title">First name*</p>
-                      <p class="data"><?php echo ucwords($persons['firstName']) ?></p>
+                      <p class="data"><?php echo ucwords($persons['first_name']) ?></p>
                     </div>
                   </div>
                   <div class="col-12 col-md-6 col-lg-6 ">
                     <div class="card-padding">
                       <p class="text-title">Last name*</p>
-                      <p class="data"><?php echo ucwords($persons['lastName']) ?></p>
+                      <p class="data"><?php echo ucwords($persons['last_name']) ?></p>
                     </div>
                   </div>
                 </div>
@@ -90,7 +102,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                   <div class="col-12 col-md-6 col-lg-6 ">
                     <div class="card-padding">
                       <p class="text-title">Birth Date*</p>
-                      <p class="data"><?php echo dateFormatToString($persons['birthDate']) ?></p>
+                      <p class="data"><?php echo dateFormatToString($persons['birth_date']) ?></p>
                     </div>
                   </div>
                 </div>
@@ -114,7 +126,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                 <div class="card-padding">
                   <p class="text-title">Internal notes*</p>
                   <?php if ($persons['internalNotes'] != "") { ?>
-                    <p class="data"><?php echo $persons['internalNotes'] ?></p>
+                    <p class="data"><?php echo $persons['internal_notes'] ?></p>
                   <?php } ?>
                 </div>
 

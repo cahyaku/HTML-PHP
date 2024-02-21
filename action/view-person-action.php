@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/utils-action.php";
 require_once __DIR__ . "/json-helper.php";
+require_once __DIR__ . "/../include/db.php";
 
 // DELETE PERSON
 if (isset($_GET['id'])) {

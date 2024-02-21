@@ -7,12 +7,21 @@ function getPersonsDataFromJson(): array
   return loadDataFromJson("persons.json");
 }
 
-function getPersonsData($PDO)
+function getPersonsDataFromDatabase($PDO)
 {
   $query = 'SELECT * FROM persons';
   $statement = $PDO->prepare( $query );
-  return $persons = $statement->fetch(PDO::FETCH_ASSOC);
+  $statement->execute();
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+//function getPersonByIdDatabase($PDO)
+//{
+//  $query = 'SELECT * FROM persons WHERE id = personId';
+//  $statement = $PDO->prepare($query);
+//  $statement ->execute( array ('id'=> $_GET["personId"]));
+//  return $persons = $statement->fetch(PDO::FETCH_ASSOC);
+//}
 
 function redirect($url, $getParams): void
 {

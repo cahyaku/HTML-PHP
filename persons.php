@@ -3,6 +3,8 @@ session_start();
 require_once __DIR__ . "/action/utils-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 require_once __DIR__ . "/action/persons-action.php";
+require_once __DIR__ . "/include/db.php";
+global $PDO;
 ?>
 
 <?php
@@ -133,7 +135,8 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             $searchInput = $_GET["search"];
             $persons = searchPersons($searchInput);
           else:
-            $persons = getPersonsDataFromJson();
+            $persons = getPersonsDataFromDatabase($PDO);
+//            $persons = getPersonsDataFromJson();
           endif;
           ?>
           <thead>
@@ -169,14 +172,14 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 <th scope="row"><?php echo $number++ ?></th>
                 <td><?php echo $personsData[$i]["email"] ?></td>
                 <td>
-                  <?php echo ucwords($personsData[$i]["firstName"]) . " " . ucwords($personsData[$i]["lastName"]) ?></td>
+                  <?php echo ucwords($personsData[$i]["first_name"]) . " " . ucwords($personsData[$i]["last_name"]) ?></td>
                 <td><?php echo $personsData[$i]["role"] ?></td>
-                <td><?php echo checkAges($personsData[$i]["birthDate"]) ?></td>
+                <td><?php echo checkAges($personsData[$i]["birth_date"]) ?></td>
                 <td><?php
-                  if ($personsData[$i]["alive"] == null) {
-                    echo "Passed away";
-                  } else {
+                  if ($personsData[$i]["status"] == 1) {
                     echo "Alive";
+                  } else {
+                    echo "Passed away";
                   }
                   ?></td>
                 <td>
