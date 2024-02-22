@@ -1,27 +1,34 @@
 <?php
 require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/../include/db.php";
-global $PDO;
+//global $PDO;
 function getPersonsDataFromJson(): array
 {
   return loadDataFromJson("persons.json");
 }
 
-function getPersonsDataFromDatabase($PDO)
+function getPersonsDataFromDatabase():array
 {
+  global $PDO;
   $query = 'SELECT * FROM persons';
   $statement = $PDO->prepare( $query );
   $statement->execute();
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-//function getPersonByIdDatabase($PDO)
-//{
-//  $query = 'SELECT * FROM persons WHERE id = personId';
-//  $statement = $PDO->prepare($query);
-//  $statement ->execute( array ('id'=> $_GET["personId"]));
-//  return $persons = $statement->fetch(PDO::FETCH_ASSOC);
-//}
+function getPersonByIdFromDatabase()
+{
+  global $PDO;
+  $query = 'SELECT * FROM persons WHERE id = :id';
+  $statement = $PDO->prepare($query);
+  $statement ->execute(array("id" =>$_GET["id"]));
+  return $statement->fetch(PDO::FETCH_ASSOC);
+//          $query = 'SELECT * FROM Persons WHERE ID = :personId';
+//          $statement = $PDO->prepare($query);
+//          $statement ->execute(array('personId' => $_GET['person']));
+//          $thePerson = $statement->fetch(PDO::FETCH_ASSOC);
+//          $persons = getPersonDataById($_GET['id']);
+}
 
 function redirect($url, $getParams): void
 {
@@ -50,19 +57,20 @@ function redirectWhenNotLoggedIn($email): void
 
 /**
  * Get person data by id
+ *  Data from JSON
  * @param $id
  * @return array
  */
-function getPersonDataById($id): array
-{
-  $persons = getPersonsDataFromJson();
-  for ($i = 0; $i < count($persons); $i++) {
-    if ($id == $persons[$i]['id']) {
-      return $persons[$i];
-    }
-  }
-  return $persons[$i];
-}
+//function getPersonDataById($id): array
+//{
+//  $persons = getPersonsDataFromJson();
+//  for ($i = 0; $i < count($persons); $i++) {
+//    if ($id == $persons[$i]['id']) {
+//      return $persons[$i];
+//    }
+//  }
+//  return $persons[$i];
+//}
 
 /**
  * Get person data by email
@@ -72,6 +80,16 @@ function getPersonDataById($id): array
 function getPersonDataByEmail($email): mixed
 {
   $persons = getPersonsDataFromJson();
+  for ($i = 0; $i < count($persons); $i++) {
+    if ($email == $persons[$i]['email']) {
+      return $persons[$i];
+    }
+  }
+  return null;
+}
+
+function getPersonsDataByEmailFromDatabase($email){
+  $persons = getPersonsDataFromDatabase();
   for ($i = 0; $i < count($persons); $i++) {
     if ($email == $persons[$i]['email']) {
       return $persons[$i];
@@ -421,3 +439,13 @@ function translateStatus($status):int|null
     return 0;
   }
 }
+
+function translateValue($value, $data, $newValue1, $newValue2)
+{
+  if ($value == $data) {
+    return $newValue1;
+  } else {
+    return $newValue2;
+  }
+}
+

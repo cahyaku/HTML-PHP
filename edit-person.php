@@ -30,7 +30,8 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                 <h3 class="title">Edit person</h3>
               </div>
               <?php
-              $persons = getPersonsDataFromJson();
+//              $persons = getPersonsDataFromJson();
+//              $persons = getPersonsDataFromDatabase();
               if (!is_numeric($_GET['id'])) {
                 ?>
                 <div class="alert alert-danger" role="alert">
@@ -41,8 +42,9 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                   Person data was not found!!!
                 </div>
               <?php } else {
-                $person = getPersonDataById($_GET['id']);
-                $birthDate = translateDateFromIntToString($person['birthDate']);
+//                $person = getPersonDataById($_GET['id']);
+                $person = getPersonByIdFromDatabase();
+                $birthDate = translateDateFromIntToString($person['birth_date']);
                 $_SESSION['id'] = $_GET['id'];
                 ?>
                 <?php if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
@@ -70,8 +72,9 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                     <?php endif; ?>
                   </div>
                 <?php } ?>
-
+                <?php $id = $_GET['id']?>
                 <form class="person-form" action="action/edit-person-action.php" name="edit-form" method="post">
+                  <input type="hidden" name="id" value="<?= $id ?>"/>
                   <div class="d-md-flex">
                     <div class="col-12 col-md-6 col-lg-6">
                       <div class="mb-3 form-padding">
@@ -83,7 +86,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="First name"
-                            value="<?php checkErrorValue($_SESSION['inputFirstName'], $person['firstName']); ?>"
+                            value="<?php checkErrorValue($_SESSION['inputFirstName'], $person['first_name']); ?>"
                             name="firstName"
                             required
                         />
@@ -105,7 +108,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="Last name"
-                            value="<?php checkErrorValue($_SESSION['inputLastName'], $person['lastName']); ?>"
+                            value="<?php checkErrorValue($_SESSION['inputLastName'], $person['last_name']); ?>"
                             name="lastName"
                             required
                         />
@@ -196,7 +199,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                                 value="<?php echo $_SESSION['inputSex'] == "MALE" ? "FEMALE" : "MALE"; ?>"><?php echo $_SESSION['inputSex'] == "MALE" ? "FEMALE" : "MALE"; ?></option>
                           <?php } else if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
                             <option value="MALE">MALE</option>
-                          <?php } else if ($person['sex'] == "FEMALE") { ?>
+                          <?php } else if ($person['sex'] == "F") { ?>
                             <option value="MALE">MALE</option>
                           <?php } else { ?>
                             <option value="FEMALE">FEMALE</option>
@@ -250,7 +253,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                               <?php echo $_SESSION['inputRole'] == "ADMIN" ? "MEMBER" : "ADMIN"; ?></option>
                           <?php } else if (isset($_SESSION['inputRole']) == "MEMBER") { ?>
                             <option value="ADMIN">ADMIN</option>
-                          <?php } else if ($person['role'] == "MEMBER") { ?>
+                          <?php } else if ($person['role'] == "M") { ?>
                             <option value="ADMIN">ADMIN</option>
                           <?php } else { ?>
                             <option value="MEMBER">MEMBER</option>
@@ -287,7 +290,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                         id="exampleFormControlTextarea1"
                         rows="2"
                         name="internalNotes"
-                    ><?php checkErrorValue($_SESSION['inputInternalNotes'], $person['internalNotes']) ?></textarea>
+                    ><?php checkErrorValue($_SESSION['inputInternalNotes'], $person['internal_notes']) ?></textarea>
                   </div>
 
                   <div class="card card-margin card-shadow">
@@ -356,13 +359,13 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
 
                   <div class="form-check form-switch form-padding">
                     <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
-                           name="alive"
+                           name="status"
                            value="ALIVE"
                            value="<?php if (isset($_SESSION['errorData'])) {
                              echo $_SESSION['inputAlive'];
                            } ?>"
                       <?php
-                      if ($person['alive'] == "ALIVE") {
+                      if ($person['status'] == 1) {
                         echo "checked";
                       }
                       ?>

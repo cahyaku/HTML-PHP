@@ -34,7 +34,8 @@ $person = getPersonDataByEmail($_SESSION['userEmail']);
   header("Location: ../edit-profile.php");
   exit();
 } else {
-  $persons = getPersonsDataFromJson();
+//  $persons = getPersonsDataFromJson();
+  $persons = getPersonsDataFromDatabase();
   $birthDate = translateDateFromStringToInt($_POST['birthDate']);
   for ($i = 0; $i < count($persons); $i++) {
     $password = checkPassword($_POST['password'], $persons[$i]['password']);

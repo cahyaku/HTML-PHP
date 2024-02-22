@@ -32,7 +32,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
             <h3 class="title">View person data</h3>
           </div>
           <?php
-          $persons = getPersonsDataFromJson();
+//          $persons = getPersonsDataFromJson();
 //          $id = $_GET["id"];
           if (!is_numeric($_GET['id'])) {
             ?>
@@ -45,16 +45,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
               Person data was not found!!!
             </div>
           <?php } else {
-                    $query = 'SELECT * FROM persons WHERE id = :id';
-                    $statement = $PDO->prepare($query);
-                    $statement ->execute(array("id" =>$_GET["id"]));
-                    $persons = $statement->fetch(PDO::FETCH_ASSOC);
-          
-//          $query = 'SELECT * FROM Persons WHERE ID = :personId';
-//          $statement = $PDO->prepare($query);
-//          $statement ->execute(array('personId' => $_GET['person']));
-//          $thePerson = $statement->fetch(PDO::FETCH_ASSOC);
-//          $persons = getPersonDataById($_GET['id']);
+          $persons = getPersonByIdFromDatabase();
           ?>
           <div class="person-data">
             <div class="card card-shadow">
@@ -95,7 +86,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                   <div class="col-12 col-md-6 col-lg-6 ">
                     <div class="card-padding">
                       <p class="text-title">Sex*</p>
-                      <p class="data"><?php echo $persons['sex'] ?></p>
+                      <p class="data"><?php echo translateValue($persons['sex'], "F" , "FEMALE","MALE"); ?> </p>
                     </div>
                   </div>
 
@@ -111,7 +102,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
                   <div class="col-12 col-md-6 col-lg-6 ">
                     <div class="card-padding">
                       <p class="text-title">Role*</p>
-                      <p class="data"><?php echo $persons['role'] ?></p>
+                      <p class="data"><?php echo translateValue($persons['role'], "A" , "ADMIN","MEMBER"); ?> </p>
                     </div>
                   </div>
 

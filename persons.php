@@ -130,12 +130,13 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly"):
             $persons = getElderlyData();
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
-            $persons = getPersonsDataFromJson();
+//            $persons = getPersonsDataFromJson();
+            $persons = getPersonsDataFromDatabase();
           elseif ($_GET["search"]):
             $searchInput = $_GET["search"];
             $persons = searchPersons($searchInput);
           else:
-            $persons = getPersonsDataFromDatabase($PDO);
+            $persons = getPersonsDataFromDatabase();
 //            $persons = getPersonsDataFromJson();
           endif;
           ?>
@@ -173,15 +174,9 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 <td><?php echo $personsData[$i]["email"] ?></td>
                 <td>
                   <?php echo ucwords($personsData[$i]["first_name"]) . " " . ucwords($personsData[$i]["last_name"]) ?></td>
-                <td><?php echo $personsData[$i]["role"] ?></td>
+                <td><?php echo translateValue($personsData[$i]["role"],"A", "ADMIN","MEMBER"); ?></td>
                 <td><?php echo checkAges($personsData[$i]["birth_date"]) ?></td>
-                <td><?php
-                  if ($personsData[$i]["status"] == 1) {
-                    echo "Alive";
-                  } else {
-                    echo "Passed away";
-                  }
-                  ?></td>
+                <td><?php echo translateValue($personsData[$i]["status"],1 , "Alive","Passed Away"); ?></td>
                 <td>
                   <div class="table-button">
                     <div class="text-end">

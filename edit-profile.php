@@ -25,10 +25,11 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
               </div>
               <?php
               if (isset($_SESSION['email'])) {
-                $person = getPersonDataByEmail($_SESSION['email']);
+//                $person = getPersonDataByEmail($_SESSION['email']);
+                $person = getPersonsDataByEmailFromDatabase($_SESSION['email']);
                 $_SESSION['userEmail'] = $_SESSION['email'];
                 $_SESSION['id'] = $person['id'];
-                $birthDate = translateDateFromIntToString($person['birthDate']);
+                $birthDate = translateDateFromIntToString($person['birth_date']);
                 ?>
                 
                 <?php if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
@@ -79,7 +80,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="First name"
-                            value="<?php checkErrorValue($_SESSION['inputFirstName'],$person['firstName'])?>"
+                            value="<?php checkErrorValue($_SESSION['inputFirstName'],$person['first_name'])?>"
                             required
                         />
                         <?php if (isset($_SESSION["errorFirstName"])) : ?>
@@ -101,7 +102,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="LastName"
-                          value="<?php checkErrorValue($_SESSION['inputLastName'],$person['lastName'])?>"
+                          value="<?php checkErrorValue($_SESSION['inputLastName'],$person['last_name'])?>"
                             required
                         />
                         <?php if (isset($_SESSION["errorLastName"])) : ?>
@@ -251,7 +252,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                               id="exampleFormControlTextarea1"
                               rows="1"
                               name="internalNotes"
-                          ><?php checkErrorValue($_SESSION['inputInternalNotes'],$person['internalNotes'])?></textarea>
+                          ><?php checkErrorValue($_SESSION['inputInternalNotes'],$person['internal_notes'])?></textarea>
                         </div>
                       </div>
                     <?php } ?>

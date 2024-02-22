@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . "/utils-action.php";
 require_once __DIR__ ."/constants.php";
+require_once __DIR__ . "/../include/db.php";
+global $PDO;
 
 //function search($search): array
 //{
@@ -42,12 +44,12 @@ function paginatedData(array $array, int $page, int $limit): array
 function searchPersons($search, ?array $persons = null): array
 {
   if ($persons == null) {
-    $persons = getPersonsDataFromJson();
+    $persons = getPersonsDataFromDatabase();
   }
   $searchResult = [];
   foreach ($persons as $person => $value) {
-    if (preg_match("/$search/i", $value["firstName"])) {
-      if (in_array($value["firstName"], $searchResult) == false) {
+    if (preg_match("/$search/i", $value["first_name"])) {
+      if (in_array($value["first_name"], $searchResult) == false) {
         $searchResult[] = $value;
       }
     }
@@ -60,16 +62,28 @@ function searchPersons($search, ?array $persons = null): array
   return $searchResult;
 }
 
+//function getProductiveAgesData(): array
+//{
+//  $persons = getPersonsDataFromJson();
+//  $productiveAges = [];
+//  foreach ($persons as $person) {
+//    if (checkAges($person["birthDate"]) >= 6 && checkAges($person["birthDate"]) <= 60 && $person["alive"] != null) {
+//      $productiveAges[] = $person;
+//    }
+//  }
+//  return $productiveAges;
+//}
+
 /**
  * Check and get toddler data
  * @return array
  */
 function getToddlerData(): array
 {
-  $persons = getPersonsDataFromJson();
+  $persons = getPersonsDataFromDatabase();
   $toddler = [];
   foreach ($persons as $person) {
-    if (checkAges($person["birthDate"]) <= 5 && $person["alive"] != null) {
+    if (checkAges($person["birth_date"]) <= 5 && $person["status"] != 0) {
       $toddler[] = $person;
     }
   }
@@ -81,10 +95,10 @@ function getToddlerData(): array
  */
 function getPassedAwayData(): array
 {
-  $persons = getPersonsDataFromJson();
+  $persons = getPersonsDataFromDatabase();
   $passedAway = [];
   foreach ($persons as $person) {
-    if ($person["alive"] == null) {
+    if ($person["status"] == 0 ){
       $passedAway[] = $person;
     }
   }
@@ -97,10 +111,10 @@ function getPassedAwayData(): array
  */
 function getProductiveAgesData(): array
 {
-  $persons = getPersonsDataFromJson();
   $productiveAges = [];
+  $persons = getPersonsDataFromDatabase();
   foreach ($persons as $person) {
-    if (checkAges($person["birthDate"]) >= 6 && checkAges($person["birthDate"]) <= 60 && $person["alive"] != null) {
+    if (checkAges($person["birth_date"]) >= 6 && checkAges($person["birth_date"]) <= 60 && $person["status"] != 0) {
       $productiveAges[] = $person;
     }
   }
@@ -113,10 +127,10 @@ function getProductiveAgesData(): array
  */
 function getElderlyData():array
 {
-  $persons = getPersonsDataFromJson();
+  $persons = getPersonsDataFromDatabase();
   $elderly = [];
   foreach ($persons as $person) {
-    if (checkAges($person["birthDate"]) > 60 && $person["alive"] != null) {
+    if (checkAges($person["birth_date"]) > 60 && $person["status"] != 0) {
       $elderly[] = $person;
     }
   }
