@@ -43,7 +43,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                 </div>
               <?php } else {
 //                $person = getPersonDataById($_GET['id']);
-                $person = getPersonByIdFromDatabase();
+                $person = getPersonByIdFromDatabase($_GET["id"]);
                 $birthDate = translateDateFromIntToString($person['birth_date']);
                 $_SESSION['id'] = $_GET['id'];
                 ?>
@@ -74,7 +74,6 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                 <?php } ?>
                 <?php $id = $_GET['id']?>
                 <form class="person-form" action="action/edit-person-action.php" name="edit-form" method="post">
-                  <input type="hidden" name="id" value="<?= $id ?>"/>
                   <div class="d-md-flex">
                     <div class="col-12 col-md-6 col-lg-6">
                       <div class="mb-3 form-padding">
@@ -185,13 +184,15 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                           <option value="<?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) {
                             echo $_SESSION['inputSex'];
                           } else {
-                            echo $person['sex'];
+                            echo translateValue($person['sex'], "F" , "FEMALE","MALE");
+//                            echo $person['sex'];
                           }
                           ?>">
                             <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) {
                               echo $_SESSION['inputSex'] == "MALE" ? "MALE" : "FEMALE";
                             } else {
-                              echo $person['sex'] == "MALE" ? "MALE" : "FEMALE";
+                              echo translateValue($person['sex'], "F" , "FEMALE","MALE")  == "MALE" ? "MALE" : "FEMALE";
+//                              echo $person['sex'] == "MALE" ? "MALE" : "FEMALE";
                             } ?>
                           </option>
                           <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) { ?>
@@ -199,7 +200,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                                 value="<?php echo $_SESSION['inputSex'] == "MALE" ? "FEMALE" : "MALE"; ?>"><?php echo $_SESSION['inputSex'] == "MALE" ? "FEMALE" : "MALE"; ?></option>
                           <?php } else if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
                             <option value="MALE">MALE</option>
-                          <?php } else if ($person['sex'] == "F") { ?>
+                          <?php } else if (translateValue($person['sex'], "F" , "FEMALE","MALE") == "FEMALE") { ?>
                             <option value="MALE">MALE</option>
                           <?php } else { ?>
                             <option value="FEMALE">FEMALE</option>
@@ -238,13 +239,13 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                           <option value="<?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputRole'])) {
                             echo $_SESSION['inputRole'];
                           } else {
-                            echo $person['role'];
+                            echo translateValue($person['role'], "A" , "ADMIN","MEMBER");
                           }
                           ?>">
                             <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputRole'])) {
                               echo $_SESSION['inputRole'] == "ADMIN" ? "ADMIN" : "MEMBER";
                             } else {
-                              echo $person['role'] == "ADMIN" ? "ADMIN" : "MEMBER";
+                                echo translateValue($person['role'], "A" , "ADMIN","MEMBER") == "ADMIN" ? "ADMIN" : "MEMBER";
                             } ?>
                           </option>
                           <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputRole'])) { ?>
@@ -253,7 +254,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                               <?php echo $_SESSION['inputRole'] == "ADMIN" ? "MEMBER" : "ADMIN"; ?></option>
                           <?php } else if (isset($_SESSION['inputRole']) == "MEMBER") { ?>
                             <option value="ADMIN">ADMIN</option>
-                          <?php } else if ($person['role'] == "M") { ?>
+                          <?php } else if (translateValue($person['role'], "A" , "ADMIN","MEMBER") == "MEMBER") { ?>
                             <option value="ADMIN">ADMIN</option>
                           <?php } else { ?>
                             <option value="MEMBER">MEMBER</option>

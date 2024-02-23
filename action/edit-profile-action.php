@@ -3,6 +3,8 @@
 session_start();
 require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/utils-action.php";
+require_once __DIR__ . "/../include/db.php";
+global $PDO;
 
 $errorData = validateErrorInput($_POST['nik'],
   $_POST['email'],
@@ -18,7 +20,7 @@ $errorPassword = validatePassword($_POST['currentPassword'],
   $_SESSION['id']
 );
 
-$person = getPersonDataByEmail($_SESSION['userEmail']);
+//$person = getPersonDataByEmail($_SESSION['userEmail']);
   if (count($errorData) != 0 || count($errorPassword) != 0) {
 //  SESSION ERROR INPUT
   $_SESSION['errorNik'] = $errorData["nik"];
@@ -35,22 +37,49 @@ $person = getPersonDataByEmail($_SESSION['userEmail']);
   exit();
 } else {
 //  $persons = getPersonsDataFromJson();
-  $persons = getPersonsDataFromDatabase();
-  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
-  for ($i = 0; $i < count($persons); $i++) {
-    $password = checkPassword($_POST['password'], $persons[$i]['password']);
-    if ($persons[$i]['email'] == $_SESSION['userEmail']) {
-      $persons[$i]["nik"] = htmlspecialchars($_POST['nik']);
-      $persons[$i]["firstName"] = htmlspecialchars($_POST['firstName']);
-      $persons[$i]["lastName"] = htmlspecialchars($_POST['lastName']);
-      $persons[$i]["birthDate"] = $birthDate;
-      $persons[$i]["sex"] = $_POST['sex'];
-      $persons[$i]["email"] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-      $persons[$i]["password"] = $password;
-      $persons[$i]["address"] = htmlspecialchars($_POST['address']);
-      $persons[$i]["internalNotes"] = htmlspecialchars($_POST['internalNotes']);
-      saveDataIntoJson("persons.json",$persons);
-      redirect("../persons.php", "changed");
+//  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
+//  for ($i = 0; $i < count($persons); $i++) {
+//    $password = checkPassword($_POST['password'], $persons[$i]['password']);
+//    if ($persons[$i]['email'] == $_SESSION['userEmail']) {
+//      $persons[$i]["nik"] = htmlspecialchars($_POST['nik']);
+//      $persons[$i]["firstName"] = htmlspecialchars($_POST['firstName']);
+//      $persons[$i]["lastName"] = htmlspecialchars($_POST['lastName']);
+//      $persons[$i]["birthDate"] = $birthDate;
+//      $persons[$i]["sex"] = $_POST['sex'];
+//      $persons[$i]["email"] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+//      $persons[$i]["password"] = $password;
+//      $persons[$i]["address"] = htmlspecialchars($_POST['address']);
+//      $persons[$i]["internalNotes"] = htmlspecialchars($_POST['internalNotes']);
+//      saveDataIntoJson("persons.json",$persons);
+//      redirect("../persons.php", "changed");
+//    }
+//  }
+    $person = getPersonsDataByEmailFromDatabase($_SESSION["email"]);
+    $password = checkPassword($_POST['password'], $person['password']);
+    $sex = translateGender($_POST["sex"]);
+    try {
+      $query = 'UPDATE persons SET nik = :nik, first_name = :first_name, last_name = :last_name,
+                   birth_date = :birth_date, sex = :sex, email = :email, password = :password, address = :address,
+                   internal_notes = :internal_notes WHERE id = :id';
+      $statement = $PDO->prepare($query);
+      $statement->execute(array(
+        "id" => $person["id"],
+        "nik" => $_POST["nik"],
+        "first_name" => $_POST["firstName"],
+        "last_name" => $_POST["lastName"],
+        "birth_date" => translateDateFromStringToInt($_POST["birthDate"]),
+        "sex" => $sex,
+        "email" => $_POST["email"],
+        "password" => $password,
+        "address" => $_POST["address"],
+        "internal_notes" => $_POST["internalNotes"],
+      ));
+      $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
+      $_SESSION['info'] = "Person data has been updated ($name).";
+      redirect("../persons.php", "success");
+    } catch (PDOException $e) {
+      $_SESSION['error'] = 'Query error: ' . $e->getMessage();
+      header('Location: ../edit-person.php?error=1');
+      die();
     }
-  }
 }

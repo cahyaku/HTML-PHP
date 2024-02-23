@@ -130,14 +130,12 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly"):
             $persons = getElderlyData();
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
-//            $persons = getPersonsDataFromJson();
             $persons = getPersonsDataFromDatabase();
           elseif ($_GET["search"]):
             $searchInput = $_GET["search"];
             $persons = searchPersons($searchInput);
           else:
             $persons = getPersonsDataFromDatabase();
-//            $persons = getPersonsDataFromJson();
           endif;
           ?>
           <thead>
@@ -239,7 +237,8 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             </div>
           <?php elseif (isset($_GET['deleted'])): ?>
             <div class="alert alert-success form-padding alert-padding" role="alert">
-              Person data has been deleted !!!
+              <?php echo $_SESSION["delete"] ?>
+<!--              Person data has been deleted !!!-->
             </div>
           <?php endif; ?>
           <nav aria-label="Page navigation example">
@@ -250,7 +249,11 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
               } else {
                 $filterByAge = "?";
               } ?>
-              <?php if ($page > 1) { ?>
+              <?php
+              
+              if ($data[PAGING_TOTAL_PAGE] >= $_GET['page'] && $page > 1 && is_numeric($_GET['page']) != null)
+//              if ($page > 1)
+              { ?>
                 <li class="page-item">
                   <a class="page-link" aria-label="Previous"
                      href="<?php echo $filterByAge ?>page=<?php echo $previous ?>">
@@ -258,6 +261,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                   </a>
                 </li>
               <?php } ?>
+              
               <?php
               for ($x = 1; $x <= $data[PAGING_TOTAL_PAGE]; $x++) {
                 ?>
@@ -265,6 +269,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                                          href="<?php echo $filterByAge ?>page=<?php echo $x ?>"><?php echo $x; ?></a>
                 </li>
               <?php } ?>
+              
               <?php
               if ($page < $data[PAGING_TOTAL_PAGE]) {
                 ?>

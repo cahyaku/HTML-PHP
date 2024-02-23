@@ -35,7 +35,8 @@ if (intval($id)) {
     $statement->execute(array(
       "id" => $id
     ));
-//    $_SESSION['info'] = '"' . $person['name'] . '" data has been deleted.';
+    
+    $_SESSION['delete'] = '"' . $person['first_name'] . " " . $person['last_name'] . '" data has been deleted.';
       redirect("../persons.php", "deleted");
   } else {
     $_SESSION['error'] = 'Person data with given ID was not found!';

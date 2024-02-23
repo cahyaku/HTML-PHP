@@ -50,7 +50,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $allPersons = count(getPersonsDataFromJson());
+                  $allPersons = count(getPersonsDataFromDatabase());
                   echo "<h2 class='title'>";
                   echo "$allPersons";
                   echo "</h2>";

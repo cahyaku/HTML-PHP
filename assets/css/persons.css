@@ -178,8 +178,9 @@ thead tr {
   font-size: 1.4rem;
   /*background-color: #5c7cfa;*/
   /*background-color: #3b5bdb;*/
-  background-color: #748ffc;
-  /*background-color: #91a7ff;*/
+  /*background-color: #748ffc;*/
+  background-color: #91a7ff;
+  color:#111;
 }
 
 .table-width {

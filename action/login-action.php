@@ -30,7 +30,7 @@ function validateData($data)
 
 if (validateData($loginData)) {
   $_SESSION['email'] = $_POST['email'];
-//  database
+// DATABASE Mysql
   $_SESSION['userFirstName'] = validateData($loginData)['first_name'];
   $_SESSION['userLastName'] = validateData($loginData)['last_name'];
   $_SESSION['userLoggedIn'] = validateData($loginData)['logged_in'];

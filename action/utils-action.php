@@ -16,18 +16,18 @@ function getPersonsDataFromDatabase():array
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function getPersonByIdFromDatabase()
+/**
+ * Function get person data by id (database)
+ * @param $id
+ * @return mixed
+ */
+function getPersonByIdFromDatabase($id)
 {
   global $PDO;
   $query = 'SELECT * FROM persons WHERE id = :id';
   $statement = $PDO->prepare($query);
-  $statement ->execute(array("id" =>$_GET["id"]));
+  $statement ->execute(array("id" =>$id));
   return $statement->fetch(PDO::FETCH_ASSOC);
-//          $query = 'SELECT * FROM Persons WHERE ID = :personId';
-//          $statement = $PDO->prepare($query);
-//          $statement ->execute(array('personId' => $_GET['person']));
-//          $thePerson = $statement->fetch(PDO::FETCH_ASSOC);
-//          $persons = getPersonDataById($_GET['id']);
 }
 
 function redirect($url, $getParams): void
@@ -77,9 +77,10 @@ function redirectWhenNotLoggedIn($email): void
  * @param $email
  * @return mixed
  */
-function getPersonDataByEmail($email): mixed
+function getPersonDataByEmail($email)
 {
-  $persons = getPersonsDataFromJson();
+//  $persons = getPersonsDataFromJson();
+  $persons = getPersonsDataFromDatabase();
   for ($i = 0; $i < count($persons); $i++) {
     if ($email == $persons[$i]['email']) {
       return $persons[$i];
@@ -89,13 +90,11 @@ function getPersonDataByEmail($email): mixed
 }
 
 function getPersonsDataByEmailFromDatabase($email){
-  $persons = getPersonsDataFromDatabase();
-  for ($i = 0; $i < count($persons); $i++) {
-    if ($email == $persons[$i]['email']) {
-      return $persons[$i];
-    }
-  }
-  return null;
+  global $PDO;
+  $query = 'SELECT * FROM persons WHERE email = :email';
+  $statement = $PDO->prepare($query);
+  $statement ->execute(array("email" =>$email));
+  return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -169,7 +168,8 @@ function checkRole($email): array|null
  */
 function isNikExists($nik, ?int $id): bool
 {
-  $persons = getPersonsDataFromJson();
+//  $persons = getPersonsDataFromJson();
+  $persons = getPersonsDataFromDatabase();
   for ($i = 0; $i < count($persons); $i++) :
     if ($id == null) {
       if ($persons[$i]['nik'] == $nik) {
@@ -246,7 +246,8 @@ function checkPassword($password, $currentPassword): string
  */
 function checkCurrentPassword($currentPassword, $id): bool
 {
-  $persons = getPersonsDataFromJson();
+//  $persons = getPersonsDataFromJson();
+  $persons = getPersonsDataFromDatabase();
   for ($i = 0; $i < count($persons); $i++) {
     if ($id == $persons[$i]['id']) {
       $verify = password_verify($currentPassword, $persons[$i]['password']);

@@ -45,7 +45,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", personsNav: "persons
               Person data was not found!!!
             </div>
           <?php } else {
-          $persons = getPersonByIdFromDatabase();
+          $persons = getPersonByIdFromDatabase($_GET["id"]);
           ?>
           <div class="person-data">
             <div class="card card-shadow">

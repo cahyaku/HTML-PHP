@@ -115,24 +115,6 @@ if (count($errorData) != 0) {
   $sex = translateGender($_POST["sex"]);
   $role = translateRole($_POST["role"]);
   $status = translateStatus($_POST["status"]);
-//  $personData = [
-//    "id" => $id,
-//    "nik" => htmlspecialchars($_POST['nik']),
-//    "firstName" =>htmlspecialchars($_POST['firstName']),
-//    "lastName" => htmlspecialchars($_POST['lastName']),
-//    "birthDate" => $birthDate,
-//    "sex" => $_POST['sex'],
-//    "email" => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),
-//    "password" => $password,
-//    "address" => htmlspecialchars($_POST['address']),
-//    "role" => $_POST['role'],
-//    "internalNotes" => htmlspecialchars($_POST['internalNotes']),
-//    "loggedIn" => null,
-//    "alive" => $_POST['alive']
-//  ];
-//  $persons[] = $personData;
-//  saveDataIntoJson("persons.json",$persons);
-//  redirect("../persons.php", "success");
   try {
     $query = 'INSERT INTO persons(nik,first_name,last_name,birth_date,sex,email, password,address,role,internal_notes,status)
 VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:role,:internal_notes,:status)';
@@ -150,7 +132,7 @@ VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:r
       "internal_notes" => $_POST["internalNotes"],
       "status" => $status
       ) );
-    $name = $_POST["firstName"];
+    $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
     $_SESSION['info'] = "New person data has been saved ($name).";
     redirect("../persons.php", "success");
   } catch ( PDOException $e ) {
