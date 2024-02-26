@@ -38,7 +38,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
           </p>
         </div>
       </div>
-
+<?php $persons = getPersonsDataFromDatabase(); ?>
       <div class="dashboard-boxs">
         <div class="row row-gap-4">
           <!--ALL PERSONS-->
@@ -76,7 +76,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="happy" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $toddler = count(getToddlerData());
+                  $toddler = count(getToddlerData($persons));
                   echo "<h2 class='title'>";
                   echo "$toddler";
                   echo "</h2>";

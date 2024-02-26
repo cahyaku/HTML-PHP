@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/utils-action.php";
-require_once __DIR__ ."/constants.php";
+require_once __DIR__ . "/constants.php";
 require_once __DIR__ . "/../include/db.php";
 global $PDO;
 
@@ -41,25 +41,35 @@ function paginatedData(array $array, int $page, int $limit): array
 /**
  * Search person data by first name or NIK
  */
-function searchPersons($search, ?array $persons = null): array
+//function searchPersons($search, ?array $persons = null): array
+//{
+//  if ($persons == null) {
+//    $persons = getPersonsDataFromDatabase();
+//  }
+//  $searchResult = [];
+//  foreach ($persons as $person => $value) {
+//    if (preg_match("/$search/i", $value["first_name"])) {
+//      if (in_array($value["first_name"], $searchResult) == false) {
+//        $searchResult[] = $value;
+//      }
+//    }
+//    if (preg_match("/$search/i", $value["nik"])) {
+//      if (in_array($value["nik"], $searchResult) == false) {
+//        $searchResult[] = $value;
+//      }
+//    }
+//  }
+//  return $searchResult;
+//}
+
+function searchPersons($search, ?array $persons = null): array|null
 {
-  if ($persons == null) {
-    $persons = getPersonsDataFromDatabase();
-  }
-  $searchResult = [];
-  foreach ($persons as $person => $value) {
-    if (preg_match("/$search/i", $value["first_name"])) {
-      if (in_array($value["first_name"], $searchResult) == false) {
-        $searchResult[] = $value;
-      }
-    }
-    if (preg_match("/$search/i", $value["nik"])) {
-      if (in_array($value["nik"], $searchResult) == false) {
-        $searchResult[] = $value;
-      }
-    }
-  }
-  return $searchResult;
+      global $PDO;
+//      $query = "SELECT * FROM persons WHERE first_name, LIKE '%$search%' OR nik LIKE '%$search%'";
+      $query = "SELECT * FROM persons WHERE concat(first_name, nik) LIKE '%$search%'";
+      $statement = $PDO->prepare($query);
+      $statement->execute();
+      return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
 //function getProductiveAgesData(): array
@@ -78,9 +88,11 @@ function searchPersons($search, ?array $persons = null): array
  * Check and get toddler data
  * @return array
  */
-function getToddlerData(): array
+function getToddlerData(?array $persons = null): array
 {
-  $persons = getPersonsDataFromDatabase();
+//  if ($persons == null) {
+//    $persons = getPersonsDataFromDatabase();
+//  }
   $toddler = [];
   foreach ($persons as $person) {
     if (checkAges($person["birth_date"]) <= 5 && $person["status"] != 0) {
@@ -93,12 +105,14 @@ function getToddlerData(): array
 /**
  * Get passed away data from json
  */
-function getPassedAwayData(): array
+function getPassedAwayData(?array $persons = null): array
 {
-  $persons = getPersonsDataFromDatabase();
+  if ($persons == null) {
+    $persons = getPersonsDataFromDatabase();
+  }
   $passedAway = [];
   foreach ($persons as $person) {
-    if ($person["status"] == 0 ){
+    if ($person["status"] == 0) {
       $passedAway[] = $person;
     }
   }
@@ -109,10 +123,12 @@ function getPassedAwayData(): array
  * Get productive ages data
  * @return array
  */
-function getProductiveAgesData(): array
+function getProductiveAgesData(?array $persons = null): array
 {
+  if ($persons == null) {
+    $persons = getPersonsDataFromDatabase();
+  }
   $productiveAges = [];
-  $persons = getPersonsDataFromDatabase();
   foreach ($persons as $person) {
     if (checkAges($person["birth_date"]) >= 6 && checkAges($person["birth_date"]) <= 60 && $person["status"] != 0) {
       $productiveAges[] = $person;
@@ -125,9 +141,11 @@ function getProductiveAgesData(): array
  * Get elderly data
  * @return array
  */
-function getElderlyData():array
+function getElderlyData(?array $persons = null): array
 {
-  $persons = getPersonsDataFromDatabase();
+  if ($persons == null) {
+    $persons = getPersonsDataFromDatabase();
+  }
   $elderly = [];
   foreach ($persons as $person) {
     if (checkAges($person["birth_date"]) > 60 && $person["status"] != 0) {
@@ -140,7 +158,7 @@ function getElderlyData():array
 /**
  * Check and get person age by date of birth
  */
-function checkAges($birthDate):int
+function checkAges($birthDate): int
 {
   $date = date("d-m-Y", $birthDate);
   list($day, $month, $year) = explode('-', $date);

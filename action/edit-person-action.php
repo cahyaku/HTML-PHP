@@ -105,8 +105,8 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
           "status" => $status
         ));
         $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
-        $_SESSION['info'] = "Person data has been updated ($name).";
-        redirect("../persons.php", "success");
+        $_SESSION['changed'] = "Person data has been updated ($name).";
+        redirect("../persons.php", "changed");
       } catch (PDOException $e) {
         $_SESSION['error'] = 'Query error: ' . $e->getMessage();
         header('Location: ../edit-person.php?error=1');

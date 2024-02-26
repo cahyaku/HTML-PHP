@@ -192,7 +192,7 @@ function isNikExists($nik, ?int $id): bool
  */
 function isEmailExists($email, ?string $id): bool
 {
-  $persons = getPersonsDataFromJson();
+  $persons = getPersonsDataFromDatabase();
   for ($i = 0; $i < count($persons); $i++) :
     if ($id == null) {
       if ($persons[$i]['email'] == $email) {

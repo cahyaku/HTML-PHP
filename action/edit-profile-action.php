@@ -20,7 +20,6 @@ $errorPassword = validatePassword($_POST['currentPassword'],
   $_SESSION['id']
 );
 
-//$person = getPersonDataByEmail($_SESSION['userEmail']);
   if (count($errorData) != 0 || count($errorPassword) != 0) {
 //  SESSION ERROR INPUT
   $_SESSION['errorNik'] = $errorData["nik"];

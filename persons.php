@@ -85,7 +85,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
               aria-label="Search"
               value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>"
           />
-          
           <?php if (isset($_GET['search']) || isset($_GET['searchByAge'])) { ?>
             <a href="persons.php">
               <button
@@ -109,26 +108,32 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
           <?php
+              $personsData = getPersonsDataFromDatabase();
+          
           if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null):
-            $toddler = getToddlerData();
-            $persons = searchPersons($_GET['search'], $toddler);
+            $searchToddler = searchPersons($_GET['search']);
+            $persons = getToddlerData($searchToddler);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler"):
-            $persons = getToddlerData();
+            $persons = getToddlerData($personsData);
+          
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null):
-            $productiveAges = getProductiveAgesData();
-            $persons = searchPersons($_GET['search'], $productiveAges);
+            $searchProductiveAges = searchPersons($_GET['search']);
+            $persons = getProductiveAgesData($searchProductiveAges);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges"):
             $persons = getProductiveAgesData();
+          
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null):
-            $passedAway = getPassedAwayData();
-            $persons = searchPersons($_GET['search'], $passedAway);
+            $searchPassedAway = searchPersons($_GET['search']);
+            $persons = getPassedAwayData($searchPassedAway);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway"):
             $persons = getPassedAwayData();
+          
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly" && $_GET['search'] != null):
-            $elderly = getElderlyData();
-            $persons = searchPersons($_GET['search'], $elderly);
+            $searchElderly = searchPersons($_GET['search']);
+            $persons = getElderlyData($searchElderly);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly"):
             $persons = getElderlyData();
+          
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
             $persons = getPersonsDataFromDatabase();
           elseif ($_GET["search"]):
@@ -159,7 +164,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             } else {
               $page = $_GET['page'];
             }
-            $limit = 5;
+            $limit = 10;
             $previous = $page - 1;
             $next = $page + 1;
             $data = paginatedData($persons, $page, $limit);
@@ -213,7 +218,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
         </table>
         
         <?php
-        if (count($persons) == 0) {
+        if (count($persons) == null) {
           ?>
           <div class="alert alert-danger" role="alert">
             Person data was not found!!!
@@ -228,17 +233,15 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             </div>
           <?php elseif (isset($_GET['success'])): ?>
             <div class="alert alert-success form-padding alert-padding" role="alert">
-<!--              Data person has been saved !!!-->
               <?php echo $_SESSION['info']; ?>
             </div>
           <?php elseif (isset($_GET['changed'])): ?>
             <div class="alert alert-success form-padding alert-padding" role="alert">
-              Person data has been changed !!!
+              <?php echo $_SESSION["changed"] ?>
             </div>
           <?php elseif (isset($_GET['deleted'])): ?>
             <div class="alert alert-success form-padding alert-padding" role="alert">
               <?php echo $_SESSION["delete"] ?>
-<!--              Person data has been deleted !!!-->
             </div>
           <?php endif; ?>
           <nav aria-label="Page navigation example">
@@ -250,7 +253,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 $filterByAge = "?";
               } ?>
               <?php
-              
               if ($data[PAGING_TOTAL_PAGE] >= $_GET['page'] && $page > 1 && is_numeric($_GET['page']) != null)
 //              if ($page > 1)
               { ?>
@@ -269,7 +271,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                                          href="<?php echo $filterByAge ?>page=<?php echo $x ?>"><?php echo $x; ?></a>
                 </li>
               <?php } ?>
-              
               <?php
               if ($page < $data[PAGING_TOTAL_PAGE]) {
                 ?>
