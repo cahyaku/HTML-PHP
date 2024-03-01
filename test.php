@@ -350,3 +350,44 @@
 <!--//  $persons[] = $personData;-->
 <!--//  saveDataIntoJson("persons.json",$persons);-->
 <!--//  redirect("../persons.php", "success");-->
+
+<!-- Function search person-->
+//function search($search): array
+//{
+//  $persons = getPersonsDataFromJson();
+//  $searchResult = [];
+//  foreach ($persons as $person => $value) {
+//    if (preg_match("/$search/i", $value["firstName"])) {
+//      if (in_array($value["firstName"], $searchResult) == false) {
+//        $searchResult[] = $value;
+//      }
+//    }
+//    if (preg_match("/$search/i", $value["nik"])) {
+//      if (in_array($value["nik"], $searchResult) == false) {
+//        $searchResult[] = $value;
+//      }
+//    }
+//  }
+//  return $searchResult;
+//}
+
+<!--Function untuk menampilkan data berdasarkan halaman-->
+<!--function paginatedData($array,int $page, int $limit): array-->
+<!--{-->
+<!--global $PDO;-->
+<!--$db = "SELECT count(*) FROM persons";-->
+<!--$s = $PDO->query($db);-->
+<!--$total_results = $s->fetchColumn();-->
+<!--$totalPage = ceil($total_results / $limit);-->
+<!---->
+<!--$offset = ($page - 1) * $limit;-->
+<!--$query = "SELECT * FROM persons LIMIT $limit OFFSET $offset";-->
+<!--$statement = $PDO->prepare($query);-->
+<!--$statement->execute();-->
+<!--$dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);-->
+<!--return [-->
+<!--PAGING_TOTAL_PAGE => $totalPage,-->
+<!--PAGING_DATA => $dbArray,-->
+<!--PAGING_CURRENT_PAGE => $page,-->
+<!--];-->
+<!--}-->

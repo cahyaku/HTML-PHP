@@ -102,7 +102,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="accessibility" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $productiveAges = count(getProductiveAgesData());
+                  $productiveAges = count(getProductiveAgesData($persons));
                   echo "<h2 class='title'>";
                   echo "$productiveAges";
                   echo "</h2>";
@@ -128,7 +128,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $elderly = count(getElderlyData());
+                  $elderly = count(getElderlyData($persons));
                   echo "<h2 class='title'>";
                   echo "$elderly";
                   echo "</h2>";
@@ -154,7 +154,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="man" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $passedAway = count(getPassedAwayData());
+                  $passedAway = count(getPassedAwayData($persons));
                   echo "<h2 class='title'>";
                   echo "$passedAway";
                   echo "</h2>";

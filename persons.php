@@ -4,6 +4,7 @@ require_once __DIR__ . "/action/utils-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 require_once __DIR__ . "/action/persons-action.php";
 require_once __DIR__ . "/include/db.php";
+require_once __DIR__ . "/action/constants.php";
 global $PDO;
 ?>
 
@@ -108,32 +109,27 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
           <?php
-              $personsData = getPersonsDataFromDatabase();
-          
+          $personsData = getPersonsDataFromDatabase();
           if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null):
             $searchToddler = searchPersons($_GET['search']);
             $persons = getToddlerData($searchToddler);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler"):
             $persons = getToddlerData($personsData);
-          
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null):
             $searchProductiveAges = searchPersons($_GET['search']);
             $persons = getProductiveAgesData($searchProductiveAges);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges"):
-            $persons = getProductiveAgesData();
-          
+            $persons = getProductiveAgesData($personsData);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null):
             $searchPassedAway = searchPersons($_GET['search']);
             $persons = getPassedAwayData($searchPassedAway);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway"):
-            $persons = getPassedAwayData();
-          
+            $persons = getPassedAwayData($personsData);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly" && $_GET['search'] != null):
             $searchElderly = searchPersons($_GET['search']);
             $persons = getElderlyData($searchElderly);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly"):
-            $persons = getElderlyData();
-          
+            $persons = getElderlyData($personsData);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
             $persons = getPersonsDataFromDatabase();
           elseif ($_GET["search"]):
@@ -254,7 +250,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
               } ?>
               <?php
               if ($data[PAGING_TOTAL_PAGE] >= $_GET['page'] && $page > 1 && is_numeric($_GET['page']) != null)
-//              if ($page > 1)
               { ?>
                 <li class="page-item">
                   <a class="page-link" aria-label="Previous"
