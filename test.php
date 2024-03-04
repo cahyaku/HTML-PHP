@@ -391,3 +391,63 @@
 <!--PAGING_CURRENT_PAGE => $page,-->
 <!--];-->
 <!--}-->
+
+//  if (isset($array)) {
+//    for($i = 0; $i < count($array); $i++) {
+//      $birthDate = $array[$i]["status"];
+//      $query = "SELECT * FROM persons WHERE birth_date LIKE '%$birthDate%' LIMIT $limit OFFSET $offset";
+//      $statement = $PDO->prepare($query);
+//      $statement->execute();
+//      $array = $statement->fetchAll(PDO::FETCH_ASSOC);
+//    }
+//    return [
+//      PAGING_TOTAL_PAGE => $totalPage,
+//      PAGING_DATA => $array,
+//      PAGING_CURRENT_PAGE => $page,
+//    ];
+//  } else {
+//    $query = "SELECT * FROM persons LIMIT $limit OFFSET $offset";
+//    $statement = $PDO->prepare($query);
+//    $statement->execute();
+//    $dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);
+//    return [
+//      PAGING_TOTAL_PAGE => $totalPage,
+//      PAGING_DATA => $dbArray,
+//      PAGING_CURRENT_PAGE => $page,
+//    ];
+//  }
+
+//function getProductiveAgesData(): array
+//{
+//  $persons = getPersonsDataFromJson();
+//  $productiveAges = [];
+//  foreach ($persons as $person) {
+//    if (checkAges($person["birthDate"]) >= 6 && checkAges($person["birthDate"]) <= 60 && $person["alive"] != null) {
+//      $productiveAges[] = $person;
+//    }
+//  }
+//  return $productiveAges;
+//}
+
+
+<!--$max = time() - (15 * (60 * 60 * 24 * 365));-->
+<!--$min = time() - (64 * (60 * 60 * 24 * 365));-->
+<!--$queryFilter = "SELECT * FROM Persons WHERE email LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%'-->
+<!--AND birth_date >= $min AND birth_date <= $max AND alive = :alive";-->
+<!--$statementFilter = $PDO->prepare($queryFilter);-->
+<!--$statementFilter->execute(array(-->
+<!--'alive' => 1-->
+<!--));-->
+<!--$filterData = $statementFilter->fetchAll(PDO::FETCH_ASSOC);-->
+<!---->
+<!--$query = "SELECT * FROM Persons WHERE email LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%'-->
+<!--AND birth_date >= $min AND birth_date <= $max AND alive = :alive LIMIT $limit OFFSET $offset";-->
+<!--$statement = $PDO->prepare($query);-->
+<!--$statement->execute(array(-->
+<!--'alive' => 1-->
+<!--));-->
+<!--$pageFilter = $statement->fetchAll(PDO::FETCH_ASSOC);-->
+<!--return [-->
+<!--'filterData' => $filterData,-->
+<!--'pagingData' => $pageFilter-->
+<!--];-->

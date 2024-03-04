@@ -130,6 +130,8 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             $persons = getElderlyData($searchElderly);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly"):
             $persons = getElderlyData($personsData);
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons" && $_GET['search'] != null):
+            $persons = searchPersons($_GET['search']);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
             $persons = getPersonsDataFromDatabase();
           elseif ($_GET["search"]):
@@ -160,7 +162,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             } else {
               $page = $_GET['page'];
             }
-            $limit = 10;
+            $limit = 5;
             $previous = $page - 1;
             $next = $page + 1;
             $data = paginatedData($persons, $page, $limit);

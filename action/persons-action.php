@@ -4,91 +4,63 @@ require_once __DIR__ . "/constants.php";
 require_once __DIR__ . "/../include/db.php";
 global $PDO;
 
-function paginatedData($array, int $page, int $limit): array
-{
-  global $PDO;
-  $db = "SELECT count(*) FROM persons";
-  $s = $PDO->query($db);
-  $total_results = $s->fetchColumn();
-  $totalPage = ceil($total_results / $limit);
-
-  $offset = ($page - 1) * $limit;
-  $query = "SELECT * FROM persons LIMIT $limit OFFSET $offset";
-  $statement = $PDO->prepare($query);
-  $statement->execute();
-  $dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-  return [
-    PAGING_TOTAL_PAGE => $totalPage,
-    PAGING_DATA => $dbArray,
-    PAGING_CURRENT_PAGE => $page,
-  ];
-}
-
-//function paginatedData($array, int $page, int $limit): array|null
-//{
-//    global $PDO;
-//    $db = "SELECT count(*) FROM persons";
-//    $s = $PDO->query($db);
-//    $total_results = $s->fetchColumn();
-////    $totalPage = ceil($total_results / $limit);
-//
-//    for($i = 0; $i < count($array); $i++) {
-//      $totalPage = ceil((float)count($array) / (float)$limit);
-//      $offset = ($page - 1) * $limit;
-//      $birthDate = $array[$i]["birth_date"];
-//      $query = "SELECT * FROM persons WHERE birth_date LIKE '%$birthDate%' LIMIT $limit OFFSET $offset";
-//      $statement = $PDO->prepare($query);
-//      $statement->execute();
-//      $dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);
-//
-//      return [
-//        PAGING_TOTAL_PAGE => $totalPage,
-//        PAGING_DATA => $dbArray,
-//        PAGING_CURRENT_PAGE => $page,
-//      ];
-//    }
-////  if (isset($array)) {
-////    for($i = 0; $i < count($array); $i++) {
-////      $birthDate = $array[$i]["status"];
-////      $query = "SELECT * FROM persons WHERE birth_date LIKE '%$birthDate%' LIMIT $limit OFFSET $offset";
-////      $statement = $PDO->prepare($query);
-////      $statement->execute();
-////      $array = $statement->fetchAll(PDO::FETCH_ASSOC);
-////    }
-////    return [
-////      PAGING_TOTAL_PAGE => $totalPage,
-////      PAGING_DATA => $array,
-////      PAGING_CURRENT_PAGE => $page,
-////    ];
-////  } else {
-////    $query = "SELECT * FROM persons LIMIT $limit OFFSET $offset";
-////    $statement = $PDO->prepare($query);
-////    $statement->execute();
-////    $dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);
-////    return [
-////      PAGING_TOTAL_PAGE => $totalPage,
-////      PAGING_DATA => $dbArray,
-////      PAGING_CURRENT_PAGE => $page,
-////    ];
-////  }
-//  return null;
-//}
-
 //function paginatedData($array, int $page, int $limit): array
 //{
-//  $totalPage = ceil((float)count($array) / (float)$limit);
-//  $indexStart = ($page - 1) * $limit;
-//  $length = $limit;
-//  if (($indexStart + $limit) > count($array)) {
-//    $length = count($array) - $indexStart;
-//  }
+//  global $PDO;
+//  $db = "SELECT count(*) FROM persons";
+//  $s = $PDO->query($db);
+//  $total_results = $s->fetchColumn();
+//  $totalPage = ceil($total_results / $limit);
+//  $offset = ($page - 1) * $limit;
+//  $query = "SELECT * FROM persons LIMIT $limit OFFSET $offset";
+//  $statement = $PDO->prepare($query);
+//  $statement->execute();
+//  $dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);
 //  return [
 //    PAGING_TOTAL_PAGE => $totalPage,
-//    PAGING_DATA => array_slice($array, $indexStart, $length),
+//    PAGING_DATA => $dbArray,
 //    PAGING_CURRENT_PAGE => $page,
 //  ];
 //}
+
+/**
+ * Function paginated data, dengan menggunakan LIMIT dan OFFSET
+ */
+//function paginatedData($array, int $page, int $limit): array|null
+//{
+//  global $PDO;
+//  for ($i = 0; $i < count($array); $i++) {
+//    $totalPage = ceil((float)count($array) / (float)$limit);
+//    $nik = $array[$i]["nik"];
+//    $offset = ($page - 1) * $limit;
+//    $query = "SELECT * FROM persons WHERE nik LIKE '%$nik%' LIMIT $limit OFFSET $offset";
+//    $statement = $PDO->prepare($query);
+//    $statement->execute();
+//    $persons = $statement->fetchAll(PDO::FETCH_ASSOC);
+////    var_dump($persons);
+//    return [
+//      PAGING_TOTAL_PAGE => $totalPage,
+//      PAGING_DATA => $persons,
+//      PAGING_CURRENT_PAGE => $page,
+//    ];
+//  }
+//    return null;
+//}
+
+function paginatedData($array, int $page, int $limit): array
+{
+  $totalPage = ceil((float)count($array) / (float)$limit);
+  $indexStart = ($page - 1) * $limit;
+  $length = $limit;
+  if (($indexStart + $limit) > count($array)) {
+    $length = count($array) - $indexStart;
+  }
+  return [
+    PAGING_TOTAL_PAGE => $totalPage,
+    PAGING_DATA => array_slice($array, $indexStart, $length),
+    PAGING_CURRENT_PAGE => $page,
+  ];
+}
 
 /**
  * Search person data by first name or NIK
@@ -127,27 +99,12 @@ function searchPersons($search, ?array $persons = null): array|null
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-//function getProductiveAgesData(): array
-//{
-//  $persons = getPersonsDataFromJson();
-//  $productiveAges = [];
-//  foreach ($persons as $person) {
-//    if (checkAges($person["birthDate"]) >= 6 && checkAges($person["birthDate"]) <= 60 && $person["alive"] != null) {
-//      $productiveAges[] = $person;
-//    }
-//  }
-//  return $productiveAges;
-//}
-
 /**
  * Check and get toddler data
  * @return array
  */
-function getToddlerData(?array $persons = null): array
+function getToddlerData($persons): array
 {
-//  if ($persons == null) {
-//    $persons = getPersonsDataFromDatabase();
-//  }
   $toddler = [];
   foreach ($persons as $person) {
     if (checkAges($person["birth_date"]) <= 5 && $person["status"] != 0) {
