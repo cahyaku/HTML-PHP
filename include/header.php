@@ -5,7 +5,8 @@ function showHeader($title,
                     string $cssStyle2 = null,
                     string $personsNav = null,
                     string $dashboardNav = null,
-                    string $editProfileNav = null
+                    string $editProfileNav = null,
+                    string $jobsNav = null
 ):void
 { ?>
 <!DOCTYPE html>
@@ -196,7 +197,15 @@ function showHeader($title,
                     Persons
                   </a>
                 </li>
-
+                <li>
+                  <a
+                      class="main-nav-link <?php echo $jobsNav?>"
+                      href="jobs.php"
+                  >
+                    <ion-icon name="people"></ion-icon>
+                    Jobs
+                  </a>
+                </li>
                 <li class="my-acount-padding">
                   <p class="my-acount">My Account</p>
 

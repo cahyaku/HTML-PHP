@@ -134,9 +134,8 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             $persons = searchPersons($_GET['search']);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
             $persons = getPersonsDataFromDatabase();
-          elseif ($_GET["search"]):
-            $searchInput = $_GET["search"];
-            $persons = searchPersons($searchInput);
+          elseif (isset($_GET["search"])):
+            $persons = searchPersons($_GET["search"]);
           else:
             $persons = getPersonsDataFromDatabase();
           endif;
@@ -165,8 +164,22 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             $limit = 5;
             $previous = $page - 1;
             $next = $page + 1;
+//            $totalPage = ceil((float)count($persons) / (float)$limit);
+//            $result = [];
+//            for ($i = 0; $i < count($persons); $i++) {
+//              $personData = $persons[$i]["nik"];
+//              $data = paginatedData($personData, $page, $limit, $totalPage);
+//              $result[] = $data;
+//            }
+//            $personData = $result;
+//            var_dump($result);
+//            die();
+            
             $data = paginatedData($persons, $page, $limit);
             $personsData = $data[PAGING_DATA];
+
+//            $persons = $personsData($persons, $page, $limit);
+//            var_dump($personsData);
             $number = ($page - 1) * $limit + 1;
             for ($i = 0; $i < count($personsData); $i++) :
               ?>
@@ -175,9 +188,9 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 <td><?php echo $personsData[$i]["email"] ?></td>
                 <td>
                   <?php echo ucwords($personsData[$i]["first_name"]) . " " . ucwords($personsData[$i]["last_name"]) ?></td>
-                <td><?php echo translateValue($personsData[$i]["role"],"A", "ADMIN","MEMBER"); ?></td>
+                <td><?php echo translateValue($personsData[$i]["role"], "A", "ADMIN", "MEMBER"); ?></td>
                 <td><?php echo checkAges($personsData[$i]["birth_date"]) ?></td>
-                <td><?php echo translateValue($personsData[$i]["status"],1 , "Alive","Passed Away"); ?></td>
+                <td><?php echo translateValue($personsData[$i]["status"], 1, "Alive", "Passed Away"); ?></td>
                 <td>
                   <div class="table-button">
                     <div class="text-end">
@@ -251,8 +264,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 $filterByAge = "?";
               } ?>
               <?php
-              if ($data[PAGING_TOTAL_PAGE] >= $_GET['page'] && $page > 1 && is_numeric($_GET['page']) != null)
-              { ?>
+              if ($data[PAGING_TOTAL_PAGE] >= $_GET['page'] && $page > 1 && is_numeric($_GET['page']) != null) { ?>
                 <li class="page-item">
                   <a class="page-link" aria-label="Previous"
                      href="<?php echo $filterByAge ?>page=<?php echo $previous ?>">

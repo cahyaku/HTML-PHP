@@ -1,7 +1,9 @@
 <?php
 function showSidebar(string $personsNav = null,
                      string $dashboardNav = null,
-                     string $editProfileNav = null):void
+                     string $jobsNav = null,
+                     string $editProfileNav = null
+):void
 {
 ?>
   <div class="sidebar-content d-none d-lg-flex">
@@ -28,6 +30,12 @@ function showSidebar(string $personsNav = null,
                 class="md hydrated"
               ></ion-icon>
               Persons
+            </a>
+          </li>
+          <li>
+            <a class="main-nav-link <?php echo $jobsNav?>" href="jobs.php">
+              <ion-icon name="document"></ion-icon>
+              Jobs
             </a>
           </li>
           <li class="my-acount-padding">

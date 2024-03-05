@@ -429,7 +429,6 @@
 //  return $productiveAges;
 //}
 
-
 <!--$max = time() - (15 * (60 * 60 * 24 * 365));-->
 <!--$min = time() - (64 * (60 * 60 * 24 * 365));-->
 <!--$queryFilter = "SELECT * FROM Persons WHERE email LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%'-->
@@ -450,4 +449,48 @@
 <!--return [-->
 <!--'filterData' => $filterData,-->
 <!--'pagingData' => $pageFilter-->
+<!--];-->
+
+<!--$max = time() - (15 * (60 * 60 * 24 * 365));-->
+<!--$min = time() - (64 * (60 * 60 * 24 * 365));-->
+<!--$nik = $person["nik"];-->
+<!--$query = "SELECT * FROM persons WHERE nik LIKE '%$nik%' AND birth_date >= $min AND birth_date <= $max AND alive = :1";-->
+<!--$statement = $PDO->prepare($query);-->
+<!--$statement->execute();-->
+<!--return $statement->fetchAll(PDO::FETCH_ASSOC);-->
+
+
+//function paginatedData($array, int $page, int $limit): array
+//{
+//  global $PDO;
+//  $db = "SELECT count(*) FROM persons";
+//  $s = $PDO->query($db);
+//  $total_results = $s->fetchColumn();
+//  $totalPage = ceil($total_results / $limit);
+//  $offset = ($page - 1) * $limit;
+//  $query = "SELECT * FROM persons LIMIT $limit OFFSET $offset";
+//  $statement = $PDO->prepare($query);
+//  $statement->execute();
+//  $dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);
+//  return [
+//    PAGING_TOTAL_PAGE => $totalPage,
+//    PAGING_DATA => $dbArray,
+//    PAGING_CURRENT_PAGE => $page,
+//  ];
+//}
+
+
+<!--$max = time() - (6 * (60 * 60 * 24 * 365));-->
+<!--$min = time() - (60 * (60 * 60 * 24 * 365));-->
+<!--$totalPage = ceil((float)count($array) / (float)$limit);-->
+<!--$offset = ($page - 1) * $limit;-->
+<!--$query = "SELECT * FROM persons WHERE birth_date >= $min AND birth_date <= $max AND alive = :1 LIMIT $limit OFFSET $offset";-->
+<!--$statement = $PDO->prepare($query);-->
+<!--$statement->execute();-->
+<!--$persons = $statement->fetchAll(PDO::FETCH_ASSOC);-->
+<!--var_dump($persons);-->
+<!--return [-->
+<!--PAGING_TOTAL_PAGE => $totalPage,-->
+<!--PAGING_DATA => $persons,-->
+<!--PAGING_CURRENT_PAGE => $page,-->
 <!--];-->

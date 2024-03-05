@@ -1,0 +1,32 @@
+.main-content-jobs {
+    width: 100%;
+    position: relative;
+    top: 10px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-left: 360px;
+    padding-right: 50px;
+    /* z-index: -1; */
+}
+
+
+.jobs-nav-link:link,
+.jobs-nav-link:visited {
+    color: #364fc7;
+}
+
+/*.content-title {*/
+/*    font-size: 2.4rem;*/
+/*    font-weight: 600;*/
+/*    color: #212529;*/
+/*    text-transform: capitalize;*/
+/*}*/
+
+.content-title {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #333;
+    padding-top: 3rem;
+    /*margin-left: 2rem;*/
+}
