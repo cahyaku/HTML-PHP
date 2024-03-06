@@ -111,11 +111,10 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                 $search = "?";
               endif;
               ?>
-              
-              <?php
-              for ($x = 1; $x <= $data[PAGING_TOTAL_PAGE]; $x++) {
-              ?>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
+<!--              --><?php
+//              for ($x = 1; $x <= $data[PAGING_TOTAL_PAGE]; $x++) {
+//              ?>
+<!--              <li class="page-item"><a class="page-link" href="#">1</a></li>-->
               <li class="page-item">
                 <a class="page-link" href="#" aria-label="Next">
                   <span aria-hidden="true">&raquo;</span>
