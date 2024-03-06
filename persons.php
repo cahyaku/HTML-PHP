@@ -76,7 +76,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             </select>
           </div>
 
-          <label for="search-input"></label>
+<!--          <label for="search-input"></label>-->
           <input
               id="search-input"
               name="search"
@@ -134,7 +134,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             $persons = searchPersons($_GET['search']);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
             $persons = getPersonsDataFromDatabase();
-          elseif (isset($_GET["search"])):
+          elseif (isset($_GET["search"]) && $_GET['searchByAge'] = "allPersons"):
             $persons = searchPersons($_GET["search"]);
           else:
             $persons = getPersonsDataFromDatabase();
@@ -177,9 +177,8 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             
             $data = paginatedData($persons, $page, $limit);
             $personsData = $data[PAGING_DATA];
-
-//            $persons = $personsData($persons, $page, $limit);
 //            var_dump($personsData);
+//            die();
             $number = ($page - 1) * $limit + 1;
             for ($i = 0; $i < count($personsData); $i++) :
               ?>

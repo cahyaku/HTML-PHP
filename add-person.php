@@ -308,7 +308,39 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                   </div>
                 </div>
               </div>
-
+              
+              <div class="d-md-flex">
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="form-padding">
+                    <label for="Jobs" class="form-label">Jobs</label>
+                    <select
+                        class="form-select form-select-lg mb-3 has-shadow select-text"
+                        aria-label="Large select example"
+                        name="jobs"
+                        required
+                    >
+                    </select>
+                  </div>
+                </div>
+                
+                <div class="col-12 col-md-6 col-lg-6">
+                  <div class="mb-3 form-padding">
+                    <label for="exampleFormControlInput1" class="form-label"
+                    >Hobby*</label
+                    >
+                    <input
+                        type="text"
+                        class="form-control has-shadow input-data has-background"
+                        id="exampleFormControlInput1"
+                        placeholder="Address"
+                        name="hobby"
+                        value=""
+                        required
+                    />
+                  </div>
+                </div>
+              </div>
+              
               <div class="form-padding">
                 <div class="mb-3 text-area">
                   <label for="exampleFormControlTextarea1" class="form-label">

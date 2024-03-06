@@ -38,7 +38,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
           </p>
         </div>
       </div>
-<?php $persons = getPersonsDataFromDatabase(); ?>
+      <?php $persons = getPersonsDataFromDatabase(); ?>
       <div class="dashboard-boxs">
         <div class="row row-gap-4">
           <!--ALL PERSONS-->
@@ -173,6 +173,33 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
           </div>
         </div>
       </div>
+
+        <table class="table-primary">
+          <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Jobs</th>
+            <th scope="col" class="text-center">Count</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Teacher</td>
+            <td>7</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Singer</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Doctor</td>
+            <td>3</td>
+          </tr>
+          </tbody>
+        </table>
     </div>
   </section>
 </main>

@@ -170,7 +170,7 @@ label {
 .table-primary {
   min-width: 600px;
   vertical-align: baseline;
-  border: 0.01px solid #bdbcbc99;
+  border: 1px solid #bdbcbc99;
   margin-top: 3.2rem;
 }
 
