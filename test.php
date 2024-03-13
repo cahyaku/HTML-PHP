@@ -528,3 +528,65 @@
 
 <!--            <ion-icon name="clipboard"></ion-icon>-->
 
+
+<!-- Modal (edit jobs) -->
+<!--                    --><?php //if (checkRole($_SESSION['email']) != null) : ?>
+<!--                      <button-->
+<!--                          type="reset"-->
+<!--                          class="btn btn-secondary btn-delete"-->
+<!--                          data-bs-toggle="modal"-->
+<!--                          data-bs-target="#edit-jobs--><?php //= $jobsData[$i]['id'] ?><!--"-->
+<!--                      > Edit-->
+<!--                      </button>-->
+<!--                    --><?php //else: ?>
+<!--                      <a class="view btn-table" href="jobs.php?error=1">-->
+<!--                        <button type="button" class="btn btn-outline-primary btn-delete" name="btn-delete">Edit-->
+<!--                        </button>-->
+<!--                      </a>-->
+<!--                    --><?php //endif; ?>
+<!--                    <div-->
+<!--                        class="modal fade"-->
+<!--                        id="edit-jobs--><?php //= $jobsData[$i]["id"] ?><!--"-->
+<!--                        tabindex="-1"-->
+<!--                        aria-labelledby="exampleModalLabel"-->
+<!--                        aria-hidden="true"-->
+<!--                    >-->
+<!--                      <div class="modal-dialog modal-dialog-centered">-->
+<!--                        <div class="modal-content">-->
+<!--                          <div class="modal-header">-->
+<!--                            <form class="jobs-form" action="action/edit-jobs-action.php" name="edit-jobs" method="post">-->
+<!--                            <div class="row g-3 align-items-center">-->
+<!--                              <div class="col-auto">-->
+<!--                                <label for="inputJobs" class="col-form-label">Jobs</label>-->
+<!--                              </div>-->
+<!--                              <div class="col-auto">-->
+<!--                                <input type="text" id="inputJobs" class="form-control"-->
+<!--                                       aria-describedby="passwordHelpInline" name="jobs"-->
+<!--                                       placeholder="jobs..."-->
+<!--                                       value="--><?php //echo $jobsData[$i]['job_name']?><!--"-->
+<!--                                >-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                            </form>-->
+<!--                          </div>-->
+<!--                          <div class="modal-footer">-->
+<!--                            <button-->
+<!--                                type="button"-->
+<!--                                class="btn btn-secondary btn-block"-->
+<!--                                data-bs-dismiss="modal"-->
+<!--                            >-->
+<!--                              Cancel-->
+<!--                            </button>-->
+<!--                            <button-->
+<!--                                type="button"-->
+<!--                                class="btn btn-primary confirm"-->
+<!--                            >-->
+<!--                              <a class="link-confirm"-->
+<!--                                 href="action/edit-jobs-action.php?id=--><?php //echo $jobsData[$i]['id'] ?><!--">-->
+<!--                                Save-->
+<!--                              </a>-->
+<!--                            </button>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->

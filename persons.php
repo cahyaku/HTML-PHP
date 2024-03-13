@@ -142,12 +142,12 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
           ?>
           <thead>
           <tr class="test-color">
-            <th scope="col">No</th>
+            <th scope="col" class="text-center">No</th>
             <th scope="col">Email</th>
             <th scope="col">Name</th>
             <th scope="col">Role</th>
-            <th scope="col">Age</th>
-            <th scope="col">Status</th>
+            <th scope="col" class="text-center">Age</th>
+            <th scope="col" class="text-center">Status</th>
             <th scope="col"></th>
           </tr>
           </thead>
@@ -183,13 +183,13 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             for ($i = 0; $i < count($personsData); $i++) :
               ?>
               <tr>
-                <th scope="row"><?php echo $number++ ?></th>
+                <th scope="row" class="text-center"><?php echo $number++ ?></th>
                 <td><?php echo $personsData[$i]["email"] ?></td>
                 <td>
                   <?php echo ucwords($personsData[$i]["first_name"]) . " " . ucwords($personsData[$i]["last_name"]) ?></td>
                 <td><?php echo translateValue($personsData[$i]["role"], "A", "ADMIN", "MEMBER"); ?></td>
-                <td><?php echo checkAges($personsData[$i]["birth_date"]) ?></td>
-                <td><?php echo translateValue($personsData[$i]["status"], 1, "Alive", "Passed Away"); ?></td>
+                <td class="text-center"><?php echo checkAges($personsData[$i]["birth_date"]) ?></td>
+                <td class="text-center"><?php echo translateValue($personsData[$i]["status"], 1, "Alive", "Passed Away"); ?></td>
                 <td>
                   <div class="table-button">
                     <div class="text-end">

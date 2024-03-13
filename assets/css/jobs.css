@@ -1,14 +1,3 @@
-.main-content-jobs {
-    width: 100%;
-    position: relative;
-    top: 10px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding-left: 360px;
-    padding-right: 50px;
-}
-
 .jobs-nav-link:link,
 .jobs-nav-link:visited {
     color: #364fc7;
@@ -98,12 +87,74 @@ tbody {
 /*test*/
 .background {
     background-color: #e9ecef;
-    /*padding: 9.6rem;*/
     border-radius: 11px;
-    padding : 3rem 2rem;
+    padding: 3rem 2rem;
 }
 
 .padding {
-    /*margin: 3rem 0;*/
     margin: 9.6rem 0;
+}
+
+
+/*button table*/
+.btn-table{
+ text-decoration: none;
+}
+
+.table-button button {
+    font-weight: bold;
+}
+
+button .btn-table-edit {
+    text-decoration: none;
+}
+
+.table-button button:hover,
+.table-button button:active {
+    background-color: #3b5bdb;
+}
+
+.btn-table .btn-delete {
+    text-decoration: none;
+    background-color: #364fc7;
+    color: #fff;
+}
+
+.btn-table .btn-delete:hover,
+.btn-table .btn-delete:active {
+    background-color: #3b5bdb;
+}
+
+
+
+/*button search*/
+.form button:link,
+.form button:visited {
+
+}
+
+.form button:hover,
+.form button:active {
+    background-color: #364fc7;
+}
+
+.reset-btn {
+    margin-right: 0.5rem;
+}
+
+/*modal*/
+.text-end .btn-delete {
+    background-color: #364fc7;
+    border: none;
+    font-weight: bold;
+}
+
+.link-confirm {
+    text-decoration: none;
+    color: #fff;
+}
+
+.text-end .confirm {
+    background-color: #364fc7;
+    border: none;
 }
