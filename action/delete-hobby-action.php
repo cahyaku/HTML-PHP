@@ -7,7 +7,7 @@ session_start();
 $id = $_GET['id'];
 if (intval($id)) {
   // we should get the person data first, make sure it is in db or not, before actually deleting them
-  $query = 'SELECT * FROM jobs WHERE id = :id LIMIT 1';
+  $query = 'SELECT * FROM hobby WHERE id = :id LIMIT 1';
   $statement = $PDO->prepare($query);
   $statement->execute(array(
     "id" => $id
@@ -15,16 +15,14 @@ if (intval($id)) {
   
   if ($statement->rowCount() == 1) {
     $person = $statement->fetch(PDO::FETCH_ASSOC);
-    $query = 'DELETE FROM jobs WHERE id = :id';
+    $query = 'DELETE FROM hobby WHERE id = :id';
     $statement = $PDO->prepare($query);
     $statement->execute(array(
       "id" => $id
     ));
-    $hobby = $statement['name'];
-    $_SESSION['deleted'] = "Data hobby has been deleted";
-    redirect("../jobs.php", "deleted");
+    redirect("../persons.php", "deleted-hobby");
   } else {
-    $_SESSION['error'] = 'Jobs data with given ID was not found!';
+    $_SESSION['error'] = 'Delete data with given ID was not found!';
   }
 }
 header('Location: ../index.php');

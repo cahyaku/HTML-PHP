@@ -183,6 +183,8 @@ thead tr {
   color:#111;
 }
 
+
+
 .table-width {
   width: 100%;
 }
@@ -221,6 +223,11 @@ tbody {
 
 .btn-table {
   text-decoration: none;
+}
+
+.btn-table .btn-view {
+  background-color: #364fc7;
+  color: #fff;
 }
 
 /* .has-shadow {

@@ -20,22 +20,33 @@ showHeader("Add-PMA", "jobs.css", jobsNav: "jobs-nav-link");
     require_once __DIR__ . "/include/sidebar.php";
     showSidebar(jobsNav: "jobs-nav-link");
     ?>
-    <div class="main-content d-flex-column">
+    <div class="main-content">
       <div class="container">
         <div class="row">
-          <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+<!--          <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">-->
+            <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12 d-flex-column align-item-center justify-content-center">
             <div class="content-box padding">
               <h3 class="content-title">Add Jobs</h3>
               <div class="d-lg-flex align-items-center justify-content-center gap-4">
                 <div class="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-4">
                   <div class="card d-flex">
                     <div class="card-body">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                        the
-                        card's content.</p>
+<!--                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of-->
+<!--                        the-->
+<!--                        card's content.</p>-->
+<!--                      <img src="assets/img/logo-pma-3.png" class="logo-pma-login" title="Person-Management-App"/>-->
+<!--                      <img src="assets/img/job.png" class="job-img" title="add-jobs">-->
                     </div>
                   </div>
                 </div>
+                
+                <?php
+                if (isset($_SESSION["errorInputJobs"])):
+                ?>
+                  <div class="alert alert-danger" role="alert">
+                    <?php echo $_SESSION["errorInputJobs"] ?>
+                  </div>
+                <?php endif; ?>
                 <div class="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-4 has-shadow">
                   <div class="card d-flex">
                     <div class="card-body">

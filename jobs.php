@@ -202,6 +202,10 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
           <div class="alert alert-danger" role="alert">
             Only admin roles can remove jobs data.
           </div>
+        <?php elseif (isset($_GET['changed'])):?>
+            <div class="alert alert-success" role="alert">
+              Jobs data has been update.
+            </div>
         <?php endif; ?>
         <div class="page-navigation-position">
           <nav aria-label="Page navigation example">

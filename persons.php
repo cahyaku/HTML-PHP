@@ -76,7 +76,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             </select>
           </div>
 
-<!--          <label for="search-input"></label>-->
           <input
               id="search-input"
               name="search"
@@ -177,8 +176,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             
             $data = paginatedData($persons, $page, $limit);
             $personsData = $data[PAGING_DATA];
-//            var_dump($personsData);
-//            die();
             $number = ($page - 1) * $limit + 1;
             for ($i = 0; $i < count($personsData); $i++) :
               ?>
@@ -212,8 +209,15 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                           </button>
                         </a>
                       <?php } ?>
+
+                      <a class="hobby btn-table" href="hobby.php?id=<?php echo $personsData[$i]["id"] ?>">
+                        <button type="button" class="btn btn-outline-primary" name="btn-hobby">
+                          Hobby
+                        </button>
+                      </a>
+                      
                       <a class="view btn-table" href="view-person.php?id=<?php echo $personsData[$i]["id"] ?>">
-                        <button type="button" class="btn btn-outline-primary" name="btn-view">
+                        <button type="button" class="btn btn-outline-primary btn-view" name="btn-view">
                           View
                         </button>
                       </a>
@@ -253,6 +257,14 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             <div class="alert alert-success form-padding alert-padding" role="alert">
               <?php echo $_SESSION["delete"] ?>
             </div>
+          <?php elseif (isset($_GET['hobby'])):?>
+            <div class="alert alert-success form-padding alert-padding" role="alert">
+              <?php echo $_SESSION["hobby"] ?>
+            </div>
+            <?php elseif (isset($_GET['deleted-hobby'])): ?>
+              <div class="alert alert-success" role="alert">
+                Data hobby has been deleted
+              </div>
           <?php endif; ?>
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">

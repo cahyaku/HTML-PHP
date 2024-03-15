@@ -21,9 +21,11 @@
 
 .has-shadow {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.212);
-    /*box-shadow: 0 5px 7px rgba(148, 187, 233, 1);*/
 }
 
+.has-shadow-card {
+    box-shadow: 0 5px 7px rgba(148, 187, 233, 1);
+}
 
 /*JOBS TABLE*/
 .table-primary {
