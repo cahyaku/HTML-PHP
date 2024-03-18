@@ -23,13 +23,26 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
       <div class="content-header-box d-flex justify-content-between">
         <h3 class="content-title">Jobs</h3>
         <div class="add-button">
+          <?php if (checkRole($_SESSION['email']) != null) : ?>
           <button type="button" class="btn btn-outline-primary btn-add">
             <a class="add" href="add-jobs.php">
               +Add
             </a>
           </button>
+          <?php else:?>
+          <button type="button" class="btn btn-outline-primary btn-add">
+            <a class="add" href="jobs.php?error=add">
+              +Add
+            </a>
+          </button>
+          <?php endif; ?>
         </div>
       </div>
+      <?php if (isset($_GET['error']) && $_GET['error'] == "add"): ?>
+        <div class="alert alert-danger" role="alert">
+          Only admin roles can add new jobs data.
+        </div>
+      <?php endif; ?>
       <div class="search-box">
         <nav class="navbar bg-body-tertiary has-shadow">
           <div class="container-fluid">
@@ -63,7 +76,6 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
           </div>
         </nav>
       </div>
-
       <div class="table-responsive">
         <table class="table-primary table-width has-shadow" id="table">
           <?php
@@ -166,7 +178,7 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                                 class="btn btn-primary confirm"
                             >
                               <a class="link-confirm"
-                                 href="action/delete-jobs-action.php?id=<?php echo $jobsData[$i]['id'] ?>">
+                                 href="action/delete-jobs-action.php?id=<?php echo $jobsData[$i]['id']?>">
                                 Yes
                               </a>
                             </button>
@@ -192,7 +204,7 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
           </div>
         <?php elseif (isset($_GET['deleted'])): ?>
           <div class="alert alert-success" role="alert">
-            Data has been deleted.
+            Jobs data has been deleted.
           </div>
         <?php elseif (isset($_GET['error']) && $_GET['error'] == "edit") : ?>
           <div class="alert alert-danger" role="alert">
@@ -206,6 +218,10 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
             <div class="alert alert-success" role="alert">
               Jobs data has been update.
             </div>
+        <?php elseif (isset($_GET['success'])):?>
+          <div class="alert alert-success" role="alert">
+            Jobs data has been saved.
+          </div>
         <?php endif; ?>
         <div class="page-navigation-position">
           <nav aria-label="Page navigation example">

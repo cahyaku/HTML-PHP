@@ -116,8 +116,8 @@ if (count($errorData) != 0) {
   $role = translateRole($_POST["role"]);
   $status = translateStatus($_POST["status"]);
   try {
-    $query = 'INSERT INTO persons(nik,first_name,last_name,birth_date,sex,email, password,address,role,internal_notes,status)
-VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:role,:internal_notes,:status)';
+    $query = 'INSERT INTO persons(nik,first_name,last_name,birth_date,sex,email, password,address,role,internal_notes,status, job_id)
+VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:role,:internal_notes,:status,:job_id)';
     $statement = $PDO->prepare( $query );
     $statement->execute( array(
       "nik" =>$_POST["nik"],
@@ -130,7 +130,8 @@ VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:r
       "address" =>$_POST["address"],
       "role" => $role,
       "internal_notes" => $_POST["internalNotes"],
-      "status" => $status
+      "status" => $status,
+      "job_id" => $_POST['jobs']
       ) );
     $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
     $_SESSION['info'] = "New person data has been saved ($name).";

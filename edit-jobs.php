@@ -32,23 +32,14 @@ showHeader("Add-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                 </div>
               <?php
               else:
-                $jobs = getJobsByIdFromDatabase($_GET['id']);
-                $_SESSION['id'] = $_GET['id'];
                 $id = $_GET['id'];
+                $jobs = getJobsByIdFromDatabase($id);
+                $_SESSION['id'] = $_GET['id'];
                 ?>
-                <div class="d-lg-flex align-items-center justify-content-center gap-4">
-                  <!--                  <div class="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-4">-->
-                  <!--                    <div class="card d-flex">-->
-                  <!--                      <div class="card-body">-->
-                  <!--                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of-->
-                  <!--                          the-->
-                  <!--                          card's content.</p>-->
-                  <!--                      </div>-->
-                  <!--                    </div>-->
-                  <!--                  </div>-->
-                  <div class="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-7 has-shadow-card">
+                <div class="d-lg-flex align-items-center justify-content-center">
+                  <div class="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-7 has-shadow-blue">
                     <div class="card d-flex">
-                      <div class="card-body">
+                      <div class="card-body card-background">
                         <h3 class="content-title">Edit Jobs</h3>
                         <hr>
                         <form class="jobs-form" action="action/edit-jobs-action.php" name="edit-jobs" method="post">
@@ -57,13 +48,25 @@ showHeader("Add-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                             <ion-icon name="pencil"></ion-icon>
                             <label for="exampleInputPassword1" class="form-label">Jobs</label>
                             <input type="text"
-                                   class="form-control"
+                                   class="form-control has-shadow-grey"
                                    id="exampleInputPassword1"
                                    name="jobs"
                                    placeholder="jobs..."
-                                   value="<?php echo $_POST['jobs'] ?>"
+                                   value="<?php
+                                   if (isset($_SESSION["errorInputJobs"])) {
+                                     echo $_SESSION["inputJobs"];
+                                   } else {
+                                     echo $jobs['job_name'];
+                                   } ?>"
                             >
                           </div>
+                          <?php
+                          if (isset($_SESSION["errorInputJobs"])):
+                            ?>
+                            <div class="alert alert-danger" role="alert">
+                              Sorry jobs data already exists.
+                            </div>
+                          <?php endif; ?>
                           <div class="text-end">
                             <button
                                 type="submit"
@@ -94,6 +97,11 @@ showHeader("Add-PMA", "jobs.css", jobsNav: "jobs-nav-link");
     </div>
   </section>
 </main>
+<?php
+unset ($_SESSION['errorInputJobs']);
+unset ($_SESSION['inputJobs']);
+?>
+
 <?php
 require_once __DIR__ . "/include/footer.php";
 ?>

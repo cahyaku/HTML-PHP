@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/action/utils-action.php";
+require_once __DIR__ . "/action/jobs-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 if (checkRole($_SESSION['email']) == null) {
   redirect("../dashboard.php", null);
@@ -308,7 +309,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                   </div>
                 </div>
               </div>
-              
+
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="form-padding">
@@ -319,42 +320,55 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                         name="jobs"
                         required
                     >
+                      <option selected disabled="disabled" value="">Open this select menu</option>
+                      <?php
+                      $jobs = getJobsDataFromDatabase();
+                      if (count($jobs) != 0) :
+                        $number = 1;
+                        for ($i = 0; $i < count($jobs); $i++):
+                          $jobsId = $jobs[$i]['id'];
+                      ?>
+                      <option value="<?php echo $jobsId?>"><?php echo $jobs[$i]['job_name'] ?></option>
+                      <?php
+                      endfor;
+                      endif;
+                      ?>
                     </select>
                   </div>
                 </div>
-                
+
                 <div class="col-12 col-md-6 col-lg-6">
-                  <div class="mb-3 form-padding">
-                    <label for="exampleFormControlInput1" class="form-label"
-                    >Hobby*</label
-                    >
-                    <input
-                        type="text"
-                        class="form-control has-shadow input-data has-background"
-                        id="exampleFormControlInput1"
-                        placeholder="Address"
-                        name="hobby"
-                        value=""
-                        required
-                    />
+                  <div class="form-padding">
+                    <div class="mb-3 text-area">
+                      <label for="exampleFormControlTextarea1" class="form-label">
+                        Internal notes
+                        <ion-icon name="pencil"></ion-icon>
+                      </label>
+                      <textarea
+                          class="form-control i-text has-background has-shadow"
+                          id="exampleFormControlTextarea1"
+                          rows="1"
+                          name="internalNotes"
+                      ><?php checkErrorInput($_SESSION['inputInternalNotes']); ?></textarea>
+                    </div>
                   </div>
                 </div>
               </div>
-              
-              <div class="form-padding">
-                <div class="mb-3 text-area">
-                  <label for="exampleFormControlTextarea1" class="form-label">
-                    Internal notes
-                    <ion-icon name="pencil"></ion-icon>
-                  </label>
-                  <textarea
-                      class="form-control i-text has-background has-shadow"
-                      id="exampleFormControlTextarea1"
-                      rows="2"
-                      name="internalNotes"
-                  ><?php checkErrorInput($_SESSION['inputInternalNotes']); ?></textarea>
-                </div>
-              </div>
+
+              <!--              <div class="form-padding">-->
+              <!--                <div class="mb-3 text-area">-->
+              <!--                  <label for="exampleFormControlTextarea1" class="form-label">-->
+              <!--                    Internal notes-->
+              <!--                    <ion-icon name="pencil"></ion-icon>-->
+              <!--                  </label>-->
+              <!--                  <textarea-->
+              <!--                      class="form-control i-text has-background has-shadow"-->
+              <!--                      id="exampleFormControlTextarea1"-->
+              <!--                      rows="2"-->
+              <!--                      name="internalNotes"-->
+              <!--                  >--><?php //checkErrorInput($_SESSION['inputInternalNotes']); ?><!--</textarea>-->
+              <!--                </div>-->
+              <!--              </div>-->
               <div class="form-check form-switch form-padding">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="status"
                        value="ALIVE"

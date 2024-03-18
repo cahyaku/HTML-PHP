@@ -263,8 +263,12 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             </div>
             <?php elseif (isset($_GET['deleted-hobby'])): ?>
               <div class="alert alert-success" role="alert">
-                Data hobby has been deleted
+                Data hobby has been deleted.
               </div>
+          <?php elseif (isset($_GET['changed-hobby'])): ?>
+            <div class="alert alert-success" role="alert">
+              Data hobby has been update.
+            </div>
           <?php endif; ?>
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">

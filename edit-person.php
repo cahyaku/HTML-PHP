@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/action/utils-action.php";
+require_once __DIR__ . "/action/jobs-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 if (checkRole($_SESSION['email']) == null) {
   redirect("../dashboard.php", null);
@@ -30,8 +31,8 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                 <h3 class="title">Edit person</h3>
               </div>
               <?php
-//              $persons = getPersonsDataFromJson();
-//              $persons = getPersonsDataFromDatabase();
+              //              $persons = getPersonsDataFromJson();
+              //              $persons = getPersonsDataFromDatabase();
               if (!is_numeric($_GET['id'])) {
                 ?>
                 <div class="alert alert-danger" role="alert">
@@ -72,7 +73,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                     <?php endif; ?>
                   </div>
                 <?php } ?>
-                <?php $id = $_GET['id']?>
+                <?php $id = $_GET['id'] ?>
                 <form class="person-form" action="action/edit-person-action.php" name="edit-form" method="post">
                   <div class="d-md-flex">
                     <div class="col-12 col-md-6 col-lg-6">
@@ -184,14 +185,14 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                           <option value="<?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) {
                             echo $_SESSION['inputSex'];
                           } else {
-                            echo translateValue($person['sex'], "F" , "FEMALE","MALE");
+                            echo translateValue($person['sex'], "F", "FEMALE", "MALE");
 //                            echo $person['sex'];
                           }
                           ?>">
                             <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) {
                               echo $_SESSION['inputSex'] == "MALE" ? "MALE" : "FEMALE";
                             } else {
-                              echo translateValue($person['sex'], "F" , "FEMALE","MALE")  == "MALE" ? "MALE" : "FEMALE";
+                              echo translateValue($person['sex'], "F", "FEMALE", "MALE") == "MALE" ? "MALE" : "FEMALE";
 //                              echo $person['sex'] == "MALE" ? "MALE" : "FEMALE";
                             } ?>
                           </option>
@@ -200,7 +201,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                                 value="<?php echo $_SESSION['inputSex'] == "MALE" ? "FEMALE" : "MALE"; ?>"><?php echo $_SESSION['inputSex'] == "MALE" ? "FEMALE" : "MALE"; ?></option>
                           <?php } else if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
                             <option value="MALE">MALE</option>
-                          <?php } else if (translateValue($person['sex'], "F" , "FEMALE","MALE") == "FEMALE") { ?>
+                          <?php } else if (translateValue($person['sex'], "F", "FEMALE", "MALE") == "FEMALE") { ?>
                             <option value="MALE">MALE</option>
                           <?php } else { ?>
                             <option value="FEMALE">FEMALE</option>
@@ -239,13 +240,13 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                           <option value="<?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputRole'])) {
                             echo $_SESSION['inputRole'];
                           } else {
-                            echo translateValue($person['role'], "A" , "ADMIN","MEMBER");
+                            echo translateValue($person['role'], "A", "ADMIN", "MEMBER");
                           }
                           ?>">
                             <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputRole'])) {
                               echo $_SESSION['inputRole'] == "ADMIN" ? "ADMIN" : "MEMBER";
                             } else {
-                                echo translateValue($person['role'], "A" , "ADMIN","MEMBER") == "ADMIN" ? "ADMIN" : "MEMBER";
+                              echo translateValue($person['role'], "A", "ADMIN", "MEMBER") == "ADMIN" ? "ADMIN" : "MEMBER";
                             } ?>
                           </option>
                           <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputRole'])) { ?>
@@ -254,7 +255,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                               <?php echo $_SESSION['inputRole'] == "ADMIN" ? "MEMBER" : "ADMIN"; ?></option>
                           <?php } else if (isset($_SESSION['inputRole']) == "MEMBER") { ?>
                             <option value="ADMIN">ADMIN</option>
-                          <?php } else if (translateValue($person['role'], "A" , "ADMIN","MEMBER") == "MEMBER") { ?>
+                          <?php } else if (translateValue($person['role'], "A", "ADMIN", "MEMBER") == "MEMBER") { ?>
                             <option value="ADMIN">ADMIN</option>
                           <?php } else { ?>
                             <option value="MEMBER">MEMBER</option>
@@ -281,115 +282,179 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                     </div>
                   </div>
 
-                  <div class="mb-3 text-area form-padding">
-                    <label for="exampleFormControlTextarea1" class="form-label">
-                      Internal notes
-                      <ion-icon name="pencil"></ion-icon>
-                    </label>
-                    <textarea
-                        class="form-control i-text has-background has-shadow"
-                        id="exampleFormControlTextarea1"
-                        rows="2"
-                        name="internalNotes"
-                    ><?php checkErrorValue($_SESSION['inputInternalNotes'], $person['internal_notes']) ?></textarea>
-                  </div>
-
-                  <div class="card card-margin card-shadow">
-                    <div class="card-header card-background-header">
-                      <strong> EDIT PASSWORD
-                        <ion-icon name="lock-closed-outline"></ion-icon>
-                      </strong>
+                  <div class="d-md-flex">
+                    <div class="col-12 col-md-6 col-lg-6">
+                      <div class="form-padding">
+                        <label for="Jobs" class="form-label">Jobs</label>
+                        <select
+                            class="form-select form-select-lg mb-3 has-shadow select-text"
+                            aria-label="Large select example"
+                            name="jobs"
+                            required
+                        >
+                          <?php
+                          $jobs = getJobsDataFromDatabase();
+                          if (count($jobs) != 0) :
+                          $number = 1;
+                          for ($i = 0;
+                          $i < count($jobs);
+                          $i++):
+                          if ($person['job_id'] == $jobs[$i]['person_id']) :
+                          $jobsId = $jobs[$i]['id'];
+                          ?>
+                          <option value="<?php
+                          if (isset($_SESSION['errorData'])):
+                            echo $_SESSION['inputJobs'];
+                          else :
+                            echo $jobs[$i]['job_name'];
+                          endif;
+                          ?>
+                          ">
+                <?php
+                          if (isset($_SESSION['errorData'])):
+                            echo $_SESSION['inputJobs'];
+                          else :
+                            echo $jobs[$i]['job_name'];
+                          endif;
+                          ?>
+                      </option>
+                      <?php
+                          endif;
+                          endfor;
+                          endif;
+                          ?>
+                    </select>
                     </div>
-                    <div class="card-body card-background">
-                      <div class="d-md-flex">
-                        <div class="col-12 col-md-6 col-lg-6">
-                          <div class="mb-3 form-padding">
-                            <label for="exampleFormControlInput1" class="form-label"
-                            >New Password*</label
-                            >
-                            <input
-                                type="password"
-                                class="form-control has-shadow input-data has-background"
-                                id="exampleFormControlInput1"
-                                placeholder="New Password..."
-                                name="password"
-                                value="<?php if (isset($_SESSION['errorPassword']) || isset($_SESSION['errorData'])) {
-                                  echo $_SESSION['inputPassword'];
-                                } else {
-                                  echo "";
-                                }
-                                ?>"
-                            />
-                            <?php if (isset($_SESSION["errorPassword"])) { ?>
-                              <div class="alert alert-danger" role="alert">
-                                Password must have at least 1 capital letter, 1 non-capital letter, 1 number.
-                                with a minimum length of 8 characters and a maximum of 16 characters.
-                              </div>
-                            <?php } ?>
-                          </div>
-                        </div>
+                    </div>
 
-                        <div class="col-12 col-md-6 col-lg-6">
-                          <div class="mb-3 form-padding">
-                            <label for="exampleFormControlInput1" class="form-label"
-                            >Confirm Password*</label
-                            >
-                            <input
-                                type="password"
-                                class="form-control has-shadow input-data has-background"
-                                id="exampleFormControlInput1"
-                                placeholder="Confirm Password..."
-                                name="confirmPassword"
-                                value="<?php if (isset($_SESSION['errorConfirmPassword']) || isset($_SESSION['errorData'])) {
-                                  echo $_SESSION['inputConfirmPassword'];
-                                } else {
-                                  echo "";
-                                }
-                                ?>"
-                            />
-                            <?php if (isset($_SESSION['errorConfirmPassword'])) : ?>
-                              <div class="alert alert-danger" role="alert">
-                                Confirm password is not correct!
-                              </div>
-                            <?php endif; ?>
+                    <div class=" col-12 col-md-6 col-lg-6
+                          ">
+                          <div class="mb-3 text-area form-padding">
+                            <label for="exampleFormControlTextarea1" class="form-label">
+                              Internal notes
+                              <ion-icon name="pencil"></ion-icon>
+                            </label>
+                            <textarea
+                                class="form-control i-text has-background has-shadow"
+                                id="exampleFormControlTextarea1"
+                                rows="1"
+                                name="internalNotes"
+                            ><?php checkErrorValue($_SESSION['inputInternalNotes'], $person['internal_notes']) ?></textarea>
+                          </div>
+                      </div>
+                    </div>
+
+                    <!--                  <div class="mb-3 text-area form-padding">-->
+                    <!--                    <label for="exampleFormControlTextarea1" class="form-label">-->
+                    <!--                      Internal notes-->
+                    <!--                      <ion-icon name="pencil"></ion-icon>-->
+                    <!--                    </label>-->
+                    <!--                    <textarea-->
+                    <!--                        class="form-control i-text has-background has-shadow"-->
+                    <!--                        id="exampleFormControlTextarea1"-->
+                    <!--                        rows="2"-->
+                    <!--                        name="internalNotes"-->
+                    <!--                    >-->
+                    <?php //checkErrorValue($_SESSION['inputInternalNotes'], $person['internal_notes'])
+                    ?><!--</textarea>-->
+                    <!--                  </div>-->
+
+                    <div class="card card-margin card-shadow">
+                      <div class="card-header card-background-header">
+                        <strong> EDIT PASSWORD
+                          <ion-icon name="lock-closed-outline"></ion-icon>
+                        </strong>
+                      </div>
+                      <div class="card-body card-background">
+                        <div class="d-md-flex">
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="mb-3 form-padding">
+                              <label for="exampleFormControlInput1" class="form-label"
+                              >New Password*</label
+                              >
+                              <input
+                                  type="password"
+                                  class="form-control has-shadow input-data has-background"
+                                  id="exampleFormControlInput1"
+                                  placeholder="New Password..."
+                                  name="password"
+                                  value="<?php if (isset($_SESSION['errorPassword']) || isset($_SESSION['errorData'])) {
+                                    echo $_SESSION['inputPassword'];
+                                  } else {
+                                    echo "";
+                                  }
+                                  ?>"
+                              />
+                              <?php if (isset($_SESSION["errorPassword"])) { ?>
+                                <div class="alert alert-danger" role="alert">
+                                  Password must have at least 1 capital letter, 1 non-capital letter, 1 number.
+                                  with a minimum length of 8 characters and a maximum of 16 characters.
+                                </div>
+                              <?php } ?>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="mb-3 form-padding">
+                              <label for="exampleFormControlInput1" class="form-label"
+                              >Confirm Password*</label
+                              >
+                              <input
+                                  type="password"
+                                  class="form-control has-shadow input-data has-background"
+                                  id="exampleFormControlInput1"
+                                  placeholder="Confirm Password..."
+                                  name="confirmPassword"
+                                  value="<?php if (isset($_SESSION['errorConfirmPassword']) || isset($_SESSION['errorData'])) {
+                                    echo $_SESSION['inputConfirmPassword'];
+                                  } else {
+                                    echo "";
+                                  }
+                                  ?>"
+                              />
+                              <?php if (isset($_SESSION['errorConfirmPassword'])) : ?>
+                                <div class="alert alert-danger" role="alert">
+                                  Confirm password is not correct!
+                                </div>
+                              <?php endif; ?>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div class="form-check form-switch form-padding">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
-                           name="status"
-                           value="ALIVE"
-                           value="<?php if (isset($_SESSION['errorData'])) {
-                             echo $_SESSION['inputAlive'];
-                           } ?>"
-                      <?php
-                      if ($person['status'] == 1) {
-                        echo "checked";
-                      }
-                      ?>
-                    >
-                    <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
-                  </div>
-                  <div class="text-end btn-padding">
-                    <button
-                        type="submit"
-                        class="btn btn-outline-primary btn-save"
-                        name="save-btn"
-                    >
-                      Save
-                    </button>
-                    <a class="cancel" href="persons.php">
-                      <button
-                          type="button"
-                          class="btn btn-secondary btn-cancel"
+                    <div class="form-check form-switch form-padding">
+                      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"
+                             name="status"
+                             value="ALIVE"
+                             value="<?php if (isset($_SESSION['errorData'])) {
+                               echo $_SESSION['inputAlive'];
+                             } ?>"
+                        <?php
+                        if ($person['status'] == 1) {
+                          echo "checked";
+                        }
+                        ?>
                       >
-                        Cancel
+                      <label class="form-check-label" for="flexSwitchCheckDefault">This person is alive</label>
+                    </div>
+                    <div class="text-end btn-padding">
+                      <button
+                          type="submit"
+                          class="btn btn-outline-primary btn-save"
+                          name="save-btn"
+                      >
+                        Save
                       </button>
-                    </a>
-                  </div>
+                      <a class="cancel" href="persons.php">
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-cancel"
+                        >
+                          Cancel
+                        </button>
+                      </a>
+                    </div>
                 </form>
               <?php } ?>
             </div>
@@ -416,6 +481,7 @@ unset ($_SESSION['inputBirthDate']);
 unset ($_SESSION['internalNotes']);
 unset ($_SESSION['errorConfirmPassword']);
 unset ($_SESSION['inputConfirmPassword']);
+unset ($_SESSION['inputJobs']);
 ?>
 <?php
 require_once __DIR__ . "/include/footer.php";

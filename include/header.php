@@ -3,6 +3,7 @@
 function showHeader($title,
                     string $cssStyle = null,
                     string $cssStyle2 = null,
+                    string $cssStyle3 = null,
                     string $personsNav = null,
                     string $dashboardNav = null,
                     string $editProfileNav = null,
@@ -96,6 +97,9 @@ function showHeader($title,
   <link rel="stylesheet" href="assets/css/queries.css"/>
   <?php if ($cssStyle2 != null) {?>
   <link rel="stylesheet" href="assets/css/<?php echo $cssStyle2?>"/>
+  <?php } ?>
+  <?php if ($cssStyle2 != null) {?>
+    <link rel="stylesheet" href="assets/css/<?php echo $cssStyle3?>"/>
   <?php } ?>
   
   <!-- LINK ION ICON -->

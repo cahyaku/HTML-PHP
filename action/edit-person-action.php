@@ -55,6 +55,7 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
   $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
   $_SESSION['errorData'] = $errorData;
   $_SESSION['errorPasswordData'] = $errorPassword;
+  $_SESSION['inputJobs'] = $_POST['jobs'];
 //  SESSION INPUT DATA
   transformPersonFormIntoSession();
   header("Location: ../edit-person.php?id=" . $_SESSION['id']);
@@ -88,7 +89,7 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
       try {
         $query = 'UPDATE persons SET nik = :nik, first_name = :first_name, last_name = :last_name,
                    birth_date = :birth_date, sex = :sex, email = :email, password = :password, address = :address,
-                   role = :role, internal_notes = :internal_notes, status = :status WHERE id = :id';
+                   role = :role, internal_notes = :internal_notes, status = :status, job_id = :job_id WHERE id = :id';
         $statement = $PDO->prepare($query);
         $statement->execute(array(
           "id" => $id,
@@ -102,7 +103,8 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
           "address" => $_POST["address"],
           "role" => $role,
           "internal_notes" => $_POST["internalNotes"],
-          "status" => $status
+          "status" => $status,
+          "job_id" => $_POST['jobs']
         ));
         $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
         $_SESSION['changed'] = "Person data has been updated ($name).";

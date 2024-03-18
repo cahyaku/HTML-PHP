@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/../include/db.php";
+//require_once __DIR__ . "/jobs-action.php";
+
 //global $PDO;
 function getPersonsDataFromJson(): array
 {
@@ -448,5 +450,80 @@ function translateValue($value, $data, $newValue1, $newValue2)
   } else {
     return $newValue2;
   }
+}
+
+//function isInputDataExists($array, $inputData, $filter, ?int $id): bool
+//{
+//  for ($i = 0; $i < count($array); $i++) :
+//    if ($id == null) {
+//      if ($array[$i][$filter] == $inputData) {
+//        return true;
+//      }
+//    } else {
+//      if ($inputData == $array[$i][$filter] && $id != $array[$i]['id']) {
+//        return true;
+//      }
+//    }
+//  endfor;
+//  return false;
+//}
+
+//function isHobbyExists($hobby, $inputHobby, ?int $id,$personId): bool
+//{
+////  $hobby = getHobbyDataFromDatabase();
+//  for ($i = 0; $i < count($hobby); $i++) :
+//    if ($hobby[$i]['person_id'] == $personId) {
+//      if ($id == null) {
+//        if ($hobby[$i]['name'] == $inputHobby) {
+//          return true;
+//        }
+//      }
+//    }
+//    else {
+//      if ($inputHobby == $hobby[$i]['name'] && $id != $hobby[$i]['id']) {
+//        return true;
+//      }
+//    }
+//  endfor;
+//  return false;
+//}
+
+function isJobsExists($allJobs, $jobs, ?int $id): bool
+{
+  for ($i = 0; $i < count($allJobs); $i++) :
+    if ($id == null) {
+      if ($allJobs[$i]['job_name'] == $jobs) {
+        return true;
+      }
+    } else {
+      if ($jobs == $allJobs[$i]['job_name'] && $id != $allJobs[$i]['id']) {
+        return true;
+      }
+    }
+  endfor;
+  return false;
+}
+
+function isHobbyExists($hobby, ?int $id): bool
+{
+  $allHobby = getHobbyDataFromDatabase();
+  for ($i = 0; $i < count($allHobby); $i++) :
+    if ($allHobby[$i]['person_id'] == $id) {
+      if ($id == null) {
+        if ($allHobby[$i]['name'] == $hobby) {
+          return true;
+        }
+      }else {
+        if ($hobby == $allHobby[$i]['name'] && $id != $allHobby[$i]['id']) {
+          return true;
+        }
+      }
+    } else {
+      if ($hobby == $allHobby[$i]['name'] && $id != $allHobby[$i]['id']) {
+        return true;
+      }
+    }
+  endfor;
+  return false;
 }
 

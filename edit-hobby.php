@@ -28,7 +28,7 @@ showHeader("Add-PMA", "hobby.css", personsNav: "persons-nav-link");
               <?php ?>
               <div class="d-lg-flex align-items-center justify-content-center gap-4">
                 <div class="col-12 col-lg-6 col-md-12 col-sm-12 col-xl-7 has-shadow">
-                  <div class="card d-flex has-shadow  card-background">
+                  <div class="card d-flex has-shadow-blue card-background">
                     <div class="card-body">
                       <h3 class="content-title"> Edit Hobby</h3>
                       <hr>
@@ -46,13 +46,25 @@ showHeader("Add-PMA", "hobby.css", personsNav: "persons-nav-link");
                                    id="exampleInputPassword1"
                                    name="hobby"
                                    placeholder="hobby..."
-                                   value="<?php echo $hobby['name'] ?>"
+                                   value="<?php
+                                   if(isset($_GET['errorInput'])) {
+                                     echo $_SESSION['inputHobby'];
+                                   } else {
+                                     echo $hobby['name'];
+                                   }
+                                   ?>"
                             >
                           </div>
                           <?php if (isset($_GET['success'])): ?>
                             <div class="alert alert-success" role="alert">
                               New jobs data has been saved.
                             </div>
+                          <?php endif; ?>
+                          
+                          <?php if (isset($_GET['errorInput']) && $_GET['errorInput'] == 1): ?>
+                          <div class="alert alert-danger" role="alert">
+                          Sorry hobby data already exists;
+                          </div>
                           <?php endif; ?>
                           <div class="text-end">
                             <button
@@ -84,6 +96,10 @@ showHeader("Add-PMA", "hobby.css", personsNav: "persons-nav-link");
     </div>
   </section>
 </main>
+<?php
+unset ($_SESSION['errorInputHobby']);
+unset ($_SESSION['inputHobby']);
+?>
 <?php
 require_once __DIR__ . "/include/footer.php";
 ?>
