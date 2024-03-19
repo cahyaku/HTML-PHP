@@ -33,11 +33,13 @@ showHeader("Add-PMA", "hobby.css", personsNav: "persons-nav-link");
                       <h3 class="content-title"> Edit Hobby</h3>
                       <hr>
                       <div class="d-flex-column justify-content-center">
-                        <?php $id = $_GET['id'];
+                        <?php $id = $_GET['hobbyId'];
                         $hobby = getHobbyByIdFromDatabase($id);
+                        $personId = $_GET['personId'];
                         ?>
                         <form class="hobby-form" action="action/edit-hobby-action.php" name="edit-hobby" method="post">
-                          <input type="hidden" name="id" value="<?= $id ?>"/>
+                          <input type="hidden" name="hobbyId" value="<?= $id ?>"/>
+                          <input type="hidden" name="personId" value="<?= $personId ?>"/>
                           <div class="mb-3">
                             <ion-icon name="pencil"></ion-icon>
                             <label for="exampleInputPassword1" class="form-label">Hobby</label>

@@ -14,20 +14,32 @@ function getHobbyDataFromDatabase(): array
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
+//function getHobbyByIdFromDatabase($id)
+//{
+//  global $PDO;
+//  $query = 'SELECT * FROM hobby WHERE id = :id';
+//  $statement = $PDO->prepare($query);
+//  $statement ->execute(array("id" =>$id));
+//  return $statement->fetch(PDO::FETCH_ASSOC);
+//}
+
+function getPersonHobbyByIdFromDatabase($personId):array
+{
+  global $PDO;
+  $query = "SELECT * FROM hobby WHERE person_id LIKE '%$personId%' ";
+  $statement = $PDO->prepare($query);
+  $statement ->execute();
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function getHobbyByIdFromDatabase($id)
 {
   global $PDO;
-  $query = 'SELECT * FROM hobby WHERE id = :id';
+  $query = "SELECT * FROM hobby WHERE id LIKE '%$id%'";
   $statement = $PDO->prepare($query);
-  $statement ->execute(array("id" =>$id));
+  $statement->execute();
   return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
-function getPersonHobbyByIdFromDatabase($id)
-{
-  global $PDO;
-  $query = "SELECT * FROM hobby WHERE person_id LIKE '%$id%' ";
-  $statement = $PDO->prepare($query);
-  $statement ->execute();
-  return $statement->fetch(PDO::FETCH_ASSOC);
-}
+
+

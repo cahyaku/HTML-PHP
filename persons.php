@@ -209,13 +209,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                           </button>
                         </a>
                       <?php } ?>
-
-                      <a class="hobby btn-table" href="hobby.php?id=<?php echo $personsData[$i]["id"] ?>">
-                        <button type="button" class="btn btn-outline-primary" name="btn-hobby">
-                          Hobby
-                        </button>
-                      </a>
-                      
                       <a class="view btn-table" href="view-person.php?id=<?php echo $personsData[$i]["id"] ?>">
                         <button type="button" class="btn btn-outline-primary btn-view" name="btn-view">
                           View
@@ -240,7 +233,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
         <?php } ?>
 
         <div class="page-position ">
-          
           <?php if ($_GET["error"] == 2) : ?>
             <div class="alert alert-danger" role="alert">
               Only admin roles can edit person data!!!
@@ -257,14 +249,14 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             <div class="alert alert-success form-padding alert-padding" role="alert">
               <?php echo $_SESSION["delete"] ?>
             </div>
-          <?php elseif (isset($_GET['hobby'])):?>
+          <?php elseif (isset($_GET['hobby'])): ?>
             <div class="alert alert-success form-padding alert-padding" role="alert">
               <?php echo $_SESSION["hobby"] ?>
             </div>
-            <?php elseif (isset($_GET['deleted-hobby'])): ?>
-              <div class="alert alert-success" role="alert">
-                Data hobby has been deleted.
-              </div>
+          <?php elseif (isset($_GET['deleted-hobby'])): ?>
+            <div class="alert alert-success" role="alert">
+              Data hobby has been deleted.
+            </div>
           <?php elseif (isset($_GET['changed-hobby'])): ?>
             <div class="alert alert-success" role="alert">
               Data hobby has been update.

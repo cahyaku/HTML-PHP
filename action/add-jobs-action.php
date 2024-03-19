@@ -29,7 +29,7 @@ if (count($errorData) != 0) {
     $query = 'INSERT INTO jobs(job_name) VALUE(:job_name)';
     $statement = $PDO->prepare($query);
     $statement->execute(array(
-      "job_name" => $_POST['jobs']
+      "job_name" => $_POST['jobs'],
     ));
     $jobs = ucfirst($_POST["jobs"]);
     $_SESSION['info'] = "New jobs data has been saved($jobs).";
@@ -40,6 +40,8 @@ if (count($errorData) != 0) {
     die();
   }
 }
-
 header('Location: ../index.php');
 die();
+
+
+

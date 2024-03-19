@@ -4,6 +4,7 @@ session_start();
 require_once __DIR__ . "/action/utils-action.php";
 require_once __DIR__ . "/include/db.php";
 require_once __DIR__ . "/action/hobby-action.php";
+require_once __DIR__ . "/action/jobs-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 if ($_GET['id'] == null) {
   redirect("/dashboard.php", null);
@@ -14,11 +15,10 @@ global $PDO;
   <!-- HEADER -->
 <?php
 require_once __DIR__ . "/include/header.php";
-showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css", personsNav: "persons-nav-link");
+showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.css", personsNav: "persons-nav-link");
 ?>
   <main>
     <section class="section-View-person d-flex">
-
       <!--  SIDEBAR  -->
       <?php
       require_once __DIR__ . "/include/sidebar.php";
@@ -33,8 +33,6 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
               <h3 class="title">View person data</h3>
             </div>
             <?php
-            //          $persons = getPersonsDataFromJson();
-            //          $id = $_GET["id"];
             if (!is_numeric($_GET['id'])) {
               ?>
               <div class="alert alert-danger" role="alert">
@@ -42,7 +40,6 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
               </div>
             <?php }
             else if ($_GET['id'] < 1) {
-              
               ?>
               <div class="alert alert-danger" role="alert">
                 Person data was not found!!!
@@ -50,8 +47,14 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
             <?php } else {
             $persons = getPersonByIdFromDatabase($_GET["id"]);
             ?>
+            
+            <?php if (isset($_SESSION['errorInputHobby'])): ?>
+              <div class="alert alert-danger" role="alert">
+                Invalid input hobby.
+              </div>
+            <?php endif; ?>
             <div class="person-data">
-              <div class="card card-shadow ">
+              <div class="card card-shadow">
                 <div class="card-body">
                   <div class="d-md-flex ">
                     <div class="col-12 col-md-6 col-lg-6 ">
@@ -115,23 +118,36 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                       </div>
                     </div>
                   </div>
-                  <div class="card-padding">
-                    <p class="text-title">Internal notes*</p>
-                    <?php if ($persons['internal_notes'] != null) { ?>
-                      <p class="data"><?php echo $persons['internal_notes'] ?></p>
-                    <?php } ?>
+
+                  <div class="d-md-flex ">
+                    <div class="col-12 col-md-6 col-lg-6 ">
+                      <div class="card-padding">
+                        <p class="text-title">Job*</p>
+                        <?php
+                        $personJob = getPersonJobsByIdFromDatabase($persons['job_id']);
+                        ?>
+                        <p class="data"><?php echo ucwords($personJob['job_name']) ?></p>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6 ">
+                      <div class="card-padding">
+                        <p class="text-title">Internal notes*</p>
+                        <?php if ($persons['internal_notes'] != null) { ?>
+                          <p class="data"><?php echo $persons['internal_notes']; ?></p>
+                        <?php } ?>
+                      </div>
+                    </div>
                   </div>
+                  
                   <?php
                   $id = $_GET['id'];
                   ?>
-                  
                   <div class="d-xl-flex-column align-items-center justify-content-center space gap-4  has-background">
                     <h3 class="content-title">Add Hobby</h3>
                     <hr class="double">
                     <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
                       <div class="card d-flex has-shadow-grey">
                         <div class="card-body">
-                          
                           <div class="d-flex-column justify-content-center">
                             <div>
                             </div>
@@ -187,71 +203,10 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                         </div>
                       </div>
                     </div>
-                    
-                    
                     <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
-<!--                      <div class="card d-flex has-shadow-grey">-->
-<!--                        <div class="card-body">-->
-<!--                          <div class="d-flex-column justify-content-center">-->
-<!--                            <div>-->
-<!--                            </div>-->
-<!--                            <form class="hobby-form" action="action/add-hobby-action.php" name="create-hobby"-->
-<!--                                  method="post">-->
-<!--                              <input type="hidden" name="id" value="--><?php //= $id ?><!--"/>-->
-<!--                              <div class="mb-3">-->
-<!--                                <ion-icon name="pencil"></ion-icon>-->
-<!--                                <label for="exampleInputPassword1" class="form-label">Hobby</label>-->
-<!--                                <input type="text"-->
-<!--                                       class="form-control"-->
-<!--                                       id="exampleInputPassword1"-->
-<!--                                       name="hobby"-->
-<!--                                       placeholder="hobby..."-->
-<!--                                       value="--><?php
-//                                       if (isset($_SESSION['errorInputHobby'])) {
-//                                         echo $_SESSION['inputHobby'];
-//                                       } else {
-//                                         echo $_POST['hobby'];
-//                                       } ?><!--"-->
-<!--                                >-->
-<!--                                --><?php //if (isset($_SESSION['errorInputHobby'])): ?>
-<!--                                  <div class="alert alert-danger" role="alert">-->
-<!--                                    Sorry hobby data already exists.-->
-<!--                                  </div>-->
-<!--                                --><?php //endif; ?>
-<!--                              </div>-->
-<!--                              --><?php //if (isset($_GET['success'])): ?>
-<!--                                <div class="alert alert-success" role="alert">-->
-<!--                                  New jobs data has been saved.-->
-<!--                                </div>-->
-<!--                              --><?php //endif; ?>
-<!---->
-<!--                              <div class="text-end">-->
-<!--                                <button-->
-<!--                                    type="submit"-->
-<!--                                    class="btn btn-outline-primary save"-->
-<!--                                    name="save-btn"-->
-<!--                                >-->
-<!--                                  Save-->
-<!--                                </button>-->
-<!--                                <a class="cancel" href="persons.php">-->
-<!--                                  <button-->
-<!--                                      type="button"-->
-<!--                                      class="btn btn-secondary cancel"-->
-<!--                                  >-->
-<!--                                    Cancel-->
-<!--                                  </button>-->
-<!--                                </a>-->
-<!--                              </div>-->
-<!--                            </form>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-                      
-                      
                       <div class="table-responsive">
                         <?php
                         $hobby = getPersonHobbyByIdFromDatabase($id);
-                        
                         if ($hobby != null):
                           ?>
                           <table class="table table-hover  has-shadow-grey">
@@ -264,20 +219,19 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                             </thead>
                             <tbody>
                             <?php
-                            $hobby = getHobbyDataFromDatabase();
+                            $hobby = getPersonHobbyByIdFromDatabase($id);
                             if (count($hobby) != 0) :
                               $number = 1;
                               for ($i = 0; $i < count($hobby); $i++):
-                                if ($hobby[$i]['person_id'] == $id):
                                   ?>
                                   <tr>
                                     <th scope="row" class="text-center"><?php echo $number++ ?></th>
                                     <td class="text-center"><?php echo $hobby[$i]["name"] ?></td>
                                     <td class="text-end">
                                       <a class="hobby btn-table"
-                                         href="edit-hobby.php?id=<?php echo $hobby[$i]["id"] ?>">
+                                         href="edit-hobby.php?hobbyId=<?php echo $hobby[$i]["id"]?>&personId=<?php echo $_GET['id']?>">
                                         <button type="button" class="btn btn-outline-primary edit" name="btn-hobby">
-                                          Edit
+                                          Edit&ensp;🐻
                                         </button>
                                       </a>
                                       <button
@@ -331,7 +285,6 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                                     </td>
                                   </tr>
                                 <?php
-                                endif;
                               endfor;
                             endif; ?>
                             </tbody>
@@ -342,11 +295,6 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                   </div>
 
 
-
-
-
-
-
                   <div class="btn-box">
                     <?php if (checkRole($_SESSION['email']) != null && $_SESSION['email'] != $persons['email']) { ?>
                       <button
@@ -354,7 +302,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                           class="btn btn-outline-primary btn-edit"
                       >
                         <a class="edit btn-text" href="edit-person.php?id=<?php echo $persons['id'] ?>">
-                          Edit&ensp;🐻
+                          Edit&ensp;😃
                         </a>
                       </button>
                     <?php } else if (checkRole($_SESSION['email']) != null && $_SESSION['email'] == $persons['email']) { ?>
@@ -363,7 +311,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                           class="btn btn-outline-primary btn-edit "
                       >
                         <a class="edit btn-text" href="edit-profile.php">
-                          Edit&ensp;🐻
+                          Edit&ensp;😃
                         </a>
                       </button>
                     <?php } ?>
@@ -372,7 +320,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                         type="button"
                         class="btn btn-secondary btn-back "
                     >
-                      <a class="back btn-text" href="persons.php"> Back </a>
+                      <a class="back btn-text" href="persons.php">Back👈</a>
                     </button>
                     <!-- Button trigger modal -->
                     <?php if (checkRole($_SESSION['email']) != null && $_SESSION['email'] != $persons['email']) { ?>
@@ -385,7 +333,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                         Delete
                       </button>
                     <?php } ?>
-
+  
                     <!-- Modal -->
                     <div
                         class="modal fade"
@@ -429,7 +377,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
                       </div>
                     </div>
                   </div>
-                  
+
 
                 </div>
               </div>
@@ -447,6 +395,10 @@ showHeader("Persons-PMA", "view-person.css", "persons.css",cssStyle3:"hobby.css"
       </div>
     </section>
   </main>
+<?php
+unset ($_SESSION['errorInputHobby']);
+unset ($_SESSION['inputHobby']);
+?>
 <?php
 require_once __DIR__ . "/include/footer.php";
 ?>

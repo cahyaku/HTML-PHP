@@ -42,5 +42,28 @@ if (count($errorData) != 0) {
     die();
   }
 }
+//try {
+// buat query yang akan meng-update count di jobs
+//  $count = getCountJobs(3);
+//  $id = 1;
+//  $temp = 'SELECT * FROM person WHERE job_id = job_id';
+//  $statement = $PDO->prepare($temp);
+//  $statement->execute(array(
+//    "count" => $count
+//  ));
+//  $query = 'UPDATE jobs SET job_name = :job_name, count = :count WHERE id = :id';
+//  $statement = $PDO->prepare($query);
+//  $statement->execute(array(
+//    "id" => $id,
+//    "job_name" => $_POST['jobs']
+//  ));
+//  $jobs = ucfirst($_POST["jobs"]);
+//  $_SESSION['changed'] = "New jobs data has been saved($jobs).";
+//  redirect("../jobs.php", "changed");
+//} catch (PDOException $e) {
+//  $_SESSION['error'] = 'Query error: ' . $e->getMessage();
+//  header('Location: ../jobs.php');
+//  die();
+//}
 header( 'Location: ../index.php' );
 die();

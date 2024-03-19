@@ -33,7 +33,7 @@ showHeader("Add-PMA", "jobs.css", jobsNav: "jobs-nav-link");
               <?php
               else:
                 $id = $_GET['id'];
-                $jobs = getJobsByIdFromDatabase($id);
+                $jobs = getPersonJobsByIdFromDatabase($id);
                 $_SESSION['id'] = $_GET['id'];
                 ?>
                 <div class="d-lg-flex align-items-center justify-content-center">

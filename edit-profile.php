@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once __DIR__ . "/action/utils-action.php";
+require_once __DIR__ . "/action/jobs-action.php";
 redirectWhenNotLoggedIn($_SESSION['email']);
 ?>
 
@@ -25,13 +26,11 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
               </div>
               <?php
               if (isset($_SESSION['email'])) {
-//                $person = getPersonDataByEmail($_SESSION['email']);
                 $person = getPersonsDataByEmailFromDatabase($_SESSION['email']);
                 $_SESSION['userEmail'] = $_SESSION['email'];
                 $_SESSION['id'] = $person['id'];
                 $birthDate = translateDateFromIntToString($person['birth_date']);
                 ?>
-                
                 <?php if (isset($_SESSION['errorFirstName']) || isset($_SESSION['errorLastName']) || isset($_SESSION['errorNik'])
                   || isset($_SESSION['errorEmail']) || isset($_SESSION['errorPassword']) || isset($_SESSION['errorConfirmPassword'])
                   || isset($_SESSION['errorCurrentPassword'])) { ?>
@@ -80,7 +79,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="First name"
-                            value="<?php checkErrorValue($_SESSION['inputFirstName'],$person['first_name'])?>"
+                            value="<?php checkErrorValue($_SESSION['inputFirstName'], $person['first_name']) ?>"
                             required
                         />
                         <?php if (isset($_SESSION["errorFirstName"])) : ?>
@@ -102,7 +101,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="LastName"
-                          value="<?php checkErrorValue($_SESSION['inputLastName'],$person['last_name'])?>"
+                            value="<?php checkErrorValue($_SESSION['inputLastName'], $person['last_name']) ?>"
                             required
                         />
                         <?php if (isset($_SESSION["errorLastName"])) : ?>
@@ -126,7 +125,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="NIK"
-                            value="<?php checkErrorValue($_SESSION['inputNik'],$person['nik'])?>"
+                            value="<?php checkErrorValue($_SESSION['inputNik'], $person['nik']) ?>"
                             required
                         />
                         <?php if (isset($_SESSION["errorNik"])) : ?>
@@ -153,7 +152,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="me@example.com"
-                            value="<?php checkErrorValue($_SESSION['inputEmail'],$person['email'])?>"
+                            value="<?php checkErrorValue($_SESSION['inputEmail'], $person['email']) ?>"
                             required
                         />
                         <?php if (isset($_SESSION["errorEmail"])) : ?>
@@ -177,13 +176,13 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                           <option value="<?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) {
                             echo $_SESSION['inputSex'];
                           } else {
-                            echo translateValue($person['sex'], "F" , "FEMALE","MALE");
+                            echo translateValue($person['sex'], "F", "FEMALE", "MALE");
                           }
                           ?>">
                             <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) {
                               echo $_SESSION['inputSex'] == "MALE" ? "MALE" : "FEMALE";
                             } else {
-                              echo translateValue($person['sex'], "F" , "FEMALE","MALE")  == "MALE" ? "MALE" : "FEMALE";
+                              echo translateValue($person['sex'], "F", "FEMALE", "MALE") == "MALE" ? "MALE" : "FEMALE";
                             } ?>
                           </option>
                           <?php if (isset($_SESSION['errorData']) && isset($_SESSION['inputSex'])) { ?>
@@ -191,7 +190,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                                 value="<?php echo $_SESSION['inputSex'] == "MALE" ? "FEMALE" : "MALE"; ?>"><?php echo $_SESSION['inputSex'] == "MALE" ? "FEMALE" : "MALE"; ?></option>
                           <?php } else if (isset($_SESSION['inputSex']) == "FEMALE") { ?>
                             <option value="MALE">MALE</option>
-                          <?php } else if (translateValue($person['sex'], "F" , "FEMALE","MALE") == "FEMALE") { ?>
+                          <?php } else if (translateValue($person['sex'], "F", "FEMALE", "MALE") == "FEMALE") { ?>
                             <option value="MALE">MALE</option>
                           <?php } else { ?>
                             <option value="FEMALE">FEMALE</option>
@@ -211,7 +210,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="Birth date"
-                            value="<?php checkErrorValue($_SESSION['inputBirthDate'],$birthDate)?>"
+                            value="<?php checkErrorValue($_SESSION['inputBirthDate'], $birthDate) ?>"
                             required
                         />
                       </div>
@@ -230,7 +229,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                             class="form-control has-shadow input-data has-background"
                             id="exampleFormControlInput1"
                             placeholder="Address"
-                            value="<?php checkErrorValue($_SESSION['inputAddress'],$person['address'])?>"
+                            value="<?php checkErrorValue($_SESSION['inputAddress'], $person['address']) ?>"
                             required
                         />
                       </div>
@@ -252,11 +251,57 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                               id="exampleFormControlTextarea1"
                               rows="1"
                               name="internalNotes"
-                          ><?php checkErrorValue($_SESSION['inputInternalNotes'],$person['internal_notes'])?></textarea>
+                          ><?php checkErrorValue($_SESSION['inputInternalNotes'], $person['internal_notes']) ?></textarea>
                         </div>
                       </div>
                     <?php } ?>
                   </div>
+
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="form-padding">
+                      <label for="Jobs" class="form-label">Jobs</label>
+                      <select
+                          class="form-select form-select-lg mb-3 has-shadow select-text"
+                          aria-label="Large select example"
+                          name="jobs"
+                      >
+                        <?php
+                        $personJobs = getPersonJobsByIdFromDatabase($person['job_id']);
+                        ?>
+                        <option value="<?php
+                        if ($personJobs != null):
+                          echo $personJobs['id'];
+                        else:
+                          echo "";
+                        endif;
+                        ?>">
+                          <?php
+                          if ($personJobs == null) :
+                            echo "Open this select menu";
+                          else:
+                            echo ucfirst($personJobs['job_name']);
+                          endif;
+                          ?>
+                        </option>
+                        
+                        <?php
+                        $jobs = getJobsDataFromDatabase();
+                        if (count($jobs) != 0) :
+                          $number = 1;
+                          for ($i = 0; $i < count($jobs); $i++):
+                            ?>
+                            <option value="<?php
+                            echo $jobs[$i]['id'] ?>">
+                              <?php echo ucfirst($jobs[$i]['job_name']) ?>
+                            </option>
+                          <?php
+                          endfor;
+                        endif;
+                        ?>
+                      </select>
+                    </div>
+                  </div>
+
                   <div class="card card-margin card-shadow">
                     <div class="card-header card-background-header">
                       <strong> EDIT PASSWORD

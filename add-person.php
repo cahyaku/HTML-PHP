@@ -207,7 +207,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="form-padding">
-                    <label for="Role" class="form-label">Sex</label>
+                    <label for="Role" class="form-label">Sex*</label>
                     <select
                         class="form-select form-select-lg mb-3 has-shadow select-text"
                         aria-label="Large select example"
@@ -262,7 +262,7 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
               <div class="d-md-flex">
                 <div class="col-12 col-md-6 col-lg-6">
                   <div class="form-padding">
-                    <label for="Role" class="form-label">Role</label>
+                    <label for="Role" class="form-label">Role*</label>
                     <select
                         class="form-select form-select-lg mb-3 has-shadow select-text"
                         aria-label="Large select example "

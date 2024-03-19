@@ -7,21 +7,22 @@ session_start();
 
 $id   = intval( $_POST['id'] );
 
-//$allHobby = getPersonHobbyByIdFromDatabase($id);
-
-function validateInputHobby($hobby): array
+function validateInputHobby($hobby,$id): array
 {
   $validate = [];
-  if (isHobbyExists($hobby, null)) {
+  $allHobby = getPersonHobbyByIdFromDatabase($id);
+  if (isHobbyExists($allHobby, $hobby, null)) {
     $validate['hobby'] = "1";
   }
   return $validate;
 }
-$errorData = validateInputHobby($_POST['hobby']);
+
+$errorData = validateInputHobby($_POST['hobby'],$id);
+
 if (count($errorData) != 0) {
   $_SESSION["errorInputHobby"] = $errorData['hobby'];
   $_SESSION["inputHobby"] = $_POST['hobby'];
-  header("Location: ../hobby.php?id=$id");
+  header("Location: ../view-person.php?id=$id");
   exit();
 } else {
   unset ($_SESSION['errorInputHobby']);

@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/../include/db.php";
+require_once __DIR__ . "/hobby-action.php";
 //require_once __DIR__ . "/jobs-action.php";
 
 //global $PDO;
@@ -9,11 +10,11 @@ function getPersonsDataFromJson(): array
   return loadDataFromJson("persons.json");
 }
 
-function getPersonsDataFromDatabase():array
+function getPersonsDataFromDatabase(): array
 {
   global $PDO;
   $query = 'SELECT * FROM persons';
-  $statement = $PDO->prepare( $query );
+  $statement = $PDO->prepare($query);
   $statement->execute();
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -28,7 +29,7 @@ function getPersonByIdFromDatabase($id)
   global $PDO;
   $query = 'SELECT * FROM persons WHERE id = :id';
   $statement = $PDO->prepare($query);
-  $statement ->execute(array("id" =>$id));
+  $statement->execute(array("id" => $id));
   return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
@@ -91,11 +92,12 @@ function getPersonDataByEmail($email)
   return null;
 }
 
-function getPersonsDataByEmailFromDatabase($email){
+function getPersonsDataByEmailFromDatabase($email)
+{
   global $PDO;
   $query = 'SELECT * FROM persons WHERE email = :email';
   $statement = $PDO->prepare($query);
-  $statement ->execute(array("email" =>$email));
+  $statement->execute(array("email" => $email));
   return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
@@ -412,29 +414,29 @@ function transformPersonFormIntoSession(): void
 }
 
 // untuk mengubah value saat proses input data
-function translateGender($gender):string|null
+function translateGender($gender): string|null
 {
   if ($gender == "FEMALE") {
     return "F";
   }
-  if ($gender == "MALE"){
+  if ($gender == "MALE") {
     return "M";
   }
   return null;
 }
 
-function translateRole($role):string|null
+function translateRole($role): string|null
 {
   if ($role == "ADMIN") {
     return "A";
   }
-  if ($role == "MEMBER"){
+  if ($role == "MEMBER") {
     return "M";
   }
   return null;
 }
 
-function translateStatus($status):int|null
+function translateStatus($status): int|null
 {
   if ($status == "ALIVE") {
     return 1;
@@ -452,41 +454,14 @@ function translateValue($value, $data, $newValue1, $newValue2)
   }
 }
 
-//function isInputDataExists($array, $inputData, $filter, ?int $id): bool
-//{
-//  for ($i = 0; $i < count($array); $i++) :
-//    if ($id == null) {
-//      if ($array[$i][$filter] == $inputData) {
-//        return true;
-//      }
-//    } else {
-//      if ($inputData == $array[$i][$filter] && $id != $array[$i]['id']) {
-//        return true;
-//      }
-//    }
-//  endfor;
-//  return false;
-//}
-
-//function isHobbyExists($hobby, $inputHobby, ?int $id,$personId): bool
-//{
-////  $hobby = getHobbyDataFromDatabase();
-//  for ($i = 0; $i < count($hobby); $i++) :
-//    if ($hobby[$i]['person_id'] == $personId) {
-//      if ($id == null) {
-//        if ($hobby[$i]['name'] == $inputHobby) {
-//          return true;
-//        }
-//      }
-//    }
-//    else {
-//      if ($inputHobby == $hobby[$i]['name'] && $id != $hobby[$i]['id']) {
-//        return true;
-//      }
-//    }
-//  endfor;
-//  return false;
-//}
+function checkJobInput($jobs)
+{
+  if ($jobs == "") {
+    return 1;
+  } else {
+    return $jobs;
+  }
+}
 
 function isJobsExists($allJobs, $jobs, ?int $id): bool
 {
@@ -503,20 +478,35 @@ function isJobsExists($allJobs, $jobs, ?int $id): bool
   endfor;
   return false;
 }
+//function isHobbyExists($hobby, ?int $id): bool
+//{
+//  $allHobby = getHobbyDataFromDatabase();
+//  for ($i = 0; $i < count($allHobby); $i++) :
+//    if ($allHobby[$i]['person_id'] == $id) {
+//      if ($id == null) {
+//        if ($allHobby[$i]['name'] == $hobby) {
+//          return true;
+//        }
+//      } else {
+//        if ($hobby == $allHobby[$i]['name'] && $id != $allHobby[$i]['id']) {
+//          return true;
+//        }
+//      }
+//    } else {
+//      if ($hobby == $allHobby[$i]['name'] && $id != $allHobby[$i]['person_id']) {
+//        return true;
+//      }
+//    }
+//  endfor;
+//  return false;
+//}
 
-function isHobbyExists($hobby, ?int $id): bool
+function isHobbyExists($allHobby, $hobby, ?int $id): bool
 {
-  $allHobby = getHobbyDataFromDatabase();
   for ($i = 0; $i < count($allHobby); $i++) :
-    if ($allHobby[$i]['person_id'] == $id) {
-      if ($id == null) {
-        if ($allHobby[$i]['name'] == $hobby) {
-          return true;
-        }
-      }else {
-        if ($hobby == $allHobby[$i]['name'] && $id != $allHobby[$i]['id']) {
-          return true;
-        }
+    if ($id == null) {
+      if ($allHobby[$i]['name'] == $hobby) {
+        return true;
       }
     } else {
       if ($hobby == $allHobby[$i]['name'] && $id != $allHobby[$i]['id']) {
@@ -527,3 +517,15 @@ function isHobbyExists($hobby, ?int $id): bool
   return false;
 }
 
+function getCountJobs(int $jobId): array
+{
+  global $PDO;
+//  $query = "SELECT * FROM person WHERE job_id =: id ";
+//  $statement = $PDO->prepare($query);
+//  $statement->execute();
+//  return $statement->fetchAll(PDO::FETCH_ASSOC);
+  $query = "SELECT * FROM person WHERE job_id LIKE '%$jobId%' ";
+  $statement = $PDO->prepare($query);
+  $statement->execute();
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
+}

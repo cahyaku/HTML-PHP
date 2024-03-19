@@ -44,7 +44,7 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
         </div>
       <?php endif; ?>
       <div class="search-box">
-        <nav class="navbar bg-body-tertiary has-shadow">
+        <nav class="navbar bg-body-tertiary has-shadow-grey">
           <div class="container-fluid">
             <a class="navbar-brand">
               <ion-icon name="clipboard-outline"></ion-icon>
@@ -77,7 +77,7 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
         </nav>
       </div>
       <div class="table-responsive">
-        <table class="table-primary table-width has-shadow" id="table">
+        <table class="table-primary table-width has-shadow-grey" id="table">
           <?php
           if (isset($_GET["search"])) {
             $jobs = searchJobs($_GET["search"]);
@@ -92,11 +92,11 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
           else :
             $page = $_GET['page'];
           endif;
-          $limit = 3;
+          $limit = 5;
           $previous = $page - 1;
           $next = $page + 1;
           $data = paginatedData($jobs, $page, $limit);
-          //          $data = paginatedJobsData($_GET["search"], $page, $limit);
+//                    $data = paginatedJobsData($_GET["search"], $page, $limit);
           $number = ($page - 1) * $limit + 1;
           $jobsData = $data[PAGING_DATA];
           ?>
@@ -251,7 +251,6 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                 <li class="page-item"><a class="page-link"
                                          href="<?php echo $search ?>page=<?php echo $x ?>"><?php echo $x ?></a></li>
               <?php endfor; ?>
-              
               <?php
               if ($page < $data[PAGING_TOTAL_PAGE]) :
                 ?>

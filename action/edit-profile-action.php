@@ -56,10 +56,11 @@ $errorPassword = validatePassword($_POST['currentPassword'],
     $person = getPersonsDataByEmailFromDatabase($_SESSION["email"]);
     $password = checkPassword($_POST['password'], $person['password']);
     $sex = translateGender($_POST["sex"]);
+    $jobs = checkJobInput($_POST["jobs"]);
     try {
       $query = 'UPDATE persons SET nik = :nik, first_name = :first_name, last_name = :last_name,
                    birth_date = :birth_date, sex = :sex, email = :email, password = :password, address = :address,
-                   internal_notes = :internal_notes WHERE id = :id';
+                   internal_notes = :internal_notes, job_id = :job_id WHERE id = :id';
       $statement = $PDO->prepare($query);
       $statement->execute(array(
         "id" => $person["id"],
@@ -72,6 +73,7 @@ $errorPassword = validatePassword($_POST['currentPassword'],
         "password" => $password,
         "address" => $_POST["address"],
         "internal_notes" => $_POST["internalNotes"],
+        "job_id" => $jobs
       ));
       $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
       $_SESSION['info'] = "Person data has been updated ($name).";
