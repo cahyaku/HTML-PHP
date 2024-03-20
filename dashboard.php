@@ -76,7 +76,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="happy" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $toddler = count(getToddlerData($persons));
+                  $toddler = count(getToddler());
                   echo "<h2 class='title'>";
                   echo "$toddler";
                   echo "</h2>";
@@ -154,7 +154,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="man" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $passedAway = count(getPassedAwayData($persons));
+                  $passedAway = count(getPassedAway());
                   echo "<h2 class='title'>";
                   echo "$passedAway";
                   echo "</h2>";

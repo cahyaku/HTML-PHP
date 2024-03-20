@@ -53,7 +53,7 @@ $errorPassword = validatePassword($_POST['currentPassword'],
 //      redirect("../persons.php", "changed");
 //    }
 //  }
-    $person = getPersonsDataByEmailFromDatabase($_SESSION["email"]);
+    $person = getPersonDataByEmailFromDatabase($_SESSION["email"]);
     $password = checkPassword($_POST['password'], $person['password']);
     $sex = translateGender($_POST["sex"]);
     $jobs = checkJobInput($_POST["jobs"]);
@@ -77,10 +77,20 @@ $errorPassword = validatePassword($_POST['currentPassword'],
       ));
       $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
       $_SESSION['info'] = "Person data has been updated ($name).";
-      redirect("../persons.php", "success");
+//      redirect("../persons.php", "success");
     } catch (PDOException $e) {
       $_SESSION['error'] = 'Query error: ' . $e->getMessage();
       header('Location: ../edit-person.php?error=1');
       die();
     }
+    $dbJobs = 'UPDATE person_job SET person_id = :person_id, job_id = :job_id WHERE person_id = :person_id';
+    $statement = $PDO->prepare($dbJobs);
+    $statement->execute(array(
+      "person_id" => $person['id'],
+      "job_id" => $_POST['jobs']
+    ));
+    
+    
+
+    redirect("../persons.php", "success");
 }

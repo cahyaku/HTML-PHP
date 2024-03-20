@@ -5,7 +5,7 @@ session_start();
 require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/utils-action.php";
 
-$id   = intval( $_SESSION['id'] );
+$id = intval($_SESSION['id']);
 $errorData = validateErrorInput($_POST['nik'],
   $_POST['email'],
   $_POST['firstName'],
@@ -81,39 +81,54 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
 //      redirect("../persons.php", "changed");
 //    }
 //  }
-      $person = getPersonByIdFromDatabase($_SESSION["id"]);
-      $password = checkPassword($_POST['password'], $person['password']);
-      $role = translateRole($_POST["role"]);
-      $sex = translateGender($_POST["sex"]);
-      $status = translateStatus($_POST["status"]);
-      try {
-        $query = 'UPDATE persons SET nik = :nik, first_name = :first_name, last_name = :last_name,
+  $person = getPersonByIdFromDatabase($_SESSION["id"]);
+  $password = checkPassword($_POST['password'], $person['password']);
+  $role = translateRole($_POST["role"]);
+  $sex = translateGender($_POST["sex"]);
+  $status = translateStatus($_POST["status"]);
+  try {
+    $query = 'UPDATE persons SET nik = :nik, first_name = :first_name, last_name = :last_name,
                    birth_date = :birth_date, sex = :sex, email = :email, password = :password, address = :address,
                    role = :role, internal_notes = :internal_notes, status = :status, job_id = :job_id WHERE id = :id';
-        $statement = $PDO->prepare($query);
-        $statement->execute(array(
-          "id" => $id,
-          "nik" => $_POST["nik"],
-          "first_name" => $_POST["firstName"],
-          "last_name" => $_POST["lastName"],
-          "birth_date" => translateDateFromStringToInt($_POST["birthDate"]),
-          "sex" => $sex,
-          "email" => $_POST["email"],
-          "password" => $password,
-          "address" => $_POST["address"],
-          "role" => $role,
-          "internal_notes" => $_POST["internalNotes"],
-          "status" => $status,
-          "job_id" => $_POST['jobs']
-        ));
-        $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
-        $_SESSION['changed'] = "Person data has been updated ($name).";
-        redirect("../persons.php", "changed");
-      } catch (PDOException $e) {
-        $_SESSION['error'] = 'Query error: ' . $e->getMessage();
-        header('Location: ../edit-person.php?error=1');
-        die();
-      }
+    $statement = $PDO->prepare($query);
+    $statement->execute(array(
+      "id" => $id,
+      "nik" => $_POST["nik"],
+      "first_name" => $_POST["firstName"],
+      "last_name" => $_POST["lastName"],
+      "birth_date" => translateDateFromStringToInt($_POST["birthDate"]),
+      "sex" => $sex,
+      "email" => $_POST["email"],
+      "password" => $password,
+      "address" => $_POST["address"],
+      "role" => $role,
+      "internal_notes" => $_POST["internalNotes"],
+      "status" => $status,
+      "job_id" => $_POST['jobs']
+    ));
+    $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
+    $_SESSION['changed'] = "Person data has been updated ($name).";
+  } catch (PDOException $e) {
+    $_SESSION['error'] = 'Query error: ' . $e->getMessage();
+    header('Location: ../edit-person.php?error=1');
+    die();
+  }
+  
+  $dbJobs = 'UPDATE person_job SET job_id = :job_id WHERE person_id = :person_id';
+  $statement = $PDO->prepare($dbJobs);
+  $statement->execute(array(
+    "person_id" => $id,
+    "job_id" => $_POST['jobs']
+  ));
+  //Update count in jobs database
+  //mendapatkan person dengan data pekerjaan terakhir
+  $personLastJobs = checkLastPersonJobs($id);
+  $lastJobs = getJobsDataById($personLastJobs['job_id']);
+  $updateJobs = getJobsDataById($_POST['jobs']);
+  $countUpdateJobs = count($updateJobs);
+  $countLastJobs = count($lastJobs) - 1;
+  saveJobsData($_POST['jobs'], $countUpdateJobs, $personLastJobs['job_id'], $countLastJobs);
+  redirect("../persons.php", "changed");
 }
 header('Location: ../index.php');
 die();

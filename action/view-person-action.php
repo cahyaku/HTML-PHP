@@ -36,8 +36,19 @@ if (intval($id)) {
       "id" => $id
     ));
     
+    $personLastJobs = checkLastPersonJobs($id);
+    $dbJobs = 'DELETE FROM person_job WHERE person_id = :person_id';
+    $statement = $PDO->prepare($dbJobs);
+    $statement->execute(array(
+      "person_id" => $personLastJobs['person_id'],
+    ));
     $_SESSION['delete'] = '"' . $person['first_name'] . " " . $person['last_name'] . '" data has been deleted.';
-      redirect("../persons.php", "deleted");
+    
+//  Update count in jobs database
+    $jobsData = getJobsDataById($person['job_id']);
+    $count = count($jobsData);
+    saveJobsData($person['job_id'], $count);
+    redirect("../persons.php", "deleted");
   } else {
     $_SESSION['error'] = 'Person data with given ID was not found!';
   }

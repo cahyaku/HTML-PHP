@@ -101,7 +101,7 @@ showHeader("Add-PMA", "hobby.css", personsNav: "persons-nav-link");
                         </thead>
                         <tbody>
                         <?php
-                        $hobby = getHobbyDataFromDatabase();
+//                        $hobby = getHobbyDataFromDatabase();
                         if (count($hobby) != 0) :
                           $number = 1;
                           for ($i = 0; $i < count($hobby); $i++):
@@ -187,8 +187,6 @@ showHeader("Add-PMA", "hobby.css", personsNav: "persons-nav-link");
                   </div>
                 </div>
               </div>
-              
-              
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ session_start();
 //}
 
 
-$person = getPersonsDataByEmailFromDatabase($_SESSION["email"]);
+$person = getPersonDataByEmailFromDatabase($_SESSION["email"]);
 if (intval($person["id"])) {
   $query = 'SELECT * FROM persons WHERE id = :id LIMIT 1';
   $statement = $PDO->prepare($query);

@@ -140,29 +140,6 @@ function paginatedData($array, int $page, int $limit): array
   ];
 }
 
-/**
- * Search person data by first name or NIK
- */
-//function searchPersons($search, ?array $persons = null): array
-//{
-//  if ($persons == null) {
-//    $persons = getPersonsDataFromDatabase();
-//  }
-//  $searchResult = [];
-//  foreach ($persons as $person => $value) {
-//    if (preg_match("/$search/i", $value["first_name"])) {
-//      if (in_array($value["first_name"], $searchResult) == false) {
-//        $searchResult[] = $value;
-//      }
-//    }
-//    if (preg_match("/$search/i", $value["nik"])) {
-//      if (in_array($value["nik"], $searchResult) == false) {
-//        $searchResult[] = $value;
-//      }
-//    }
-//  }
-//  return $searchResult;
-//}
 
 /**
  * Function search persons data by first name or nik.
@@ -170,7 +147,7 @@ function paginatedData($array, int $page, int $limit): array
 function searchPersons($search): array
 {
   global $PDO;
-      $query = "SELECT * FROM persons WHERE first_name LIKE '%$search%' OR nik LIKE '%$search%'";
+  $query = "SELECT * FROM persons WHERE first_name LIKE '%$search%' OR nik LIKE '%$search%'";
 //  $query = "SELECT * FROM persons WHERE concat(first_name, nik) LIKE '%$search%'";
   $statement = $PDO->prepare($query);
   $statement->execute();
@@ -192,6 +169,30 @@ function getToddlerData($persons): array
   return $toddler;
 }
 
+function getToddler(): array
+{
+  global $PDO;
+  $minAges = time() - (6 * (60 * 60 * 24 * 365));
+  $query = "SELECT * FROM persons WHERE birth_date >= $minAges AND status = :alive";
+  $statement = $PDO->prepare($query);
+  $statement->execute([
+    "alive" => 1
+  ]);
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getElderly(): array
+{
+  global $PDO;
+  $minAges = time() - (60 * (60 * 60 * 24 * 365));
+  $query = "SELECT * FROM persons WHERE birth_date <= $minAges AND status = :alive";
+  $statement = $PDO->prepare($query);
+  $statement->execute([
+    "alive" => 1
+  ]);
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
 /**
  * Get passed away data
  */
@@ -206,10 +207,19 @@ function getPassedAwayData($persons): array
   return $passedAway;
 }
 
-/**
- * Get productive ages data
- * @return array
- */
+function getPassedAway(): array
+{
+  global $PDO;
+  $query = "SELECT * FROM persons WHERE status = :status";
+  $statement = $PDO->prepare($query);
+  $statement->execute(
+    array(
+      "status" => 0
+    )
+  );
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function getProductiveAgesData($persons): array
 {
   $productiveAges = [];

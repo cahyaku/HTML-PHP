@@ -26,7 +26,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
               </div>
               <?php
               if (isset($_SESSION['email'])) {
-                $person = getPersonsDataByEmailFromDatabase($_SESSION['email']);
+                $person = getPersonDataByEmailFromDatabase($_SESSION['email']);
                 $_SESSION['userEmail'] = $_SESSION['email'];
                 $_SESSION['id'] = $person['id'];
                 $birthDate = translateDateFromIntToString($person['birth_date']);

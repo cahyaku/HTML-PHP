@@ -59,46 +59,31 @@ function redirectWhenNotLoggedIn($email): void
 }
 
 /**
- * Get person data by id
- *  Data from JSON
- * @param $id
- * @return array
- */
-//function getPersonDataById($id): array
-//{
-//  $persons = getPersonsDataFromJson();
-//  for ($i = 0; $i < count($persons); $i++) {
-//    if ($id == $persons[$i]['id']) {
-//      return $persons[$i];
-//    }
-//  }
-//  return $persons[$i];
-//}
-
-/**
  * Get person data by email
  * @param $email
  * @return mixed
  */
-function getPersonDataByEmail($email)
-{
-//  $persons = getPersonsDataFromJson();
-  $persons = getPersonsDataFromDatabase();
-  for ($i = 0; $i < count($persons); $i++) {
-    if ($email == $persons[$i]['email']) {
-      return $persons[$i];
-    }
-  }
-  return null;
-}
-
-function getPersonsDataByEmailFromDatabase($email)
+function getPersonDataByEmailFromDatabase($email):array
 {
   global $PDO;
   $query = 'SELECT * FROM persons WHERE email = :email';
   $statement = $PDO->prepare($query);
   $statement->execute(array("email" => $email));
   return $statement->fetch(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Get person data by email
+ * @param $email
+ * @return mixed
+ */
+function getPersonsDataByEmailFromDatabase($email):array
+{
+  global $PDO;
+  $query = 'SELECT * FROM persons WHERE email = :email';
+  $statement = $PDO->prepare($query);
+  $statement->execute(array("email" => $email));
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -170,10 +155,11 @@ function checkRole($email): array|null
  * @param int|null $id
  * @return bool
  */
-function isNikExists($nik, ?int $id): bool
+function isNikExists(string $nik, ?int $id): bool
 {
 //  $persons = getPersonsDataFromJson();
   $persons = getPersonsDataFromDatabase();
+//  $persons = getPersonsDataByEmailFromDatabase($email);
   for ($i = 0; $i < count($persons); $i++) :
     if ($id == null) {
       if ($persons[$i]['nik'] == $nik) {
@@ -196,7 +182,7 @@ function isNikExists($nik, ?int $id): bool
  */
 function isEmailExists($email, ?string $id): bool
 {
-  $persons = getPersonsDataFromDatabase();
+  $persons = getPersonsDataByEmailFromDatabase($email);
   for ($i = 0; $i < count($persons); $i++) :
     if ($id == null) {
       if ($persons[$i]['email'] == $email) {
@@ -250,17 +236,21 @@ function checkPassword($password, $currentPassword): string
  */
 function checkCurrentPassword($currentPassword, $id): bool
 {
-//  $persons = getPersonsDataFromJson();
-  $persons = getPersonsDataFromDatabase();
-  for ($i = 0; $i < count($persons); $i++) {
-    if ($id == $persons[$i]['id']) {
-      $verify = password_verify($currentPassword, $persons[$i]['password']);
-      if ($verify) {
-        return true;
-      }
-    }
+//  $persons = getPersonsDataFromDatabase();
+  $person = getPersonByIdFromDatabase($id);
+  if( password_verify($currentPassword, $person['password'])){
+    return true;
   }
   return false;
+//  for ($i = 0; $i < count($persons); $i++) {
+//    if ($id == $persons[$i]['id']) {
+//      $verify = password_verify($currentPassword, $persons[$i]['password']);
+//      if ($verify) {
+//        return true;
+//      }
+//    }
+//  }
+//  return false;
 }
 
 /**
@@ -467,17 +457,18 @@ function isJobsExists($allJobs, $jobs, ?int $id): bool
 {
   for ($i = 0; $i < count($allJobs); $i++) :
     if ($id == null) {
-      if ($allJobs[$i]['job_name'] == $jobs) {
+      if (strtoupper($allJobs[$i]['job_name']) == strtoupper($jobs)) {
         return true;
       }
     } else {
-      if ($jobs == $allJobs[$i]['job_name'] && $id != $allJobs[$i]['id']) {
+      if (strtoupper($jobs) == strtoupper($allJobs[$i]['job_name']) && $id != $allJobs[$i]['id']) {
         return true;
       }
     }
   endfor;
   return false;
 }
+
 //function isHobbyExists($hobby, ?int $id): bool
 //{
 //  $allHobby = getHobbyDataFromDatabase();
@@ -528,4 +519,84 @@ function getCountJobs(int $jobId): array
   $statement = $PDO->prepare($query);
   $statement->execute();
   return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+//function getPersonDataByNik($nik):array
+//{
+//  global $PDO;
+//  $query = "SELECT * FROM persons WHERE nik LIKE '%$nik%' ";
+//  $statement = $PDO->prepare($query);
+//  $statement->execute();
+//  return $statement->fetch(PDO::FETCH_ASSOC);
+//}
+
+function getPersonDataByNik($nik):array
+{
+  global $PDO;
+  $query = 'SELECT * FROM persons WHERE nik = :nik';
+  $statement = $PDO->prepare($query);
+  $statement->execute(array(
+    "nik" => $nik)
+  );
+  return $statement->fetch(PDO::FETCH_ASSOC);
+}
+
+//function getJobsDataById($jobsId):array
+//{
+//  global $PDO;
+//  $query = 'SELECT * FROM jobs WHERE id = :job_id';
+//  $statement = $PDO->prepare($query);
+//  $statement->execute(array(
+//    "job_id" => $jobsId
+//  ));
+//  return $statement->fetch(PDO::FETCH_ASSOC);
+//}
+
+function getJobsDataById($jobsId):array
+{
+  global $PDO;
+  $query = 'SELECT * FROM person_job WHERE job_id = :job_id';
+  $statement = $PDO->prepare($query);
+  $statement->execute(array(
+    "job_id" => $jobsId
+  ));
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function saveJobsData($jobsId, $count, ?int $idLastJobs = null, ?int $countLastJobs = null):void
+{
+  global $PDO;
+  if ($idLastJobs == null && $countLastJobs == null) {
+    $query = 'UPDATE jobs SET count = :count WHERE id = :id';
+    $statement = $PDO->prepare($query);
+    $statement->execute(array(
+      "id" => $jobsId,
+      "count" => $count,
+    ));
+  } else {
+    $queryLastJobs = 'UPDATE jobs SET count = :count WHERE id = :id';
+    $statement = $PDO->prepare($queryLastJobs);
+    $statement->execute(array(
+      "id" => $idLastJobs,
+      "count" => $countLastJobs,
+    ));
+    
+    $query = 'UPDATE jobs SET count = :count WHERE id = :id';
+    $statement = $PDO->prepare($query);
+    $statement->execute(array(
+      "id" => $jobsId,
+      "count" => $count,
+    ));
+  }
+}
+
+function checkLastPersonJobs($id)
+{
+  global $PDO;
+  $query = 'SELECT * FROM person_job WHERE person_id = :person_id';
+  $statement = $PDO->prepare($query);
+  $statement->execute(array(
+    "person_id" => $id
+  ));
+  return $statement->fetch(PDO::FETCH_ASSOC);
 }

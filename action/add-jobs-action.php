@@ -5,7 +5,9 @@ require_once __DIR__ . "/utils-action.php";
 require_once __DIR__ . "/../include/db.php";
 require_once __DIR__ . "/jobs-action.php";
 
-$allJobs = getJobsDataFromDatabase();
+//$allData = getJobsDataFromDatabase();
+$jobsData = getJobDataFromDatabase($_POST['jobs']);
+
 function validateInputJobs($dbJobs, $jobs): array
 {
   $validate = [];
@@ -15,7 +17,7 @@ function validateInputJobs($dbJobs, $jobs): array
   return $validate;
 }
 
-$errorData = validateInputJobs($allJobs, $_POST['jobs']);
+$errorData = validateInputJobs($jobsData,$_POST['jobs']);
 
 if (count($errorData) != 0) {
   $_SESSION["errorInputJobs"] = $errorData['jobs'];

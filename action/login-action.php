@@ -5,7 +5,7 @@ require_once __DIR__ . "/utils-action.php";
 require_once __DIR__ ."/../include/db.php";
 global $PDO;
 
-$loginData = getPersonsDataFromDatabase();
+$loginData = getPersonsDataByEmailFromDatabase($_POST['email']);
 function validateData($data)
 {
   for ($i = 0; $i < count($data); $i++) {

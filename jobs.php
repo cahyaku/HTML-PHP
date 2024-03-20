@@ -96,7 +96,7 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
           $previous = $page - 1;
           $next = $page + 1;
           $data = paginatedData($jobs, $page, $limit);
-//                    $data = paginatedJobsData($_GET["search"], $page, $limit);
+//          $data = paginatedJobsData($_GET["search"], $page, $limit);
           $number = ($page - 1) * $limit + 1;
           $jobsData = $data[PAGING_DATA];
           ?>

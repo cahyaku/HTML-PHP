@@ -22,31 +22,31 @@ function validateError(string $nik,
   if (!checkNikInput($nik)) {
     $validate['nik'] = "1";
   }
-
+  
   if (isNikExists($nik, null)) {
     $validate['nik'] = "2";
   }
-
+  
   if (!checkNewPasswordInput($password)) {
     $validate['password'] = "1";
   }
-
+  
   if (isEmailExists($email, null) == 1) {
     $validate['email'] = "1";
   }
-
+  
   if (!checkNameInput($firstName)) {
     $validate['firstName'] = "1";
   }
-
+  
   if (!checkNameInput($lastName)) {
     $validate['lastName'] = "2";
   }
-
+  
   if (!checkConfirmPassword($password, $confirmPassword)) {
     $validate['confirmPassword'] = "1";
   }
-
+  
   if (!checkBirthDateInput($birthDate)) {
     $validate['birthDate'] = "1";
   }
@@ -95,7 +95,6 @@ if (count($errorData) != 0) {
   unset($_SESSION['errorFirstName']);
   unset($_SESSION['errorLastName']);
   unset($_SESSION['errorBirthDate']);
-  
   unset ($_SESSION['inputEmail']);
   unset ($_SESSION['inputNik']);
   unset ($_SESSION['inputPassword']);
@@ -116,29 +115,43 @@ if (count($errorData) != 0) {
   try {
     $query = 'INSERT INTO persons(nik,first_name,last_name,birth_date,sex,email, password,address,role,internal_notes,status, job_id)
 VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:role,:internal_notes,:status,:job_id)';
-    $statement = $PDO->prepare( $query );
-    $statement->execute( array(
-      "nik" =>$_POST["nik"],
+    $statement = $PDO->prepare($query);
+    $statement->execute(array(
+      "nik" => $_POST["nik"],
       "first_name" => $_POST["firstName"],
       "last_name" => $_POST["lastName"],
       "birth_date" => $birthDate,
       "sex" => $sex,
       "email" => $_POST["email"],
       "password" => $password,
-      "address" =>$_POST["address"],
+      "address" => $_POST["address"],
       "role" => $role,
       "internal_notes" => $_POST["internalNotes"],
       "status" => $status,
       "job_id" => $jobs
-      ) );
+    ));
     $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
     $_SESSION['info'] = "New person data has been saved ($name).";
-    redirect("../persons.php", "success");
-  } catch ( PDOException $e ) {
+//    redirect("../persons.php", "success");
+  } catch (PDOException $e) {
     $_SESSION['error'] = 'Query error: ' . $e->getMessage();
-    header( 'Location: ../persons.php' );
+    header('Location: ../persons.php');
     die();
   }
+  $person = getPersonDataByNik($_POST["nik"]);
+  $personId = $person['id'];
+  $dbJobs = 'INSERT INTO person_job(person_id,job_id) VALUES(:person_id,:job_id)';
+  $statement = $PDO->prepare($dbJobs);
+  $statement->execute(array(
+    "person_id" => $personId,
+    "job_id" => $jobs
+  ));
+
+//Update count in jobs database
+  $jobsData = getJobsDataById($jobs);
+  $count = count($jobsData);
+  saveJobsData($jobs, $count);
+  redirect("../persons.php", "success");
 }
-header( 'Location: ../index.php' );
+header('Location: ../index.php');
 die();

@@ -6,7 +6,8 @@ session_start();
 global $PDO;
 
 $id = $_POST['id'];
-$allJobs = getJobsDataFromDatabase();
+$jobsData = getJobDataFromDatabase($_POST['jobs']);
+
 function validateInputJobs($dbJobs, $jobs,$id): array
 {
   $validate = [];
@@ -16,7 +17,7 @@ function validateInputJobs($dbJobs, $jobs,$id): array
   return $validate;
 }
 
-$errorData = validateInputJobs($allJobs, $_POST['jobs'],$id);
+$errorData = validateInputJobs($jobsData, $_POST['jobs'],$id);
 
 if (count($errorData) != 0) {
   $_SESSION["errorInputJobs"] = $errorData['jobs'];
@@ -42,6 +43,7 @@ if (count($errorData) != 0) {
     die();
   }
 }
+
 //try {
 // buat query yang akan meng-update count di jobs
 //  $count = getCountJobs(3);
