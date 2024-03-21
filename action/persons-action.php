@@ -72,30 +72,32 @@ global $PDO;
 /**
  * Function paginated data (LIMIT dan OFFSET)
  */
-//function paginatedData($array, int $page, int $limit): array|null
-//{
-//  global $PDO;
+function paginatedDataFromDatabase($array, int $page, int $limit): array|null
+{
+  global $PDO;
 //  $persons = [];
-//  $totalPage = ceil((float)count($array) / (float)$limit);
-//  $offset = ($page - 1) * $limit;
-//  for ($i = 0; $i < count($array); $i++) {
-//    $personData = $array[$i]['nik'];
-//    $query = "SELECT * FROM persons WHERE nik LIKE '%$personData%' LIMIT $limit OFFSET $offset";
-//    $statement = $PDO->prepare($query);
-//    $statement->execute();
-//    $result = $statement->fetch(PDO::FETCH_ASSOC);
+  $totalPage = ceil((float)count($array) / (float)$limit);
+  $offset = ($page - 1) * $limit;
+  for ($i = 0; $i < count($array); $i++) {
+    $personData = $array[$i]['nik'];
+    $query = "SELECT * FROM persons WHERE nik LIKE '%$personData%' LIMIT $limit OFFSET $offset";
+    $statement = $PDO->prepare($query);
+    $statement->execute();
+    $result = $statement->fetch(PDO::FETCH_ASSOC);
 //    $persons[] = $result;
-//  }
-////  var_dump($persons);
+  }
+//  $totalPage = ceil((float)count($array)/ (float)$limit);
+  
+//  var_dump($persons);
 //  $sortingData = sortingDataForPagination($page, $limit, $persons);
-//  return [
-//    PAGING_TOTAL_PAGE => $totalPage,
-//    PAGING_DATA => array_slice($persons, $sortingData["indexStart"], $sortingData["length"]),
-//    PAGING_CURRENT_PAGE => $page
-//  ];
-////  PAGING_DATA => $persons,
-////  PAGING_DATA => array_slice($persons, $sortingData["indexStart"], $sortingData["length"]),
-//}
+  return [
+    PAGING_TOTAL_PAGE => $totalPage,
+    PAGING_DATA => $result,
+    PAGING_CURRENT_PAGE => $page,
+  ];
+//  PAGING_DATA => $persons,
+//  PAGING_DATA => array_slice($persons, $sortingData["indexStart"], $sortingData["length"]),
+}
 
 //function sortingDataForPagination(int $page, int $limit, array $array): array
 //{
@@ -169,30 +171,6 @@ function getToddlerData($persons): array
   return $toddler;
 }
 
-function getToddler(): array
-{
-  global $PDO;
-  $minAges = time() - (6 * (60 * 60 * 24 * 365));
-  $query = "SELECT * FROM persons WHERE birth_date >= $minAges AND status = :alive";
-  $statement = $PDO->prepare($query);
-  $statement->execute([
-    "alive" => 1
-  ]);
-  return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-
-function getElderly(): array
-{
-  global $PDO;
-  $minAges = time() - (60 * (60 * 60 * 24 * 365));
-  $query = "SELECT * FROM persons WHERE birth_date <= $minAges AND status = :alive";
-  $statement = $PDO->prepare($query);
-  $statement->execute([
-    "alive" => 1
-  ]);
-  return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-
 /**
  * Get passed away data
  */
@@ -205,19 +183,6 @@ function getPassedAwayData($persons): array
     }
   }
   return $passedAway;
-}
-
-function getPassedAway(): array
-{
-  global $PDO;
-  $query = "SELECT * FROM persons WHERE status = :status";
-  $statement = $PDO->prepare($query);
-  $statement->execute(
-    array(
-      "status" => 0
-    )
-  );
-  return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getProductiveAgesData($persons): array
@@ -260,3 +225,104 @@ function checkAges($birthDate): int
   $yearOfBirthDate = $age / $years;
   return floor($yearOfBirthDate);
 }
+
+// Refactor function get all persons from database
+function test($filter)
+{
+  global $PDO;
+  $max = time() - (5 * (60 * 60 * 24 * 365));
+  $min = time() - (100 * (60 * 60 * 24 * 365));
+  if ($filter == "productiveAges") {
+    $query = "SELECT count(*) FROM persons WHERE birth_date >= :min AND birth_date <= :max AND alive = :alive";
+    $statement = $PDO->prepare($query);
+    $statement->execute(array(
+      'min' => $min,
+      'max' => $max,
+      'alive' => 1
+    ));
+    return $statement->fetchColumn();
+  } elseif ($filter == "toddler") {
+    $query = 'SELECT count(*) FROM persons WHERE birth_date < :time AND alive = :alive';
+    $statement = $PDO->prepare($query);
+    $statement->execute(array(
+      'time' => $min,
+      'alive' => 1
+    ));
+    return $statement->fetchColumn();
+  } elseif ($filter == "passedAway") {
+    $query = 'SELECT count(*) FROM persons WHERE alive = :alive';
+    $statement = $PDO->prepare($query);
+    $statement->execute(array(
+      'alive' => 0
+    ));
+    return $statement->fetchColumn();
+    
+  } else if ($filter == "allPersons") {
+    $query = "SELECT count(*) FROM persons";
+    $statement = $PDO->query($query);
+    $statement->execute();
+    return $statement->fetchColumn();
+  } else {
+    return null;
+  }
+}
+
+//Refactor function get all person when filter persons data
+function getPassedAway(?array $persons = null): array
+{
+  global $PDO;
+  if ($persons == null) {
+    $query = "SELECT * FROM persons WHERE status = :status";
+    $statement = $PDO->prepare($query);
+   $statement->execute(
+      array(
+        "status" => 0
+      )
+    );
+   $persons =  $statement->fetchAll(PDO::FETCH_ASSOC);
+  } else {
+    $query = "SELECT * FROM persons WHERE status = :status AND id = :person_id";
+    $statement = $PDO->prepare($query);
+    $statement->execute(
+      array(
+        "status" => 0,
+        "person_id" => $persons['id']
+      )
+    );
+    $persons = $statement->fetchAll(PDO::FETCH_ASSOC);
+  }
+  return $persons;
+}
+
+function getToddler(): array
+{
+  global $PDO;
+  $minAges = time() - (6 * (60 * 60 * 24 * 365));
+  $query = "SELECT * FROM persons WHERE birth_date >= $minAges AND status = :alive";
+  $statement = $PDO->prepare($query);
+  $statement->execute([
+    "alive" => 1
+  ]);
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+//function getElderly(): array
+//{
+//  global $PDO;
+//  $minAges = time() - (15 * (60 * 60 * 24 * 365));
+//  $query = "SELECT * FROM persons WHERE birth_date >= $minAges AND status = :alive";
+//  $statement = $PDO->prepare($query);
+//  $statement->execute([
+//    "alive" => 1
+//  ]);
+//  return $statement->fetchAll(PDO::FETCH_ASSOC);
+//}
+
+//$max = time() - (15 * (60 * 60 * 24 * 365));
+//$min = time() - (64 * (60 * 60 * 24 * 365));
+//$query = 'SELECT count(*) FROM Persons WHERE birth_date < :time AND alive = :alive';
+//$statement = $PDO->prepare($query);
+//$statement->execute(array(
+//  'time' => $min,
+//  'alive' => 1
+//));

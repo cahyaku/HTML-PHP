@@ -56,7 +56,11 @@ $errorPassword = validatePassword($_POST['currentPassword'],
     $person = getPersonDataByEmailFromDatabase($_SESSION["email"]);
     $password = checkPassword($_POST['password'], $person['password']);
     $sex = translateGender($_POST["sex"]);
-    $jobs = checkJobInput($_POST["jobs"]);
+//    $jobs = checkJobInput($_POST["jobs"]);
+    
+    $personJobs = checkLastPersonJobs($person['id']);
+    $jobs = checkJobInputWhenEditPersonData($personJobs['job_id'], $_POST['jobs']);
+    
     try {
       $query = 'UPDATE persons SET nik = :nik, first_name = :first_name, last_name = :last_name,
                    birth_date = :birth_date, sex = :sex, email = :email, password = :password, address = :address,
@@ -77,20 +81,28 @@ $errorPassword = validatePassword($_POST['currentPassword'],
       ));
       $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
       $_SESSION['info'] = "Person data has been updated ($name).";
-//      redirect("../persons.php", "success");
     } catch (PDOException $e) {
       $_SESSION['error'] = 'Query error: ' . $e->getMessage();
       header('Location: ../edit-person.php?error=1');
       die();
     }
-    $dbJobs = 'UPDATE person_job SET person_id = :person_id, job_id = :job_id WHERE person_id = :person_id';
+//    $dbJobs = 'UPDATE person_job SET person_id = :person_id, job_id = :job_id WHERE person_id = :person_id';
+//    $statement = $PDO->prepare($dbJobs);
+//    $statement->execute(array(
+//      "person_id" => $person['id'],
+//      "job_id" => $_POST['jobs']
+//    ));
+    
+    updateCountOfJobsWhenEditPersonData($person['id']);
+    $personLastJobs = checkLastPersonJobs($person['id']);
+    $dbJobs = 'UPDATE person_job SET job_id = :job_id WHERE person_id = :person_id';
     $statement = $PDO->prepare($dbJobs);
     $statement->execute(array(
-      "person_id" => $person['id'],
-      "job_id" => $_POST['jobs']
+      "person_id" => $personLastJobs['id'],
+      "job_id" => $jobs
     ));
-    
-    
-
+    $updateJobs = getJobsDataById($jobs);
+    $countUpdateJobs = count($updateJobs);
+    saveJobsData($jobs, $countUpdateJobs);
     redirect("../persons.php", "success");
 }

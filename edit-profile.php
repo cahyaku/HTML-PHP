@@ -268,19 +268,42 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                         <?php
                         $personJobs = getPersonJobsByIdFromDatabase($person['job_id']);
                         ?>
-                        <option value="<?php
-                        if ($personJobs != null):
-                          echo $personJobs['id'];
-                        else:
-                          echo "";
-                        endif;
+<!--                        <option value="--><?php
+//                        if ($personJobs != null):
+//                          echo $personJobs['job_id'];
+//                        else:
+//                          echo "";
+//                        endif;
+//                        ?><!--">-->
+<!--                          --><?php
+//                          if ($personJobs == null) :
+//                            echo "Open this select menu";
+//                          else:
+//                            echo ucfirst($personJobs['job_name']);
+//                          endif;
+//                          ?>
+<!--                        </option>-->
+<!--                        -->
+<!--                        --><?php
+//                        $jobs = getJobsDataFromDatabase();
+//                        if (count($jobs) != 0) :
+//                          $number = 1;
+//                          for ($i = 0; $i < count($jobs); $i++):
+//                            ?>
+<!--                            <option value="--><?php
+//                            echo $jobs[$i]['id'] ?><!--">-->
+<!--                              --><?php //echo ucfirst($jobs[$i]['job_name']) ?>
+<!--                            </option>-->
+<!--                          --><?php
+//                          endfor;
+//                        endif;
+//                        ?>
+                        
+                        <option selected value="<?php
+                        echo $personJobs['job_id'];
                         ?>">
                           <?php
-                          if ($personJobs == null) :
-                            echo "Open this select menu";
-                          else:
-                            echo ucfirst($personJobs['job_name']);
-                          endif;
+                          echo ucfirst($personJobs['job_name']);
                           ?>
                         </option>
                         
@@ -291,8 +314,11 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                           for ($i = 0; $i < count($jobs); $i++):
                             ?>
                             <option value="<?php
-                            echo $jobs[$i]['id'] ?>">
-                              <?php echo ucfirst($jobs[$i]['job_name']) ?>
+                            echo $jobs[$i]['id'];
+                            ?>">
+                              <?php
+                              echo ucfirst($jobs[$i]['job_name']);
+                              ?>
                             </option>
                           <?php
                           endfor;

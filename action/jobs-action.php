@@ -61,23 +61,30 @@ function paginatedJobsData($search, int $page, int $limit): array
 {
   global $PDO;
   $offset = ($page - 1) * $limit;
-  $queryData = 'SELECT count(*) FROM jobs';
-  $statementData = $PDO->query($queryData);
-  $totalData = $statementData->fetchColumn();
-  $totalPage = ceil((float)$totalData/ (float)$limit);
+  
   if ($search != null) {
+    $queryData = "SELECT count(*) FROM jobs WHERE job_name LIKE '%$search%'";
+    $statementData = $PDO->query($queryData);
+    $totalData = $statementData->fetchColumn();
+    
     $query = "SELECT * FROM jobs WHERE job_name LIKE '%$search%' LIMIT $limit OFFSET $offset";
     $statement = $PDO->prepare($query);
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-    $totalPage = ceil((float)count($result) / (float)$limit);
+//    $totalPage = ceil((float)count($result) / (float)$limit);
   } else {
+    $queryData = 'SELECT count(*) FROM jobs';
+    $statementData = $PDO->query($queryData);
+    $totalData = $statementData->fetchColumn();
+    
     $query = "SELECT * FROM jobs LIMIT $limit OFFSET $offset";
     $statement = $PDO->prepare($query);
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-    $totalPage = ceil((float)count($result)/ (float)$limit);
+//    $total = ceil((float)count($result)/ (float)$limit);
   }
+  $totalPage = ceil((float)$totalData/ (float)$limit);
+  
   return [
     PAGING_TOTAL_PAGE => $totalPage,
     PAGING_DATA => $result,

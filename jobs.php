@@ -84,7 +84,6 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
           } else {
             $jobs = getJobsDataFromDatabase();
           }
-          
           if ($_GET['page'] < 1):
             $page = 1;
           elseif (isset($_GET['page']) && !is_numeric($_GET['page'])):
@@ -95,8 +94,8 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
           $limit = 5;
           $previous = $page - 1;
           $next = $page + 1;
-          $data = paginatedData($jobs, $page, $limit);
-//          $data = paginatedJobsData($_GET["search"], $page, $limit);
+//          $data = paginatedData($jobs, $page, $limit);
+          $data = paginatedJobsData($_GET["search"], $page, $limit);
           $number = ($page - 1) * $limit + 1;
           $jobsData = $data[PAGING_DATA];
           ?>

@@ -132,7 +132,6 @@ VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:r
     ));
     $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
     $_SESSION['info'] = "New person data has been saved ($name).";
-//    redirect("../persons.php", "success");
   } catch (PDOException $e) {
     $_SESSION['error'] = 'Query error: ' . $e->getMessage();
     header('Location: ../persons.php');

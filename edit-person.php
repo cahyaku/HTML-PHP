@@ -280,35 +280,29 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                     </div>
                   </div>
 
-
                   <div class="d-md-flex">
                     <div class="col-12 col-md-6 col-lg-6">
                       <div class="form-padding">
                         <label for="Jobs" class="form-label">Jobs</label>
+                        <?php
+                        $personJobs = getPersonJobsByIdFromDatabase($person['job_id']);
+                        ?>
                         <select
                             class="form-select form-select-lg mb-3 has-shadow select-text"
                             aria-label="Large select example"
                             name="jobs"
-                            required
                         >
                           <?php
                           $personJobs = getPersonJobsByIdFromDatabase($person['job_id']);
                           ?>
-                          <option value="<?php
-                          if ($personJobs != null):
-                            echo $personJobs['id'];
-                          else:
-                          echo "";
-                          endif;
+                          <option selected value="<?php
+                          echo $personJobs['job_id'];
                           ?>">
                             <?php
-                            if ($personJobs == null) :
-                              echo "Open this select menu";
-                            else:
-                              echo ucwords($personJobs['job_name']);
-                            endif;
+                            echo ucfirst($personJobs['job_name']);
                             ?>
                           </option>
+                          
                           <?php
                           $jobs = getJobsDataFromDatabase();
                           if (count($jobs) != 0) :
@@ -316,8 +310,11 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             for ($i = 0; $i < count($jobs); $i++):
                               ?>
                               <option value="<?php
-                              echo $jobs[$i]['id'] ?>">
-                                <?php echo ucwords($jobs[$i]['job_name']) ?>
+                              echo $jobs[$i]['id'];
+                              ?>">
+                                <?php
+                                echo ucfirst($jobs[$i]['job_name']);
+                                ?>
                               </option>
                             <?php
                             endfor;
@@ -326,9 +323,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                         </select>
                       </div>
                     </div>
-
-                    <div class=" col-12 col-md-6 col-lg-6
-                          ">
+                    <div class=" col-12 col-md-6 col-lg-6">
                       <div class="mb-3 text-area form-padding">
                         <label for="exampleFormControlTextarea1" class="form-label">
                           Internal notes

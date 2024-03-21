@@ -167,13 +167,12 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
 //            $result = [];
 //            for ($i = 0; $i < count($persons); $i++) {
 //              $personData = $persons[$i]["nik"];
-//              $data = paginatedData($personData, $page, $limit, $totalPage);
+//              $data = paginatedDataFromDatabase($personData, $page, $limit);
 //              $result[] = $data;
 //            }
 //            $personData = $result;
 //            var_dump($result);
 //            die();
-            
             $data = paginatedData($persons, $page, $limit);
             $personsData = $data[PAGING_DATA];
             $number = ($page - 1) * $limit + 1;

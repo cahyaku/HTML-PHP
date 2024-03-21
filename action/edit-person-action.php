@@ -86,6 +86,9 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
   $role = translateRole($_POST["role"]);
   $sex = translateGender($_POST["sex"]);
   $status = translateStatus($_POST["status"]);
+  
+  $personJobs = checkLastPersonJobs($id);
+  $jobs = checkJobInputWhenEditPersonData($personJobs['job_id'], $_POST['jobs']);
   try {
     $query = 'UPDATE persons SET nik = :nik, first_name = :first_name, last_name = :last_name,
                    birth_date = :birth_date, sex = :sex, email = :email, password = :password, address = :address,
@@ -104,7 +107,7 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
       "role" => $role,
       "internal_notes" => $_POST["internalNotes"],
       "status" => $status,
-      "job_id" => $_POST['jobs']
+      "job_id" => $jobs
     ));
     $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
     $_SESSION['changed'] = "Person data has been updated ($name).";
@@ -113,21 +116,17 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
     header('Location: ../edit-person.php?error=1');
     die();
   }
-  
+  updateCountOfJobsWhenEditPersonData($id);
+  $personLastJobs = checkLastPersonJobs($id);
   $dbJobs = 'UPDATE person_job SET job_id = :job_id WHERE person_id = :person_id';
   $statement = $PDO->prepare($dbJobs);
   $statement->execute(array(
     "person_id" => $id,
-    "job_id" => $_POST['jobs']
+    "job_id" => $jobs,
   ));
-  //Update count in jobs database
-  //mendapatkan person dengan data pekerjaan terakhir
-  $personLastJobs = checkLastPersonJobs($id);
-  $lastJobs = getJobsDataById($personLastJobs['job_id']);
-  $updateJobs = getJobsDataById($_POST['jobs']);
+  $updateJobs = getJobsDataById($jobs);
   $countUpdateJobs = count($updateJobs);
-  $countLastJobs = count($lastJobs) - 1;
-  saveJobsData($_POST['jobs'], $countUpdateJobs, $personLastJobs['job_id'], $countLastJobs);
+  saveJobsData($jobs, $countUpdateJobs);
   redirect("../persons.php", "changed");
 }
 header('Location: ../index.php');

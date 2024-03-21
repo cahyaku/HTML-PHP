@@ -63,7 +63,7 @@ function redirectWhenNotLoggedIn($email): void
  * @param $email
  * @return mixed
  */
-function getPersonDataByEmailFromDatabase($email):array
+function getPersonDataByEmailFromDatabase($email): array
 {
   global $PDO;
   $query = 'SELECT * FROM persons WHERE email = :email';
@@ -77,7 +77,7 @@ function getPersonDataByEmailFromDatabase($email):array
  * @param $email
  * @return mixed
  */
-function getPersonsDataByEmailFromDatabase($email):array
+function getPersonsDataByEmailFromDatabase($email): array
 {
   global $PDO;
   $query = 'SELECT * FROM persons WHERE email = :email';
@@ -238,7 +238,7 @@ function checkCurrentPassword($currentPassword, $id): bool
 {
 //  $persons = getPersonsDataFromDatabase();
   $person = getPersonByIdFromDatabase($id);
-  if( password_verify($currentPassword, $person['password'])){
+  if (password_verify($currentPassword, $person['password'])) {
     return true;
   }
   return false;
@@ -453,6 +453,15 @@ function checkJobInput($jobs)
   }
 }
 
+function checkJobInputWhenEditPersonData($lastJobsId,$jobs)
+{
+  if ($jobs == "") {
+    return $lastJobsId;
+  } else {
+    return $jobs;
+  }
+}
+
 function isJobsExists($allJobs, $jobs, ?int $id): bool
 {
   for ($i = 0; $i < count($allJobs); $i++) :
@@ -521,38 +530,19 @@ function getCountJobs(int $jobId): array
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-//function getPersonDataByNik($nik):array
-//{
-//  global $PDO;
-//  $query = "SELECT * FROM persons WHERE nik LIKE '%$nik%' ";
-//  $statement = $PDO->prepare($query);
-//  $statement->execute();
-//  return $statement->fetch(PDO::FETCH_ASSOC);
-//}
 
-function getPersonDataByNik($nik):array
+function getPersonDataByNik($nik): array
 {
   global $PDO;
   $query = 'SELECT * FROM persons WHERE nik = :nik';
   $statement = $PDO->prepare($query);
   $statement->execute(array(
-    "nik" => $nik)
+      "nik" => $nik)
   );
   return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
-//function getJobsDataById($jobsId):array
-//{
-//  global $PDO;
-//  $query = 'SELECT * FROM jobs WHERE id = :job_id';
-//  $statement = $PDO->prepare($query);
-//  $statement->execute(array(
-//    "job_id" => $jobsId
-//  ));
-//  return $statement->fetch(PDO::FETCH_ASSOC);
-//}
-
-function getJobsDataById($jobsId):array
+function getJobsDataById($jobsId): array
 {
   global $PDO;
   $query = 'SELECT * FROM person_job WHERE job_id = :job_id';
@@ -563,31 +553,15 @@ function getJobsDataById($jobsId):array
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function saveJobsData($jobsId, $count, ?int $idLastJobs = null, ?int $countLastJobs = null):void
+function saveJobsData($jobsId, $count): void
 {
   global $PDO;
-  if ($idLastJobs == null && $countLastJobs == null) {
-    $query = 'UPDATE jobs SET count = :count WHERE id = :id';
-    $statement = $PDO->prepare($query);
-    $statement->execute(array(
-      "id" => $jobsId,
-      "count" => $count,
-    ));
-  } else {
-    $queryLastJobs = 'UPDATE jobs SET count = :count WHERE id = :id';
-    $statement = $PDO->prepare($queryLastJobs);
-    $statement->execute(array(
-      "id" => $idLastJobs,
-      "count" => $countLastJobs,
-    ));
-    
-    $query = 'UPDATE jobs SET count = :count WHERE id = :id';
-    $statement = $PDO->prepare($query);
-    $statement->execute(array(
-      "id" => $jobsId,
-      "count" => $count,
-    ));
-  }
+  $query = 'UPDATE jobs SET count = :count WHERE id = :id';
+  $statement = $PDO->prepare($query);
+  $statement->execute(array(
+    "id" => $jobsId,
+    "count" => $count,
+  ));
 }
 
 function checkLastPersonJobs($id)
@@ -599,4 +573,18 @@ function checkLastPersonJobs($id)
     "person_id" => $id
   ));
   return $statement->fetch(PDO::FETCH_ASSOC);
+}
+
+function updateCountOfJobsWhenEditPersonData($personId): void
+{
+  global $PDO;
+  $personLastJobs = checkLastPersonJobs($personId);
+  $lastJobs = getJobsDataById($personLastJobs['job_id']);
+  $countLastJobs = count($lastJobs) - 1;
+  $queryLastJobs = 'UPDATE jobs SET count = :count WHERE id = :id';
+  $statement = $PDO->prepare($queryLastJobs);
+  $statement->execute(array(
+    "id" => $personLastJobs['job_id'],
+    "count" => $countLastJobs,
+  ));
 }

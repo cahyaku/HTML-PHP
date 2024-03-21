@@ -67,7 +67,13 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
               </div>
             </div>
           </div>
-          
+          <?php
+//          $toddler = getToddlerData($persons);
+//          $data = getToddler();
+//          $data = getPassedAway();
+//          $data = getElderly();
+//          var_dump($data);
+          ?>
           <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
             <div class="card has-shadow">
               <div class="card-body card-box">
@@ -76,7 +82,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="happy" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $toddler = count(getToddler());
+                  $toddler = count(getToddlerData($persons));
                   echo "<h2 class='title'>";
                   echo "$toddler";
                   echo "</h2>";
