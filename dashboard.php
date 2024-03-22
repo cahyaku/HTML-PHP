@@ -38,7 +38,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
           </p>
         </div>
       </div>
-      <?php $persons = getPersonsDataFromDatabase(); ?>
+<!--      --><?php //$persons = getPersonsDataFromDatabase(); ?>
       <div class="dashboard-boxs">
         <div class="row row-gap-4">
           <!--ALL PERSONS-->
@@ -50,7 +50,8 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $allPersons = count(getPersonsDataFromDatabase());
+//                  $allPersons = count(getPersonsDataFromDatabase());
+                  $allPersons = getCountPersonDataByAges("allPersons");
                   echo "<h2 class='title'>";
                   echo "$allPersons";
                   echo "</h2>";
@@ -67,13 +68,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
               </div>
             </div>
           </div>
-          <?php
-//          $toddler = getToddlerData($persons);
-//          $data = getToddler();
-//          $data = getPassedAway();
-//          $data = getElderly();
-//          var_dump($data);
-          ?>
           <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
             <div class="card has-shadow">
               <div class="card-body card-box">
@@ -82,7 +76,8 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="happy" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $toddler = count(getToddlerData($persons));
+//                  $toddler = count(getToddlerData($persons));
+                  $toddler = getCountPersonDataByAges("toddler");
                   echo "<h2 class='title'>";
                   echo "$toddler";
                   echo "</h2>";
@@ -102,13 +97,41 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
 
           <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
             <div class="card has-shadow">
+              <div class="card-body card-box">
+                <div class="d-flex align-items-center card-title-box">
+                  <div>
+                    <ion-icon name="happy" class="dashboard-icon"></ion-icon>
+                  </div>
+                  <?php
+                  //                  $toddler = count(getToddlerData($persons));
+                  $child = getCountPersonDataByAges("child");
+                  echo "<h2 class='title'>";
+                  echo "$child";
+                  echo "</h2>";
+                  ?>
+                </div>
+                <p class="card-text">Child</p>
+                <p class="card-text-box">
+                  Some quick example text to build on the card title and
+                  make up the bulk of the card's content.
+                </p>
+                <a href="persons.php?searchByAge=child&search=">
+                  <button class="more-info">More info &rAarr;</button>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
+            <div class="card has-shadow">
               <div class="card-body card-box card-2">
                 <div class="d-flex align-items-center card-title-box">
                   <div>
                     <ion-icon name="accessibility" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $productiveAges = count(getProductiveAgesData($persons));
+//                  $productiveAges = count(getProductiveAgesData($persons));
+                  $productiveAges = getCountPersonDataByAges("productiveAges");
                   echo "<h2 class='title'>";
                   echo "$productiveAges";
                   echo "</h2>";
@@ -134,7 +157,8 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $elderly = count(getElderlyData($persons));
+//                  $elderly = count(getElderlyData($persons));
+                  $elderly = getCountPersonDataByAges("elderly");
                   echo "<h2 class='title'>";
                   echo "$elderly";
                   echo "</h2>";
@@ -160,7 +184,8 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="man" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  $passedAway = count(getPassedAway());
+//                  $passedAway = count(getPassedAway());
+                  $passedAway = getCountPersonDataByAges("passedAway");
                   echo "<h2 class='title'>";
                   echo "$passedAway";
                   echo "</h2>";
@@ -179,30 +204,29 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
           </div>
         </div>
       </div>
-
 <!--        <table class="table-primary">-->
 <!--          <thead>-->
 <!--          <tr>-->
-<!--            <th scope="col">No</th>-->
-<!--            <th scope="col">Jobs</th>-->
+<!--            <th scope="col" class="text-center">No</th>-->
+<!--            <th scope="col" class="text-center">Jobs</th>-->
 <!--            <th scope="col" class="text-center">Count</th>-->
 <!--          </tr>-->
 <!--          </thead>-->
 <!--          <tbody>-->
 <!--          <tr>-->
-<!--            <th scope="row">1</th>-->
-<!--            <td>Teacher</td>-->
-<!--            <td>7</td>-->
+<!--            <th scope="row" class="text-center">1</th>-->
+<!--            <td class="text-center">Teacher</td>-->
+<!--            <td class="text-center">7</td>-->
 <!--          </tr>-->
 <!--          <tr>-->
-<!--            <th scope="row">2</th>-->
-<!--            <td>Singer</td>-->
-<!--            <td>5</td>-->
+<!--            <th scope="row" class="text-center">2</th>-->
+<!--            <td class="text-center">Singer</td>-->
+<!--            <td class="text-center">5</td>-->
 <!--          </tr>-->
 <!--          <tr>-->
-<!--            <th scope="row">3</th>-->
-<!--            <td>Doctor</td>-->
-<!--            <td>3</td>-->
+<!--            <th scope="row" class="text-center">3</th>-->
+<!--            <td class="text-center">Doctor</td>-->
+<!--            <td class="text-center">3</td>-->
 <!--          </tr>-->
 <!--          </tbody>-->
 <!--        </table>-->

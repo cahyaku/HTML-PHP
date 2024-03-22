@@ -292,17 +292,32 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             aria-label="Large select example"
                             name="jobs"
                         >
+<!--                          --><?php
+//                          if(isset($_SESSION['inputJobs'])):
+//                            ?>
+<!--                            <option selected  value="--><?php
+//                            echo $_SESSION['inputJobs'];
+//                            ?><!--">-->
+<!--                              --><?php
+//                              $jobsData = getPersonJobsByIdFromDatabase($_SESSION['inputJobs']);
+//                              echo $jobsData['job_name'];
+//                              ?>
+<!--                            </option>-->
+                          
+                          
+                          
+                          
+                          
                           <?php
                           $personJobs = getPersonJobsByIdFromDatabase($person['job_id']);
                           ?>
-                          <option selected value="<?php
+                          <option selected disabled value="<?php
                           echo $personJobs['job_id'];
                           ?>">
                             <?php
                             echo ucfirst($personJobs['job_name']);
                             ?>
                           </option>
-                          
                           <?php
                           $jobs = getJobsDataFromDatabase();
                           if (count($jobs) != 0) :

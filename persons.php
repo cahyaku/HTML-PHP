@@ -64,6 +64,8 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                   echo "Toddler";
                 } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly") {
                   echo "Elderly";
+                } else if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "child") {
+                  echo "Child";
                 } else {
                   echo "All Persons";
                 } ?>
@@ -72,6 +74,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
               <option value="passedAway">Passed Away</option>
               <option value="toddler">Toddler</option>
               <option value="elderly">Elderly</option>
+              <option value="child">Child</option>
               <option value="allPersons" class="select-items">All Persons</option>
             </select>
           </div>
@@ -107,35 +110,58 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
 
       <div class="table-responsive">
         <table class="table-primary table-width" id="table">
+          
           <?php
+          /**
+           * hapus varibel yang menampung hasil query dari get all person, dan ubah session error
+           * ubah pengecekan isNikExits
+           * yang tepakai hanya $filterData dan $searchByAge
+           */
           $personsData = getPersonsDataFromDatabase();
           if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null):
             $searchToddler = searchPersons($_GET['search']);
             $persons = getToddlerData($searchToddler);
+            
+            $filterData = "toddler";
+            $searchByAge = $_GET['search'];
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler"):
             $persons = getToddlerData($personsData);
+          
+            $filterData = "toddler";
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "child" && $_GET['search'] != null):
+            $filterData = "child";
+          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "child"):
+            $filterData = "child";
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null):
             $searchProductiveAges = searchPersons($_GET['search']);
             $persons = getProductiveAgesData($searchProductiveAges);
+            $filterData = "productiveAges";
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges"):
             $persons = getProductiveAgesData($personsData);
+            $filterData = "productiveAges";
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null):
             $searchPassedAway = searchPersons($_GET['search']);
             $persons = getPassedAwayData($searchPassedAway);
+            $filterData = "passedAway";
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway"):
             $persons = getPassedAwayData($personsData);
+            $filterData = "passedAway";
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly" && $_GET['search'] != null):
             $searchElderly = searchPersons($_GET['search']);
             $persons = getElderlyData($searchElderly);
+            $filterData = "elderly";
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly"):
             $persons = getElderlyData($personsData);
+            $filterData = "elderly";
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons" && $_GET['search'] != null):
             $persons = searchPersons($_GET['search']);
           elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
+            $filterData = "allPersons";
             $persons = getPersonsDataFromDatabase();
           elseif (isset($_GET["search"]) && $_GET['searchByAge'] = "allPersons"):
             $persons = searchPersons($_GET["search"]);
           else:
+            $filterData = "allPersons";
             $persons = getPersonsDataFromDatabase();
           endif;
           ?>
@@ -152,7 +178,7 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
           </thead>
           <tbody>
           <?php
-          if (count($persons) != 0) {
+//          if (count($persons) != 0) {
             if ($_GET['page'] < 1) {
               $page = 1;
             } else if (isset($_GET['page']) && !is_numeric($_GET['page'])) {
@@ -163,17 +189,9 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             $limit = 5;
             $previous = $page - 1;
             $next = $page + 1;
-//            $totalPage = ceil((float)count($persons) / (float)$limit);
-//            $result = [];
-//            for ($i = 0; $i < count($persons); $i++) {
-//              $personData = $persons[$i]["nik"];
-//              $data = paginatedDataFromDatabase($personData, $page, $limit);
-//              $result[] = $data;
-//            }
-//            $personData = $result;
-//            var_dump($result);
-//            die();
-            $data = paginatedData($persons, $page, $limit);
+            $data = paginatedPersonsData($_GET["search"], $page, $limit, $filterData,$searchByAge);
+            
+//            $data = paginatedData($persons, $page, $limit);
             $personsData = $data[PAGING_DATA];
             $number = ($page - 1) * $limit + 1;
             for ($i = 0; $i < count($personsData); $i++) :
@@ -218,7 +236,8 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 </td>
               </tr>
             <?php endfor;
-          } ?>
+//          }
+          ?>
           </tbody>
           <?php ?>
         </table>

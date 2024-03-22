@@ -71,7 +71,7 @@ function paginatedJobsData($search, int $page, int $limit): array
     $statement = $PDO->prepare($query);
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-//    $totalPage = ceil((float)count($result) / (float)$limit);
+//    $totalPage = ceil((float)count($result) / (float)$limit);x
   } else {
     $queryData = 'SELECT count(*) FROM jobs';
     $statementData = $PDO->query($queryData);

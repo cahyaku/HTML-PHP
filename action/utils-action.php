@@ -94,6 +94,8 @@ function getPersonsDataByEmailFromDatabase($email): array
  */
 function translateDateFromIntToString($date): string
 {
+  $date = strtotime($date);
+//  $date = date($date);
   return date("Y-m-d", $date);
 }
 
@@ -115,7 +117,9 @@ function translateDateFromStringToInt($date): int
 function dateFormatToString($timestamp): string|null
 {
   if ($timestamp != null) {
-    return date("d F Y", $timestamp);
+//    type in database = date.
+    $date = strtotime($timestamp);
+    return date("d F Y", $date);
   }
   return null;
 }
@@ -157,7 +161,7 @@ function checkRole($email): array|null
  */
 function isNikExists(string $nik, ?int $id): bool
 {
-//  $persons = getPersonsDataFromJson();
+//  ubah dengan menggunakan query yang lebih sederhana (tidak dengan select all data from database)
   $persons = getPersonsDataFromDatabase();
 //  $persons = getPersonsDataByEmailFromDatabase($email);
   for ($i = 0; $i < count($persons); $i++) :

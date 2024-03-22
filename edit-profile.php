@@ -299,7 +299,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
 //                        endif;
 //                        ?>
                         
-                        <option selected value="<?php
+                        <option selected disabled value="<?php
                         echo $personJobs['job_id'];
                         ?>">
                           <?php
