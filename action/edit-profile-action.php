@@ -29,35 +29,18 @@ $errorPassword = validatePassword($_POST['currentPassword'],
   $_SESSION['errorLastName'] = $errorData['lastName'];
   $_SESSION['errorCurrentPassword'] = $errorPassword['currentPassword'];
   $_SESSION['errorConfirmPassword'] = $errorPassword['confirmPassword'];
+  $_SESSION['inputJobs'] = $_POST['jobs'];
+  
 //  SESSION INPUT DATA
   transformPersonFormIntoSession();
   $_SESSION['errorData'] = count($errorData);
   header("Location: ../edit-profile.php");
   exit();
 } else {
-//  $persons = getPersonsDataFromJson();
-//  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
-//  for ($i = 0; $i < count($persons); $i++) {
-//    $password = checkPassword($_POST['password'], $persons[$i]['password']);
-//    if ($persons[$i]['email'] == $_SESSION['userEmail']) {
-//      $persons[$i]["nik"] = htmlspecialchars($_POST['nik']);
-//      $persons[$i]["firstName"] = htmlspecialchars($_POST['firstName']);
-//      $persons[$i]["lastName"] = htmlspecialchars($_POST['lastName']);
-//      $persons[$i]["birthDate"] = $birthDate;
-//      $persons[$i]["sex"] = $_POST['sex'];
-//      $persons[$i]["email"] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-//      $persons[$i]["password"] = $password;
-//      $persons[$i]["address"] = htmlspecialchars($_POST['address']);
-//      $persons[$i]["internalNotes"] = htmlspecialchars($_POST['internalNotes']);
-//      saveDataIntoJson("persons.json",$persons);
-//      redirect("../persons.php", "changed");
-//    }
-//  }
+
     $person = getPersonDataByEmailFromDatabase($_SESSION["email"]);
     $password = checkPassword($_POST['password'], $person['password']);
     $sex = translateGender($_POST["sex"]);
-//    $jobs = checkJobInput($_POST["jobs"]);
-    
     $personJobs = checkLastPersonJobs($person['id']);
     $jobs = checkJobInputWhenEditPersonData($personJobs['job_id'], $_POST['jobs']);
     
@@ -71,7 +54,7 @@ $errorPassword = validatePassword($_POST['currentPassword'],
         "nik" => $_POST["nik"],
         "first_name" => $_POST["firstName"],
         "last_name" => $_POST["lastName"],
-        "birth_date" => translateDateFromStringToInt($_POST["birthDate"]),
+        "birth_date" => $_POST["birthDate"],
         "sex" => $sex,
         "email" => $_POST["email"],
         "password" => $password,
@@ -86,13 +69,6 @@ $errorPassword = validatePassword($_POST['currentPassword'],
       header('Location: ../edit-person.php?error=1');
       die();
     }
-//    $dbJobs = 'UPDATE person_job SET person_id = :person_id, job_id = :job_id WHERE person_id = :person_id';
-//    $statement = $PDO->prepare($dbJobs);
-//    $statement->execute(array(
-//      "person_id" => $person['id'],
-//      "job_id" => $_POST['jobs']
-//    ));
-    
     updateCountOfJobsWhenEditPersonData($person['id']);
     $personLastJobs = checkLastPersonJobs($person['id']);
     $dbJobs = 'UPDATE person_job SET job_id = :job_id WHERE person_id = :person_id';

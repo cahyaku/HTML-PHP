@@ -2,21 +2,10 @@
 require_once __DIR__ . "/json-helper.php";
 require_once __DIR__ . "/../include/db.php";
 require_once __DIR__ . "/hobby-action.php";
-//require_once __DIR__ . "/jobs-action.php";
 
-//global $PDO;
 function getPersonsDataFromJson(): array
 {
   return loadDataFromJson("persons.json");
-}
-
-function getPersonsDataFromDatabase(): array
-{
-  global $PDO;
-  $query = 'SELECT * FROM persons';
-  $statement = $PDO->prepare($query);
-  $statement->execute();
-  return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
 /**
@@ -87,6 +76,18 @@ function getPersonsDataByEmailFromDatabase($email): array
 }
 
 /**
+ * get persons data by nik
+ */
+function getPersonsDataByNikFromDatabase($nik):array
+{
+  global $PDO;
+  $query = 'SELECT * FROM persons WHERE nik = :nik';
+  $statement = $PDO->prepare($query);
+  $statement->execute(array("nik" => $nik));
+  return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
  * Translate date from int to string, format (Y-m-d)
  *
  * @param $date
@@ -117,7 +118,6 @@ function translateDateFromStringToInt($date): int
 function dateFormatToString($timestamp): string|null
 {
   if ($timestamp != null) {
-//    type in database = date.
     $date = strtotime($timestamp);
     return date("d F Y", $date);
   }
@@ -161,9 +161,7 @@ function checkRole($email): array|null
  */
 function isNikExists(string $nik, ?int $id): bool
 {
-//  ubah dengan menggunakan query yang lebih sederhana (tidak dengan select all data from database)
-  $persons = getPersonsDataFromDatabase();
-//  $persons = getPersonsDataByEmailFromDatabase($email);
+  $persons = getPersonsDataByNikFromDatabase($nik);
   for ($i = 0; $i < count($persons); $i++) :
     if ($id == null) {
       if ($persons[$i]['nik'] == $nik) {
@@ -240,21 +238,11 @@ function checkPassword($password, $currentPassword): string
  */
 function checkCurrentPassword($currentPassword, $id): bool
 {
-//  $persons = getPersonsDataFromDatabase();
   $person = getPersonByIdFromDatabase($id);
   if (password_verify($currentPassword, $person['password'])) {
     return true;
   }
   return false;
-//  for ($i = 0; $i < count($persons); $i++) {
-//    if ($id == $persons[$i]['id']) {
-//      $verify = password_verify($currentPassword, $persons[$i]['password']);
-//      if ($verify) {
-//        return true;
-//      }
-//    }
-//  }
-//  return false;
 }
 
 /**
@@ -448,10 +436,10 @@ function translateValue($value, $data, $newValue1, $newValue2)
   }
 }
 
-function checkJobInput($jobs)
+function checkJobInput($jobs, $lastInput)
 {
   if ($jobs == "") {
-    return 1;
+    return $lastInput;
   } else {
     return $jobs;
   }
@@ -466,15 +454,15 @@ function checkJobInputWhenEditPersonData($lastJobsId,$jobs)
   }
 }
 
-function isJobsExists($allJobs, $jobs, ?int $id): bool
+function isJobsExists($jobsData, $jobInput, ?int $id): bool
 {
-  for ($i = 0; $i < count($allJobs); $i++) :
+  for ($i = 0; $i < count($jobsData); $i++) :
     if ($id == null) {
-      if (strtoupper($allJobs[$i]['job_name']) == strtoupper($jobs)) {
+      if (strtoupper($jobsData[$i]['job_name']) == strtoupper($jobInput)) {
         return true;
       }
     } else {
-      if (strtoupper($jobs) == strtoupper($allJobs[$i]['job_name']) && $id != $allJobs[$i]['id']) {
+      if (strtoupper($jobInput) == strtoupper($jobsData[$i]['job_name']) && $id != $jobsData[$i]['id']) {
         return true;
       }
     }
@@ -482,38 +470,15 @@ function isJobsExists($allJobs, $jobs, ?int $id): bool
   return false;
 }
 
-//function isHobbyExists($hobby, ?int $id): bool
-//{
-//  $allHobby = getHobbyDataFromDatabase();
-//  for ($i = 0; $i < count($allHobby); $i++) :
-//    if ($allHobby[$i]['person_id'] == $id) {
-//      if ($id == null) {
-//        if ($allHobby[$i]['name'] == $hobby) {
-//          return true;
-//        }
-//      } else {
-//        if ($hobby == $allHobby[$i]['name'] && $id != $allHobby[$i]['id']) {
-//          return true;
-//        }
-//      }
-//    } else {
-//      if ($hobby == $allHobby[$i]['name'] && $id != $allHobby[$i]['person_id']) {
-//        return true;
-//      }
-//    }
-//  endfor;
-//  return false;
-//}
-
-function isHobbyExists($allHobby, $hobby, ?int $id): bool
+function isHobbyExists($hobbyData, $hobby, ?int $id): bool
 {
-  for ($i = 0; $i < count($allHobby); $i++) :
+  for ($i = 0; $i < count($hobbyData); $i++) :
     if ($id == null) {
-      if ($allHobby[$i]['name'] == $hobby) {
+      if (strtoupper($hobbyData[$i]['name']) == strtoupper($hobby)) {
         return true;
       }
     } else {
-      if ($hobby == $allHobby[$i]['name'] && $id != $allHobby[$i]['id']) {
+      if (strtoupper($hobby) == strtoupper($hobbyData[$i]['name']) && $id != $hobbyData[$i]['id']) {
         return true;
       }
     }
@@ -521,20 +486,9 @@ function isHobbyExists($allHobby, $hobby, ?int $id): bool
   return false;
 }
 
-function getCountJobs(int $jobId): array
-{
-  global $PDO;
-//  $query = "SELECT * FROM person WHERE job_id =: id ";
-//  $statement = $PDO->prepare($query);
-//  $statement->execute();
-//  return $statement->fetchAll(PDO::FETCH_ASSOC);
-  $query = "SELECT * FROM person WHERE job_id LIKE '%$jobId%' ";
-  $statement = $PDO->prepare($query);
-  $statement->execute();
-  return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-
-
+/**
+ * get person data by nik
+ */
 function getPersonDataByNik($nik): array
 {
   global $PDO;
@@ -546,6 +500,9 @@ function getPersonDataByNik($nik): array
   return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
+/**
+ * get person job by id
+ */
 function getJobsDataById($jobsId): array
 {
   global $PDO;

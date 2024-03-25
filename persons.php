@@ -112,58 +112,8 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
         <table class="table-primary table-width" id="table">
           
           <?php
-          /**
-           * hapus varibel yang menampung hasil query dari get all person, dan ubah session error
-           * ubah pengecekan isNikExits
-           * yang tepakai hanya $filterData dan $searchByAge
-           */
-          $personsData = getPersonsDataFromDatabase();
-          if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null):
-            $searchToddler = searchPersons($_GET['search']);
-            $persons = getToddlerData($searchToddler);
-            
-            $filterData = "toddler";
-            $searchByAge = $_GET['search'];
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler"):
-            $persons = getToddlerData($personsData);
-          
-            $filterData = "toddler";
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "child" && $_GET['search'] != null):
-            $filterData = "child";
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "child"):
-            $filterData = "child";
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null):
-            $searchProductiveAges = searchPersons($_GET['search']);
-            $persons = getProductiveAgesData($searchProductiveAges);
-            $filterData = "productiveAges";
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges"):
-            $persons = getProductiveAgesData($personsData);
-            $filterData = "productiveAges";
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null):
-            $searchPassedAway = searchPersons($_GET['search']);
-            $persons = getPassedAwayData($searchPassedAway);
-            $filterData = "passedAway";
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway"):
-            $persons = getPassedAwayData($personsData);
-            $filterData = "passedAway";
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly" && $_GET['search'] != null):
-            $searchElderly = searchPersons($_GET['search']);
-            $persons = getElderlyData($searchElderly);
-            $filterData = "elderly";
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly"):
-            $persons = getElderlyData($personsData);
-            $filterData = "elderly";
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons" && $_GET['search'] != null):
-            $persons = searchPersons($_GET['search']);
-          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
-            $filterData = "allPersons";
-            $persons = getPersonsDataFromDatabase();
-          elseif (isset($_GET["search"]) && $_GET['searchByAge'] = "allPersons"):
-            $persons = searchPersons($_GET["search"]);
-          else:
-            $filterData = "allPersons";
-            $persons = getPersonsDataFromDatabase();
-          endif;
+          $searchByAge = $_GET['search'] ?? null;
+          $filterData = validateSearchByAge($_GET['searchByAge']) ?? null;
           ?>
           <thead>
           <tr class="test-color">
@@ -178,7 +128,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
           </thead>
           <tbody>
           <?php
-//          if (count($persons) != 0) {
             if ($_GET['page'] < 1) {
               $page = 1;
             } else if (isset($_GET['page']) && !is_numeric($_GET['page'])) {
@@ -190,8 +139,6 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
             $previous = $page - 1;
             $next = $page + 1;
             $data = paginatedPersonsData($_GET["search"], $page, $limit, $filterData,$searchByAge);
-            
-//            $data = paginatedData($persons, $page, $limit);
             $personsData = $data[PAGING_DATA];
             $number = ($page - 1) * $limit + 1;
             for ($i = 0; $i < count($personsData); $i++) :
@@ -236,20 +183,18 @@ showHeader("Persons-PMA", "persons.css", personsNav: "persons-nav-link");
                 </td>
               </tr>
             <?php endfor;
-//          }
           ?>
           </tbody>
           <?php ?>
         </table>
-        
         <?php
-        if (count($persons) == null) {
+        if (count($data[PAGING_DATA]) == null) {
           ?>
           <div class="alert alert-danger" role="alert">
             Person data was not found!!!
           </div>
         <?php } ?>
-
+        
         <div class="page-position ">
           <?php if ($_GET["error"] == 2) : ?>
             <div class="alert alert-danger" role="alert">

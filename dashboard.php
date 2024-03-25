@@ -9,6 +9,7 @@ require_once __DIR__ . "/action/persons-action.php";
 require_once __DIR__ . "/action/utils-action.php";
 require_once __DIR__ . "/action/dashboard-action.php";
 require_once __DIR__ . "/include/header.php";
+require_once __DIR__ . "/action/jobs-action.php";
 ?>
 
 <?php
@@ -34,7 +35,14 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
             <?php if ($_SESSION['userLoggedIn'] != null) { ?>
               You were logged previously in
             <?php } ?>
-            <strong><?php echo customDateToString($_SESSION['userLoggedIn']) . "!" ?></strong>
+<!--            <strong>--><?php //echo customDateToString($_SESSION['userLoggedIn']) . "!" ?><!--</strong>-->
+            <strong><?php
+              if ($_SESSION['userLoggedIn'] == null):
+              echo "Welcome in dashboard page!";
+              else:
+              echo $_SESSION['userLoggedIn'] . "!";
+              endif;
+              ?></strong>
           </p>
         </div>
       </div>
@@ -204,32 +212,44 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
           </div>
         </div>
       </div>
-<!--        <table class="table-primary">-->
-<!--          <thead>-->
-<!--          <tr>-->
-<!--            <th scope="col" class="text-center">No</th>-->
-<!--            <th scope="col" class="text-center">Jobs</th>-->
-<!--            <th scope="col" class="text-center">Count</th>-->
-<!--          </tr>-->
-<!--          </thead>-->
-<!--          <tbody>-->
-<!--          <tr>-->
-<!--            <th scope="row" class="text-center">1</th>-->
-<!--            <td class="text-center">Teacher</td>-->
-<!--            <td class="text-center">7</td>-->
-<!--          </tr>-->
-<!--          <tr>-->
-<!--            <th scope="row" class="text-center">2</th>-->
-<!--            <td class="text-center">Singer</td>-->
-<!--            <td class="text-center">5</td>-->
-<!--          </tr>-->
-<!--          <tr>-->
-<!--            <th scope="row" class="text-center">3</th>-->
-<!--            <td class="text-center">Doctor</td>-->
-<!--            <td class="text-center">3</td>-->
-<!--          </tr>-->
-<!--          </tbody>-->
-<!--        </table>-->
+      <a href="jobs.php" class="table-title">
+        <ion-icon name="clipboard-outline"></ion-icon>
+        JOBS</a>
+      <hr>
+        <table class="table-primary table-shadow">
+          <?php
+          $jobs = getJobsDataFromDatabase();
+          ?>
+          <thead>
+          <tr>
+            <th scope="col" class="text-center">No</th>
+            <th scope="col" class="text-center">Jobs</th>
+            <th scope="col" class="text-center">Count</th>
+          </tr>
+          </thead>
+          <tbody>
+          <?php
+          if (count($jobs) != 0):
+          for ($i = 0; $i < count($jobs); $i++) :
+          ?>
+          <tr>
+            <th scope="row" class="text-center"><?php echo $i++ ?></th>
+            <td class="text-center"><?php echo $jobs[$i]['job_name'] ?></td>
+            <td class="text-center"><?php
+              if ($jobs[$i]["count"] == null) :
+                echo "-";
+              else :
+                echo $jobs[$i]["count"];
+              endif;
+              ?></td>
+          </tr>
+          
+          <?php
+          endfor;
+          endif;
+          ?>
+          </tbody>
+        </table>
     </div>
   </section>
 </main>

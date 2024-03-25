@@ -56,37 +56,18 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
   $_SESSION['errorData'] = $errorData;
   $_SESSION['errorPasswordData'] = $errorPassword;
   $_SESSION['inputJobs'] = $_POST['jobs'];
-//  SESSION INPUT DATA
+  /**
+   * SESSION INPUT DATA
+   */
   transformPersonFormIntoSession();
   header("Location: ../edit-person.php?id=" . $_SESSION['id']);
   exit();
 } else {
-//  $persons = getPersonsDataFromJson();
-//  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
-//  for ($i = 0; $i < count($persons); $i++) {
-//    $password = checkPassword($_POST['password'], $persons[$i]['password']);
-//    if ($persons[$i]['id'] == $_SESSION['id']) {
-//      $persons[$i]["nik"] = htmlspecialchars($_POST['nik']);
-//      $persons[$i]["firstName"] = htmlspecialchars($_POST['firstName']);
-//      $persons[$i]["lastName"] = htmlspecialchars($_POST['lastName']);
-//      $persons[$i]["birthDate"] = $birthDate;
-//      $persons[$i]["sex"] = $_POST['sex'];
-//      $persons[$i]["email"] = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-//      $persons[$i]["password"] = $password;
-//      $persons[$i]["address"] = htmlspecialchars($_POST['address']);
-//      $persons[$i]["role"] = $_POST['role'];
-//      $persons[$i]["internalNotes"] = htmlspecialchars($_POST['internalNotes']);
-//      $persons[$i]["alive"] = $_POST['alive'];
-//      saveDataIntoJson("persons.json", $persons);
-//      redirect("../persons.php", "changed");
-//    }
-//  }
   $person = getPersonByIdFromDatabase($_SESSION["id"]);
   $password = checkPassword($_POST['password'], $person['password']);
   $role = translateRole($_POST["role"]);
   $sex = translateGender($_POST["sex"]);
   $status = translateStatus($_POST["status"]);
-  
   $personJobs = checkLastPersonJobs($id);
   $jobs = checkJobInputWhenEditPersonData($personJobs['job_id'], $_POST['jobs']);
   try {
@@ -99,7 +80,7 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
       "nik" => $_POST["nik"],
       "first_name" => $_POST["firstName"],
       "last_name" => $_POST["lastName"],
-      "birth_date" => translateDateFromStringToInt($_POST["birthDate"]),
+      "birth_date" => $_POST["birthDate"],
       "sex" => $sex,
       "email" => $_POST["email"],
       "password" => $password,

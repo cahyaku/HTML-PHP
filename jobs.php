@@ -79,11 +79,12 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
       <div class="table-responsive">
         <table class="table-primary table-width has-shadow-grey" id="table">
           <?php
-          if (isset($_GET["search"])) {
-            $jobs = searchJobs($_GET["search"]);
-          } else {
-            $jobs = getJobsDataFromDatabase();
-          }
+//          if (isset($_GET["search"])) {
+//            $jobs = searchJobs($_GET["search"]);
+//          } else {
+//            $jobs = getJobsDataFromDatabase();
+//          }
+          
           if ($_GET['page'] < 1):
             $page = 1;
           elseif (isset($_GET['page']) && !is_numeric($_GET['page'])):
@@ -116,7 +117,13 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
               <tr>
                 <th scope="row" class="text-center"><?php echo $number++ ?></th>
                 <td class="text-center"><?php echo ucfirst($jobsData[$i]["job_name"]) ?></td>
-                <td class="text-center"><?php echo $jobsData[$i]["count"] ?></td>
+                <td class="text-center"><?php
+                  if ($jobsData[$i]["count"] == null) :
+                  echo "-";
+                  else :
+                  echo $jobsData[$i]["count"];
+                  endif;
+                  ?></td>
                 <td class="text-end">
                   <div class="table-button">
                     <?php if (checkRole($_SESSION['email']) != null) : ?>
@@ -155,7 +162,11 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                         <div class="modal-content">
                           <div class="modal-header">
                             <p class="modal-title" id="exampleModalLabel">
+                              <?php if($jobsData[$i]['count'] != null):?>
+                              This jobs has been used!
+                              <?php else :?>
                               Are you sure want to delete this jobs?
+                              <?php endif; ?>
                             </p>
                             <button
                                 type="button"
@@ -165,6 +176,17 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                             ></button>
                           </div>
                           <div class="modal-footer">
+                            <?php
+                            if ($jobsData[$i]['count'] != null):
+                            ?>
+                              <button
+                                  type="button"
+                                  class="btn btn-secondary btn-block"
+                                  data-bs-dismiss="modal"
+                              >
+                                Back
+                              </button>
+                            <?php else:?>
                             <button
                                 type="button"
                                 class="btn btn-secondary btn-block"
@@ -181,6 +203,8 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                                 Yes
                               </a>
                             </button>
+                            <?php endif; ?>
+                            
                           </div>
                         </div>
                       </div>

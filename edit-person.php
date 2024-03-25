@@ -284,57 +284,72 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                     <div class="col-12 col-md-6 col-lg-6">
                       <div class="form-padding">
                         <label for="Jobs" class="form-label">Jobs</label>
-                        <?php
-                        $personJobs = getPersonJobsByIdFromDatabase($person['job_id']);
-                        ?>
                         <select
                             class="form-select form-select-lg mb-3 has-shadow select-text"
                             aria-label="Large select example"
                             name="jobs"
                         >
-<!--                          --><?php
-//                          if(isset($_SESSION['inputJobs'])):
-//                            ?>
-<!--                            <option selected  value="--><?php
-//                            echo $_SESSION['inputJobs'];
-//                            ?><!--">-->
-<!--                              --><?php
-//                              $jobsData = getPersonJobsByIdFromDatabase($_SESSION['inputJobs']);
-//                              echo $jobsData['job_name'];
-//                              ?>
-<!--                            </option>-->
-                          
-                          
-                          
-                          
-                          
                           <?php
                           $personJobs = getPersonJobsByIdFromDatabase($person['job_id']);
                           ?>
-                          <option selected disabled value="<?php
-                          echo $personJobs['job_id'];
-                          ?>">
-                            <?php
-                            echo ucfirst($personJobs['job_name']);
-                            ?>
-                          </option>
                           <?php
-                          $jobs = getJobsDataFromDatabase();
-                          if (count($jobs) != 0) :
-                            $number = 1;
-                            for ($i = 0; $i < count($jobs); $i++):
-                              ?>
-                              <option value="<?php
-                              echo $jobs[$i]['id'];
-                              ?>">
-                                <?php
-                                echo ucfirst($jobs[$i]['job_name']);
-                                ?>
-                              </option>
+                          if (isset($_SESSION["inputJobs"])):
+                            ?>
                             <?php
-                            endfor;
-                          endif;
-                          ?>
+                            $jobs = getJobsDataFromDatabase();
+                              $number = 1;
+                              for ($i = 0; $i < count($jobs); $i++):
+                                if ($_SESSION['inputJobs'] == $jobs[$i]['id']):
+                                  ?>
+                                  <option value="<?php echo $jobs[$i]['id']; ?>">
+                                    <?php
+                                    echo $jobs[$i]['job_name'];
+                                    ?>
+                                  </option>
+                                <?php
+                                endif;
+                              endfor;
+                            ?>
+                            
+                            <?php
+                            $jobs = getJobsDataFromDatabase();
+                            if (count($jobs) != 0) :
+                              $number = 1;
+                              for ($i = 0; $i < count($jobs); $i++):
+                                $jobsId = $jobs[$i]['id'];
+                                ?>
+                                <option value="<?php echo $jobsId ?>"><?php echo $jobs[$i]['job_name'] ?></option>
+                              <?php
+                              endfor;
+                            endif;
+                            ?>
+                          <?php else : ?>
+                          
+                            <option selected disabled value="<?php
+                            echo $personJobs['job_id'];
+                            ?>">
+                              <?php
+                              echo ucfirst($personJobs['job_name']);
+                              ?>
+                            </option>
+                            <?php
+                            $jobs = getJobsDataFromDatabase();
+                            if (count($jobs) != 0) :
+                              $number = 1;
+                              for ($i = 0; $i < count($jobs); $i++):
+                                ?>
+                                <option value="<?php
+                                echo $jobs[$i]['id'];
+                                ?>">
+                                  <?php
+                                  echo ucfirst($jobs[$i]['job_name']);
+                                  ?>
+                                </option>
+                              <?php
+                              endfor;
+                            endif;
+                            ?>
+                          <?php endif; ?>
                         </select>
                       </div>
                     </div>

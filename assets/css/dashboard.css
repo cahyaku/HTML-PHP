@@ -174,8 +174,20 @@ tbody {
   font-size: 1rem;
   line-height: 1.8;
   font-weight: 500;
+  overflow: scroll;
 }
 
 .text-center {
   text-align: center;
+}
+
+.table-title{
+    font-weight: bold;
+    font-size: 2rem;
+    color: #333333;
+    text-decoration: none;
+}
+
+.table-shadow{
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.212);
 }

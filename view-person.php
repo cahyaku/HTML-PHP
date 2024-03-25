@@ -138,7 +138,6 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.cs
                       </div>
                     </div>
                   </div>
-                  
                   <?php
                   $id = $_GET['id'];
                   ?>
@@ -151,7 +150,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.cs
                           <div class="d-flex-column justify-content-center">
                             <div>
                             </div>
-                            <form class="hobby-form" action="action/add-hobby-action.php" name="create-hobby"
+                            <form class="hobby-form" action="action/add-hobby-action.php" name="create-hobby" id="table"
                                   method="post">
                               <input type="hidden" name="id" value="<?= $id ?>"/>
                               <div class="mb-3">
@@ -209,7 +208,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.cs
                         $hobby = getPersonHobbyByIdFromDatabase($id);
                         if ($hobby != null):
                           ?>
-                          <table class="table table-hover  has-shadow-grey">
+                          <table class="table table-hover  has-shadow-grey" id="table">
                             <thead class="table-light">
                             <tr class="color">
                               <th scope="col" class="text-center">No</th>
@@ -377,8 +376,6 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.cs
                       </div>
                     </div>
                   </div>
-
-
                 </div>
               </div>
               <?php } ?>

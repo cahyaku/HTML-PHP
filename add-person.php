@@ -320,19 +320,56 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                         name="jobs"
                         required
                     >
-                      <option selected disabled="disabled" value="">Open this select menu</option>
                       <?php
-                      $jobs = getJobsDataFromDatabase();
-                      if (count($jobs) != 0) :
-                        $number = 1;
-                        for ($i = 0; $i < count($jobs); $i++):
-                          $jobsId = $jobs[$i]['id'];
-                      ?>
-                      <option value="<?php echo $jobsId?>"><?php echo $jobs[$i]['job_name'] ?></option>
-                      <?php
-                      endfor;
-                      endif;
-                      ?>
+                      if (isset($_SESSION["inputJobs"])):
+                        ?>
+                        <?php
+                        $jobs = getJobsDataFromDatabase();
+                        if (count($jobs) != 0) :
+                          $number = 1;
+                          for ($i = 0; $i < count($jobs); $i++):
+                            if ($_SESSION['inputJobs'] == $jobs[$i]['id']):
+                              ?>
+                              <option value="<?php echo $jobs[$i]['id']; ?>">
+                                <?php
+                                echo $jobs[$i]['job_name'];
+                                ?>
+                              </option>
+                            <?php
+                            endif;
+                          endfor;
+                        endif;
+                        ?>
+                        
+                        
+                        <?php
+                        $jobs = getJobsDataFromDatabase();
+                        if (count($jobs) != 0) :
+                          $number = 1;
+                          for ($i = 0; $i < count($jobs); $i++):
+                            $jobsId = $jobs[$i]['id'];
+                            ?>
+                            <option value="<?php echo $jobsId ?>"><?php echo $jobs[$i]['job_name'] ?></option>
+                          <?php
+                          endfor;
+                        endif;
+                        ?>
+                      
+                      <?php else : ?>
+                        <option selected disabled="disabled" value="">Open this select menu</option>
+                        <?php
+                        $jobs = getJobsDataFromDatabase();
+                        if (count($jobs) != 0) :
+                          $number = 1;
+                          for ($i = 0; $i < count($jobs); $i++):
+                            $jobsId = $jobs[$i]['id'];
+                            ?>
+                            <option value="<?php echo $jobsId ?>"><?php echo $jobs[$i]['job_name'] ?></option>
+                          <?php
+                          endfor;
+                        endif;
+                        ?>
+                      <?php endif; ?>
                     </select>
                   </div>
                 </div>
@@ -425,6 +462,7 @@ unset ($_SESSION['inputRole']);
 unset ($_SESSION['inputStatus']);
 unset ($_SESSION['internalNotes']);
 unset ($_SESSION['inputConfirmPassword']);
+unset($_SESSION['inputJobs']);
 ?>
 
 <?php

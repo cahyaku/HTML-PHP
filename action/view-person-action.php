@@ -6,19 +6,6 @@ require_once __DIR__ . "/../include/db.php";
 global $PDO;
 session_start();
 
-//// DELETE PERSON
-//if (isset($_GET['id'])) {
-//  $persons = getPersonsDataFromJson();
-//    for($i = 0; $i < count($persons); $i++):
-//    if ($_GET['id'] == $persons[$i]['id']) {
-//      unset ($persons[$i]);
-//      $persons = array_values($persons);
-//      saveDataIntoJson("persons.json",$persons);
-//      redirect("../persons.php", "deleted");
-//    }
-//  endfor;
-//}
-
 $id = $_GET['id'];
 if (intval($id)) {
   // we should get the person data first, make sure it is in db or not, before actually deleting them
@@ -44,10 +31,21 @@ if (intval($id)) {
     ));
     $_SESSION['delete'] = '"' . $person['first_name'] . " " . $person['last_name'] . '" data has been deleted.';
     
-//  Update count in jobs database
+    /**
+     * Update count in jobs database
+     */
     $jobsData = getJobsDataById($person['job_id']);
     $count = count($jobsData);
     saveJobsData($person['job_id'], $count);
+    
+    /**
+     * Delete person hobby
+     */
+    $query = 'DELETE FROM hobby WHERE person_id = :person_id';
+    $statement = $PDO->prepare($query);
+    $statement->execute(array(
+      "person_id" => $id
+    ));
     redirect("../persons.php", "deleted");
   } else {
     $_SESSION['error'] = 'Person data with given ID was not found!';

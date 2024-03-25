@@ -86,6 +86,7 @@ if (count($errorData) != 0) {
   $_SESSION['inputConfirmPassword'] = $_POST['confirmPassword'];
   $_SESSION['inputStatus'] = $_POST['alive'];
   $_SESSION['errorData'] = count($errorData);
+  $_SESSION['inputJobs'] = $_POST['jobs'];
   header("Location: ../add-person.php?errorInput=1");
   exit();
 } else {
@@ -105,13 +106,13 @@ if (count($errorData) != 0) {
   unset ($_SESSION['inputRole']);
   unset ($_SESSION['inputBirthDate']);
   unset ($_SESSION['internalNotes']);
-  
-  $birthDate = translateDateFromStringToInt($_POST['birthDate']);
+  unset ($_SESSION['inputJobs']);
+  $job = $_POST['jobs'];
   $password = encryptPassword($_POST['password']);
   $sex = translateGender($_POST["sex"]);
   $role = translateRole($_POST["role"]);
   $status = translateStatus($_POST["status"]);
-  $jobs = checkJobInput($_POST["jobs"]);
+  $jobs = checkJobInput($_POST["jobs"], $job);
   try {
     $query = 'INSERT INTO persons(nik,first_name,last_name,birth_date,sex,email, password,address,role,internal_notes,status, job_id)
 VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:role,:internal_notes,:status,:job_id)';
@@ -120,7 +121,7 @@ VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:r
       "nik" => $_POST["nik"],
       "first_name" => $_POST["firstName"],
       "last_name" => $_POST["lastName"],
-      "birth_date" => $birthDate,
+      "birth_date" => $_POST["birthDate"],
       "sex" => $sex,
       "email" => $_POST["email"],
       "password" => $password,
@@ -128,7 +129,7 @@ VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:r
       "role" => $role,
       "internal_notes" => $_POST["internalNotes"],
       "status" => $status,
-      "job_id" => $jobs
+      "job_id" => $_POST["jobs"],
     ));
     $name = ucfirst($_POST["firstName"]) . " " . ucfirst($_POST["lastName"]);
     $_SESSION['info'] = "New person data has been saved ($name).";
@@ -145,8 +146,10 @@ VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:r
     "person_id" => $personId,
     "job_id" => $jobs
   ));
-
-//Update count in jobs database
+  
+  /**
+   * update count in jobs database
+   */
   $jobsData = getJobsDataById($jobs);
   $count = count($jobsData);
   saveJobsData($jobs, $count);

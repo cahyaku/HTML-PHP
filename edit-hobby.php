@@ -11,14 +11,15 @@ require_once __DIR__ . "/action/hobby-action.php";
 ?>
 
 <?php
-showHeader("Add-PMA", "hobby.css", personsNav: "persons-nav-link");
+require_once __DIR__ . "/include/header.php";
+showHeader("Edit-Hobby-PMA", "hobby.css","persons.css", personsNav: "persons-nav-link");
 ?>
 
 <main>
   <section class="section-jobs">
     <?php
     require_once __DIR__ . "/include/sidebar.php";
-    showSidebar(jobsNav: "jobs-nav-link");
+    showSidebar(personsNav: "persons-nav-link");
     ?>
     <div class="main-content d-flex-column">
       <div class="container">
@@ -49,7 +50,7 @@ showHeader("Add-PMA", "hobby.css", personsNav: "persons-nav-link");
                                    name="hobby"
                                    placeholder="hobby..."
                                    value="<?php
-                                   if(isset($_GET['errorInput'])) {
+                                   if(isset($_GET['inputHobby'])) {
                                      echo $_SESSION['inputHobby'];
                                    } else {
                                      echo $hobby['name'];
@@ -71,7 +72,7 @@ showHeader("Add-PMA", "hobby.css", personsNav: "persons-nav-link");
                           <div class="text-end">
                             <button
                                 type="submit"
-                                class="btn btn-outline-primary btn-save"
+                                class="btn btn-outline-primary save"
                                 name="save-btn"
                             >
                               Save

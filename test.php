@@ -288,197 +288,6 @@
 <!--    </div>-->
 <!--  </section>-->
 <!--</main>-->
-<?php
-//require_once __DIR__ . "/include/footer.php";
-//?>
-<!---->
-<!---->
-<!---->
-<!--//function generateId(array|null $array): int-->
-<!--//{-->
-<!--//  return $array == null ? 1 : (end($array['id']) + 1);-->
-<!--//-->
-<!--//}-->
-<!--//-->
-<!--//function save($person): void-->
-<!--//{-->
-<!--//  $persons = personsData();-->
-<!--//  if ($person['id'] == null) {-->
-<!--////    $id = generateId($persons);-->
-<!--//    $lastPerson = $persons[count($persons) -1];-->
-<!--//    $id = $lastPerson["id"] + 1;-->
-<!--//    $person['id'] = $id;-->
-<!--//    $persons[] = $person;-->
-<!--//    saveDataIntoJson($persons);-->
-<!--//  } else {-->
-<!--//    for ($i = 0; $i < count($persons); $i++) {-->
-<!--//      if ($persons[$i]['id'] == $person['id']) {-->
-<!--//        $persons[$i]['nik'] = $person['nik'];-->
-<!--//        $persons[$i]['firstName'] = $person['firstName'];-->
-<!--//        $persons[$i]['lastName'] = $person['lastName'];-->
-<!--//        $persons[$i]['birthDate'] = $person['birthDate'];-->
-<!--//        $persons[$i]['sex'] = $person['sex'];-->
-<!--//        $persons[$i]['email'] = $person['email'];-->
-<!--//        $persons[$i]['password'] = $person['password'];-->
-<!--//        $persons[$i]['address'] = $person['address'];-->
-<!--//        $persons[$i]['role'] = $person['role'];-->
-<!--//        $persons[$i]['internalNotes'] = $person['internalNotes'];-->
-<!--//        $persons[$i]['loggedIn'] = $person['loggedIn'];-->
-<!--//        $persons[$i]['alive'] = $person['alive'];-->
-<!--//        saveDataIntoJson($persons);-->
-<!--//      }-->
-<!--//    }-->
-<!--//  }-->
-<!--//}-->
-<!---->
-<!--save pada saat add person action-->
-<!--//  $personData = [-->
-<!--//    "id" => $id,-->
-<!--//    "nik" => htmlspecialchars($_POST['nik']),-->
-<!--//    "firstName" =>htmlspecialchars($_POST['firstName']),-->
-<!--//    "lastName" => htmlspecialchars($_POST['lastName']),-->
-<!--//    "birthDate" => $birthDate,-->
-<!--//    "sex" => $_POST['sex'],-->
-<!--//    "email" => filter_var($_POST['email'], FILTER_SANITIZE_EMAIL),-->
-<!--//    "password" => $password,-->
-<!--//    "address" => htmlspecialchars($_POST['address']),-->
-<!--//    "role" => $_POST['role'],-->
-<!--//    "internalNotes" => htmlspecialchars($_POST['internalNotes']),-->
-<!--//    "loggedIn" => null,-->
-<!--//    "alive" => $_POST['alive']-->
-<!--//  ];-->
-<!--//  $persons[] = $personData;-->
-<!--//  saveDataIntoJson("persons.json",$persons);-->
-<!--//  redirect("../persons.php", "success");-->
-
-<!-- Function search person-->
-//function search($search): array
-//{
-//  $persons = getPersonsDataFromJson();
-//  $searchResult = [];
-//  foreach ($persons as $person => $value) {
-//    if (preg_match("/$search/i", $value["firstName"])) {
-//      if (in_array($value["firstName"], $searchResult) == false) {
-//        $searchResult[] = $value;
-//      }
-//    }
-//    if (preg_match("/$search/i", $value["nik"])) {
-//      if (in_array($value["nik"], $searchResult) == false) {
-//        $searchResult[] = $value;
-//      }
-//    }
-//  }
-//  return $searchResult;
-//}
-
-<!--Function untuk menampilkan data berdasarkan halaman-->
-<!--function paginatedData($array,int $page, int $limit): array-->
-<!--{-->
-<!--global $PDO;-->
-<!--$db = "SELECT count(*) FROM persons";-->
-<!--$s = $PDO->query($db);-->
-<!--$total_results = $s->fetchColumn();-->
-<!--$totalPage = ceil($total_results / $limit);-->
-<!---->
-<!--$offset = ($page - 1) * $limit;-->
-<!--$query = "SELECT * FROM persons LIMIT $limit OFFSET $offset";-->
-<!--$statement = $PDO->prepare($query);-->
-<!--$statement->execute();-->
-<!--$dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);-->
-<!--return [-->
-<!--PAGING_TOTAL_PAGE => $totalPage,-->
-<!--PAGING_DATA => $dbArray,-->
-<!--PAGING_CURRENT_PAGE => $page,-->
-<!--];-->
-<!--}-->
-
-//  if (isset($array)) {
-//    for($i = 0; $i < count($array); $i++) {
-//      $birthDate = $array[$i]["status"];
-//      $query = "SELECT * FROM persons WHERE birth_date LIKE '%$birthDate%' LIMIT $limit OFFSET $offset";
-//      $statement = $PDO->prepare($query);
-//      $statement->execute();
-//      $array = $statement->fetchAll(PDO::FETCH_ASSOC);
-//    }
-//    return [
-//      PAGING_TOTAL_PAGE => $totalPage,
-//      PAGING_DATA => $array,
-//      PAGING_CURRENT_PAGE => $page,
-//    ];
-//  } else {
-//    $query = "SELECT * FROM persons LIMIT $limit OFFSET $offset";
-//    $statement = $PDO->prepare($query);
-//    $statement->execute();
-//    $dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);
-//    return [
-//      PAGING_TOTAL_PAGE => $totalPage,
-//      PAGING_DATA => $dbArray,
-//      PAGING_CURRENT_PAGE => $page,
-//    ];
-//  }
-
-//function getProductiveAgesData(): array
-//{
-//  $persons = getPersonsDataFromJson();
-//  $productiveAges = [];
-//  foreach ($persons as $person) {
-//    if (checkAges($person["birthDate"]) >= 6 && checkAges($person["birthDate"]) <= 60 && $person["alive"] != null) {
-//      $productiveAges[] = $person;
-//    }
-//  }
-//  return $productiveAges;
-//}
-
-<!--$max = time() - (15 * (60 * 60 * 24 * 365));-->
-<!--$min = time() - (64 * (60 * 60 * 24 * 365));-->
-<!--$queryFilter = "SELECT * FROM Persons WHERE email LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%'-->
-<!--AND birth_date >= $min AND birth_date <= $max AND alive = :alive";-->
-<!--$statementFilter = $PDO->prepare($queryFilter);-->
-<!--$statementFilter->execute(array(-->
-<!--'alive' => 1-->
-<!--));-->
-<!--$filterData = $statementFilter->fetchAll(PDO::FETCH_ASSOC);-->
-<!---->
-<!--$query = "SELECT * FROM Persons WHERE email LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%'-->
-<!--AND birth_date >= $min AND birth_date <= $max AND alive = :alive LIMIT $limit OFFSET $offset";-->
-<!--$statement = $PDO->prepare($query);-->
-<!--$statement->execute(array(-->
-<!--'alive' => 1-->
-<!--));-->
-<!--$pageFilter = $statement->fetchAll(PDO::FETCH_ASSOC);-->
-<!--return [-->
-<!--'filterData' => $filterData,-->
-<!--'pagingData' => $pageFilter-->
-<!--];-->
-
-<!--$max = time() - (15 * (60 * 60 * 24 * 365));-->
-<!--$min = time() - (64 * (60 * 60 * 24 * 365));-->
-<!--$nik = $person["nik"];-->
-<!--$query = "SELECT * FROM persons WHERE nik LIKE '%$nik%' AND birth_date >= $min AND birth_date <= $max AND alive = :1";-->
-<!--$statement = $PDO->prepare($query);-->
-<!--$statement->execute();-->
-<!--return $statement->fetchAll(PDO::FETCH_ASSOC);-->
-
-
-//function paginatedData($array, int $page, int $limit): array
-//{
-//  global $PDO;
-//  $db = "SELECT count(*) FROM persons";
-//  $s = $PDO->query($db);
-//  $total_results = $s->fetchColumn();
-//  $totalPage = ceil($total_results / $limit);
-//  $offset = ($page - 1) * $limit;
-//  $query = "SELECT * FROM persons LIMIT $limit OFFSET $offset";
-//  $statement = $PDO->prepare($query);
-//  $statement->execute();
-//  $dbArray = $statement->fetchAll(PDO::FETCH_ASSOC);
-//  return [
-//    PAGING_TOTAL_PAGE => $totalPage,
-//    PAGING_DATA => $dbArray,
-//    PAGING_CURRENT_PAGE => $page,
-//  ];
-//}
-
 
 <!--$max = time() - (6 * (60 * 60 * 24 * 365));-->
 <!--$min = time() - (60 * (60 * 60 * 24 * 365));-->
@@ -495,98 +304,72 @@
 <!--PAGING_CURRENT_PAGE => $page,-->
 <!--];-->
 
+//          if (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler" && $_GET['search'] != null):
+////            $searchToddler = searchPersons($_GET['search']);
+////            $persons = getToddlerData($searchToddler);
+//
+//            $filterData = "toddler";
+//            $searchByAge = $_GET['search'];
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "toddler"):
+////            $persons = getToddlerData($personsData);
+//
+//            $filterData = "toddler";
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "child" && $_GET['search'] != null):
+//            $filterData = "child";
+//            $searchByAge = $_GET['search'];
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "child"):
+//            $filterData = "child";
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges" && $_GET['search'] != null):
+////            $searchProductiveAges = searchPersons($_GET['search']);
+////            $persons = getProductiveAgesData($searchProductiveAges);
+//            $filterData = "productiveAges";
+//            $searchByAge = $_GET['search'];
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "productiveAges"):
+////            $persons = getProductiveAgesData($personsData);
+//            $filterData = "productiveAges";
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway" && $_GET['search'] != null):
+////            $searchPassedAway = searchPersons($_GET['search']);
+////            $persons = getPassedAwayData($searchPassedAway);
+//            $filterData = "passedAway";
+//            $searchByAge = $_GET['search'];
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "passedAway"):
+////            $persons = getPassedAwayData($personsData);
+//            $filterData = "passedAway";
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly" && $_GET['search'] != null):
+////            $searchElderly = searchPersons($_GET['search']);
+////            $persons = getElderlyData($searchElderly);
+//            $filterData = "elderly";
+//            $searchByAge = $_GET['search'];
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "elderly"):
+////            $persons = getElderlyData($personsData);
+//            $filterData = "elderly";
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons" && $_GET['search'] != null):
+////            $persons = searchPersons($_GET['search']);
+//            $filterData = "allPersons";
+//
+//          elseif (isset($_GET['searchByAge']) && $_GET['searchByAge'] == "allPersons"):
+//            $filterData = "allPersons";
+////            $persons = getPersonsDataFromDatabase();
+//          elseif (isset($_GET["search"]) && $_GET['searchByAge'] = "allPersons"):
+////            $persons = searchPersons($_GET["search"]);
+//            $filterData = "allPersons";
+//
+//          else:
+//            $filterData = "allPersons";
+////            $persons = getPersonsDataFromDatabase();
+//          endif;
 
-<!--              <table class="table">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                  <th scope="col">#</th>-->
-<!--                  <th scope="col">First</th>-->
-<!--                  <th scope="col">Last</th>-->
-<!--                  <th scope="col">Handle</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                <tr>-->
-<!--                  <th scope="row">1</th>-->
-<!--                  <td>Mark</td>-->
-<!--                  <td>Otto</td>-->
-<!--                  <td>@mdo</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                  <th scope="row">2</th>-->
-<!--                  <td>Jacob</td>-->
-<!--                  <td>Thornton</td>-->
-<!--                  <td>@fat</td>-->
-<!--                </tr>-->
-<!--                <tr>-->
-<!--                  <th scope="row">3</th>-->
-<!--                  <td colspan="2">Larry the Bird</td>-->
-<!--                  <td>@twitter</td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--              </table>-->
 
-<!--            <ion-icon name="clipboard"></ion-icon>-->
-
-
-<!-- Modal (edit jobs) -->
-<!--                    --><?php //if (checkRole($_SESSION['email']) != null) : ?>
-<!--                      <button-->
-<!--                          type="reset"-->
-<!--                          class="btn btn-secondary btn-delete"-->
-<!--                          data-bs-toggle="modal"-->
-<!--                          data-bs-target="#edit-jobs--><?php //= $jobsData[$i]['id'] ?><!--"-->
-<!--                      > Edit-->
-<!--                      </button>-->
-<!--                    --><?php //else: ?>
-<!--                      <a class="view btn-table" href="jobs.php?error=1">-->
-<!--                        <button type="button" class="btn btn-outline-primary btn-delete" name="btn-delete">Edit-->
-<!--                        </button>-->
-<!--                      </a>-->
-<!--                    --><?php //endif; ?>
-<!--                    <div-->
-<!--                        class="modal fade"-->
-<!--                        id="edit-jobs--><?php //= $jobsData[$i]["id"] ?><!--"-->
-<!--                        tabindex="-1"-->
-<!--                        aria-labelledby="exampleModalLabel"-->
-<!--                        aria-hidden="true"-->
-<!--                    >-->
-<!--                      <div class="modal-dialog modal-dialog-centered">-->
-<!--                        <div class="modal-content">-->
-<!--                          <div class="modal-header">-->
-<!--                            <form class="jobs-form" action="action/edit-jobs-action.php" name="edit-jobs" method="post">-->
-<!--                            <div class="row g-3 align-items-center">-->
-<!--                              <div class="col-auto">-->
-<!--                                <label for="inputJobs" class="col-form-label">Jobs</label>-->
-<!--                              </div>-->
-<!--                              <div class="col-auto">-->
-<!--                                <input type="text" id="inputJobs" class="form-control"-->
-<!--                                       aria-describedby="passwordHelpInline" name="jobs"-->
-<!--                                       placeholder="jobs..."-->
-<!--                                       value="--><?php //echo $jobsData[$i]['job_name']?><!--"-->
-<!--                                >-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                            </form>-->
-<!--                          </div>-->
-<!--                          <div class="modal-footer">-->
-<!--                            <button-->
-<!--                                type="button"-->
-<!--                                class="btn btn-secondary btn-block"-->
-<!--                                data-bs-dismiss="modal"-->
-<!--                            >-->
-<!--                              Cancel-->
-<!--                            </button>-->
-<!--                            <button-->
-<!--                                type="button"-->
-<!--                                class="btn btn-primary confirm"-->
-<!--                            >-->
-<!--                              <a class="link-confirm"-->
-<!--                                 href="action/edit-jobs-action.php?id=--><?php //echo $jobsData[$i]['id'] ?><!--">-->
-<!--                                Save-->
-<!--                              </a>-->
-<!--                            </button>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
+//function sortingDataForPagination(int $page, int $limit, array $array): array
+//{
+//  // sorting array person that will be shown for pagination
+//  $indexStart = ($page - 1) * $limit;
+//  $length = $limit;
+//  if (($indexStart + $limit) > count($array)) {
+//    $length = count($array) - $indexStart;
+//  }
+//  return array(
+//    "length" => $length,
+//    "indexStart" => $indexStart
+//  );
+//}

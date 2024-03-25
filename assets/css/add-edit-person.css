@@ -71,6 +71,7 @@
 }
 
 .person-form .btn-cancel {
+  text-decoration: none;
   background-color: #fff;
   color: #333;
   font-size: 1rem;

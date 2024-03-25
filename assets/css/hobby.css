@@ -100,6 +100,7 @@ tbody {
 }
 
 .text-end .cancel {
+    text-decoration: none;
     font-weight: bold;
 }
 

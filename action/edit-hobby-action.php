@@ -22,7 +22,7 @@ function validateInputHobby($hobby,$personId, $id): array
 $errorData = validateInputHobby($_POST['hobby'],$personId,$id);
 if (count($errorData) != 0) {
   $_SESSION["errorInputHobby"] = $errorData['hobby'];
-  $_SESSION["inputHobby"] = $_POST['hobby'];
+  $_SESSION['inputHobby'] = $_POST['hobby'];
   header("Location: ../edit-hobby.php?hobbyId=$id&personId=$personId&errorInput=1");
   exit();
 } else {
