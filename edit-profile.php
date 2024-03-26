@@ -270,71 +270,60 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                         ?>
                         <?php
                         if (isset($_SESSION["inputJobs"])):
-                        ?>
-                        <?php
-                        $jobs = getJobsDataFromDatabase();
-                        $number = 1;
-                        for ($i = 0; $i < count($jobs); $i++):
-                        if ($_SESSION['inputJobs'] == $jobs[$i]['id']):
-                        ?>
-                        <option value="<?php echo $jobs[$i]['id']; ?>">
-                          <?php
-                          echo $jobs[$i]['job_name'];
                           ?>
-                        </option>
-                        <?php
-                        endif;
-                        endfor;
-                        ?>
-                        <?php
-                        $jobs = getJobsDataFromDatabase();
-                        if (count($jobs) != 0) :
-                        $number = 1;
-                        for ($i = 0; $i < count($jobs); $i++):
-                        $jobsId = $jobs[$i]['id'];
-                        ?>
-                        <option value="<?php echo $jobsId ?>"><?php echo $jobs[$i]['job_name'] ?></option>
-                        <?php
-                        endfor;
-                        endif;
-                        ?>
-                        <?php else : ?>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <option selected disabled value="<?php
-                        echo $personJobs['job_id'];
-                        ?>">
                           <?php
-                          echo ucfirst($personJobs['job_name']);
-                          ?>
-                        </option>
-                        
-                        <?php
-                        $jobs = getJobsDataFromDatabase();
-                        if (count($jobs) != 0) :
+                          $jobs = getJobsDataFromDatabase();
                           $number = 1;
                           for ($i = 0; $i < count($jobs); $i++):
-                            ?>
-                            <option value="<?php
-                            echo $jobs[$i]['id'];
-                            ?>">
-                              <?php
-                              echo ucfirst($jobs[$i]['job_name']);
+                            if ($_SESSION['inputJobs'] == $jobs[$i]['id']):
                               ?>
-                            </option>
-                          <?php
+                              <option value="<?php echo $jobs[$i]['id']; ?>">
+                                <?php
+                                echo $jobs[$i]['job_name'];
+                                ?>
+                              </option>
+                            <?php
+                            endif;
                           endfor;
-                        endif;
-                        ?>
+                          ?>
+                          <?php
+                          $jobs = getJobsDataFromDatabase();
+                          if (count($jobs) != 0) :
+                            $number = 1;
+                            for ($i = 0; $i < count($jobs); $i++):
+                              $jobsId = $jobs[$i]['id'];
+                              ?>
+                              <option value="<?php echo $jobsId ?>"><?php echo $jobs[$i]['job_name'] ?></option>
+                            <?php
+                            endfor;
+                          endif;
+                          ?>
+                        <?php else : ?>
+                          <option selected disabled value="<?php
+                          echo $personJobs['job_id'];
+                          ?>">
+                            <?php
+                            echo ucfirst($personJobs['job_name']);
+                            ?>
+                          </option>
+                          
+                          <?php
+                          $jobs = getJobsDataFromDatabase();
+                          if (count($jobs) != 0) :
+                            $number = 1;
+                            for ($i = 0; $i < count($jobs); $i++):
+                              ?>
+                              <option value="<?php
+                              echo $jobs[$i]['id'];
+                              ?>">
+                                <?php
+                                echo ucfirst($jobs[$i]['job_name']);
+                                ?>
+                              </option>
+                            <?php
+                            endfor;
+                          endif;
+                          ?>
                         <?php endif; ?>
                       </select>
                     </div>
@@ -452,11 +441,11 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", editProfileNav: "profile-n
                     >
                       Save
                     </button>
-                    <button onclick="location.href='view-person.php?id=<?php echo $person["id"]?>&hobby=1'"
-                        type="button"
-                        class="btn btn-outline-primary btn-save"
+                    <button onclick="location.href='view-person.php?id=<?php echo $person["id"] ?>&hobby=1'"
+                            type="button"
+                            class="btn btn-outline-primary btn-save"
                     >
-                     Hobby
+                      Hobby
                     </button>
                     <a class="cancel" href="persons.php">
                       <button

@@ -41,7 +41,7 @@ showHeader("Add-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                     <div class="card d-flex">
                       <div class="card-body card-background">
                         <h3 class="content-title">Edit Jobs</h3>
-                        <hr>
+                        <hr class="s1">
                         <form class="jobs-form" action="action/edit-jobs-action.php" name="edit-jobs" method="post">
                           <input type="hidden" name="id" value="<?= $id ?>"/>
                           <div class="mb-3">

@@ -19,8 +19,6 @@ if (intval($id)) {
     $statement->execute(array(
       "id" => $id
     ));
-//    $hobby = $statement['name'];
-//    $_SESSION['deleted'] = "Data hobby has been deleted";
     redirect("../jobs.php", "deleted");
   } else {
     $_SESSION['error'] = 'Jobs data with given ID was not found!';

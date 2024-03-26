@@ -4,6 +4,9 @@ require_once __DIR__ . "/../include/db.php";
 require_once __DIR__ . "/constants.php";
 global $PDO;
 
+/**
+ * Function for search jobs data
+ */
 function searchJobs($searchInput): array
 {
   global $PDO;
@@ -13,6 +16,9 @@ function searchJobs($searchInput): array
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Get all jobs data from database
+ */
 function getJobsDataFromDatabase(): array
 {
   global $PDO;
@@ -22,6 +28,9 @@ function getJobsDataFromDatabase(): array
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Get job data from database
+ */
 function getJobDataFromDatabase($jobInput):array
 {
   global $PDO;
@@ -33,21 +42,9 @@ function getJobDataFromDatabase($jobInput):array
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-//function paginatedData($array, int $page, int $limit): array
-//{
-//  $totalPage = ceil((float)count($array) / (float)$limit);
-//  $indexStart = ($page - 1) * $limit;
-//  $length = $limit;
-//  if (($indexStart + $limit) > count($array)) {
-//    $length = count($array) - $indexStart;
-//  }
-//  return [
-//    PAGING_TOTAL_PAGE => $totalPage,
-//    PAGING_DATA => array_slice($array, $indexStart, $length),
-//    PAGING_CURRENT_PAGE => $page,
-//  ];
-//}
-
+/**
+ * Get person job from database by person job_id
+ */
 function getPersonJobsByIdFromDatabase($id)
 {
   global $PDO;
@@ -57,6 +54,9 @@ function getPersonJobsByIdFromDatabase($id)
   return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Paginated jobs data
+ */
 function paginatedJobsData($search, int $page, int $limit): array
 {
   global $PDO;

@@ -40,10 +40,8 @@ function editPasswordValidate($password, $confirmPassword): array
 }
 
 $errorPassword = editPasswordValidate($_POST['password'], $_POST['confirmPassword']);
-
 $_SESSION['errorInputData'] = $errorData;
 if (count($errorData) != 0 || count($errorPassword) != 0) {
-//  SESSION ERROR INPUT
   $_SESSION['errorNik'] = $errorData["nik"];
   $_SESSION['errorEmail'] = $errorData['email'];
   $_SESSION['errorFirstName'] = $errorData['firstName'];
@@ -68,8 +66,9 @@ if (count($errorData) != 0 || count($errorPassword) != 0) {
   $role = translateRole($_POST["role"]);
   $sex = translateGender($_POST["sex"]);
   $status = translateStatus($_POST["status"]);
+  
   $personJobs = checkLastPersonJobs($id);
-  $jobs = checkJobInputWhenEditPersonData($personJobs['job_id'], $_POST['jobs']);
+  $jobs = checkJobInputWhenEditPersonData($personJobs['job_id'], $_POST['jobs'], $status);
   try {
     $query = 'UPDATE persons SET nik = :nik, first_name = :first_name, last_name = :last_name,
                    birth_date = :birth_date, sex = :sex, email = :email, password = :password, address = :address,

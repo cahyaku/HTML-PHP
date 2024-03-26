@@ -107,12 +107,11 @@ if (count($errorData) != 0) {
   unset ($_SESSION['inputBirthDate']);
   unset ($_SESSION['internalNotes']);
   unset ($_SESSION['inputJobs']);
-  $job = $_POST['jobs'];
+  $jobs = $_POST['jobs'];
   $password = encryptPassword($_POST['password']);
   $sex = translateGender($_POST["sex"]);
   $role = translateRole($_POST["role"]);
   $status = translateStatus($_POST["status"]);
-  $jobs = checkJobInput($_POST["jobs"], $job);
   try {
     $query = 'INSERT INTO persons(nik,first_name,last_name,birth_date,sex,email, password,address,role,internal_notes,status, job_id)
 VALUES(:nik,:first_name,:last_name,:birth_date,:sex,:email,:password,:address,:role,:internal_notes,:status,:job_id)';

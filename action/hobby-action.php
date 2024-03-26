@@ -4,6 +4,10 @@ require_once __DIR__ . "/utils-action.php";
 require_once __DIR__ . "/../include/db.php";
 require_once __DIR__ . "/constants.php";
 global $PDO;
+
+/**
+ * Function for get person hobbies by id (in hobby database)
+ */
 function getPersonHobbyByIdFromDatabase($personId):array
 {
   global $PDO;
@@ -13,6 +17,10 @@ function getPersonHobbyByIdFromDatabase($personId):array
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
+/**
+ * Function for get person hobby by id
+ * (edit hobby data)
+ */
 function getHobbyByIdFromDatabase($id)
 {
   global $PDO;

@@ -1,5 +1,4 @@
 <?php
-//require_once  __DIR__ ."/../action/utils-action.php";
 require_once __DIR__ . "/utils-action.php";
 require_once __DIR__ . "/../include/db.php";
 global $PDO;

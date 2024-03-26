@@ -31,8 +31,6 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                 <h3 class="title">Edit person</h3>
               </div>
               <?php
-              //              $persons = getPersonsDataFromJson();
-              //              $persons = getPersonsDataFromDatabase();
               if (!is_numeric($_GET['id'])) {
                 ?>
                 <div class="alert alert-danger" role="alert">
@@ -43,7 +41,6 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                   Person data was not found!!!
                 </div>
               <?php } else {
-//                $person = getPersonDataById($_GET['id']);
                 $person = getPersonByIdFromDatabase($_GET["id"]);
                 $birthDate = translateDateFromIntToString($person['birth_date']);
                 $_SESSION['id'] = $_GET['id'];
@@ -297,18 +294,18 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             ?>
                             <?php
                             $jobs = getJobsDataFromDatabase();
-                              $number = 1;
-                              for ($i = 0; $i < count($jobs); $i++):
-                                if ($_SESSION['inputJobs'] == $jobs[$i]['id']):
+                            $number = 1;
+                            for ($i = 0; $i < count($jobs); $i++):
+                              if ($_SESSION['inputJobs'] == $jobs[$i]['id']):
+                                ?>
+                                <option value="<?php echo $jobs[$i]['id']; ?>">
+                                  <?php
+                                  echo $jobs[$i]['job_name'];
                                   ?>
-                                  <option value="<?php echo $jobs[$i]['id']; ?>">
-                                    <?php
-                                    echo $jobs[$i]['job_name'];
-                                    ?>
-                                  </option>
-                                <?php
-                                endif;
-                              endfor;
+                                </option>
+                              <?php
+                              endif;
+                            endfor;
                             ?>
                             
                             <?php
@@ -324,7 +321,7 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                             endif;
                             ?>
                           <?php else : ?>
-                          
+
                             <option selected disabled value="<?php
                             echo $personJobs['job_id'];
                             ?>">
@@ -454,6 +451,12 @@ showHeader("Edit-Profile-PMA", "add-edit-person.css", personsNav: "persons-nav-l
                         name="save-btn"
                     >
                       Save
+                    </button>
+                    <button onclick="location.href='view-person.php?id=<?php echo $person["id"] ?>&hobby=1'"
+                            type="button"
+                            class="btn btn-outline-primary btn-save"
+                    >
+                      Hobby
                     </button>
                     <a class="cancel" href="persons.php">
                       <button

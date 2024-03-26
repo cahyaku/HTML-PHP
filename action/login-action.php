@@ -16,11 +16,8 @@ function validateData($data)
   return null;
 }
 
-
-
 if (validateData($loginData)) {
   $_SESSION['email'] = $_POST['email'];
-// DATABASE Mysql
   $_SESSION['userFirstName'] = validateData($loginData)['first_name'];
   $_SESSION['userLastName'] = validateData($loginData)['last_name'];
   $_SESSION['userLoggedIn'] = validateData($loginData)['logged_in'];

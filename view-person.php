@@ -32,6 +32,13 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.cs
             <div class="person-title">
               <h3 class="title">View person data</h3>
             </div>
+            
+            <?php if (isset($_GET["hobby"])): ?>
+              <div class="alert alert-info" role="alert">
+                Scroll down to view and manage hobby data.
+              </div>
+            <?php endif; ?>
+            
             <?php
             if (!is_numeric($_GET['id'])) {
               ?>
@@ -142,104 +149,122 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.cs
                   $id = $_GET['id'];
                   ?>
                   <div class="d-xl-flex-column align-items-center justify-content-center space gap-4  has-background">
-                    <h3 class="content-title">Add Hobby</h3>
-                    <hr class="double">
-                    <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
-                      <div class="card d-flex has-shadow-grey">
-                        <div class="card-body">
-                          <div class="d-flex-column justify-content-center">
-                            <div>
-                            </div>
-                            <form class="hobby-form" action="action/add-hobby-action.php" name="create-hobby" id="table"
-                                  method="post">
-                              <input type="hidden" name="id" value="<?= $id ?>"/>
-                              <div class="mb-3">
-                                <ion-icon name="pencil"></ion-icon>
-                                <label for="exampleInputPassword1" class="form-label">Hobby</label>
-                                <input type="text"
-                                       class="form-control"
-                                       id="exampleInputPassword1"
-                                       name="hobby"
-                                       placeholder="hobby..."
-                                       value="<?php
-                                       if (isset($_SESSION['errorInputHobby'])) {
-                                         echo $_SESSION['inputHobby'];
-                                       } else {
-                                         echo $_POST['hobby'];
-                                       } ?>"
-                                >
-                                <?php if (isset($_SESSION['errorInputHobby'])): ?>
-                                  <div class="alert alert-danger" role="alert">
-                                    Sorry hobby data already exists.
+                    <h3 class="content-title">Hobby</h3>
+                    <hr class="s1">
+                    <?php if (checkRole($_SESSION['email']) != null && $_SESSION['email'] == $persons['email'] ||
+                      checkRole($_SESSION['email']) != null && $_SESSION['email'] != $persons['email'] ||
+                      checkRole($_SESSION['email']) == null && $_SESSION['email'] == $persons['email']): ?>
+                      <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                        <div class="card d-flex has-shadow-grey">
+                          <div class="card-body">
+                            <div class="d-flex-column justify-content-center">
+                              <div>
+                              </div>
+                              <form class="hobby-form" action="action/add-hobby-action.php" name="create-hobby"
+                                    id="table"
+                                    method="post">
+                                <input type="hidden" name="id" value="<?= $id ?>"/>
+                                <div class="mb-3">
+                                  <ion-icon name="pencil"></ion-icon>
+                                  <label for="exampleInputPassword1" class="form-label">Hobby</label>
+                                  <input type="text"
+                                         class="form-control"
+                                         id="exampleInputPassword1"
+                                         name="hobby"
+                                         placeholder="hobby..."
+                                         value="<?php
+                                         if (isset($_SESSION['errorInputHobby'])) {
+                                           echo $_SESSION['inputHobby'];
+                                         } else {
+                                           echo $_POST['hobby'];
+                                         } ?>"
+                                         required
+                                  >
+                                  <?php if (isset($_SESSION['errorInputHobby'])): ?>
+                                    <div class="alert alert-danger" role="alert">
+                                      Sorry hobby data already exists.
+                                    </div>
+                                  <?php endif; ?>
+                                </div>
+                                <?php if (isset($_GET['success'])): ?>
+                                  <div class="alert alert-success" role="alert">
+                                    New jobs data has been saved.
                                   </div>
                                 <?php endif; ?>
-                              </div>
-                              <?php if (isset($_GET['success'])): ?>
-                                <div class="alert alert-success" role="alert">
-                                  New jobs data has been saved.
-                                </div>
-                              <?php endif; ?>
 
-                              <div class="text-end">
-                                <button
-                                    type="submit"
-                                    class="btn btn-outline-primary save"
-                                    name="save-btn"
-                                >
-                                  Save
-                                </button>
-                                <a class="cancel" href="persons.php">
+                                <div class="text-end">
                                   <button
-                                      type="button"
-                                      class="btn btn-secondary cancel"
+                                      type="submit"
+                                      class="btn btn-outline-primary save"
+                                      name="save-btn"
                                   >
-                                    Cancel
+                                    Save
                                   </button>
-                                </a>
-                              </div>
-                            </form>
+                                  <a class="cancel" href="persons.php">
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary cancel"
+                                    >
+                                      Cancel
+                                    </button>
+                                  </a>
+                                </div>
+                              </form>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    <?php endif; ?>
+
                     <div class="col-12 col-lg-12 col-md-12 col-sm-12 col-xl-12">
                       <div class="table-responsive">
                         <?php
                         $hobby = getPersonHobbyByIdFromDatabase($id);
                         if ($hobby != null):
                           ?>
-                          <table class="table table-hover  has-shadow-grey" id="table">
-                            <thead class="table-light">
-                            <tr class="color">
-                              <th scope="col" class="text-center">No</th>
-                              <th scope="col" class="text-center">Hobby</th>
-                              <th scope="col"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                            $hobby = getPersonHobbyByIdFromDatabase($id);
-                            if (count($hobby) != 0) :
-                              $number = 1;
-                              for ($i = 0; $i < count($hobby); $i++):
+                          <div class="table-style">
+                            <table class="table table-hover  has-shadow-grey" id="table">
+                              <thead class="table-light">
+                              <tr class="color">
+                                <th scope="col" class="text-center">No</th>
+                                <th scope="col" class="text-center">Hobby</th>
+                                <th scope="col"></th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <?php
+                              $hobby = getPersonHobbyByIdFromDatabase($id);
+                              if (count($hobby) != 0) :
+                                $number = 1;
+                                for ($i = 0; $i < count($hobby); $i++):
                                   ?>
                                   <tr>
                                     <th scope="row" class="text-center"><?php echo $number++ ?></th>
                                     <td class="text-center"><?php echo $hobby[$i]["name"] ?></td>
                                     <td class="text-end">
-                                      <a class="hobby btn-table"
-                                         href="edit-hobby.php?hobbyId=<?php echo $hobby[$i]["id"]?>&personId=<?php echo $_GET['id']?>">
-                                        <button type="button" class="btn btn-outline-primary edit" name="btn-hobby">
-                                          Edit&ensp;🐻
+                                      <?php if (checkRole($_SESSION['email']) != null && $_SESSION['email'] == $persons['email'] ||
+                                        checkRole($_SESSION['email']) != null && $_SESSION['email'] != $persons['email'] ||
+                                        checkRole($_SESSION['email']) == null && $_SESSION['email'] == $persons['email'])
+                                        : ?>
+                                        <a class="hobby btn-table"
+                                           href="edit-hobby.php?hobbyId=<?php echo $hobby[$i]["id"] ?>&personId=<?php echo $_GET['id'] ?>">
+                                          <button type="button" class="btn btn-outline-primary edit" name="btn-hobby">
+                                            Edit&ensp;🐻
+                                          </button>
+                                        </a>
+                                        <button
+                                            type="reset"
+                                            class="btn btn-secondary btn-delete"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal<?= $hobby[$i]['id'] ?>"
+                                        > Delete
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                               fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                                          </svg>
                                         </button>
-                                      </a>
-                                      <button
-                                          type="reset"
-                                          class="btn btn-secondary btn-delete"
-                                          data-bs-toggle="modal"
-                                          data-bs-target="#exampleModal<?= $hobby[$i]['id'] ?>"
-                                      > Delete
-                                      </button>
+                                      <?php endif; ?>
                                       <div
                                           class="modal fade"
                                           id="exampleModal<?= $hobby[$i]["id"] ?>"
@@ -284,10 +309,11 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.cs
                                     </td>
                                   </tr>
                                 <?php
-                              endfor;
-                            endif; ?>
-                            </tbody>
-                          </table>
+                                endfor;
+                              endif; ?>
+                              </tbody>
+                            </table>
+                          </div>
                         <?php endif; ?>
                       </div>
                     </div>
@@ -332,7 +358,7 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.cs
                         Delete
                       </button>
                     <?php } ?>
-  
+
                     <!-- Modal -->
                     <div
                         class="modal fade"
@@ -384,8 +410,6 @@ showHeader("Persons-PMA", "view-person.css", "persons.css", cssStyle3: "hobby.cs
                   Only admin roles can edit person data!!!
                 </div>
               <?php endif; ?>
-
-
             </div>
           </div>
         </div>

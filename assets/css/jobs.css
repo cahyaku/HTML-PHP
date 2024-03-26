@@ -3,11 +3,26 @@
     color: #364fc7;
 }
 
-.content-title {
+.content-title-jobs {
     font-size: 2.4rem;
     font-weight: bold;
     color: #333;
     text-transform: capitalize;
+}
+
+.content-title {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: #111111;
+    text-transform: capitalize;
+    border-radius: 11px;
+    padding: 1rem;
+    background: radial-gradient(
+            circle,
+            #91a7ff -100%,
+            #dee2ff 130%,
+            #fff 100%
+    );
 }
 
 .content-header-box {
@@ -88,6 +103,17 @@ tbody {
 
 .add-button .btn-add:hover {
     background-color: #4263eb;
+}
+
+
+.text-end .btn-save{
+    font-weight: bold;
+}
+
+.text-end .btn-save:hover {
+    background-color: #4263eb;
+    font-weight: bold;
+    color: #ffffff;
 }
 
 /*test*/

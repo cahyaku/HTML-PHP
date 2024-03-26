@@ -21,20 +21,20 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
     ?>
     <div class="main-content">
       <div class="content-header-box d-flex justify-content-between">
-        <h3 class="content-title">Jobs</h3>
+        <h3 class="content-title-jobs">Jobs</h3>
         <div class="add-button">
           <?php if (checkRole($_SESSION['email']) != null) : ?>
-          <button type="button" class="btn btn-outline-primary btn-add">
-            <a class="add" href="add-jobs.php">
-              +Add
-            </a>
-          </button>
-          <?php else:?>
-          <button type="button" class="btn btn-outline-primary btn-add">
-            <a class="add" href="jobs.php?error=add">
-              +Add
-            </a>
-          </button>
+            <button type="button" class="btn btn-outline-primary btn-add">
+              <a class="add" href="add-jobs.php">
+                +Add
+              </a>
+            </button>
+          <?php else: ?>
+            <button type="button" class="btn btn-outline-primary btn-add">
+              <a class="add" href="jobs.php?error=add">
+                +Add
+              </a>
+            </button>
           <?php endif; ?>
         </div>
       </div>
@@ -79,11 +79,6 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
       <div class="table-responsive">
         <table class="table-primary table-width has-shadow-grey" id="table">
           <?php
-//          if (isset($_GET["search"])) {
-//            $jobs = searchJobs($_GET["search"]);
-//          } else {
-//            $jobs = getJobsDataFromDatabase();
-//          }
           
           if ($_GET['page'] < 1):
             $page = 1;
@@ -95,8 +90,11 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
           $limit = 5;
           $previous = $page - 1;
           $next = $page + 1;
-//          $data = paginatedData($jobs, $page, $limit);
           $data = paginatedJobsData($_GET["search"], $page, $limit);
+          if ($_GET['page'] > $data[PAGING_TOTAL_PAGE]){
+            $page = 1;
+            $data = paginatedJobsData($_GET["search"], $page, $limit);
+          }
           $number = ($page - 1) * $limit + 1;
           $jobsData = $data[PAGING_DATA];
           ?>
@@ -119,23 +117,33 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                 <td class="text-center"><?php echo ucfirst($jobsData[$i]["job_name"]) ?></td>
                 <td class="text-center"><?php
                   if ($jobsData[$i]["count"] == null) :
-                  echo "-";
+                    echo "-";
                   else :
-                  echo $jobsData[$i]["count"];
+                    echo $jobsData[$i]["count"];
                   endif;
                   ?></td>
                 <td class="text-end">
                   <div class="table-button">
                     <?php if (checkRole($_SESSION['email']) != null) : ?>
                       <a class="edit btn-table" href="edit-jobs.php?id=<?php echo $jobsData[$i]['id'] ?>">
-                        <button type="button" class="btn btn-outline-primary" name="btn-edit">Edit</button>
+                        <button type="button" class="btn btn-outline-primary" name="btn-edit">Edit
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                          </svg>
+                        </button>
                       </a>
-                    <?php else:?>
+                    <?php else: ?>
                       <a class="edit btn-table" href="jobs.php?error=edit">
-                        <button type="button" class="btn btn-outline-primary" name="btn-edit">Edit</button>
+                        <button type="button" class="btn btn-outline-primary" name="btn-edit">Edit
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                          </svg>
+                        </button>
                       </a>
                     <?php endif; ?>
-                    
+
                     <!-- Modal (delete jobs) -->
                     <?php if (checkRole($_SESSION['email']) != null) : ?>
                       <button
@@ -144,10 +152,16 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                           data-bs-toggle="modal"
                           data-bs-target="#exampleModal<?= $jobsData[$i]['id'] ?>"
                       > Delete
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                          <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                        </svg>
                       </button>
                     <?php else: ?>
                       <a class="view btn-table" href="jobs.php?error=delete">
                         <button type="button" class="btn btn-outline-primary btn-delete" name="btn-delete">Delete
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                          </svg>
                         </button>
                       </a>
                     <?php endif; ?>
@@ -162,10 +176,10 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                         <div class="modal-content">
                           <div class="modal-header">
                             <p class="modal-title" id="exampleModalLabel">
-                              <?php if($jobsData[$i]['count'] != null):?>
-                              This jobs has been used!
-                              <?php else :?>
-                              Are you sure want to delete this jobs?
+                              <?php if ($jobsData[$i]['count'] != null): ?>
+                                This jobs data has been used!
+                              <?php else : ?>
+                                Are you sure want to delete this jobs?
                               <?php endif; ?>
                             </p>
                             <button
@@ -178,7 +192,7 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                           <div class="modal-footer">
                             <?php
                             if ($jobsData[$i]['count'] != null):
-                            ?>
+                              ?>
                               <button
                                   type="button"
                                   class="btn btn-secondary btn-block"
@@ -186,25 +200,25 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                               >
                                 Back
                               </button>
-                            <?php else:?>
-                            <button
-                                type="button"
-                                class="btn btn-secondary btn-block"
-                                data-bs-dismiss="modal"
-                            >
-                              No
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-primary confirm"
-                            >
-                              <a class="link-confirm"
-                                 href="action/delete-jobs-action.php?id=<?php echo $jobsData[$i]['id']?>">
-                                Yes
-                              </a>
-                            </button>
+                            <?php else: ?>
+                              <button
+                                  type="button"
+                                  class="btn btn-secondary btn-block"
+                                  data-bs-dismiss="modal"
+                              >
+                                No
+                              </button>
+                              <button
+                                  type="button"
+                                  class="btn btn-primary confirm"
+                              >
+                                <a class="link-confirm"
+                                   href="action/delete-jobs-action.php?id=<?php echo $jobsData[$i]['id'] ?>">
+                                  Yes
+                                </a>
+                              </button>
                             <?php endif; ?>
-                            
+
                           </div>
                         </div>
                       </div>
@@ -237,13 +251,13 @@ showHeader("Jobs-PMA", "jobs.css", jobsNav: "jobs-nav-link");
           <div class="alert alert-danger" role="alert">
             Only admin roles can remove jobs data.
           </div>
-        <?php elseif (isset($_GET['changed'])):?>
-            <div class="alert alert-success" role="alert">
-              Jobs data has been update.
-            </div>
-        <?php elseif (isset($_GET['success'])):?>
+        <?php elseif (isset($_GET['changed'])): ?>
           <div class="alert alert-success" role="alert">
-            Jobs data has been saved.
+            <?php echo $_SESSION['changedJobs'] ?>
+          </div>
+        <?php elseif (isset($_GET['success'])): ?>
+          <div class="alert alert-success" role="alert">
+            <?php echo $_SESSION['info'] ?>
           </div>
         <?php endif; ?>
         <div class="page-navigation-position">

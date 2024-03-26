@@ -84,29 +84,12 @@ body {
   /* padding: 0 4.8rem; */
   /* height: 9.6rem; */
   height: 80px;
-
-  /* background: radial-gradient(
-    circle,
-    rgba(238, 174, 202, 1) 0%,
-    rgba(148, 187, 233, 1) 80%,
-    #fff 100%
-  ); */
-
-  /*background: radial-gradient(*/
-  /*  circle,*/
-  /*  rgba(148, 187, 233, 1) 0%,*/
-  /*  #dee2ff 80%,*/
-  /*  #fff 100%*/
-  /*);*/
-
   background: radial-gradient(
           circle,
           rgba(63, 94, 251, 1) -100%,
           #dee2ff 80%,
           #fff 100%
   );
-
-
   /* z-index: -1; */
   /* position: fixed;
   top: 0;
@@ -132,10 +115,6 @@ body {
   color: #364fc7;
 }
 
-/* .logo-PMA {
-  width: 100%;
-  align-self: center;
-} */
 
 .logo-pma {
   width: 3.5rem;
@@ -223,16 +202,6 @@ body {
   color: #364fc7;
 }
 
-/*.persons-nav-link:link,*/
-/*.persons-nav-link:visited {*/
-/*  color: #364fc7;*/
-/*}*/
-
-/*.profile-nav-link:link,*/
-/*.profile-nav-link:visited {*/
-/*  color: #364fc7;*/
-/*}*/
-
 .logout-link:link,
 .logout-link:visited {
   color: red;
@@ -293,11 +262,7 @@ body {
   padding-right: 50px;
 }
 
-/* person main nav link */
-/*.persons-nav-link:link,*/
-/*.persons-nav-link:visited {*/
-/*  color: #364fc7;*/
-/*}*/
+
 
 .PMA-title {
   color: #222;
@@ -323,3 +288,25 @@ body {
   padding-left: 2rem;
 }
 
+hr.s1 {
+  height:5px;
+  border-top:1px solid black;
+  border-bottom:2px solid black;
+}
+
+hr.s3 {
+  height:14px;
+  border-top:4px solid black;
+  border-bottom:8px solid black;
+}
+
+hr.s9 {
+  height:6px;
+  border-top:2px solid black;
+  border-bottom:2px solid black;
+}
+
+.table-style {
+  max-height:400px;
+  overflow:auto;
+}

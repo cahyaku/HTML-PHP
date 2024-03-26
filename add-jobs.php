@@ -31,7 +31,7 @@ showHeader("Add-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                   <div class="card d-flex">
                     <div class="card-body card-background">
                       <h3 class="content-title">Add Jobs</h3>
-                      <hr>
+                      <hr class="s1">
                       <form class="jobs-form" action="action/add-jobs-action.php" name="create-jobs" method="post">
                         <div class="mb-3">
                           <ion-icon name="pencil"></ion-icon>
@@ -46,6 +46,7 @@ showHeader("Add-PMA", "jobs.css", jobsNav: "jobs-nav-link");
                                    echo $_SESSION['inputJobs'];
                                  }
                                  ?>"
+                                 required
                           >
                         </div>
                         <?php

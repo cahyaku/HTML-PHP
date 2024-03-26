@@ -35,18 +35,16 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
             <?php if ($_SESSION['userLoggedIn'] != null) { ?>
               You were logged previously in
             <?php } ?>
-<!--            <strong>--><?php //echo customDateToString($_SESSION['userLoggedIn']) . "!" ?><!--</strong>-->
             <strong><?php
               if ($_SESSION['userLoggedIn'] == null):
-              echo "Welcome in dashboard page!";
+                echo "Welcome in dashboard page!";
               else:
-              echo $_SESSION['userLoggedIn'] . "!";
+                echo $_SESSION['userLoggedIn'] . "!";
               endif;
               ?></strong>
           </p>
         </div>
       </div>
-<!--      --><?php //$persons = getPersonsDataFromDatabase(); ?>
       <div class="dashboard-boxs">
         <div class="row row-gap-4">
           <!--ALL PERSONS-->
@@ -58,7 +56,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-//                  $allPersons = count(getPersonsDataFromDatabase());
                   $allPersons = getCountPersonDataByAges("allPersons");
                   echo "<h2 class='title'>";
                   echo "$allPersons";
@@ -84,7 +81,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="happy" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-//                  $toddler = count(getToddlerData($persons));
                   $toddler = getCountPersonDataByAges("toddler");
                   echo "<h2 class='title'>";
                   echo "$toddler";
@@ -111,7 +107,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="happy" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-                  //                  $toddler = count(getToddlerData($persons));
                   $child = getCountPersonDataByAges("child");
                   echo "<h2 class='title'>";
                   echo "$child";
@@ -138,7 +133,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="accessibility" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-//                  $productiveAges = count(getProductiveAgesData($persons));
                   $productiveAges = getCountPersonDataByAges("productiveAges");
                   echo "<h2 class='title'>";
                   echo "$productiveAges";
@@ -165,7 +159,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="people" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-//                  $elderly = count(getElderlyData($persons));
                   $elderly = getCountPersonDataByAges("elderly");
                   echo "<h2 class='title'>";
                   echo "$elderly";
@@ -183,7 +176,7 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
               </div>
             </div>
           </div>
-          
+
           <div class="dashboard-box col-12 col-lg-6 col-md-6 col-sm-6 col-xl-4">
             <div class="card has-shadow">
               <div class="card-body card-box card-3">
@@ -192,7 +185,6 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
                     <ion-icon name="man" class="dashboard-icon"></ion-icon>
                   </div>
                   <?php
-//                  $passedAway = count(getPassedAway());
                   $passedAway = getCountPersonDataByAges("passedAway");
                   echo "<h2 class='title'>";
                   echo "$passedAway";
@@ -213,43 +205,43 @@ showHeader("Dashboard-PMA", "dashboard.css", dashboardNav: "dashboard-link");
         </div>
       </div>
       <a href="jobs.php" class="table-title">
-        <ion-icon name="clipboard-outline"></ion-icon>
-        JOBS</a>
-      <hr>
-        <table class="table-primary table-shadow">
-          <?php
-          $jobs = getJobsDataFromDatabase();
-          ?>
-          <thead>
-          <tr>
+        <ion-icon name="clipboard-outline"></ion-icon>JOBS</a>
+      <hr class="s3">
+      <div class="table-style table-background">
+        <table class="table table-striped table-hover" id="table">
+          <thead class="table-dark">
+          <tr class="color">
             <th scope="col" class="text-center">No</th>
-            <th scope="col" class="text-center">Jobs</th>
-            <th scope="col" class="text-center">Count</th>
+            <th scope="col" class="text-center">Hobby</th>
+            <th scope="col"></th>
           </tr>
           </thead>
           <tbody>
           <?php
-          if (count($jobs) != 0):
-          for ($i = 0; $i < count($jobs); $i++) :
+          $jobs = getJobsDataFromDatabase();
           ?>
-          <tr>
-            <th scope="row" class="text-center"><?php echo $i++ ?></th>
-            <td class="text-center"><?php echo $jobs[$i]['job_name'] ?></td>
-            <td class="text-center"><?php
-              if ($jobs[$i]["count"] == null) :
-                echo "-";
-              else :
-                echo $jobs[$i]["count"];
-              endif;
-              ?></td>
-          </tr>
-          
           <?php
-          endfor;
-          endif;
-          ?>
+          if (count($jobs) != 0):
+            $number = 1;
+            for ($i = 0; $i < count($jobs); $i++) :
+              ?>
+              <tr>
+                <th scope="row" class="text-center"><?php echo $number++ ?></th>
+                <td class="text-center"><?php echo $jobs[$i]['job_name'] ?></td>
+                <td class="text-center"><?php
+                  if ($jobs[$i]["count"] == null) :
+                    echo "-";
+                  else :
+                    echo $jobs[$i]["count"];
+                  endif;
+                  ?></td>
+              </tr>
+            <?php
+            endfor;
+          endif; ?>
           </tbody>
         </table>
+      </div>
     </div>
   </section>
 </main>

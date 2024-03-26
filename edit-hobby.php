@@ -32,7 +32,7 @@ showHeader("Edit-Hobby-PMA", "hobby.css","persons.css", personsNav: "persons-nav
                   <div class="card d-flex has-shadow-blue card-background">
                     <div class="card-body">
                       <h3 class="content-title"> Edit Hobby</h3>
-                      <hr>
+                      <hr class="s1">
                       <div class="d-flex-column justify-content-center">
                         <?php $id = $_GET['hobbyId'];
                         $hobby = getHobbyByIdFromDatabase($id);
@@ -50,7 +50,7 @@ showHeader("Edit-Hobby-PMA", "hobby.css","persons.css", personsNav: "persons-nav
                                    name="hobby"
                                    placeholder="hobby..."
                                    value="<?php
-                                   if(isset($_GET['inputHobby'])) {
+                                   if(isset($_GET['errorInputHobby'])) {
                                      echo $_SESSION['inputHobby'];
                                    } else {
                                      echo $hobby['name'];

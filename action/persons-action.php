@@ -4,6 +4,9 @@ require_once __DIR__ . "/constants.php";
 require_once __DIR__ . "/../include/db.php";
 global $PDO;
 
+/**
+ * validate value search by age
+ */
 function validateSearchByAge(?string $value):?string
 {
   if($value === "toddler" ||
@@ -40,15 +43,15 @@ function validateSearchByAge(?string $value):?string
 /**
  * Function search persons data by first name or nik.
  */
-function searchPersons($search): array
-{
-  global $PDO;
-  $query = "SELECT * FROM persons WHERE first_name LIKE '%$search%' OR nik LIKE '%$search%'";
-//  $query = "SELECT * FROM persons WHERE concat(first_name, nik) LIKE '%$search%'";
-  $statement = $PDO->prepare($query);
-  $statement->execute();
-  return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
+//function searchPersons($search): array
+//{
+//  global $PDO;
+//  $query = "SELECT * FROM persons WHERE first_name LIKE '%$search%' OR nik LIKE '%$search%'";
+////  $query = "SELECT * FROM persons WHERE concat(first_name, nik) LIKE '%$search%'";
+//  $statement = $PDO->prepare($query);
+//  $statement->execute();
+//  return $statement->fetchAll(PDO::FETCH_ASSOC);
+//}
 
 /**
  * Check and get person age by date of birth
@@ -66,7 +69,10 @@ function checkAges($birthDate): int
   return floor($yearOfBirthDate);
 }
 
-// ini filter dengan menggunakan query(mendapatkan jumlah data dari masing" kategori)
+/**
+ * Get count persons data by age from database
+ * @param $filter (allPerson, toddler, child, productiveAges, elderly, passesAway)
+ */
 function getCountPersonDataByAges($filter)
 {
   global $PDO;
@@ -115,14 +121,15 @@ function getCountPersonDataByAges($filter)
   endif;
 }
 
+/**
+ * Paginated person data
+ * @param $search (input data)
+ */
 function paginatedPersonsData($search, int $page, int $limit, $filter,$searchByAge): array
 {
   global $PDO;
   $offset = ($page - 1) * $limit;
   if ($searchByAge != null && $filter != "") {
-//    $totalData = getPersonDataByFilter($filter);
-//    $totalData = getCountPersonDataByAges($filter);
-    
     $totalData = searchPersonsWithFilterByAges($filter, $limit, $offset, $search);
     $result = searchPersonsWithFilterByAges($filter, $limit, $offset, $search);
   }
@@ -130,13 +137,13 @@ function paginatedPersonsData($search, int $page, int $limit, $filter,$searchByA
     $queryData = "SELECT count(*) FROM persons WHERE first_name LIKE '%$search%' or nik LIKE '%$search%'";
     $statementData = $PDO->query($queryData);
     $totalData = $statementData->fetchColumn();
-
+    
     $query = "SELECT * FROM persons WHERE first_name LIKE '%$search%' or nik LIKE '%$search%' LIMIT $limit OFFSET $offset";
     $statement = $PDO->prepare($query);
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
   }
-  elseif ($filter != "") {
+  elseif ($filter != null) {
     $totalData = getCountPersonDataByAges($filter);
     $result = getPersonsDataByAges($filter, $limit, $offset);
   } else {
@@ -158,6 +165,10 @@ function paginatedPersonsData($search, int $page, int $limit, $filter,$searchByA
   ];
 }
 
+
+/**
+ * Get persons data by age
+ */
 function getPersonsDataByAges($filter, $limit, $offset): array|null
 {
   global $PDO;
@@ -206,6 +217,9 @@ function getPersonsDataByAges($filter, $limit, $offset): array|null
   endif;
 }
 
+/**
+ * Search persons data by age
+ */
 function searchPersonsWithFilterByAges($filter, $limit, $offset, $search): array|null
 {
   global $PDO;

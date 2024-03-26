@@ -391,21 +391,6 @@ showHeader("Add-Person-PMA", "add-edit-person.css", personsNav: "persons-nav-lin
                   </div>
                 </div>
               </div>
-
-              <!--              <div class="form-padding">-->
-              <!--                <div class="mb-3 text-area">-->
-              <!--                  <label for="exampleFormControlTextarea1" class="form-label">-->
-              <!--                    Internal notes-->
-              <!--                    <ion-icon name="pencil"></ion-icon>-->
-              <!--                  </label>-->
-              <!--                  <textarea-->
-              <!--                      class="form-control i-text has-background has-shadow"-->
-              <!--                      id="exampleFormControlTextarea1"-->
-              <!--                      rows="2"-->
-              <!--                      name="internalNotes"-->
-              <!--                  >--><?php //checkErrorInput($_SESSION['inputInternalNotes']); ?><!--</textarea>-->
-              <!--                </div>-->
-              <!--              </div>-->
               <div class="form-check form-switch form-padding">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="status"
                        value="ALIVE"
