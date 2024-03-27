@@ -22,38 +22,6 @@ function validateSearchByAge(?string $value):?string
 }
 
 /**
- * Function paginated data (LIMIT dan OFFSET)
- * All Persons Data
- */
-//function paginatedData($array, int $page, int $limit): array
-//{
-//  $totalPage = ceil((float)count($array) / (float)$limit);
-//  $indexStart = ($page - 1) * $limit;
-//  $length = $limit;
-//  if (($indexStart + $limit) > count($array)) {
-//    $length = count($array) - $indexStart;
-//  }
-//  return [
-//    PAGING_TOTAL_PAGE => $totalPage,
-//    PAGING_DATA => array_slice($array, $indexStart, $length),
-//    PAGING_CURRENT_PAGE => $page,
-//  ];
-//}
-
-/**
- * Function search persons data by first name or nik.
- */
-//function searchPersons($search): array
-//{
-//  global $PDO;
-//  $query = "SELECT * FROM persons WHERE first_name LIKE '%$search%' OR nik LIKE '%$search%'";
-////  $query = "SELECT * FROM persons WHERE concat(first_name, nik) LIKE '%$search%'";
-//  $statement = $PDO->prepare($query);
-//  $statement->execute();
-//  return $statement->fetchAll(PDO::FETCH_ASSOC);
-//}
-
-/**
  * Check and get person age by date of birth
  */
 function checkAges($birthDate): int

@@ -7,16 +7,16 @@ require_once __DIR__ . "/jobs-action.php";
 
 $jobsData = getJobDataFromDatabase($_POST['jobs']);
 
-function validateInputJobs($dbJobs, $jobs): array
+function validateInputJobs($jobs): array
 {
   $validate = [];
-  if (isJobsExists($dbJobs, $jobs, null)) {
+  if (isInputDataExists("jobs", strtoupper($jobs),null,"job_name")) {
     $validate['jobs'] = "1";
   }
   return $validate;
 }
 
-$errorData = validateInputJobs($jobsData,$_POST['jobs']);
+$errorData = validateInputJobs($_POST['jobs']);
 
 if (count($errorData) != 0) {
   $_SESSION["errorInputJobs"] = $errorData['jobs'];

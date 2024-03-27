@@ -50,7 +50,7 @@ showHeader("Edit-Hobby-PMA", "hobby.css","persons.css", personsNav: "persons-nav
                                    name="hobby"
                                    placeholder="hobby..."
                                    value="<?php
-                                   if(isset($_GET['errorInputHobby'])) {
+                                   if(isset($_SESSION['errorInputHobby'])) {
                                      echo $_SESSION['inputHobby'];
                                    } else {
                                      echo $hobby['name'];

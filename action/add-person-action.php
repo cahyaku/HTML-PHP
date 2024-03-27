@@ -14,7 +14,8 @@ function validateError(string $nik,
                        string $firstName,
                        string $lastName,
                        string $confirmPassword,
-                       string $birthDate
+                       string $birthDate,
+                   
 ): array
 
 {
@@ -23,7 +24,7 @@ function validateError(string $nik,
     $validate['nik'] = "1";
   }
   
-  if (isNikExists($nik, null)) {
+  if (isInputDataExists("persons", $nik,null,"nik")) {
     $validate['nik'] = "2";
   }
   
@@ -31,7 +32,7 @@ function validateError(string $nik,
     $validate['password'] = "1";
   }
   
-  if (isEmailExists($email, null) == 1) {
+  if (isInputDataExists("persons", $email,null,"email")) {
     $validate['email'] = "1";
   }
   

@@ -12,8 +12,7 @@ $personId = $_POST['personId'];
 function validateInputHobby($hobby,$personId, $id): array
 {
   $validate = [];
-  $allHobby = getPersonHobbyByIdFromDatabase($personId);
-  if (isHobbyExists($allHobby, $hobby, $id) == true) {
+  if (isHobbyExists($hobby, $personId, $id)) {
     $validate['hobby'] = "1";
   }
   return $validate;

@@ -8,16 +8,16 @@ global $PDO;
 $id = $_POST['id'];
 $jobsData = getJobDataFromDatabase($_POST['jobs']);
 
-function validateInputJobs($dbJobs, $jobs,$id): array
+function validateInputJobs($jobs,$id): array
 {
   $validate = [];
-  if (isJobsExists($dbJobs, $jobs, $id) == true) {
+  if (isInputDataExists("jobs", strtoupper($jobs),$id,"job_name")) {
     $validate['jobs'] = "1";
   }
   return $validate;
 }
 
-$errorData = validateInputJobs($jobsData, $_POST['jobs'],$id);
+$errorData = validateInputJobs($_POST['jobs'],$id);
 
 if (count($errorData) != 0) {
   $_SESSION["errorInputJobs"] = $errorData['jobs'];

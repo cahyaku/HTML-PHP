@@ -63,10 +63,6 @@ function paginatedJobsData($search, int $page, int $limit): array
   $offset = ($page - 1) * $limit;
   
   if ($search != null) {
-//    $queryData = "SELECT count(*) FROM jobs WHERE job_name LIKE '%$search%'";
-//    $statementData = $PDO->query($queryData);
-//    $totalData = $statementData->fetchColumn();
-    
     $query = "SELECT * FROM jobs WHERE job_name LIKE '%$search%' LIMIT $limit OFFSET $offset";
     $statement = $PDO->prepare($query);
     $statement->execute();

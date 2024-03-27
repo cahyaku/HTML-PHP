@@ -10,8 +10,6 @@ function getPersonsDataFromJson(): array
 
 /**
  * Function get person data by id (database)
- * @param $id
- * @return mixed
  */
 function getPersonByIdFromDatabase($id): array
 {
@@ -75,17 +73,6 @@ function getPersonsDataByEmailFromDatabase($email): array
   return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-/**
- * get persons data by nik
- */
-function getPersonsDataByNikFromDatabase($nik): array
-{
-  global $PDO;
-  $query = 'SELECT * FROM persons WHERE nik = :nik';
-  $statement = $PDO->prepare($query);
-  $statement->execute(array("nik" => $nik));
-  return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
 
 /**
  * Translate date from int to string, format (Y-m-d)
@@ -152,60 +139,33 @@ function checkRole($email): array|null
 }
 
 /**
- * Check is NIK exists
- * @param $nik
+ * Is input data exists
+ *
+ * @param $db (database name)
+ * @param $inputData
  * @param int|null $id
+ * @param $filter
  * @return bool
  */
-function isNikExists(string $nik, ?int $id): bool
+function isInputDataExists($db, $inputData,?int $id, $filter):bool
 {
   global $PDO;
-  $query = 'SELECT * FROM persons WHERE nik = :nik';
+  $query = "SELECT * FROM $db WHERE $filter = :param";
+  $queryParams = array(
+    "param" => $inputData
+  );
+  if ($id != null){
+    $query = $query . " AND id != :id";
+    $queryParams["id"] = $id;
+  }
   $statement = $PDO->prepare($query);
-  $statement->execute(array("nik" => $nik));
-  $totalData = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-  if ($id == null && $totalData == []) {
-   return true;
-  } elseif ($id != null && $totalData == []) {
+  $statement->execute($queryParams);
+  $data = $statement->fetchAll(PDO::FETCH_ASSOC);
+  if ($data != []){
     return true;
-  } else {
+  }else{
     return false;
   }
-
-//  $persons = getPersonsDataByNikFromDatabase($nik);
-//  for ($i = 0; $i < count($persons); $i++) :
-//    if ($id == null) {
-//      if ($persons[$i]['nik'] == $nik) {
-//        return true;
-//      }
-//    } else {
-//      if ($nik == $persons[$i]['nik'] && $id != $persons[$i]['id']) {
-//        return true;
-//      }
-//    }
-//  endfor;
-//  return false;
-}
-
-/**
- * Check is email exists
- */
-function isEmailExists($email, ?string $id): bool
-{
-  $persons = getPersonsDataByEmailFromDatabase($email);
-  for ($i = 0; $i < count($persons); $i++) :
-    if ($id == null) {
-      if ($persons[$i]['email'] == $email) {
-        return true;
-      }
-    } else {
-      if ($email == $persons[$i]['email'] && $id != $persons[$i]['id']) {
-        return true;
-      }
-    }
-  endfor;
-  return false;
 }
 
 function encryptPassword($password): string
@@ -298,7 +258,7 @@ function validateErrorInput(string $nik,
                             string $firstName,
                             string $lastName,
                             string $birthDate,
-                                   $id,
+                                   ?int $id,
 
 ): array
 {
@@ -306,23 +266,18 @@ function validateErrorInput(string $nik,
   if (!checkNikInput($nik)) {
     $validate['nik'] = "1";
   }
-  
-  if (isNikExists($nik, $id) == true) {
+  if (isInputDataExists("persons", $nik, $id,"nik")) {
     $validate['nik'] = "2";
   }
-  
-  if (isEmailExists($email, $id) == true) {
+  if (isInputDataExists("persons", $email, $id,"email")) {
     $validate['email'] = "1";
   }
-  
   if (!checkNameInput($firstName)) {
     $validate['firstName'] = "1";
   }
-  
   if (!checkNameInput($lastName)) {
     $validate['lastName'] = "2";
   }
-  
   if (!checkBirthDateInput($birthDate)) {
     $validate['birthDate'] = "1";
   }
@@ -464,41 +419,30 @@ function checkJobInputWhenEditPersonData($lastJobsId, $jobs, $status)
 }
 
 /**
- * Function is jobs exits
- */
-function isJobsExists($jobsData, $jobInput, ?int $id): bool
-{
-  for ($i = 0; $i < count($jobsData); $i++) :
-    if ($id == null) {
-      if (strtoupper($jobsData[$i]['job_name']) == strtoupper($jobInput)) {
-        return true;
-      }
-    } else {
-      if (strtoupper($jobInput) == strtoupper($jobsData[$i]['job_name']) && $id != $jobsData[$i]['id']) {
-        return true;
-      }
-    }
-  endfor;
-  return false;
-}
-
-/**
  * is hobby exists
  */
-function isHobbyExists($hobbyData, $hobby, ?int $id): bool
+function isHobbyExists($hobby, $id, ?int$hobbyId): bool
 {
-  for ($i = 0; $i < count($hobbyData); $i++) :
-    if ($id == null) {
-      if (strtoupper($hobbyData[$i]['name']) == strtoupper($hobby)) {
-        return true;
-      }
-    } else {
-      if (strtoupper($hobby) == strtoupper($hobbyData[$i]['name']) && $id != $hobbyData[$i]['id']) {
-        return true;
-      }
-    }
-  endfor;
-  return false;
+  
+  global $PDO;
+  $query = 'SELECT * FROM hobby WHERE name = :name AND person_id = :person_id';
+  $queryParams = array(
+    'name' => $hobby,
+    'person_id' => $id
+  );
+  
+  if ($hobbyId != null){
+    $query = $query . " AND id != :id";
+    $queryParams['id'] = $hobbyId;
+  }
+  $statement = $PDO->prepare($query);
+  $statement->execute($queryParams);
+  $data = $statement->fetchAll(PDO::FETCH_ASSOC);
+  if ($data != []){
+    return true;
+  }else{
+    return false;
+  }
 }
 
 /**
@@ -556,7 +500,6 @@ function checkLastPersonJobs($id)
   ));
   return $statement->fetch(PDO::FETCH_ASSOC);
 }
-
 
 /**
  * Update count in jobs database when change job data

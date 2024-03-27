@@ -11,7 +11,7 @@ $errorData = validateErrorInput($_POST['nik'],
   $_POST['firstName'],
   $_POST['lastName'],
   $_POST['birthDate'],
-  $_SESSION['id'],
+  $id,
 );
 
 /**
